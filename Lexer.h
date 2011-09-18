@@ -66,6 +66,7 @@ struct lexer :
     boost::spirit::lex::token_def<ShipPartClass> ship_part_class;
     boost::spirit::lex::token_def<ShipSlotType> ship_slot_type;
     boost::spirit::lex::token_def<CaptureResult> capture_result_enum;
+    boost::spirit::lex::token_def<ValueRef::StatisticType> statistic_type;
 
     // Many of these must be tokenized separately, since they are overloaded
     // (e.g. building could be an UniverseObjectType or an
@@ -98,7 +99,6 @@ struct lexer :
     boost::spirit::lex::token_def<adobe::name_t> effects_groups;
     boost::spirit::lex::token_def<adobe::name_t> graphic;
     boost::spirit::lex::token_def<adobe::name_t> tech_type;
-
     boost::spirit::lex::token_def<adobe::name_t> special;
     boost::spirit::lex::token_def<adobe::name_t> species;
     boost::spirit::lex::token_def<adobe::name_t> building_type;
@@ -162,7 +162,6 @@ struct lexer :
     boost::spirit::lex::token_def<adobe::name_t> owner_mineral_stockpile;
     boost::spirit::lex::token_def<adobe::name_t> owner_trade_stockpile;
     boost::spirit::lex::token_def<adobe::name_t> resource_supply_connected_by_empire;
-
     boost::spirit::lex::token_def<adobe::name_t> farming;
     boost::spirit::lex::token_def<adobe::name_t> target_farming;
     boost::spirit::lex::token_def<adobe::name_t> industry;
@@ -186,12 +185,10 @@ struct lexer :
     boost::spirit::lex::token_def<adobe::name_t> max_structure;
     boost::spirit::lex::token_def<adobe::name_t> supply;
     boost::spirit::lex::token_def<adobe::name_t> food_consumption;
-
     boost::spirit::lex::token_def<adobe::name_t> trade_stockpile;
     boost::spirit::lex::token_def<adobe::name_t> mineral_stockpile;
     boost::spirit::lex::token_def<adobe::name_t> food_stockpile;
     boost::spirit::lex::token_def<adobe::name_t> distance_to_source;
-
     boost::spirit::lex::token_def<adobe::name_t> category;
     boost::spirit::lex::token_def<adobe::name_t> research_cost;
     boost::spirit::lex::token_def<adobe::name_t> research_turns;
@@ -235,15 +232,24 @@ struct lexer :
     boost::spirit::lex::token_def<adobe::name_t> local_candidate;
     boost::spirit::lex::token_def<adobe::name_t> root_candidate;
     boost::spirit::lex::token_def<adobe::name_t> value;
-
-    boost::spirit::lex::token_def<ValueRef::StatisticType> statistic_type;
-
     boost::spirit::lex::token_def<adobe::name_t> int_variable_final;
     boost::spirit::lex::token_def<adobe::name_t> planet_size;
     boost::spirit::lex::token_def<adobe::name_t> planet_type;
     boost::spirit::lex::token_def<adobe::name_t> next_better_planet_type;
     boost::spirit::lex::token_def<adobe::name_t> planet_environment;
     boost::spirit::lex::token_def<adobe::name_t> object_type;
+    boost::spirit::lex::token_def<adobe::name_t> owner;
+    boost::spirit::lex::token_def<adobe::name_t> creation_turn;
+    boost::spirit::lex::token_def<adobe::name_t> age;
+    boost::spirit::lex::token_def<adobe::name_t> produced_by_empireid;
+    boost::spirit::lex::token_def<adobe::name_t> design_id;
+    boost::spirit::lex::token_def<adobe::name_t> fleet_id;
+    boost::spirit::lex::token_def<adobe::name_t> planet_id;
+    boost::spirit::lex::token_def<adobe::name_t> system_id;
+    boost::spirit::lex::token_def<adobe::name_t> final_destination_id;
+    boost::spirit::lex::token_def<adobe::name_t> next_system_id;
+    boost::spirit::lex::token_def<adobe::name_t> previous_system_id;
+    boost::spirit::lex::token_def<adobe::name_t> num_ships;
     boost::spirit::lex::token_def<adobe::name_t> star_type;
 };
 

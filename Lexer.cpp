@@ -53,8 +53,6 @@ namespace {
     const CaptureResult first_capture_result = CR_CAPTURE;
     const std::string statistic_type_str("(?i:count|sum|mean|rms|mode|max|min|spread|stdev|product)");
     ValueRef::StatisticType first_statistic_type = ValueRef::COUNT;
-
-    const std::string int_variable_final_str("(?i:owner|id|creationturn|age|producedbyempireid|designid|fleetid|planetid|systemid|finaldestinationid|nextsystemid|previoussystemid|numships)");
 }
 
 using namespace parse;
@@ -78,6 +76,7 @@ lexer::lexer() :
     ship_part_class(ship_part_class_str.c_str()),
     ship_slot_type(ship_slot_type_str.c_str()),
     capture_result_enum(capture_result_str.c_str()),
+    statistic_type(statistic_type_str.c_str()),
     fleet("(?i:fleet)"),
     monster_fleet("(?i:monsterfleet)"),
     planet("(?i:planet)"),
@@ -239,13 +238,23 @@ lexer::lexer() :
     local_candidate("(?i:localcandidate)"),
     root_candidate("(?i:rootcandidate)"),
     value("(?i:value)"),
-    statistic_type(statistic_type_str.c_str()),
-    int_variable_final(int_variable_final_str.c_str()),
     planet_size("(?i:planetsize)"),
     planet_type("(?i:planettype)"),
     next_better_planet_type("(?i:nextbetterplanettype)"),
     planet_environment("(?i:planetenvironment)"), // TODO: can this be replaced with 'environment'?
     object_type("(?i:objecttype)"),
+    owner("(?i:owner)"),
+    creation_turn("(?i:creationturn)"),
+    age("(?i:age)"),
+    produced_by_empireid("(?i:producedbyempireid)"),
+    design_id("(?i:designid)"),
+    fleet_id("(?i:fleetid)"),
+    planet_id("(?i:planetid)"),
+    system_id("(?i:systemid)"),
+    final_destination_id("(?i:finaldestinationid)"),
+    next_system_id("(?i:nextsystemid)"),
+    previous_system_id("(?i:previoussystemid)"),
+    num_ships("(?i:numships)"),
     star_type("(?i:startype)")
 {
     namespace lex = boost::spirit::lex;
@@ -437,6 +446,18 @@ lexer::lexer() :
         |     next_better_planet_type
         |     planet_environment
         |     object_type
+        |     owner
+        |     creation_turn
+        |     age
+        |     produced_by_empireid
+        |     design_id
+        |     fleet_id
+        |     planet_id
+        |     system_id
+        |     final_destination_id
+        |     next_system_id
+        |     previous_system_id
+        |     num_ships
         |     star_type
         |     '='
         |     '+'
