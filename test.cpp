@@ -112,7 +112,7 @@ struct lex_test_rules
             using qi::_1;
             using phoenix::val;
 
-            rule
+            lex
                 =   * (
                            tok.inline_comment [ std::cout << val("<INLINE COMMENT>\n") ]
                         |  tok.end_of_line_comment [ std::cout << val("<END OF LINE COMMENT>\n") ]
@@ -341,7 +341,7 @@ struct lex_test_rules
         parse::skipper_type
     > test_rule;
 
-    test_rule rule;
+    test_rule lex;
 };
 
 bool handle_token(parse::token_type token)
@@ -351,16 +351,52 @@ bool handle_token(parse::token_type token)
     return true;
 }
 
-int main(int arc, char* argv[])
-{
-    parse::lexer lexer;
-    lex_test_rules test(lexer);
+enum test_type {
+    unknown,
+    lexer,
+    value_ref_parser
+};
 
-    std::string str = argv[1];
+void print_help()
+{ std::cout << "Usage: test lexer|value_ref_parser \"test string\"" << std::endl; }
+
+int main(int argc, char* argv[])
+{
+    parse::lexer l;
+    lex_test_rules test_rules(l);
+
+    if (argc < 3) {
+        print_help();
+        exit(1);
+    }
+
+    const std::string test_str = argv[1];
+    test_type test = unknown;
+    if (test_str == "lexer")
+        test = lexer;
+    else if (test_str == "value_ref_parser")
+        test = value_ref_parser;
+
+    if (test == unknown) {
+        print_help();
+        exit(1);
+    }
+
+    const std::string str = argv[2];
 
     std::string::const_iterator first = str.begin();
     const std::string::const_iterator last = str.end();
-    boost::spirit::lex::tokenize_and_phrase_parse(first, last, lexer, test.rule, boost::spirit::qi::in_state("WS")[lexer.self]);
+
+    switch (test) {
+    case lexer:
+        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, test_rules.lex, boost::spirit::qi::in_state("WS")[l.self]);
+        break;
+    case value_ref_parser:
+        // TODO: boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, test_rules.value_ref, boost::spirit::qi::in_state("WS")[l.self]);
+        break;
+    default:
+        break;
+    }
 
     if (first == last)
         std::cout << "Successful parse!\n";
