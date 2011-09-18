@@ -271,14 +271,14 @@ struct lexer :
     //@}
 };
 
-/** The type of iterator passed to the config file parser by the config file
+/** The type of iterator passed to the script file parser by the script file
     lexer. */
 typedef lexer::iterator_type token_iterator;
 
 typedef lexer::lexer_def lexer_def;
 
 /** The type of the skip-parser, defined in the script file lexer, used by the
-    config file parser iterator. */
+    script file parser iterator. */
 typedef boost::spirit::qi::in_state_skipper<lexer_def> skipper_type;
 
 }
