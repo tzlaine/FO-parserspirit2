@@ -157,7 +157,6 @@ struct lexer :
     boost::spirit::lex::token_def<adobe::name_t> id;
     boost::spirit::lex::token_def<adobe::name_t> industry;
     boost::spirit::lex::token_def<adobe::name_t> in_system;
-    boost::spirit::lex::token_def<adobe::name_t> int_variable_final;
     boost::spirit::lex::token_def<adobe::name_t> item;
     boost::spirit::lex::token_def<adobe::name_t> jumps;
     boost::spirit::lex::token_def<adobe::name_t> launch_rate;

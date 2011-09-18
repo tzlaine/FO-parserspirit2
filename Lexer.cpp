@@ -162,7 +162,7 @@ lexer::lexer() :
     launch_rate("(?i:launchrate)"),
     local_candidate("(?i:localcandidate)"),
     location("(?i:location)"),
-    lookup_strings("(?i:lookup_strings)"),
+    lookup_strings("(?i:lookup_strings)"), // TODO: Get rid of underscore.
     low("(?i:low)"),
     max_defense("(?i:maxdefense)"),
     max_fuel("(?i:maxfuel)"),
@@ -224,7 +224,7 @@ lexer::lexer() :
     shield("(?i:shield)"),
     shipdesign("(?i:shipdesign)"),
     ships("(?i:ships)"),
-    short_description("(?i:short_description)"),
+    short_description("(?i:short_description)"), // TODO: Get rid of underscore.
     size("(?i:size)"), // TODO: used for planetsize (so replace)
     slot("(?i:slot)"),
     slots("(?i:slots)"),
@@ -362,7 +362,6 @@ lexer::lexer() :
         |     id
         |     industry
         |     in_system
-        |     int_variable_final
         |     item
         |     jumps
         |     launch_rate
