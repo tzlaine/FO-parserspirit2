@@ -125,16 +125,16 @@ struct lex_test_rules
                         |  tok.planet_size_enum [ std::cout << _1 << " PLANET_SIZE\n" ]
                         |  tok.planet_type_enum [ std::cout << _1 << " PLANET_TYPE\n" ]
                         |  tok.planet_environment_enum [ std::cout << _1 << " PLANET_ENVIRONMENT\n" ]
-                        |  tok.universe_object_type [ std::cout << _1 << " UNIVERSE_OBJECT_TYPE\n" ]
+                        |  tok.universe_object_type_enum [ std::cout << _1 << " UNIVERSE_OBJECT_TYPE\n" ]
                         |  tok.star_type_enum [ std::cout << _1 << " STAR_TYPE\n" ]
-                        |  tok.empire_affiliation_type [ std::cout << _1 << " EMPIRE_AFFILIATION_TYPE\n" ]
-                        |  tok.unlockable_item_type [ std::cout << _1 << " UNLOCKABLE_ITEM_TYPE\n" ]
+                        |  tok.empire_affiliation_type_enum [ std::cout << _1 << " EMPIRE_AFFILIATION_TYPE\n" ]
+                        |  tok.unlockable_item_type_enum [ std::cout << _1 << " UNLOCKABLE_ITEM_TYPE\n" ]
                         |  tok.tech_type_enum [ std::cout << _1 << " TECH_TYPE\n" ]
-                        |  tok.combat_fighter_type [ std::cout << _1 << " COMBAT_FIGHTER_TYPE\n" ]
-                        |  tok.ship_part_class [ std::cout << _1 << " SHIP_PART_CLASS\n" ]
-                        |  tok.ship_slot_type [ std::cout << _1 << " SHIP_SLOT_TYPE\n" ]
+                        |  tok.combat_fighter_type_enum [ std::cout << _1 << " COMBAT_FIGHTER_TYPE\n" ]
+                        |  tok.ship_part_class_enum [ std::cout << _1 << " SHIP_PART_CLASS\n" ]
+                        |  tok.ship_slot_type_enum [ std::cout << _1 << " SHIP_SLOT_TYPE\n" ]
                         |  tok.capture_result_enum [ std::cout << _1 << " CAPTURE_RESULT\n" ]
-                        |  tok.statistic_type [ std::cout << _1 << " STATISTIC TYPE\n" ]
+                        |  tok.statistic_type_enum [ std::cout << _1 << " STATISTIC TYPE\n" ]
 
                         |  tok.activation [ std::cout << _1 << "\n" ]
                         |  tok.added_before [ std::cout << _1 << "\n" ]
@@ -372,6 +372,6 @@ int main(int arc, char* argv[])
 }
 
 
-// g++ test.cpp Lexer.cpp -I /usr/local/include/boost-1_47 -I ../GG -lGiGi
+// g++ -o test test.cpp Lexer.cpp -I /usr/local/include/boost-1_47 -I ../GG -lGiGi
 
-// ./test 'TIny small medium large huge asteroids gasgiant swamp toxic inferno radiated barren tundra desert terran ocean asteroids gasgiant true false "a" "afkghagjh"65.7 5 6. 5 [] = +-*/.,()/*!!!!*/ uninhabitable hostile poor adequate good building ship fleet planet populationcenter productioncenter system blue white yellow orange red neutron blackhole nostar theempire enemyof allyof anyempire building shippart shiphull tech theory application refinement interceptor bomber shortrange missiles fighters pointdefense shield armour troops detection stealth fuel colony battlespeed starlanespeed external internal capture destroy retain count sum mean rms mode max min spread stdev product owner id creationturn age producedbyempireid designid fleetid planetid systemid finaldestinationid nextsystemid previoussystemid numships farming targetfarming industry targetindustry research targetresearch trade targettrade mining targetmining construction targetconstruction population targetpopulation health targethealth maxfuel fuel maxshield shield maxdefense defense maxtroops troops maxstructure structure supply stealth detection foodconsumption battlespeed starlanespeed tradestockpile mineralstockpile foodstockpile distancetosource name species buildingtype focus source target localcandidate rootcandidate value property condition planetsize planettype nextbetterplanettype planetenvironment objecttype startype //sdfsfd'
+// ./test 'tiny small medium large huge asteroids gasgiant swamp toxic inferno radiated barren tundra desert terran ocean asteroids gasgiant true false "a" "afkghagjh"65.7 5 6. 5 [] = +-*/.,()/*!!!!*/ uninhabitable hostile poor adequate good building ship fleet planet populationcenter productioncenter system blue white yellow orange red neutron blackhole nostar theempire enemyof allyof anyempire building shippart shiphull tech theory application refinement interceptor bomber shortrange missiles fighters pointdefense shield armour troops detection stealth fuel colony battlespeed starlanespeed external internal capture destroy retain count sum mean rms mode max min spread stdev product owner id creationturn age producedbyempireid designid fleetid planetid systemid finaldestinationid nextsystemid previoussystemid numships farming targetfarming industry targetindustry research targetresearch trade targettrade mining targetmining construction targetconstruction population targetpopulation health targethealth maxfuel fuel maxshield shield maxdefense defense maxtroops troops maxstructure structure supply stealth detection foodconsumption battlespeed starlanespeed tradestockpile mineralstockpile foodstockpile distancetosource name species buildingtype focus source target localcandidate rootcandidate value property condition planetsize planettype nextbetterplanettype planetenvironment objecttype startype //sdfsfd'

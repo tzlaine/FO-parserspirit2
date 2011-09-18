@@ -77,16 +77,16 @@ lexer::lexer() :
     planet_size_enum(planet_size_str.c_str()),
     planet_type_enum(planet_type_str.c_str()),
     planet_environment_enum(planet_environment_str.c_str()),
-    universe_object_type(universe_object_type_str.c_str()),
+    universe_object_type_enum(universe_object_type_str.c_str()),
     star_type_enum(star_type_str.c_str()),
-    empire_affiliation_type(empire_affiliation_type_str.c_str()),
-    unlockable_item_type(unlockable_item_type_str.c_str()),
+    empire_affiliation_type_enum(empire_affiliation_type_str.c_str()),
+    unlockable_item_type_enum(unlockable_item_type_str.c_str()),
     tech_type_enum(tech_type_str.c_str()),
-    combat_fighter_type(combat_fighter_type_str.c_str()),
-    ship_part_class(ship_part_class_str.c_str()),
-    ship_slot_type(ship_slot_type_str.c_str()),
+    combat_fighter_type_enum(combat_fighter_type_str.c_str()),
+    ship_part_class_enum(ship_part_class_str.c_str()),
+    ship_slot_type_enum(ship_slot_type_str.c_str()),
     capture_result_enum(capture_result_str.c_str()),
-    statistic_type(statistic_type_str.c_str()),
+    statistic_type_enum(statistic_type_str.c_str()),
 
     activation("(?i:activation)"),
     added_before("(?i:addedbefore)"),
@@ -282,15 +282,16 @@ lexer::lexer() :
         |     planet_size_enum
         |     planet_type_enum
         |     planet_environment_enum
-        |     universe_object_type
+        |     universe_object_type_enum
         |     star_type_enum
-        |     empire_affiliation_type
-        |     unlockable_item_type
+        |     empire_affiliation_type_enum
+        |     unlockable_item_type_enum
         |     tech_type_enum
-        |     combat_fighter_type
-        |     ship_part_class
-        |     ship_slot_type
+        |     combat_fighter_type_enum
+        |     ship_part_class_enum
+        |     ship_slot_type_enum
         |     capture_result_enum
+        |     statistic_type_enum
 
         |     activation
         |     added_before
@@ -446,7 +447,6 @@ lexer::lexer() :
         |     starlane_speed
         |     star_type
         |     stationary
-        |     statistic_type
         |     stealth
         |     structure
         |     supply

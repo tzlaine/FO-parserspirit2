@@ -73,16 +73,16 @@ struct lexer :
     boost::spirit::lex::token_def<PlanetSize> planet_size_enum;
     boost::spirit::lex::token_def<PlanetType> planet_type_enum;
     boost::spirit::lex::token_def<PlanetEnvironment> planet_environment_enum;
-    boost::spirit::lex::token_def<UniverseObjectType> universe_object_type;
+    boost::spirit::lex::token_def<UniverseObjectType> universe_object_type_enum;
     boost::spirit::lex::token_def<StarType> star_type_enum;
-    boost::spirit::lex::token_def<EmpireAffiliationType> empire_affiliation_type;
-    boost::spirit::lex::token_def<UnlockableItemType> unlockable_item_type;
+    boost::spirit::lex::token_def<EmpireAffiliationType> empire_affiliation_type_enum;
+    boost::spirit::lex::token_def<UnlockableItemType> unlockable_item_type_enum;
     boost::spirit::lex::token_def<TechType> tech_type_enum;
-    boost::spirit::lex::token_def<CombatFighterType> combat_fighter_type;
-    boost::spirit::lex::token_def<ShipPartClass> ship_part_class;
-    boost::spirit::lex::token_def<ShipSlotType> ship_slot_type;
+    boost::spirit::lex::token_def<CombatFighterType> combat_fighter_type_enum;
+    boost::spirit::lex::token_def<ShipPartClass> ship_part_class_enum;
+    boost::spirit::lex::token_def<ShipSlotType> ship_slot_type_enum;
     boost::spirit::lex::token_def<CaptureResult> capture_result_enum;
-    boost::spirit::lex::token_def<ValueRef::StatisticType> statistic_type;
+    boost::spirit::lex::token_def<ValueRef::StatisticType> statistic_type_enum;
     //@}
 
     /** \name Keyword tokens.  These should be kept in lexicographically
