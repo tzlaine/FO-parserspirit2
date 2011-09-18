@@ -236,8 +236,8 @@ lexer::lexer() :
     condition("(?i:condition)"),
     source("(?i:source)"),
     target("(?i:target)"),
-    localcandidate("(?i:localcandidate)"),
-    rootcandidate("(?i:rootcandidate)"),
+    local_candidate("(?i:localcandidate)"),
+    root_candidate("(?i:rootcandidate)"),
     value("(?i:value)"),
     statistic_type(statistic_type_str.c_str()),
     int_variable_final(int_variable_final_str.c_str()),
@@ -257,11 +257,11 @@ lexer::lexer() :
         |     int_
         |     double_
         |     string
-        |     planet_size
-        |     planet_type
-        |     planet_environment
+        |     planet_size_enum
+        |     planet_type_enum
+        |     planet_environment_enum
         |     universe_object_type
-        |     star_type
+        |     star_type_enum
         |     empire_affiliation_type
         |     unlockable_item_type
         |     tech_type_enum
@@ -269,7 +269,6 @@ lexer::lexer() :
         |     ship_part_class
         |     ship_slot_type
         |     capture_result_enum
-        |     effects_group
         |     fleet
         |     monster_fleet
         |     planet
@@ -294,6 +293,7 @@ lexer::lexer() :
         |     build_cost
         |     build_time
         |     capture_result
+        |     effects_group
         |     effects_groups
         |     graphic
         |     tech_type
@@ -392,7 +392,6 @@ lexer::lexer() :
         |     research_turns
         |     prerequisites
         |     unlock
-        |     type
         |     environment
         |     environments
         |     foci
@@ -428,8 +427,8 @@ lexer::lexer() :
         |     condition
         |     source
         |     target
-        |     localcandidate
-        |     rootcandidate
+        |     local_candidate
+        |     root_candidate
         |     value
         |     statistic_type
         |     int_variable_final

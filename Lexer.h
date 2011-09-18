@@ -74,9 +74,9 @@ struct lexer :
     boost::spirit::lex::token_def<adobe::name_t> monster_fleet;
     boost::spirit::lex::token_def<adobe::name_t> planet;
     boost::spirit::lex::token_def<adobe::name_t> system;
-    boost::spirit::lex::token_def<boost::spirit::lex::omit> asteroids;
-    boost::spirit::lex::token_def<boost::spirit::lex::omit> gas_giant;
-    boost::spirit::lex::token_def<boost::spirit::lex::omit> building;
+    boost::spirit::lex::token_def<adobe::name_t> asteroids;
+    boost::spirit::lex::token_def<adobe::name_t> gas_giant;
+    boost::spirit::lex::token_def<adobe::name_t> building;
     boost::spirit::lex::token_def<adobe::name_t> fuel;
     boost::spirit::lex::token_def<adobe::name_t> shield;
     boost::spirit::lex::token_def<adobe::name_t> troops;
@@ -232,8 +232,8 @@ struct lexer :
     boost::spirit::lex::token_def<adobe::name_t> condition;
     boost::spirit::lex::token_def<adobe::name_t> source;
     boost::spirit::lex::token_def<adobe::name_t> target;
-    boost::spirit::lex::token_def<adobe::name_t> localcandidate;
-    boost::spirit::lex::token_def<adobe::name_t> rootcandidate;
+    boost::spirit::lex::token_def<adobe::name_t> local_candidate;
+    boost::spirit::lex::token_def<adobe::name_t> root_candidate;
     boost::spirit::lex::token_def<adobe::name_t> value;
 
     boost::spirit::lex::token_def<ValueRef::StatisticType> statistic_type;
