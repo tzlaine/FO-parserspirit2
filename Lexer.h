@@ -117,6 +117,7 @@ struct lexer :
     boost::spirit::lex::token_def<adobe::name_t> contains;
     boost::spirit::lex::token_def<adobe::name_t> created_on_turn;
     boost::spirit::lex::token_def<adobe::name_t> creation_turn;
+    boost::spirit::lex::token_def<adobe::name_t> current_turn;
     boost::spirit::lex::token_def<adobe::name_t> damage;
     boost::spirit::lex::token_def<adobe::name_t> defense;
     boost::spirit::lex::token_def<adobe::name_t> description;
@@ -208,7 +209,7 @@ struct lexer :
     boost::spirit::lex::token_def<adobe::name_t> previous_system_id;
     boost::spirit::lex::token_def<adobe::name_t> probability;
     boost::spirit::lex::token_def<adobe::name_t> produced_by_empire;
-    boost::spirit::lex::token_def<adobe::name_t> produced_by_empireid;
+    boost::spirit::lex::token_def<adobe::name_t> produced_by_empire_id;
     boost::spirit::lex::token_def<adobe::name_t> producible;
     boost::spirit::lex::token_def<adobe::name_t> property;
     boost::spirit::lex::token_def<adobe::name_t> random;

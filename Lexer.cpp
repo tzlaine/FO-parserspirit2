@@ -117,6 +117,7 @@ lexer::lexer() :
     contains("(?i:contains)"),
     created_on_turn("(?i:createdonturn)"),
     creation_turn("(?i:creationturn)"),
+    current_turn("(?i:currentturn)"),
     damage("(?i:damage)"),
     defense("(?i:defense)"),
     description("(?i:description)"),
@@ -207,7 +208,7 @@ lexer::lexer() :
     prerequisites("(?i:prerequisites)"),
     previous_system_id("(?i:previoussystemid)"),
     probability("(?i:probability)"),
-    produced_by_empireid("(?i:producedbyempireid)"),
+    produced_by_empire_id("(?i:producedbyempireid)"),
     produced_by_empire("(?i:producedbyempire)"),
     producible("(?i:producible)"),
     property("(?i:property)"),
@@ -322,6 +323,7 @@ lexer::lexer() :
         |     contains
         |     created_on_turn
         |     creation_turn
+        |     current_turn
         |     damage
         |     defense
         |     description
@@ -413,7 +415,7 @@ lexer::lexer() :
         |     previous_system_id
         |     probability
         |     produced_by_empire
-        |     produced_by_empireid
+        |     produced_by_empire_id
         |     producible
         |     property
         |     random
