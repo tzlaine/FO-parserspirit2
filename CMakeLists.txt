@@ -17,6 +17,7 @@ add_executable(test
     value_ref_test_rules.cpp
     Lexer.cpp
     ParseErrorReporting.cpp
+    ValueRefParser.cpp
 )
 
 target_link_libraries(test ${GIGI_GIGI_LIBRARY})
