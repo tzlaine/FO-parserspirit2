@@ -13,7 +13,9 @@ include_directories(${Boost_INCLUDE_DIRS} ${GIGI_INCLUDE_DIRS})
 
 add_executable(test
     test.cpp
+    lex_test_rules.cpp
     Lexer.cpp
+    ParseErrorReporting.cpp
 )
 
 target_link_libraries(test ${GIGI_GIGI_LIBRARY})
