@@ -1,6 +1,6 @@
 #include "ValueRefParser.h"
 
-#include "ValueRef.h"
+#include "../universe/ValueRef.h"
 
 #include <boost/spirit/home/phoenix.hpp>
 
