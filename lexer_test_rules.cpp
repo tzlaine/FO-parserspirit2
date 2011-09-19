@@ -1,13 +1,14 @@
 #include "test.h"
 
-lex_test_rules::lex_test_rules(const parse::lexer& tok)
+
+lexer_test_rules::lexer_test_rules(const parse::lexer& tok)
 {
     namespace qi = boost::spirit::qi;
     namespace phoenix = boost::phoenix;
     using qi::_1;
     using phoenix::val;
 
-    lex
+    lexer
         =   * (
                    tok.inline_comment [ std::cout << val("<INLINE COMMENT>\n") ]
                 |  tok.end_of_line_comment [ std::cout << val("<END OF LINE COMMENT>\n") ]
@@ -227,6 +228,6 @@ lex_test_rules::lex_test_rules(const parse::lexer& tok)
 
 #define NAME(x)
 // x.name(#x); debug(x)
-    NAME(rule);
+    NAME(lexer);
 #undef NAME
 }

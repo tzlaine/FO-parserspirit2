@@ -13,7 +13,8 @@ include_directories(${Boost_INCLUDE_DIRS} ${GIGI_INCLUDE_DIRS})
 
 add_executable(test
     test.cpp
-    lex_test_rules.cpp
+    lexer_test_rules.cpp
+    value_ref_test_rules.cpp
     Lexer.cpp
     ParseErrorReporting.cpp
 )

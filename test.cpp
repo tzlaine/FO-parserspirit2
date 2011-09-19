@@ -3,9 +3,6 @@
 
 int main(int argc, char* argv[])
 {
-    parse::lexer l;
-    lex_test_rules test_rules(l);
-
     if (argc < 3) {
         print_help();
         exit(1);
@@ -28,13 +25,19 @@ int main(int argc, char* argv[])
     std::string::const_iterator first = str.begin();
     const std::string::const_iterator last = str.end();
 
+    parse::lexer l;
+
     switch (test) {
-    case lexer:
-        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, test_rules.lex, boost::spirit::qi::in_state("WS")[l.self]);
+    case lexer: {
+        lexer_test_rules rules(l);
+        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, rules.lexer, boost::spirit::qi::in_state("WS")[l.self]);
         break;
-    case value_ref_parser:
-        // TODO: boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, test_rules.value_ref, boost::spirit::qi::in_state("WS")[l.self]);
+    }
+    case value_ref_parser: {
+        value_ref_test_rules rules(l);
+        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, rules.value_ref, boost::spirit::qi::in_state("WS")[l.self]);
         break;
+    }
     default:
         break;
     }

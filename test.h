@@ -7,16 +7,28 @@
 #include <boost/spirit/include/phoenix.hpp>
 
 
-struct lex_test_rules
+struct lexer_test_rules
 {
-    lex_test_rules(const parse::lexer& tok);
+    lexer_test_rules(const parse::lexer& tok);
 
     typedef boost::spirit::qi::rule<
         parse::token_iterator,
         parse::skipper_type
     > test_rule;
 
-    test_rule lex;
+    test_rule lexer;
+};
+
+struct value_ref_test_rules
+{
+    value_ref_test_rules(const parse::lexer& tok);
+
+    typedef boost::spirit::qi::rule<
+        parse::token_iterator,
+        parse::skipper_type
+    > test_rule;
+
+    test_rule value_ref;
 };
 
 enum test_type {
