@@ -10,10 +10,17 @@ int main(int argc, char* argv[])
 
     const std::string test_str = argv[1];
     test_type test = unknown;
-    if (test_str == "lexer")
-        test = lexer;
-    else if (test_str == "value_ref_parser")
-        test = value_ref_parser;
+#define CASE(x) if (test_str == #x) test = x
+    CASE(lexer);
+    CASE(int_value_ref_parser);
+    CASE(double_value_ref_parser);
+    CASE(string_value_ref_parser);
+    CASE(planet_size_value_ref_parser);
+    CASE(planet_type_value_ref_parser);
+    CASE(planet_environment_value_ref_parser);
+    CASE(universe_object_type_value_ref_parser);
+    CASE(star_type_value_ref_parser);
+#undef CASE
 
     if (test == unknown) {
         print_help();
@@ -33,9 +40,36 @@ int main(int argc, char* argv[])
         boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, rules.lexer, boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
-    case value_ref_parser: {
-        value_ref_test_rules rules(l);
-        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, rules.value_ref, boost::spirit::qi::in_state("WS")[l.self]);
+    case int_value_ref_parser: {
+        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<int>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        break;
+    }
+    case double_value_ref_parser: {
+        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<double>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        break;
+    }
+    case string_value_ref_parser: {
+        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<std::string>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        break;
+    }
+    case planet_size_value_ref_parser: {
+        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<PlanetSize>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        break;
+    }
+    case planet_type_value_ref_parser: {
+        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<PlanetType>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        break;
+    }
+    case planet_environment_value_ref_parser: {
+        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<PlanetEnvironment>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        break;
+    }
+    case universe_object_type_value_ref_parser: {
+        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<UniverseObjectType>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        break;
+    }
+    case star_type_value_ref_parser: {
+        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<StarType>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     default:

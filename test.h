@@ -1,7 +1,6 @@
 // -*- C++ -*-
-#define ADOBE_STD_SERIALIZATION
-
 #include "Lexer.h"
+#include "ValueRefParser.h"
 
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix.hpp>
@@ -19,23 +18,20 @@ struct lexer_test_rules
     test_rule lexer;
 };
 
-struct value_ref_test_rules
-{
-    value_ref_test_rules(const parse::lexer& tok);
-
-    typedef boost::spirit::qi::rule<
-        parse::token_iterator,
-        parse::skipper_type
-    > test_rule;
-
-    test_rule value_ref;
-};
-
 enum test_type {
     unknown,
     lexer,
-    value_ref_parser
+    int_value_ref_parser,
+    double_value_ref_parser,
+    string_value_ref_parser,
+    planet_size_value_ref_parser,
+    planet_type_value_ref_parser,
+    planet_environment_value_ref_parser,
+    universe_object_type_value_ref_parser,
+    star_type_value_ref_parser
 };
 
 inline void print_help()
-{ std::cout << "Usage: test lexer|value_ref_parser \"test string\"" << std::endl; }
+{
+    std::cout << "Usage: test lexer|int_value_ref_parser|double_value_ref_parser|string_value_ref_parser|planet_size_value_ref_parser|planet_type_value_ref_parser|planet_environment_value_ref_parser|universe_object_type_value_ref_parser|star_type_value_ref_parser \"test string\"" << std::endl;
+}
