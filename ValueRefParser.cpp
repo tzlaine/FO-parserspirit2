@@ -10,19 +10,6 @@
 namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
 
-using qi::_1;
-using qi::_a;
-using qi::_b;
-using qi::_c;
-using qi::_val;
-using qi::double_;
-using qi::int_;
-using qi::lit;
-using phoenix::new_;
-using phoenix::push_back;
-using phoenix::ref;
-using phoenix::static_cast_;
-
 namespace {
 
     typedef qi::rule<
@@ -51,7 +38,7 @@ namespace {
     {
         typedef qi::rule<
             parse::token_iterator,
-            ValueRef::ValueRefBase<T>* (),
+            ValueRef::Variable<T>* (),
             qi::locals<std::vector<adobe::name_t> >,
             parse::skipper_type
         > type;
@@ -81,8 +68,8 @@ namespace {
             parse::token_iterator,
             ValueRef::ValueRefBase<T>* (),
             qi::locals<
-                ValueRef::ValueRefBase<T>*,
                 ValueRef::OpType,
+                ValueRef::ValueRefBase<T>*,
                 ValueRef::ValueRefBase<T>*
             >,
             parse::skipper_type
@@ -98,6 +85,14 @@ namespace {
         typename parse::value_ref_parser_rule<T>::type& primary_expr
     )
     {
+        using qi::_1;
+        using qi::_a;
+        using qi::_b;
+        using qi::_c;
+        using qi::_val;
+        using qi::lit;
+        using phoenix::new_;
+
         negate_expr
             =    (
                       '-'
@@ -108,12 +103,12 @@ namespace {
 
         multiplicative_expr
             = (
-                   negate_expr [ _a = _1 ]
+                   negate_expr [ _b = _1 ]
                >>  (
                         lit('*') [_a = ValueRef::TIMES]
                     |   lit('/') [_a = ValueRef::DIVIDES]
                    )
-               >   multiplicative_expr [ _b = _1 ]
+               >   multiplicative_expr [ _c = _1 ]
               )
               [ _val = new_<ValueRef::Operation<T> >(_a, _b, _c) ]
             | negate_expr [ _val = _1 ]
@@ -144,6 +139,12 @@ namespace {
         const parse::lexer& tok
     )
     {
+        using qi::_1;
+        using qi::_a;
+        using qi::_val;
+        using phoenix::new_;
+        using phoenix::push_back;
+
         const name_token_rule& variable_container = ::variable_container(tok);
 
         variable
@@ -225,6 +226,13 @@ namespace {
     {
         int_parser_rules(const parse::lexer& tok)
             {
+                using qi::_1;
+                using qi::_a;
+                using qi::_val;
+                using qi::lit;
+                using phoenix::new_;
+                using phoenix::static_cast_;
+
                 // TODO: Should we apply elements of this list only to certain
                 // containers?  For example, if one writes "Source.Planet.",
                 // "NumShips" should not follow.
@@ -245,8 +253,8 @@ namespace {
                     ;
 
                 constant
-                    =    double_ [ _val = new_<ValueRef::Constant<int> >(static_cast_<int>(_1)) ]
-                    |    int_ [ _val = new_<ValueRef::Constant<int> >(_1) ]
+                    =    tok.double_ [ _val = new_<ValueRef::Constant<int> >(static_cast_<int>(_1)) ]
+                    |    tok.int_ [ _val = new_<ValueRef::Constant<int> >(_1) ]
                     ;
 
                 initialize_variable_parser<int>(variable, final_token, tok);
@@ -271,12 +279,12 @@ namespace {
                     ;
             }
 
-        typedef typename parse::value_ref_parser_rule<int>::type rule;
-        typedef typename variable_rule<int>::type variable_rule;
+        typedef parse::value_ref_parser_rule<int>::type rule;
+        typedef variable_rule<int>::type variable_rule;
 #if HAVE_CONDITION_PARSER
-        typedef typename statistic_rule<int>::type statistic_rule;
+        typedef statistic_rule<int>::type statistic_rule;
 #endif
-        typedef typename binary_op_expr_rule<int>::type binary_expression_rule;
+        typedef binary_op_expr_rule<int>::type binary_expression_rule;
 
         name_token_rule final_token;
         rule constant;
@@ -301,6 +309,11 @@ namespace {
     {
         double_parser_rules(const parse::lexer& tok)
             {
+                using qi::_1;
+                using qi::_val;
+                using phoenix::new_;
+                using phoenix::static_cast_;
+
                 final_token
                     %=   tok.farming
                     |    tok.target_farming
@@ -341,8 +354,8 @@ namespace {
                     ;
 
                 constant
-                    =    double_ [ _val = new_<ValueRef::Constant<double> >(_1) ]
-                    |    int_ [ _val = new_<ValueRef::Constant<double> >(static_cast_<double>(_1)) ]
+                    =    tok.double_ [ _val = new_<ValueRef::Constant<double> >(_1) ]
+                    |    tok.int_ [ _val = new_<ValueRef::Constant<double> >(static_cast_<double>(_1)) ]
                     ;
 
                 initialize_variable_parser<double>(variable, final_token, tok);
@@ -372,17 +385,17 @@ namespace {
                     ;
             }
 
-        typedef typename parse::value_ref_parser_rule<double>::type rule;
-        typedef typename variable_rule<double>::type variable_rule;
+        typedef parse::value_ref_parser_rule<double>::type rule;
+        typedef variable_rule<double>::type variable_rule;
 #if HAVE_CONDITION_PARSER
-        typedef typename statistic_rule<double>::type statistic_rule;
+        typedef statistic_rule<double>::type statistic_rule;
 #endif
-        typedef typename binary_op_expr_rule<double>::type binary_expression_rule;
+        typedef binary_op_expr_rule<double>::type binary_expression_rule;
 
         name_token_rule final_token;
         rule constant;
         variable_rule variable;
-        variable_rule int_variable;
+        rule int_variable;
 #if HAVE_CONDITION_PARSER
         statistic_rule statistic;
 #endif
@@ -403,6 +416,10 @@ namespace {
     {
         string_parser_rules(const parse::lexer& tok)
             {
+                using qi::_1;
+                using qi::_val;
+                using phoenix::new_;
+
                 final_token
                     %=   tok.name
                     |    tok.species
@@ -419,8 +436,8 @@ namespace {
                           |   tok.planet_environment_enum
                           |   tok.universe_object_type_enum
                           |   tok.star_type_enum
-                          |   double_
-                          |   int_
+                          |   tok.double_
+                          |   tok.int_
                          ]
 #endif
                     ;
@@ -451,12 +468,12 @@ namespace {
                     ;
             }
 
-        typedef typename parse::value_ref_parser_rule<std::string>::type rule;
-        typedef typename variable_rule<std::string>::type variable_rule;
+        typedef parse::value_ref_parser_rule<std::string>::type rule;
+        typedef variable_rule<std::string>::type variable_rule;
 #if HAVE_CONDITION_PARSER
-        typedef typename statistic_rule<std::string>::type statistic_rule;
+        typedef statistic_rule<std::string>::type statistic_rule;
 #endif
-        typedef typename binary_op_expr_rule<std::string>::type binary_expression_rule;
+        typedef binary_op_expr_rule<std::string>::type binary_expression_rule;
 
         name_token_rule final_token;
         rule constant;
@@ -477,13 +494,18 @@ namespace {
     {
         planet_size_parser_rules(const parse::lexer& tok)
             {
+                using qi::_1;
+                using qi::_val;
+                using phoenix::new_;
+                using phoenix::static_cast_;
+
                 final_token
                     %=   tok.planet_size
                     ;
 
                 constant
                     =    tok.planet_size_enum [ _val = new_<ValueRef::Constant<PlanetSize> >(_1) ]
-                    |    int_ [ _val = new_<ValueRef::Constant<PlanetSize> >(static_cast_<PlanetSize>(_1)) ]
+                    |    tok.int_ [ _val = new_<ValueRef::Constant<PlanetSize> >(static_cast_<PlanetSize>(_1)) ]
                     ;
 
                 initialize_variable_parser<PlanetSize>(variable, final_token, tok);
@@ -501,12 +523,12 @@ namespace {
                     ;
             }
 
-        typedef typename parse::value_ref_parser_rule<PlanetSize>::type rule;
-        typedef typename variable_rule<PlanetSize>::type variable_rule;
+        typedef parse::value_ref_parser_rule<PlanetSize>::type rule;
+        typedef variable_rule<PlanetSize>::type variable_rule;
 #if HAVE_CONDITION_PARSER
-        typedef typename statistic_rule<PlanetSize>::type statistic_rule;
+        typedef statistic_rule<PlanetSize>::type statistic_rule;
 #endif
-        typedef typename binary_op_expr_rule<PlanetSize>::type binary_expression_rule;
+        typedef binary_op_expr_rule<PlanetSize>::type binary_expression_rule;
 
         name_token_rule final_token;
         rule constant;
@@ -521,6 +543,11 @@ namespace {
     {
         planet_type_parser_rules(const parse::lexer& tok)
             {
+                using qi::_1;
+                using qi::_val;
+                using phoenix::new_;
+                using phoenix::static_cast_;
+
                 final_token
                     %=   tok.planet_type
                     |    tok.next_better_planet_type
@@ -528,7 +555,7 @@ namespace {
 
                 constant
                     =    tok.planet_type_enum [ _val = new_<ValueRef::Constant<PlanetType> >(_1) ]
-                    |    int_ [ _val = new_<ValueRef::Constant<PlanetType> >(static_cast_<PlanetType>(_1)) ]
+                    |    tok.int_ [ _val = new_<ValueRef::Constant<PlanetType> >(static_cast_<PlanetType>(_1)) ]
                     ;
 
                 initialize_variable_parser<PlanetType>(variable, final_token, tok);
@@ -546,12 +573,12 @@ namespace {
                     ;
             }
 
-        typedef typename parse::value_ref_parser_rule<PlanetType>::type rule;
-        typedef typename variable_rule<PlanetType>::type variable_rule;
+        typedef parse::value_ref_parser_rule<PlanetType>::type rule;
+        typedef variable_rule<PlanetType>::type variable_rule;
 #if HAVE_CONDITION_PARSER
-        typedef typename statistic_rule<PlanetType>::type statistic_rule;
+        typedef statistic_rule<PlanetType>::type statistic_rule;
 #endif
-        typedef typename binary_op_expr_rule<PlanetType>::type binary_expression_rule;
+        typedef binary_op_expr_rule<PlanetType>::type binary_expression_rule;
 
         name_token_rule final_token;
         rule constant;
@@ -566,13 +593,18 @@ namespace {
     {
         planet_environment_parser_rules(const parse::lexer& tok)
             {
+                using qi::_1;
+                using qi::_val;
+                using phoenix::new_;
+                using phoenix::static_cast_;
+
                 final_token
                     %=   tok.planet_environment
                     ;
 
                 constant
                     =    tok.planet_environment_enum [ _val = new_<ValueRef::Constant<PlanetEnvironment> >(_1) ]
-                    |    int_ [ _val = new_<ValueRef::Constant<PlanetEnvironment> >(static_cast_<PlanetEnvironment>(_1)) ]
+                    |    tok.int_ [ _val = new_<ValueRef::Constant<PlanetEnvironment> >(static_cast_<PlanetEnvironment>(_1)) ]
                     ;
 
                 initialize_variable_parser<PlanetEnvironment>(variable, final_token, tok);
@@ -590,12 +622,12 @@ namespace {
                     ;
             }
 
-        typedef typename parse::value_ref_parser_rule<PlanetEnvironment>::type rule;
-        typedef typename variable_rule<PlanetEnvironment>::type variable_rule;
+        typedef parse::value_ref_parser_rule<PlanetEnvironment>::type rule;
+        typedef variable_rule<PlanetEnvironment>::type variable_rule;
 #if HAVE_CONDITION_PARSER
-        typedef typename statistic_rule<PlanetEnvironment>::type statistic_rule;
+        typedef statistic_rule<PlanetEnvironment>::type statistic_rule;
 #endif
-        typedef typename binary_op_expr_rule<PlanetEnvironment>::type binary_expression_rule;
+        typedef binary_op_expr_rule<PlanetEnvironment>::type binary_expression_rule;
 
         name_token_rule final_token;
         rule constant;
@@ -610,13 +642,18 @@ namespace {
     {
         universe_object_type_parser_rules(const parse::lexer& tok)
             {
+                using qi::_1;
+                using qi::_val;
+                using phoenix::new_;
+                using phoenix::static_cast_;
+
                 final_token
                     %=   tok.object_type
                     ;
 
                 constant
                     =    tok.universe_object_type_enum [ _val = new_<ValueRef::Constant<UniverseObjectType> >(_1) ]
-                    |    int_ [ _val = new_<ValueRef::Constant<UniverseObjectType> >(static_cast_<UniverseObjectType>(_1)) ]
+                    |    tok.int_ [ _val = new_<ValueRef::Constant<UniverseObjectType> >(static_cast_<UniverseObjectType>(_1)) ]
                     ;
 
                 initialize_variable_parser<UniverseObjectType>(variable, final_token, tok);
@@ -634,12 +671,12 @@ namespace {
                     ;
             }
 
-        typedef typename parse::value_ref_parser_rule<UniverseObjectType>::type rule;
-        typedef typename variable_rule<UniverseObjectType>::type variable_rule;
+        typedef parse::value_ref_parser_rule<UniverseObjectType>::type rule;
+        typedef variable_rule<UniverseObjectType>::type variable_rule;
 #if HAVE_CONDITION_PARSER
-        typedef typename statistic_rule<UniverseObjectType>::type statistic_rule;
+        typedef statistic_rule<UniverseObjectType>::type statistic_rule;
 #endif
-        typedef typename binary_op_expr_rule<UniverseObjectType>::type binary_expression_rule;
+        typedef binary_op_expr_rule<UniverseObjectType>::type binary_expression_rule;
 
         name_token_rule final_token;
         rule constant;
@@ -654,13 +691,18 @@ namespace {
     {
         star_type_parser_rules(const parse::lexer& tok)
             {
+                using qi::_1;
+                using qi::_val;
+                using phoenix::new_;
+                using phoenix::static_cast_;
+
                 final_token
                     %=   tok.star_type
                     ;
 
                 constant
                     =    tok.star_type_enum [ _val = new_<ValueRef::Constant<StarType> >(_1) ]
-                    |    int_ [ _val = new_<ValueRef::Constant<StarType> >(static_cast_<StarType>(_1)) ]
+                    |    tok.int_ [ _val = new_<ValueRef::Constant<StarType> >(static_cast_<StarType>(_1)) ]
                     ;
 
                 initialize_variable_parser<StarType>(variable, final_token, tok);
@@ -678,12 +720,12 @@ namespace {
                     ;
             }
 
-        typedef typename parse::value_ref_parser_rule<StarType>::type rule;
-        typedef typename variable_rule<StarType>::type variable_rule;
+        typedef parse::value_ref_parser_rule<StarType>::type rule;
+        typedef variable_rule<StarType>::type variable_rule;
 #if HAVE_CONDITION_PARSER
-        typedef typename statistic_rule<StarType>::type statistic_rule;
+        typedef statistic_rule<StarType>::type statistic_rule;
 #endif
-        typedef typename binary_op_expr_rule<StarType>::type binary_expression_rule;
+        typedef binary_op_expr_rule<StarType>::type binary_expression_rule;
 
         name_token_rule final_token;
         rule constant;
