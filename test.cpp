@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
         else
             std::cout << "Could not parse the end: \"" << std::string(--first, last) << "\"\n";
     } else {
-        std::cout << "Could not parse the end: \"" << std::string(first, last) << "\"\n";
+        std::cout << "Could not parse the end: \"" << std::string(--first, last) << "\"\n";
     }
 
     return 0;
