@@ -14,6 +14,7 @@ namespace parse {
     {
         typedef boost::spirit::qi::rule<
             parse::token_iterator,
+            // TODO: Investigate refactoring ValueRef to use variant, for increased locality of reference.
             ValueRef::ValueRefBase<T>* (), // TODO: Rename this ValueRef::Base in the FO code.
             parse::skipper_type
         > type;
