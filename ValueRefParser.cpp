@@ -1,5 +1,6 @@
 #include "ValueRefParser.h"
 
+#include "ParseErrorReporting.h"
 #include "../universe/ValueRef.h"
 
 #include <boost/spirit/home/phoenix.hpp>
@@ -9,6 +10,9 @@
 
 namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
+
+
+#define NAME(x) x.name(#x); debug(x)
 
 namespace {
 
@@ -128,7 +132,7 @@ namespace {
             ;
 
         expr
-            %=   negate_expr
+            %=   additive_expr
             ;
     }
 
@@ -227,6 +231,9 @@ namespace {
         int_parser_rules(const parse::lexer& tok)
             {
                 using qi::_1;
+                using qi::_2;
+                using qi::_3;
+                using qi::_4;
                 using qi::_a;
                 using qi::_val;
                 using qi::lit;
@@ -277,6 +284,20 @@ namespace {
                     |    statistic
 #endif
                     ;
+
+                NAME(final_token);
+                NAME(constant);
+//                NAME(variable);
+#if HAVE_CONDITION_PARSER
+                NAME(statistic);
+#endif
+                NAME(negate_expr);
+                NAME(multiplicative_expr);
+                NAME(additive_expr);
+                NAME(expr);
+                NAME(primary_expr);
+
+                qi::on_error<qi::fail>(expr, parse::detail::report_error(_1, _2, _3, _4));
             }
 
         typedef parse::value_ref_parser_rule<int>::type rule;
@@ -429,7 +450,7 @@ namespace {
 
                 constant
                     =    tok.string [ _val = new_<ValueRef::Constant<std::string> >(_1) ]
-#if 0
+#if 0 // TODO: Turn this on; verify that it works (requires Boost 1.47).
                     |    as_string [
                           |   tok.planet_size_enum
                           |   tok.planet_type_enum
@@ -454,6 +475,10 @@ namespace {
 
                 double_variable
                     =    get_double_parser_rules(tok).variable [ _val = new_<ValueRef::StringCast<double> >(_1) ]
+                    ;
+
+                expr
+                    %=   primary_expr
                     ;
 
                 primary_expr
@@ -743,17 +768,17 @@ namespace parse {
 
     template <>
     const value_ref_parser_rule<int>::type& value_ref_parser<int>(const parse::lexer& tok)
-    { return get_int_parser_rules(tok).primary_expr; }
+    { return get_int_parser_rules(tok).expr; }
 
     template <>
     const value_ref_parser_rule<double>::type& value_ref_parser<double>(const parse::lexer& tok)
-    { return get_double_parser_rules(tok).primary_expr; }
+    { return get_double_parser_rules(tok).expr; }
 
     template <>
     const value_ref_parser_rule<std::string>::type& value_ref_parser<std::string>(const parse::lexer& tok)
     {
         static const string_parser_rules retval(tok);
-        return retval.primary_expr;
+        return retval.expr;
     }
 
     template <>

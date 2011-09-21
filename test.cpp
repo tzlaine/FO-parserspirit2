@@ -34,52 +34,58 @@ int main(int argc, char* argv[])
 
     parse::lexer l;
 
+    bool success = false;
+
     switch (test) {
     case lexer: {
         lexer_test_rules rules(l);
-        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, rules.lexer, boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, rules.lexer, boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case int_value_ref_parser: {
-        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<int>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<int>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case double_value_ref_parser: {
-        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<double>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<double>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case string_value_ref_parser: {
-        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<std::string>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<std::string>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case planet_size_value_ref_parser: {
-        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<PlanetSize>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<PlanetSize>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case planet_type_value_ref_parser: {
-        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<PlanetType>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<PlanetType>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case planet_environment_value_ref_parser: {
-        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<PlanetEnvironment>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<PlanetEnvironment>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case universe_object_type_value_ref_parser: {
-        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<UniverseObjectType>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<UniverseObjectType>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case star_type_value_ref_parser: {
-        boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<StarType>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<StarType>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     default:
         break;
     }
 
-    if (first == last)
-        std::cout << "Successful parse!\n";
-    else
-        std::cout << "Could not parse the end: \"" << std::string(--first, last) << "\"\n";
+    if (success) {
+        if (first == last)
+            std::cout << "Successful parse!\n";
+        else
+            std::cout << "Could not parse the end: \"" << std::string(--first, last) << "\"\n";
+    } else {
+        std::cout << "Could not parse the end: \"" << std::string(first, last) << "\"\n";
+    }
 
     return 0;
 }
