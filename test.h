@@ -31,7 +31,4 @@ enum test_type {
     star_type_value_ref_parser
 };
 
-inline void print_help()
-{
-    std::cout << "Usage: test lexer|int_value_ref_parser|double_value_ref_parser|string_value_ref_parser|planet_size_value_ref_parser|planet_type_value_ref_parser|planet_environment_value_ref_parser|universe_object_type_value_ref_parser|star_type_value_ref_parser \"test string\"" << std::endl;
-}
+void print_help();
