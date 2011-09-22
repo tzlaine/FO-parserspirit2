@@ -3,7 +3,7 @@
 
 namespace parse { namespace detail {
 
-    const boost::phoenix::function<report_error_> report_error;
+    const boost::phoenix::function<report_error_> report_error = report_error_();
 
     void report_error_::default_send_error_string(const std::string& str)
     { std::cerr << str; }
