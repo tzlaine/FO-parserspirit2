@@ -55,6 +55,8 @@ int main(int argc, char* argv[])
 
     bool success = false;
 
+    parse::token_type::s_begin = first;
+    parse::token_type::s_filename = argc == 4 ? argv[3] : "command-line";
     parse::token_iterator it = l.begin(first, last);
     const parse::token_iterator end_it = l.end();
 
