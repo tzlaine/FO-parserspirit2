@@ -55,42 +55,45 @@ int main(int argc, char* argv[])
 
     bool success = false;
 
+    parse::token_iterator it = l.begin(first, last);
+    const parse::token_iterator end_it = l.end();
+
     switch (test) {
     case lexer: {
         lexer_test_rules rules(l);
-        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, rules.lexer, boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::qi::phrase_parse(it, end_it, rules.lexer, boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case int_value_ref_parser: {
-        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<int>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<int>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case double_value_ref_parser: {
-        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<double>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<double>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case string_value_ref_parser: {
-        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<std::string>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<std::string>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case planet_size_value_ref_parser: {
-        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<PlanetSize>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<PlanetSize>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case planet_type_value_ref_parser: {
-        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<PlanetType>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<PlanetType>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case planet_environment_value_ref_parser: {
-        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<PlanetEnvironment>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<PlanetEnvironment>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case universe_object_type_value_ref_parser: {
-        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<UniverseObjectType>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<UniverseObjectType>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     case star_type_value_ref_parser: {
-        success = boost::spirit::lex::tokenize_and_phrase_parse(first, last, l, parse::value_ref_parser<StarType>(l), boost::spirit::qi::in_state("WS")[l.self]);
+        success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<StarType>(l), boost::spirit::qi::in_state("WS")[l.self]);
         break;
     }
     default:
@@ -98,7 +101,7 @@ int main(int argc, char* argv[])
     }
 
     if (success) {
-        if (first == last)
+        if (it == end_it)
             std::cout << "Successful parse!\n";
         else
             std::cout << "Could not parse the end: \"" << std::string(--first, last) << "\"\n";
