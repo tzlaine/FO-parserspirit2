@@ -128,3 +128,25 @@ if (WIN32)
         LINK_FLAGS /NODEFAULTLIB:LIBCMT
     )
 endif ()
+
+macro (add_test_and_data_files name)
+    set(suffix "")
+    set(args "")
+    foreach (arg ${ARGN})
+        if (EXISTS ${CMAKE_SOURCE_DIR}/parse/test/${arg})
+            get_filename_component(filename_without_path ${arg} NAME)
+            configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${arg}
+                           ${CMAKE_CURRENT_BINARY_DIR}/${filename_without_path}
+                           COPYONLY)
+            set(suffix ${suffix}-${filename_without_path})
+            set(args "${args};${filename_without_path}")
+        else ()
+            set(suffix ${suffix}-${arg})
+            set(args "${args};${arg}")
+        endif ()
+    endforeach ()
+    add_test (${name}${suffix} ${CMAKE_BINARY_DIR}/${name} ${args})
+endmacro ()
+
+add_test_and_data_files(parser_test lexer -f lexer_tokens)
+
