@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#include "Lexer.h"
-#include "ValueRefParser.h"
+#include "../Lexer.h"
+#include "../ValueRefParser.h"
 
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix.hpp>
