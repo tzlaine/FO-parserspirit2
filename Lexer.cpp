@@ -267,7 +267,8 @@ lexer::lexer() :
     value("(?i:value)"),
     visible_to_empire("(?i:visibletoempire)"),
     within_distance("(?i:withindistance)"),
-    within_starlane_jumps("(?i:withinstarlanejumps)")
+    within_starlane_jumps("(?i:withinstarlanejumps)"),
+    error_token("\\S+")
 {
     namespace lex = boost::spirit::lex;
 
@@ -486,6 +487,8 @@ lexer::lexer() :
         |     ')'
         |     '['
         |     ']'
+
+        |     error_token
         ;
 
     self("WS") = lex::token_def<>("\\s+");

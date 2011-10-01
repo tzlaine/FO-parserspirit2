@@ -105,14 +105,8 @@ int main(int argc, char* argv[])
         break;
     }
 
-    if (success) {
-        if (it == end_it)
-            std::cout << "Successful parse!\n";
-        else
-            std::cout << "Could not parse the end: \"" << std::string(first.base() - 1, last.base()) << "\"\n";
-    } else {
-        std::cout << "Could not parse the end: \"" << std::string(first.base() - 1, last.base()) << "\"\n";
-    }
+    if (success && it == end_it)
+        std::cout <<  "Successful parse!\n";
 
     return 0;
 }

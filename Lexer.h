@@ -266,6 +266,10 @@ struct lexer :
     boost::spirit::lex::token_def<adobe::name_t> within_distance;
     boost::spirit::lex::token_def<adobe::name_t> within_starlane_jumps;
     //@}
+
+    /** \name Error token. */ ///@{
+    boost::spirit::lex::token_def<boost::spirit::lex::omit> error_token;
+    //@}
 };
 
 /** The type of iterator passed to the script file parser by the script file
