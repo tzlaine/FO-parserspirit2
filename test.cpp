@@ -106,7 +106,9 @@ int main(int argc, char* argv[])
     }
 
     if (success && it == end_it)
-        std::cout <<  "Successful parse!\n";
+        std::cout <<  "Successful parse.\n";
+    else
+        std::cout <<  "Failed parse.\n";
 
     return 0;
 }
