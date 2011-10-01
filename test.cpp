@@ -1,5 +1,7 @@
 #include "test.h"
 
+#include <GG/ReportParseError.h>
+
 #include <fstream>
 
 
@@ -48,15 +50,16 @@ int main(int argc, char* argv[])
         str = argv[2];
     }
 
-    std::string::const_iterator first = str.begin();
-    const std::string::const_iterator last = str.end();
+    parse::text_iterator first(str.begin());
+    const parse::text_iterator last(str.end());
 
     parse::lexer l;
 
     bool success = false;
 
-    parse::token_type::s_begin = first;
-    parse::token_type::s_filename = argc == 4 ? argv[3] : "command-line";
+    GG::detail::s_begin = first;
+    GG::detail::s_end = last;
+    GG::detail::s_filename = argc == 4 ? argv[3] : "command-line";
     parse::token_iterator it = l.begin(first, last);
     const parse::token_iterator end_it = l.end();
 
@@ -106,9 +109,9 @@ int main(int argc, char* argv[])
         if (it == end_it)
             std::cout << "Successful parse!\n";
         else
-            std::cout << "Could not parse the end: \"" << std::string(--first, last) << "\"\n";
+            std::cout << "Could not parse the end: \"" << std::string(first.base() - 1, last.base()) << "\"\n";
     } else {
-        std::cout << "Could not parse the end: \"" << std::string(--first, last) << "\"\n";
+        std::cout << "Could not parse the end: \"" << std::string(first.base() - 1, last.base()) << "\"\n";
     }
 
     return 0;

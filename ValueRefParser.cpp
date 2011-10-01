@@ -1,7 +1,8 @@
 #include "ValueRefParser.h"
 
-#include "ParseErrorReporting.h"
 #include "../universe/ValueRef.h"
+
+#include <GG/ReportParseError.h>
 
 #include <boost/spirit/home/phoenix.hpp>
 
@@ -12,7 +13,8 @@ namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
 
 
-#define NAME(x) x.name(#x); debug(x)
+#define NAME(x) x.name(#x)
+//; debug(x)
 
 namespace {
 
@@ -98,10 +100,7 @@ namespace {
         using phoenix::new_;
 
         negate_expr
-            =    (
-                      '-'
-                  >   primary_expr [ _val = new_<ValueRef::Operation<T> >(ValueRef::NEGATE, _1) ]
-                 )
+            =    '-' > primary_expr [ _val = new_<ValueRef::Operation<T> >(ValueRef::NEGATE, _1) ]
             |    primary_expr [ _val = _1 ]
             ;
 
@@ -112,7 +111,7 @@ namespace {
                         lit('*') [_a = ValueRef::TIMES]
                     |   lit('/') [_a = ValueRef::DIVIDES]
                    )
-               >   multiplicative_expr [ _c = _1 ]
+               >   negate_expr [ _c = _1 ]
               )
               [ _val = new_<ValueRef::Operation<T> >(_a, _b, _c) ]
             | negate_expr [ _val = _1 ]
@@ -125,7 +124,7 @@ namespace {
                         lit('+') [_a = ValueRef::PLUS]
                     |   lit('-') [_a = ValueRef::MINUS]
                    )
-               >   additive_expr [ _c = _1 ]
+               >   multiplicative_expr [ _c = _1 ]
               )
               [ _val = new_<ValueRef::Operation<T> >(_a, _b, _c) ]
             | multiplicative_expr [ _val = _1 ]
@@ -297,7 +296,7 @@ namespace {
                 NAME(expr);
                 NAME(primary_expr);
 
-                qi::on_error<qi::fail>(expr, parse::detail::report_error(_1, _2, _3, _4));
+                qi::on_error<qi::fail>(expr, parse::report_error(_1, _2, _3, _4));
             }
 
         typedef parse::value_ref_parser_rule<int>::type rule;
@@ -452,7 +451,7 @@ namespace {
                     =    tok.string [ _val = new_<ValueRef::Constant<std::string> >(_1) ]
 #if 0 // TODO: Turn this on; verify that it works (requires Boost 1.47).
                     |    as_string [
-                          |   tok.planet_size_enum
+                              tok.planet_size_enum
                           |   tok.planet_type_enum
                           |   tok.planet_environment_enum
                           |   tok.universe_object_type_enum

@@ -16,7 +16,6 @@ add_executable(test
     lexer_test_rules.cpp
     value_ref_test_rules.cpp
     Lexer.cpp
-    ParseErrorReporting.cpp
     ValueRefParser.cpp
 )
 

@@ -2,10 +2,7 @@
 #ifndef _Lexer_h_
 #define _Lexer_h_
 
-#include <GG/Token.h>
-#include <GG/adobe/name.hpp>
-
-#include <boost/spirit/include/lex_lexertl.hpp>
+#include <GG/ReportParseError.h>
 
 #include "../universe/Enums.h"
 #include "../universe/ValueRefFwd.h"
@@ -16,10 +13,10 @@
 namespace parse {
 
 /** The type of iterator used by the script file lexer. */
-typedef std::string::const_iterator text_iterator;
+typedef boost::spirit::line_pos_iterator<std::string::const_iterator> text_iterator;
 
 /** The type of token used by the script file lexer. */
-typedef GG::position_tracking_token<
+typedef boost::spirit::lex::lexertl::token<
     text_iterator,
     boost::mpl::vector<
         bool,
@@ -280,6 +277,8 @@ typedef lexer::lexer_def lexer_def;
 /** The type of the skip-parser, defined in the script file lexer, used by the
     script file parser iterator. */
 typedef boost::spirit::qi::in_state_skipper<lexer_def> skipper_type;
+
+extern const boost::phoenix::function<GG::report_error_<token_type> > report_error;
 
 }
 
