@@ -268,7 +268,7 @@ lexer::lexer() :
     visible_to_empire("(?i:visibletoempire)"),
     within_distance("(?i:withindistance)"),
     within_starlane_jumps("(?i:withinstarlanejumps)"),
-    error_token("\\S+")
+    error_token("\\S+?")
 {
     namespace lex = boost::spirit::lex;
 
@@ -493,6 +493,8 @@ lexer::lexer() :
 
     self("WS") = lex::token_def<>("\\s+");
 }
+
+const boost::phoenix::function<GG::report_error_<parse::token_type> > parse::report_error;
 
 namespace boost { namespace spirit { namespace traits {
 
