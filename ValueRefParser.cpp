@@ -41,25 +41,6 @@ namespace {
         parse::skipper_type
     > name_token_rule;
 
-    const name_token_rule& variable_container(const parse::lexer& tok)
-    {
-        static name_token_rule retval;
-        static bool once;
-        if (once) {
-            retval
-                %=   tok.planet
-                |    tok.system
-                |    tok.fleet
-                ;
-            retval.name("variable_container");
-#if DEBUG_VALUEREF_PARSE
-            debug(retval);
-#endif
-            once = false;
-        }
-        return retval;
-    }
-
     template <typename T>
     struct variable_rule
     {
@@ -169,8 +150,6 @@ namespace {
         using phoenix::new_;
         using phoenix::push_back;
 
-        const name_token_rule& variable_container = ::variable_container(tok);
-
         variable
             = (
                    (
@@ -182,7 +161,7 @@ namespace {
                         )
                         [ push_back(_a, _1) ]
                     >   '.'
-                    >  -(variable_container [ push_back(_a, _1) ] > '.')
+                    >  -((tok.planet | tok.system | tok.fleet) [ push_back(_a, _1) ] > '.')
                     >   final_token [ push_back(_a, _1) ]
                    )
                |   (
@@ -203,8 +182,6 @@ namespace {
         const parse::lexer& tok
     )
     {
-        const name_token_rule& variable_container = ::variable_container(tok);
-
         statistic
             = (
                    (
@@ -215,7 +192,7 @@ namespace {
                |   (
                         tok.statistic_type_enum [ _b = _1 ]
                     >>  tok.property
-                    >> -(variable_container [ push_back(_a, _1) ] > '.')
+                    >> -((tok.planet | tok.system | tok.fleet) [ push_back(_a, _1) ] > '.')
                     >   final_token [ push_back(_a, _1) ]
                     >   tok.condition
                     >   condition/*TODO!*/ [ _c = _1 ]
@@ -232,13 +209,11 @@ namespace {
         const parse::lexer& tok
     )
     {
-        const name_token_rule& variable_container = ::variable_container(tok);
-
         statistic
             = (
                    tok.statistic_type_enum [ _b = _1 ] // TODO: Should be "mode" only.
                >>  tok.property
-               >> -(variable_container [ push_back(_a, _1) ] > '.')
+               >> -((tok.planet | tok.system | tok.fleet) [ push_back(_a, _1) ] > '.')
                >   final_token [ push_back(_a, _1) ]
                >   tok.condition
                >   condition/*TODO!*/ [ _c = _1 ]
