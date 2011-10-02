@@ -61,6 +61,8 @@ int main(int argc, char* argv[])
                             boost::algorithm::is_any_of("\n\r"),
                             boost::algorithm::token_compress_on);
 
+    parse::lexer l;
+
     unsigned int failures = 0;
     for (std::size_t i = 0; i < strings.size(); ++i) {
         const std::string& string = strings[i];
@@ -69,8 +71,6 @@ int main(int argc, char* argv[])
 
         parse::text_iterator first(string.begin());
         const parse::text_iterator last(string.end());
-
-        parse::lexer l;
 
         bool success = false;
 
