@@ -139,6 +139,7 @@ namespace {
 
     template <typename T>
     void initialize_variable_parser(
+        name_token_rule& container_token,
         typename variable_rule<T>::type& variable,
         const name_token_rule& final_token,
         const parse::lexer& tok
@@ -150,6 +151,12 @@ namespace {
         using phoenix::new_;
         using phoenix::push_back;
 
+        container_token
+            %=   tok.planet
+            |    tok.system
+            |    tok.fleet
+            ;
+
         variable
             = (
                    (
@@ -160,9 +167,9 @@ namespace {
                          |  tok.root_candidate
                         )
                         [ push_back(_a, _1) ]
-                    >   '.'
-                    >  -((tok.planet | tok.system | tok.fleet) [ push_back(_a, _1) ] > '.')
-                    >   final_token [ push_back(_a, _1) ]
+                    >>  '.'
+                    >> -(container_token [ push_back(_a, _1) ] > '.')
+                    >>  final_token [ push_back(_a, _1) ]
                    )
                |   (
                        tok.current_turn // TODO: Doesn't belong here for any but int, double, and string, right?
@@ -261,7 +268,7 @@ namespace {
                     |    tok.int_ [ _val = new_<ValueRef::Constant<int> >(_1) ]
                     ;
 
-                initialize_variable_parser<int>(variable, final_token, tok);
+                initialize_variable_parser<int>(container_token, variable, final_token, tok);
 
 #if HAVE_CONDITION_PARSER
                 initialize_numeric_statistic_parser<int>(statistic, final_token, tok);
@@ -282,6 +289,7 @@ namespace {
 #endif
                     ;
 
+                NAME(container_token);
                 NAME(final_token);
                 NAME(constant);
                 NAME(variable);
@@ -304,6 +312,7 @@ namespace {
 #endif
         typedef binary_op_expr_rule<int>::type binary_expression_rule;
 
+        name_token_rule container_token;
         name_token_rule final_token;
         rule constant;
         variable_rule variable;
@@ -376,7 +385,7 @@ namespace {
                     |    tok.int_ [ _val = new_<ValueRef::Constant<double> >(static_cast_<double>(_1)) ]
                     ;
 
-                initialize_variable_parser<double>(variable, final_token, tok);
+                initialize_variable_parser<double>(container_token, variable, final_token, tok);
 
 #if HAVE_CONDITION_PARSER
                 initialize_numeric_statistic_parser<double>(statistic, final_token, tok);
@@ -401,6 +410,20 @@ namespace {
                     |    statistic
 #endif
                     ;
+
+                NAME(container_token);
+                NAME(final_token);
+                NAME(constant);
+                NAME(variable);
+                NAME(int_variable);
+#if HAVE_CONDITION_PARSER
+                NAME(statistic);
+#endif
+                NAME(negate_expr);
+                NAME(multiplicative_expr);
+                NAME(additive_expr);
+                NAME(expr);
+                NAME(primary_expr);
             }
 
         typedef parse::value_ref_parser_rule<double>::type rule;
@@ -410,6 +433,7 @@ namespace {
 #endif
         typedef binary_op_expr_rule<double>::type binary_expression_rule;
 
+        name_token_rule container_token;
         name_token_rule final_token;
         rule constant;
         variable_rule variable;
@@ -460,7 +484,7 @@ namespace {
 #endif
                     ;
 
-                initialize_variable_parser<std::string>(variable, final_token, tok);
+                initialize_variable_parser<std::string>(container_token, variable, final_token, tok);
 
 #if HAVE_CONDITION_PARSER
                 initialize_nonnumeric_statistic_parser<std::string>(statistic, final_token, tok);
@@ -497,6 +521,7 @@ namespace {
 #endif
         typedef binary_op_expr_rule<std::string>::type binary_expression_rule;
 
+        name_token_rule container_token;
         name_token_rule final_token;
         rule constant;
         variable_rule variable;
@@ -530,7 +555,7 @@ namespace {
                     |    tok.int_ [ _val = new_<ValueRef::Constant<PlanetSize> >(static_cast_<PlanetSize>(_1)) ]
                     ;
 
-                initialize_variable_parser<PlanetSize>(variable, final_token, tok);
+                initialize_variable_parser<PlanetSize>(container_token, variable, final_token, tok);
 
 #if HAVE_CONDITION_PARSER
                 initialize_nonnumeric_statistic_parser<PlanetSize>(statistic, final_token, tok);
@@ -552,6 +577,7 @@ namespace {
 #endif
         typedef binary_op_expr_rule<PlanetSize>::type binary_expression_rule;
 
+        name_token_rule container_token;
         name_token_rule final_token;
         rule constant;
         variable_rule variable;
@@ -580,7 +606,7 @@ namespace {
                     |    tok.int_ [ _val = new_<ValueRef::Constant<PlanetType> >(static_cast_<PlanetType>(_1)) ]
                     ;
 
-                initialize_variable_parser<PlanetType>(variable, final_token, tok);
+                initialize_variable_parser<PlanetType>(container_token, variable, final_token, tok);
 
 #if HAVE_CONDITION_PARSER
                 initialize_nonnumeric_statistic_parser<PlanetType>(statistic, final_token, tok);
@@ -602,6 +628,7 @@ namespace {
 #endif
         typedef binary_op_expr_rule<PlanetType>::type binary_expression_rule;
 
+        name_token_rule container_token;
         name_token_rule final_token;
         rule constant;
         variable_rule variable;
@@ -629,7 +656,7 @@ namespace {
                     |    tok.int_ [ _val = new_<ValueRef::Constant<PlanetEnvironment> >(static_cast_<PlanetEnvironment>(_1)) ]
                     ;
 
-                initialize_variable_parser<PlanetEnvironment>(variable, final_token, tok);
+                initialize_variable_parser<PlanetEnvironment>(container_token, variable, final_token, tok);
 
 #if HAVE_CONDITION_PARSER
                 initialize_nonnumeric_statistic_parser<PlanetEnvironment>(statistic, final_token, tok);
@@ -651,6 +678,7 @@ namespace {
 #endif
         typedef binary_op_expr_rule<PlanetEnvironment>::type binary_expression_rule;
 
+        name_token_rule container_token;
         name_token_rule final_token;
         rule constant;
         variable_rule variable;
@@ -678,7 +706,7 @@ namespace {
                     |    tok.int_ [ _val = new_<ValueRef::Constant<UniverseObjectType> >(static_cast_<UniverseObjectType>(_1)) ]
                     ;
 
-                initialize_variable_parser<UniverseObjectType>(variable, final_token, tok);
+                initialize_variable_parser<UniverseObjectType>(container_token, variable, final_token, tok);
 
 #if HAVE_CONDITION_PARSER
                 initialize_nonnumeric_statistic_parser<UniverseObjectType>(statistic, final_token, tok);
@@ -700,6 +728,7 @@ namespace {
 #endif
         typedef binary_op_expr_rule<UniverseObjectType>::type binary_expression_rule;
 
+        name_token_rule container_token;
         name_token_rule final_token;
         rule constant;
         variable_rule variable;
@@ -727,7 +756,7 @@ namespace {
                     |    tok.int_ [ _val = new_<ValueRef::Constant<StarType> >(static_cast_<StarType>(_1)) ]
                     ;
 
-                initialize_variable_parser<StarType>(variable, final_token, tok);
+                initialize_variable_parser<StarType>(container_token, variable, final_token, tok);
 
 #if HAVE_CONDITION_PARSER
                 initialize_nonnumeric_statistic_parser<StarType>(statistic, final_token, tok);
@@ -749,6 +778,7 @@ namespace {
 #endif
         typedef binary_op_expr_rule<StarType>::type binary_expression_rule;
 
+        name_token_rule container_token;
         name_token_rule final_token;
         rule constant;
         variable_rule variable;
