@@ -13,8 +13,25 @@ namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
 
 
+#define DEBUG_VALUEREF_PARSE 0
+#if DEBUG_VALUEREF_PARSE
+#define NAME(x) x.name(#x); debug(x)
+#else
 #define NAME(x) x.name(#x)
-//; debug(x)
+#endif
+
+// This is just here to satisfy the requirements of qi::debug(<rule>).
+namespace adobe {
+    std::ostream& operator<<(std::ostream& os, const std::vector<name_t>& name_vec)
+    {
+        os << "[ ";
+        for (std::size_t i = 0; i < name_vec.size(); ++i) {
+            os << name_vec[i] << " ";
+        }
+        os << "]";
+        return os;
+    }
+}
 
 namespace {
 
@@ -34,6 +51,10 @@ namespace {
                 |    tok.system
                 |    tok.fleet
                 ;
+            retval.name("variable_container");
+#if DEBUG_VALUEREF_PARSE
+            debug(retval);
+#endif
             once = false;
         }
         return retval;
@@ -111,7 +132,7 @@ namespace {
                         lit('*') [_a = ValueRef::TIMES]
                     |   lit('/') [_a = ValueRef::DIVIDES]
                    )
-               >   negate_expr [ _c = _1 ]
+               >   multiplicative_expr [ _c = _1 ]
               )
               [ _val = new_<ValueRef::Operation<T> >(_a, _b, _c) ]
             | negate_expr [ _val = _1 ]
@@ -124,7 +145,7 @@ namespace {
                         lit('+') [_a = ValueRef::PLUS]
                     |   lit('-') [_a = ValueRef::MINUS]
                    )
-               >   multiplicative_expr [ _c = _1 ]
+               >   additive_expr [ _c = _1 ]
               )
               [ _val = new_<ValueRef::Operation<T> >(_a, _b, _c) ]
             | multiplicative_expr [ _val = _1 ]
@@ -138,7 +159,7 @@ namespace {
     template <typename T>
     void initialize_variable_parser(
         typename variable_rule<T>::type& variable,
-        name_token_rule& final_token,
+        const name_token_rule& final_token,
         const parse::lexer& tok
     )
     {
@@ -154,19 +175,21 @@ namespace {
             = (
                    (
                         (
-                            tok.source [ push_back(_a, _1) ]
-                         |  tok.target [ push_back(_a, _1) ]
-                         |  tok.local_candidate [ push_back(_a, _1) ]
-                         |  tok.root_candidate [ push_back(_a, _1) ]
+                            tok.source
+                         |  tok.target
+                         |  tok.local_candidate
+                         |  tok.root_candidate
                         )
-                    >>  '.'
-                    >> -(variable_container [ push_back(_a, _1) ] > '.')
+                        [ push_back(_a, _1) ]
+                    >   '.'
+                    >  -(variable_container [ push_back(_a, _1) ] > '.')
                     >   final_token [ push_back(_a, _1) ]
                    )
                |   (
-                       tok.current_turn [ push_back(_a, _1) ] // TODO: Doesn't belong here for any but int, double, and string, right?
-                    |  tok.value [ push_back(_a, _1) ]
+                       tok.current_turn // TODO: Doesn't belong here for any but int, double, and string, right?
+                    |  tok.value
                    )
+                   [ push_back(_a, _1) ]
               )
               [ _val = new_<ValueRef::Variable<T> >(_a) ]
             ;
@@ -176,7 +199,7 @@ namespace {
     template <typename T>
     void initialize_numeric_statistic_parser(
         typename statistic_rule<T>::type& statistic,
-        name_token_rule& final_token,
+        const name_token_rule& final_token,
         const parse::lexer& tok
     )
     {
@@ -205,7 +228,7 @@ namespace {
     template <typename T>
     void initialize_nonnumeric_statistic_parser(
         typename statistic_rule<T>::type& statistic,
-        name_token_rule& final_token,
+        const name_token_rule& final_token,
         const parse::lexer& tok
     )
     {
@@ -286,7 +309,7 @@ namespace {
 
                 NAME(final_token);
                 NAME(constant);
-//                NAME(variable);
+                NAME(variable);
 #if HAVE_CONDITION_PARSER
                 NAME(statistic);
 #endif

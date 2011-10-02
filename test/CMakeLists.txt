@@ -149,4 +149,12 @@ macro (add_test_and_data_files name)
 endmacro ()
 
 add_test_and_data_files(parser_test lexer -f lexer_tokens)
-
+add_test_and_data_files(parser_test int_value_ref_parser -f int_arithmetic)
+add_test_and_data_files(parser_test int_value_ref_parser -f int_variable)
+add_test_and_data_files(parser_test int_value_ref_parser -f int_variable_arithmetic)
+add_test_and_data_files(parser_test double_value_ref_parser -f double_arithmetic)
+add_test_and_data_files(parser_test double_value_ref_parser -f double_variable)
+add_test_and_data_files(parser_test double_value_ref_parser -f double_variable_arithmetic)
+add_test_and_data_files(parser_test double_value_ref_parser -f int_arithmetic)
+add_test_and_data_files(parser_test double_value_ref_parser -f int_variable)
+add_test_and_data_files(parser_test double_value_ref_parser -f int_variable_arithmetic)
