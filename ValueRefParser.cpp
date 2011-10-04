@@ -1,322 +1,9 @@
-#include "ValueRefParser.h"
-
-#include "../universe/ValueRef.h"
+#include "ValueRefParserImpl.h"
 
 #include <GG/ReportParseError.h>
 
-#include <boost/spirit/home/phoenix.hpp>
-
-
-#define HAVE_CONDITION_PARSER 0
-
-namespace qi = boost::spirit::qi;
-namespace phoenix = boost::phoenix;
-
-
-#define DEBUG_VALUEREF_PARSE 0
-#if DEBUG_VALUEREF_PARSE
-#define NAME(x) x.name(#x); debug(x)
-#else
-#define NAME(x) x.name(#x)
-#endif
-
-// This is just here to satisfy the requirements of qi::debug(<rule>).
-namespace adobe {
-    std::ostream& operator<<(std::ostream& os, const std::vector<name_t>& name_vec)
-    {
-        os << "[ ";
-        for (std::size_t i = 0; i < name_vec.size(); ++i) {
-            os << name_vec[i] << " ";
-        }
-        os << "]";
-        return os;
-    }
-}
 
 namespace {
-
-    typedef qi::rule<
-        parse::token_iterator,
-        adobe::name_t (),
-        parse::skipper_type
-    > name_token_rule;
-
-    template <typename T>
-    struct variable_rule
-    {
-        typedef qi::rule<
-            parse::token_iterator,
-            ValueRef::Variable<T>* (),
-            qi::locals<std::vector<adobe::name_t> >,
-            parse::skipper_type
-        > type;
-    };
-
-#if HAVE_CONDITION_PARSER
-    template <typename T>
-    struct statistic_rule
-    {
-        typedef qi::rule<
-            parse::token_iterator,
-            ValueRef::ValueRefBase<T>* (),
-            qi::locals<
-                std::vector<adobe::name_t>,
-                ValueRef::StatisticType,
-                Condition::ConditionBase* // TODO: Change spelling to Condition::Base in the universe code.
-            >,
-            parse::skipper_type
-        > type;
-    };
-#endif
-
-    template <typename T>
-    struct binary_op_expr_rule
-    {
-        typedef qi::rule<
-            parse::token_iterator,
-            ValueRef::ValueRefBase<T>* (),
-            qi::locals<
-                ValueRef::OpType,
-                ValueRef::ValueRefBase<T>*,
-                ValueRef::ValueRefBase<T>*
-            >,
-            parse::skipper_type
-        > type;
-    };
-
-    template <typename T>
-    void initialize_expression_parsers(
-        typename parse::value_ref_parser_rule<T>::type& negate_expr,
-        typename binary_op_expr_rule<T>::type& multiplicative_expr,
-        typename binary_op_expr_rule<T>::type& additive_expr,
-        typename parse::value_ref_parser_rule<T>::type& expr,
-        typename parse::value_ref_parser_rule<T>::type& primary_expr
-    )
-    {
-        using qi::_1;
-        using qi::_a;
-        using qi::_b;
-        using qi::_c;
-        using qi::_val;
-        using qi::lit;
-        using phoenix::new_;
-
-        negate_expr
-            =    '-' > primary_expr [ _val = new_<ValueRef::Operation<T> >(ValueRef::NEGATE, _1) ]
-            |    primary_expr [ _val = _1 ]
-            ;
-
-        multiplicative_expr
-            = (
-                   negate_expr [ _b = _1 ]
-               >>  (
-                        lit('*') [_a = ValueRef::TIMES]
-                    |   lit('/') [_a = ValueRef::DIVIDES]
-                   )
-               >   multiplicative_expr [ _c = _1 ]
-              )
-              [ _val = new_<ValueRef::Operation<T> >(_a, _b, _c) ]
-            | negate_expr [ _val = _1 ]
-            ;
-
-        additive_expr
-            = (
-                   multiplicative_expr [ _b = _1 ]
-               >>  (
-                        lit('+') [_a = ValueRef::PLUS]
-                    |   lit('-') [_a = ValueRef::MINUS]
-                   )
-               >   additive_expr [ _c = _1 ]
-              )
-              [ _val = new_<ValueRef::Operation<T> >(_a, _b, _c) ]
-            | multiplicative_expr [ _val = _1 ]
-            ;
-
-        expr
-            %=   additive_expr
-            ;
-    }
-
-#if HAVE_CONDITION_PARSER
-    template <typename T>
-    void initialize_numeric_statistic_parser(
-        typename statistic_rule<T>::type& statistic,
-        const name_token_rule& final_token,
-        const parse::lexer& tok
-    )
-    {
-        statistic
-            = (
-                   (
-                        tok.number [ _b = ValueRef::COUNT ]
-                    >>  tok.condition
-                    >   condition/*TODO!*/ [ _c = _1 ]
-                   )
-               |   (
-                        tok.statistic_type_enum [ _b = _1 ]
-                    >>  tok.property
-                    >> -((tok.planet | tok.system | tok.fleet) [ push_back(_a, _1) ] > '.')
-                    >   final_token [ push_back(_a, _1) ]
-                    >   tok.condition
-                    >   condition/*TODO!*/ [ _c = _1 ]
-                   )
-              )
-              [ _val = new_<ValueRef::Statistic<T> >(_a, _b, _c) ]
-            ;
-    }
-
-    template <typename T>
-    void initialize_nonnumeric_statistic_parser(
-        typename statistic_rule<T>::type& statistic,
-        const name_token_rule& final_token,
-        const parse::lexer& tok
-    )
-    {
-        statistic
-            = (
-                   tok.statistic_type_enum [ _b = _1 ] // TODO: Should be "mode" only.
-               >>  tok.property
-               >> -((tok.planet | tok.system | tok.fleet) [ push_back(_a, _1) ] > '.')
-               >   final_token [ push_back(_a, _1) ]
-               >   tok.condition
-               >   condition/*TODO!*/ [ _c = _1 ]
-              )
-              [ _val = new_<ValueRef::Statistic<T> >(_a, _b, _c) ]
-            ;
-    }
-#endif
-
-    struct int_parser_rules
-    {
-        int_parser_rules(const parse::lexer& tok)
-            {
-                using qi::_1;
-                using qi::_2;
-                using qi::_3;
-                using qi::_4;
-                using qi::_a;
-                using qi::_val;
-                using qi::lit;
-                using phoenix::new_;
-                using phoenix::push_back;
-                using phoenix::static_cast_;
-
-                first_token
-                    %=   tok.source
-                    |    tok.target
-                    |    tok.local_candidate
-                    |    tok.root_candidate
-                    ;
-
-                container_token
-                    %=   tok.planet
-                    |    tok.system
-                    |    tok.fleet
-                    ;
-
-                // TODO: Should we apply elements of this list only to certain
-                // containers?  For example, if one writes "Source.Planet.",
-                // "NumShips" should not follow.
-                final_token
-                    %=   tok.owner
-                    |    tok.id
-                    |    tok.creation_turn
-                    |    tok.age
-                    |    tok.produced_by_empire_id
-                    |    tok.design_id
-                    |    tok.fleet_id
-                    |    tok.planet_id
-                    |    tok.system_id
-                    |    tok.final_destination_id
-                    |    tok.next_system_id
-                    |    tok.previous_system_id
-                    |    tok.num_ships
-                    ;
-
-                constant
-                    =    tok.double_ [ _val = new_<ValueRef::Constant<int> >(static_cast_<int>(_1)) ]
-                    |    tok.int_ [ _val = new_<ValueRef::Constant<int> >(_1) ]
-                    ;
-
-                variable
-                    = (
-                           (
-                                first_token [ push_back(_a, _1) ] > '.'
-                            >  -(container_token [ push_back(_a, _1) ] > '.')
-                            >   final_token [ push_back(_a, _1) ]
-                           )
-                       |   (
-                               tok.current_turn
-                            |  tok.value
-                           )
-                           [ push_back(_a, _1) ]
-                      )
-                      [ _val = new_<ValueRef::Variable<int> >(_a) ]
-                    ;
-
-#if HAVE_CONDITION_PARSER
-                initialize_numeric_statistic_parser<int>(statistic, final_token, tok);
-#endif
-
-                initialize_expression_parsers<int>(negate_expr,
-                                                   multiplicative_expr,
-                                                   additive_expr,
-                                                   expr,
-                                                   primary_expr);
-
-                primary_expr
-                    %=   '(' > expr > ')'
-                    |    constant
-                    |    variable
-#if HAVE_CONDITION_PARSER
-                    |    statistic
-#endif
-                    ;
-
-                NAME(first_token);
-                NAME(container_token);
-                NAME(final_token);
-                NAME(constant);
-                NAME(variable);
-#if HAVE_CONDITION_PARSER
-                NAME(statistic);
-#endif
-                NAME(negate_expr);
-                NAME(multiplicative_expr);
-                NAME(additive_expr);
-                NAME(expr);
-                NAME(primary_expr);
-
-                qi::on_error<qi::fail>(expr, parse::report_error(_1, _2, _3, _4));
-            }
-
-        typedef parse::value_ref_parser_rule<int>::type rule;
-        typedef variable_rule<int>::type variable_rule;
-#if HAVE_CONDITION_PARSER
-        typedef statistic_rule<int>::type statistic_rule;
-#endif
-        typedef binary_op_expr_rule<int>::type binary_expression_rule;
-
-        name_token_rule first_token;
-        name_token_rule container_token;
-        name_token_rule final_token;
-        rule constant;
-        variable_rule variable;
-#if HAVE_CONDITION_PARSER
-        statistic_rule statistic;
-#endif
-        rule negate_expr;
-        binary_expression_rule multiplicative_expr;
-        binary_expression_rule additive_expr;
-        rule expr;
-        rule primary_expr;
-    };
-
-    int_parser_rules& get_int_parser_rules(const parse::lexer& tok)
-    {
-        static int_parser_rules retval(tok);
-        return retval;
-    }
 
     struct double_parser_rules
     {
@@ -329,8 +16,8 @@ namespace {
                 using phoenix::push_back;
                 using phoenix::static_cast_;
 
-                name_token_rule& first_token = get_int_parser_rules(tok).first_token;
-                name_token_rule& container_token = get_int_parser_rules(tok).container_token;
+                const name_token_rule& first_token = int_var_first_token(tok);
+                const name_token_rule& container_token = int_var_container_token(tok);
 
                 final_token
                     %=   tok.farming
@@ -383,7 +70,7 @@ namespace {
                        >   (
                                 final_token
                                 [ push_back(_a, _1), _val = new_<ValueRef::Variable<double> >(_a) ]
-                            |   get_int_parser_rules(tok).final_token
+                            |   int_var_final_token(tok)
                                 [ push_back(_a, _1), _val = new_<ValueRef::StaticCast<int, double> >(new_<ValueRef::Variable<int> >(_a)) ]
                            )
                       )
@@ -467,8 +154,8 @@ namespace {
                 using phoenix::push_back;
                 using phoenix::new_;
 
-                name_token_rule& first_token = get_int_parser_rules(tok).first_token;
-                name_token_rule& container_token = get_int_parser_rules(tok).container_token;
+                const name_token_rule& first_token = int_var_first_token(tok);
+                const name_token_rule& container_token = int_var_container_token(tok);
 
                 final_token
                     %=   tok.name
@@ -499,7 +186,7 @@ namespace {
                        >   (
                                 final_token
                                 [ push_back(_a, _1), _val = new_<ValueRef::Variable<std::string> >(_a) ]
-                            |   get_int_parser_rules(tok).final_token
+                            |   int_var_final_token(tok)
                                 [ push_back(_a, _1), _val = new_<ValueRef::StringCast<int> >(new_<ValueRef::Variable<int> >(_a)) ]
                             |   get_double_parser_rules(tok).final_token
                                 [ push_back(_a, _1), _val = new_<ValueRef::StringCast<double> >(new_<ValueRef::Variable<double> >(_a)) ]
@@ -577,8 +264,8 @@ namespace {
                 using phoenix::push_back;
                 using phoenix::static_cast_;
 
-                name_token_rule& first_token = get_int_parser_rules(tok).first_token;
-                name_token_rule& container_token = get_int_parser_rules(tok).container_token;
+                const name_token_rule& first_token = int_var_first_token(tok);
+                const name_token_rule& container_token = int_var_container_token(tok);
 
                 final_token
                     %=   tok.planet_size
@@ -636,8 +323,8 @@ namespace {
                 using phoenix::push_back;
                 using phoenix::static_cast_;
 
-                name_token_rule& first_token = get_int_parser_rules(tok).first_token;
-                name_token_rule& container_token = get_int_parser_rules(tok).container_token;
+                const name_token_rule& first_token = int_var_first_token(tok);
+                const name_token_rule& container_token = int_var_container_token(tok);
 
                 final_token
                     %=   tok.planet_type
@@ -696,8 +383,8 @@ namespace {
                 using phoenix::push_back;
                 using phoenix::static_cast_;
 
-                name_token_rule& first_token = get_int_parser_rules(tok).first_token;
-                name_token_rule& container_token = get_int_parser_rules(tok).container_token;
+                const name_token_rule& first_token = int_var_first_token(tok);
+                const name_token_rule& container_token = int_var_container_token(tok);
 
                 final_token
                     %=   tok.planet_environment
@@ -755,8 +442,8 @@ namespace {
                 using phoenix::push_back;
                 using phoenix::static_cast_;
 
-                name_token_rule& first_token = get_int_parser_rules(tok).first_token;
-                name_token_rule& container_token = get_int_parser_rules(tok).container_token;
+                const name_token_rule& first_token = int_var_first_token(tok);
+                const name_token_rule& container_token = int_var_container_token(tok);
 
                 final_token
                     %=   tok.object_type
@@ -815,8 +502,8 @@ namespace {
                 using phoenix::push_back;
                 using phoenix::static_cast_;
 
-                name_token_rule& first_token = get_int_parser_rules(tok).first_token;
-                name_token_rule& container_token = get_int_parser_rules(tok).container_token;
+                const name_token_rule& first_token = int_var_first_token(tok);
+                const name_token_rule& container_token = int_var_container_token(tok);
 
                 final_token
                     %=   tok.star_type
@@ -867,10 +554,6 @@ namespace {
 
 
 namespace parse {
-
-    template <>
-    const value_ref_parser_rule<int>::type& value_ref_parser<int>(const parse::lexer& tok)
-    { return get_int_parser_rules(tok).expr; }
 
     template <>
     const value_ref_parser_rule<double>::type& value_ref_parser<double>(const parse::lexer& tok)
