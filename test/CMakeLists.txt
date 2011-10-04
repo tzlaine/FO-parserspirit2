@@ -100,6 +100,8 @@ set(THIS_EXE_SOURCES
     ../Lexer.cpp
     ../EnumParser.cpp
     ../IntValueRefParser.cpp
+    ../DoubleValueRefParser.cpp
+    ../StringValueRefParser.cpp
     ../ValueRefParser.cpp
 
     ${CMAKE_BINARY_DIR}/util/Version.cpp
