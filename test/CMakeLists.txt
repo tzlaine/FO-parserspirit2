@@ -98,6 +98,7 @@ set(THIS_EXE_SOURCES
     lexer_test_rules.cpp
 
     ../Lexer.cpp
+    ../EnumParser.cpp
     ../ValueRefParser.cpp
 
     ${CMAKE_BINARY_DIR}/util/Version.cpp
