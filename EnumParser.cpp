@@ -45,6 +45,9 @@ namespace parse {
         static enum_parser_rule<UniverseObjectType>::type retval
             =    tok.universe_object_type_enum [ _val = _1 ]
             |    tok.building [ _val = OBJ_BUILDING ]
+            |    tok.fleet [ _val = OBJ_FLEET ]
+            |    tok.planet [ _val = OBJ_PLANET ]
+            |    tok.system [ _val = OBJ_SYSTEM ]
             ;
         return retval;
     }
