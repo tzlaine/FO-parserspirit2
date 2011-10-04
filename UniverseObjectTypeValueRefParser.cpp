@@ -48,6 +48,18 @@ namespace {
                     |    statistic
 #endif
                     ;
+
+                NAME(final_token);
+                NAME(constant);
+                NAME(variable);
+#if HAVE_CONDITION_PARSER
+                NAME(statistic);
+#endif
+                NAME(primary_expr);
+
+#if 0  // TODO: Fix this!
+                qi::on_error<qi::fail>(primary_expr, parse::report_error(_1, _2, _3, _4));
+#endif
             }
 
         typedef parse::value_ref_parser_rule<UniverseObjectType>::type rule;
@@ -57,7 +69,6 @@ namespace {
 #endif
         typedef binary_op_expr_rule<UniverseObjectType>::type binary_expression_rule;
 
-        name_token_rule container_token;
         name_token_rule final_token;
         rule constant;
         variable_rule variable;
