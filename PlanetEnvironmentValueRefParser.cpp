@@ -1,5 +1,7 @@
 #include "ValueRefParserImpl.h"
 
+#include "EnumParser.h"
+
 #include <GG/ReportParseError.h>
 
 
@@ -24,7 +26,7 @@ namespace {
                     ;
 
                 constant
-                    =    tok.planet_environment_enum [ _val = new_<ValueRef::Constant<PlanetEnvironment> >(_1) ]
+                    =    parse::enum_parser<PlanetEnvironment>(tok) [ _val = new_<ValueRef::Constant<PlanetEnvironment> >(_1) ]
                     |    tok.int_ [ _val = new_<ValueRef::Constant<PlanetEnvironment> >(static_cast_<PlanetEnvironment>(_1)) ]
                     ;
 

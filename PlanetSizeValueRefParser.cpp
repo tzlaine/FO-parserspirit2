@@ -1,5 +1,7 @@
 #include "ValueRefParserImpl.h"
 
+#include "EnumParser.h"
+
 #include <GG/ReportParseError.h>
 
 
@@ -24,7 +26,7 @@ namespace {
                     ;
 
                 constant
-                    =    tok.planet_size_enum [ _val = new_<ValueRef::Constant<PlanetSize> >(_1) ]
+                    =    parse::enum_parser<PlanetSize>(tok) [ _val = new_<ValueRef::Constant<PlanetSize> >(_1) ]
                     |    tok.int_ [ _val = new_<ValueRef::Constant<PlanetSize> >(static_cast_<PlanetSize>(_1)) ]
                     ;
 

@@ -1,5 +1,7 @@
 #include "ValueRefParserImpl.h"
 
+#include "EnumParser.h"
+
 #include <GG/ReportParseError.h>
 
 
@@ -24,7 +26,7 @@ namespace {
                     ;
 
                 constant
-                    =    tok.star_type_enum [ _val = new_<ValueRef::Constant<StarType> >(_1) ]
+                    =    parse::enum_parser<StarType>(tok) [ _val = new_<ValueRef::Constant<StarType> >(_1) ]
                     |    tok.int_ [ _val = new_<ValueRef::Constant<StarType> >(static_cast_<StarType>(_1)) ]
                     ;
 

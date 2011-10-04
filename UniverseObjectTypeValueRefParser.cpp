@@ -1,5 +1,7 @@
 #include "ValueRefParserImpl.h"
 
+#include "EnumParser.h"
+
 #include <GG/ReportParseError.h>
 
 
@@ -24,7 +26,7 @@ namespace {
                     ;
 
                 constant
-                    =    tok.universe_object_type_enum [ _val = new_<ValueRef::Constant<UniverseObjectType> >(_1) ]
+                    =    parse::enum_parser<UniverseObjectType>(tok) [ _val = new_<ValueRef::Constant<UniverseObjectType> >(_1) ]
                     |    tok.int_ [ _val = new_<ValueRef::Constant<UniverseObjectType> >(static_cast_<UniverseObjectType>(_1)) ]
                     ;
 
