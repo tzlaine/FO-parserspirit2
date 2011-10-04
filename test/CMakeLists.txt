@@ -158,3 +158,7 @@ add_test_and_data_files(parser_test double_value_ref_parser -f double_variable_a
 add_test_and_data_files(parser_test double_value_ref_parser -f int_arithmetic)
 add_test_and_data_files(parser_test double_value_ref_parser -f int_variable)
 add_test_and_data_files(parser_test double_value_ref_parser -f int_variable_arithmetic)
+add_test_and_data_files(parser_test string_value_ref_parser -f string_constant)
+add_test_and_data_files(parser_test string_value_ref_parser -f string_variable)
+add_test_and_data_files(parser_test string_value_ref_parser -f double_variable)
+add_test_and_data_files(parser_test string_value_ref_parser -f int_variable)

@@ -413,8 +413,6 @@ namespace {
 #endif
                     ;
 
-                NAME(first_token);
-                NAME(container_token);
                 NAME(final_token);
                 NAME(constant);
                 NAME(variable);
@@ -426,6 +424,10 @@ namespace {
                 NAME(additive_expr);
                 NAME(expr);
                 NAME(primary_expr);
+
+#if 0  // TODO: Fix this!
+                qi::on_error<qi::fail>(expr, parse::report_error(_1, _2, _3, _4));
+#endif
             }
 
         typedef parse::value_ref_parser_rule<double>::type rule;
@@ -461,6 +463,7 @@ namespace {
                 using qi::_1;
                 using qi::_a;
                 using qi::_val;
+                using qi::as_string;
                 using phoenix::push_back;
                 using phoenix::new_;
 
@@ -476,7 +479,7 @@ namespace {
 
                 constant
                     =    tok.string [ _val = new_<ValueRef::Constant<std::string> >(_1) ]
-#if 0 // TODO: Turn this on; verify that it works (requires Boost 1.47).
+#if 1 // TODO: Turn this on; verify that it works (requires Boost 1.47).
                     |    as_string [
                               tok.planet_size_enum
                           |   tok.planet_type_enum
@@ -525,6 +528,22 @@ namespace {
                     |    statistic
 #endif
                     ;
+
+                NAME(final_token);
+                NAME(constant);
+                NAME(variable);
+#if HAVE_CONDITION_PARSER
+                NAME(statistic);
+#endif
+                NAME(negate_expr);
+                NAME(multiplicative_expr);
+                NAME(additive_expr);
+                NAME(expr);
+                NAME(primary_expr);
+
+#if 0  // TODO: Fix this!
+                qi::on_error<qi::fail>(expr, parse::report_error(_1, _2, _3, _4));
+#endif
             }
 
         typedef parse::value_ref_parser_rule<std::string>::type rule;
