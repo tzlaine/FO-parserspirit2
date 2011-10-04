@@ -102,7 +102,11 @@ set(THIS_EXE_SOURCES
     ../IntValueRefParser.cpp
     ../DoubleValueRefParser.cpp
     ../StringValueRefParser.cpp
-    ../ValueRefParser.cpp
+    ../PlanetSizeValueRefParser.cpp
+    ../PlanetTypeValueRefParser.cpp
+    ../PlanetEnvironmentValueRefParser.cpp
+    ../UniverseObjectTypeValueRefParser.cpp
+    ../StarTypeValueRefParser.cpp
 
     ${CMAKE_BINARY_DIR}/util/Version.cpp
 )
