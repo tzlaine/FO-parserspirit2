@@ -1,5 +1,7 @@
 #include "ValueRefParserImpl.h"
 
+#include "EnumParser.h"
+
 #include <GG/ReportParseError.h>
 
 
@@ -28,17 +30,15 @@ namespace {
 
                 constant
                     =    tok.string [ _val = new_<ValueRef::Constant<std::string> >(_1) ]
-#if 1 // TODO: Turn this on; verify that it works (requires Boost 1.47).
                     |    as_string [
-                              tok.planet_size_enum
-                          |   tok.planet_type_enum
-                          |   tok.planet_environment_enum
-                          |   tok.universe_object_type_enum
-                          |   tok.star_type_enum
+                              parse::enum_parser<PlanetSize>(tok)
+                          |   parse::enum_parser<PlanetType>(tok)
+                          |   parse::enum_parser<PlanetEnvironment>(tok)
+                          |   parse::enum_parser<UniverseObjectType>(tok)
+                          |   parse::enum_parser<StarType>(tok)
                           |   tok.double_
                           |   tok.int_
                          ]
-#endif
                     ;
 
                 variable
