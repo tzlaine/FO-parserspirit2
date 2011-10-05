@@ -1,0 +1,1256 @@
+Index: universe/Names.h
+===================================================================
+--- universe/Names.h	(revision 0)
++++ universe/Names.h	(revision 0)
+@@ -0,0 +1,86 @@
++// -*- C++ -*-
++#ifndef _Names_h_
++#define _Names_h_
++
++#include <GG/adobe/name.hpp>
++
++
++#define DECLARE_NAME(name) extern adobe::aggregate_name_t name##_name
++
++DECLARE_NAME(Name);
++DECLARE_NAME(Species);
++DECLARE_NAME(BuildingType);
++DECLARE_NAME(Focus);
++DECLARE_NAME(Planet);
++DECLARE_NAME(System);
++DECLARE_NAME(Fleet);
++DECLARE_NAME(Value);
++DECLARE_NAME(PlanetSize);
++DECLARE_NAME(PlanetType);
++DECLARE_NAME(NextBetterPlanetType);
++DECLARE_NAME(PlanetEnvironment);
++DECLARE_NAME(ObjectType);
++DECLARE_NAME(StarType);
++DECLARE_NAME(Population);
++DECLARE_NAME(TargetPopulation);
++DECLARE_NAME(Health);
++DECLARE_NAME(TargetHealth);
++DECLARE_NAME(Farming);
++DECLARE_NAME(TargetFarming);
++DECLARE_NAME(Industry);
++DECLARE_NAME(TargetIndustry);
++DECLARE_NAME(Research);
++DECLARE_NAME(TargetResearch);
++DECLARE_NAME(Trade);
++DECLARE_NAME(TargetTrade);
++DECLARE_NAME(Mining);
++DECLARE_NAME(TargetMining);
++DECLARE_NAME(Construction);
++DECLARE_NAME(TargetConstruction);
++DECLARE_NAME(MaxFuel);
++DECLARE_NAME(Fuel);
++DECLARE_NAME(MaxStructure);
++DECLARE_NAME(Structure);
++DECLARE_NAME(MaxShield);
++DECLARE_NAME(Shield);
++DECLARE_NAME(MaxDefense);
++DECLARE_NAME(Defense);
++DECLARE_NAME(MaxTroops);
++DECLARE_NAME(Troops);
++DECLARE_NAME(FoodConsumption);
++DECLARE_NAME(Supply);
++DECLARE_NAME(Stealth);
++DECLARE_NAME(Detection);
++DECLARE_NAME(BattleSpeed);
++DECLARE_NAME(StarlaneSpeed);
++DECLARE_NAME(Damage);
++DECLARE_NAME(ROF);
++DECLARE_NAME(Range);
++DECLARE_NAME(Speed);
++DECLARE_NAME(Capacity);
++DECLARE_NAME(AntiShipDamage);
++DECLARE_NAME(AntiFighterDamage);
++DECLARE_NAME(LaunchRate);
++DECLARE_NAME(FighterWeaponRange);
++DECLARE_NAME(TradeStockpile);
++DECLARE_NAME(MineralStockpile);
++DECLARE_NAME(FoodStockpile);
++DECLARE_NAME(DistanceToSource);
++DECLARE_NAME(Owner);
++DECLARE_NAME(ID);
++DECLARE_NAME(CreationTurn);
++DECLARE_NAME(Age);
++DECLARE_NAME(ProducedByEmpireID);
++DECLARE_NAME(DesignID);
++DECLARE_NAME(FleetID);
++DECLARE_NAME(PlanetID);
++DECLARE_NAME(SystemID);
++DECLARE_NAME(FinalDestinationID);
++DECLARE_NAME(NextSystemID);
++DECLARE_NAME(PreviousSystemID);
++DECLARE_NAME(NumShips);
++DECLARE_NAME(CurrentTurn);
++
++#undef DECLARE_NAME
++
++#endif
+Index: universe/ValueRef_2.h
+===================================================================
+--- universe/ValueRef_2.h	(revision 0)
++++ universe/ValueRef_2.h	(revision 0)
+@@ -0,0 +1,334 @@
++// -*- C++ -*-
++#ifndef _ValueRef_h_
++#define _ValueRef_h_
++
++#include "Enums.h"
++#include "ValueRefFwd_2.h"
++#if 0
++#include "Condition.h"
++#endif
++#include "../util/MultiplayerCommon.h"
++
++#include <GG/adobe/name.hpp>
++
++#include <boost/algorithm/string/case_conv.hpp>
++#include <boost/format.hpp>
++#include <boost/mpl/if.hpp>
++#include <boost/lexical_cast.hpp>
++#include <boost/type_traits/is_enum.hpp>
++
++#include <string>
++#include <vector>
++#include <map>
++
++class UniverseObject;
++namespace boost {
++    class any;
++}
++
++struct ScriptingContext {
++    /** Empty context.  Useful for evaluating ValueRef::Constant that don't
++      * depend on their context. */
++    ScriptingContext();
++
++    /** Context with only a source object.  Useful for evaluating effectsgroup
++      * scope and activation conditions that have no external candidates or
++      * effect target to propegate. */
++    explicit ScriptingContext(const UniverseObject* source_);
++
++    ScriptingContext(const UniverseObject* source_, UniverseObject* target_);
++
++    ScriptingContext(const UniverseObject* source_, UniverseObject* target_,
++                     const boost::any& current_value_);
++
++    /** For evaluating ValueRef in an Effect::Execute function.  Keeps input
++      * context, but specifies the current value. */
++    ScriptingContext(const ScriptingContext& context,
++                     const boost::any& current_value_);
++
++    /** For recusrive evaluation of Conditions.  Keeps source and effect_target
++      * from input context, but sets local candidate with input object, and if
++      * there is no root candidate in the parent context, then the input object
++      * becomes the root candidate. */
++    ScriptingContext(const ScriptingContext& parent_context,
++                     const UniverseObject* condition_local_candidate);
++
++    ScriptingContext(const UniverseObject* source_, UniverseObject* target_,
++                     const boost::any& current_value_,
++                     const UniverseObject* condition_root_candidate_,
++                     const UniverseObject* condition_local_candidate_);
++
++    const UniverseObject*   source;
++    UniverseObject*         effect_target;
++    const UniverseObject*   condition_root_candidate;
++    const UniverseObject*   condition_local_candidate;
++    const boost::any        current_value;
++};
++
++namespace ValueRef {
++
++    /** the constant value leaf ValueRef class. */
++    template <class T>
++    struct Constant
++    {
++        Constant(T value) : m_value(value) {}
++
++        T m_value;
++    };
++
++    /** The variable value ValueRef class.  The value returned by this node is
++        taken from either the \a source or \a target parameters to Eval. */
++    template <class T>
++    struct Variable
++    {
++        Variable(ReferenceType ref_type, const std::vector<adobe::name_t>& property_name) :
++            m_ref_type(ref_type),
++            m_property_name(property_name)
++            {}
++
++        ReferenceType                   m_ref_type;
++        std::vector<adobe::name_t>      m_property_name;
++    };
++
++#if 0 // TODO
++    /** The variable statistic class.  The value returned by this node is
++        computed from the general gamestate; the value of the indicated \a
++        property_name is computed for each object that matches \a
++        sampling_condition and the statistic indicated by \a stat_type is
++        calculated from them and returned. */
++    template <class T>
++    struct Statistic : public Variable<T>
++    {
++        Statistic(const std::string& property_name,
++                  StatisticType stat_type,
++                  const Condition::ConditionBase* sampling_condition);
++
++        StatisticType                   GetStatisticType() const;
++        const Condition::ConditionBase* SamplingCondition() const;
++
++        virtual T                       Eval(const ScriptingContext& context) const;
++
++        virtual bool                    RootCandidateInvariant() const;
++        virtual bool                    LocalCandidateInvariant() const;
++        virtual bool                    TargetInvariant() const;
++
++        virtual std::string             Description() const;
++        virtual std::string             Dump() const;
++
++    protected:
++        Statistic(const std::vector<std::string>& property_name,
++                  StatisticType stat_type,
++                  const Condition::ConditionBase* sampling_condition);
++
++        /** Gets the set of objects in the Universe that match the sampling condition. */
++        void    GetConditionMatches(const ScriptingContext& context,
++                                    Condition::ObjectSet& condition_targets,
++                                    const Condition::ConditionBase* condition) const;
++
++        /** Evaluates the property for the specified objects. */
++        void    GetObjectPropertyValues(const ScriptingContext& context,
++                                        const Condition::ObjectSet& objects,
++                                        std::map<const UniverseObject*, T>& object_property_values) const;
++
++        /** Computes the statistic from the specified set of property values. */
++        T       ReduceData(const std::map<const UniverseObject*, T>& object_property_values) const;
++
++    private:
++        StatisticType                   m_stat_type;
++        const Condition::ConditionBase* m_sampling_condition;
++
++        friend class boost::serialization::access;
++        template <class Archive>
++        void serialize(Archive& ar, const unsigned int version);
++    };
++#endif
++
++    /** The variable static_cast class.  The value returned by this node is
++        taken from the ctor \a value_ref parameter's FromType value,
++        static_cast to ToType. */
++    struct IntToDoubleStaticCast
++    {
++        IntToDoubleStaticCast(const IntValueRef& value_ref) : m_value_ref(value_ref) {}
++
++        IntValueRef m_value_ref;
++    };
++
++    /** The variable lexical_cast to string class.  The value returned by this
++        node is taken from the ctor \a value_ref parameter's FromType value,
++        lexical_cast to std::string */
++    template <class T>
++    struct LexicalCast
++    {
++        typedef typename detail::value_ref_type<T>::type variant_type;
++
++        LexicalCast(const variant_type& value_ref) : m_value_ref(value_ref) {}
++
++        variant_type m_value_ref;
++    };
++
++    /** An addition operation node ValueRef class. */
++    template <class T>
++    struct Addition
++    {
++        typedef typename detail::value_ref_type<T>::type variant_type;
++
++        Addition(const variant_type& operand1, const variant_type& operand2) :
++            m_operand1(operand1),
++            m_operand2(operand2)
++            {}
++
++        variant_type m_operand1;
++        variant_type m_operand2;
++    };
++
++    /** A subtraction operation node ValueRef class. */
++    template <class T>
++    struct Subtraction
++    {
++        typedef typename detail::value_ref_type<T>::type variant_type;
++
++        Subtraction(const variant_type& operand1, const variant_type& operand2) :
++            m_operand1(operand1),
++            m_operand2(operand2)
++            {}
++
++        variant_type m_operand1;
++        variant_type m_operand2;
++    };
++
++    /** A multiplication operation node ValueRef class. */
++    template <class T>
++    struct Multiplication
++    {
++        typedef typename detail::value_ref_type<T>::type variant_type;
++
++        Multiplication(const variant_type& operand1, const variant_type& operand2) :
++            m_operand1(operand1),
++            m_operand2(operand2)
++            {}
++
++        variant_type m_operand1;
++        variant_type m_operand2;
++    };
++
++    /** A division operation node ValueRef class. */
++    template <class T>
++    struct Division
++    {
++        typedef typename detail::value_ref_type<T>::type variant_type;
++
++        Division(const variant_type& operand1, const variant_type& operand2) :
++            m_operand1(operand1),
++            m_operand2(operand2)
++            {}
++
++        variant_type m_operand1;
++        variant_type m_operand2;
++    };
++
++    /** A negation operation node ValueRef class. */
++    template <class T>
++    struct Negation
++    {
++        typedef typename detail::value_ref_type<T>::type variant_type;
++
++        Negation(const variant_type& operand) : m_operand(operand) {}
++
++        variant_type m_operand;
++    };
++
++    namespace detail {
++
++        template <typename T>
++        T evaluate_variable(const Variable<T>& e, const ScriptingContext& context);
++
++        template <>
++        int evaluate_variable<int>(const Variable<int>& e, const ScriptingContext& context);
++
++        template <>
++        double evaluate_variable<double>(const Variable<double>& e, const ScriptingContext& context);
++
++        template <>
++        std::string evaluate_variable<std::string>(const Variable<std::string>& e, const ScriptingContext& context);
++
++        template <>
++        PlanetSize evaluate_variable<PlanetSize>(const Variable<PlanetSize>& e, const ScriptingContext& context);
++
++        template <>
++        PlanetType evaluate_variable<PlanetType>(const Variable<PlanetType>& e, const ScriptingContext& context);
++
++        template <>
++        PlanetEnvironment evaluate_variable<PlanetEnvironment>(const Variable<PlanetEnvironment>& e, const ScriptingContext& context);
++
++        template <>
++        UniverseObjectType evaluate_variable<UniverseObjectType>(const Variable<UniverseObjectType>& e, const ScriptingContext& context);
++
++        template <>
++        StarType evaluate_variable<StarType>(const Variable<StarType>& e, const ScriptingContext& context);
++
++        template <typename T>
++        struct evaluate_expr :
++            public boost::static_visitor<T>
++        {
++            evaluate_expr(const ScriptingContext& context) : m_context(&context) {}
++
++            T operator()(const Constant<T>& e) const
++                { return e.m_value; }
++            T operator()(const Variable<T>& e) const
++                { return evaluate_variable<T>(e, *m_context); }
++
++            double operator()(const IntToDoubleStaticCast& e) const
++                { return static_cast<double>(boost::apply_visitor(evaluate_expr<int>(), e)); }
++            std::string operator()(const LexicalCast<T>& e) const
++                { return boost::lexical_cast<std::string>(boost::apply_visitor(*this, e)); }
++
++            T operator()(const Addition<T>& e) const
++                { return boost::apply_visitor(*this, e.m_operand1) + boost::apply_visitor(*this, e.m_operand2); }
++            T operator()(const Subtraction<T>& e) const
++                { return boost::apply_visitor(*this, e.m_operand1) - boost::apply_visitor(*this, e.m_operand2); }
++            T operator()(const Multiplication<T>& e) const
++                { return boost::apply_visitor(*this, e.m_operand1) * boost::apply_visitor(*this, e.m_operand2); }
++            T operator()(const Division<T>& e) const
++                { return boost::apply_visitor(*this, e.m_operand1) / boost::apply_visitor(*this, e.m_operand2); }
++            T operator()(const Negation<T>& e) const
++                { return -boost::apply_visitor(*this, e.m_operand); }
++
++            const ScriptingContext* m_context;
++        };
++
++    }
++
++    template <typename T>
++    T Eval(const typename detail::value_ref_type<T>::type& value_ref, const ScriptingContext& context = ScriptingContext())
++    { return boost::apply_visitor(detail::evaluate_expr<T>(context), value_ref); }
++
++#if 0 // TODO
++    template <typename T>
++    void Description(const typename detail::value_ref_type<T>::type& value_ref)
++    { return boost::apply_visitor(detail::describe_expr(), value_ref); }
++
++    template <typename T>
++    void Dump(const typename detail::value_ref_type<T>::type& value_ref)
++    { return boost::apply_visitor(detail::dump_expr(), value_ref); }
++
++    template <typename T>
++    bool TargetInvariant(const typename detail::value_ref_type<T>::type& value_ref)
++    { return boost::apply_visitor(detail::target_invariant(), value_ref); }
++
++    template <typename T>
++    bool RootCandidateInvariant(const typename detail::value_ref_type<T>::type& value_ref)
++    { return boost::apply_visitor(detail::root_candidate_invariant(), value_ref); }
++
++    template <typename T>
++    bool LocalCandidateInvariant(const typename detail::value_ref_type<T>::type& value_ref)
++    { return boost::apply_visitor(detail::local_candidate_invariant(), value_ref); }
++#endif
++
++}
++
++/** A function that returns the correct amount of spacing for the current
++  * indentation level during a dump.  Note that this function is used by
++  * several units (Condition.cpp, Effect.cpp, etc.), not just this one. */
++std::string DumpIndent();
++
++#endif // _ValueRef_h_
+Index: universe/ValueRefFwd_2.h
+===================================================================
+--- universe/ValueRefFwd_2.h	(revision 0)
++++ universe/ValueRefFwd_2.h	(revision 0)
+@@ -0,0 +1,221 @@
++// -*- C++ -*-
++#ifndef _ValueRefFwd_h_
++#define _ValueRefFwd_h_
++
++#include <boost/variant.hpp>
++
++
++/** This namespace contains ValueRefBase and its subclasses.  The ValueRefBase
++  * subclasses represent expression trees that may be evaluated at various
++  * times, and which refer to both constant and variable values. */
++namespace ValueRef {
++
++    enum ReferenceType {
++        INVALID_REFERENCE_TYPE = -1,
++        NON_OBJECT_REFERENCE,               // ValueRef::Variable is not evalulated on any specific object
++        SOURCE_REFERENCE,                   // ValueRef::Variable is evaluated on the source object
++        EFFECT_TARGET_REFERENCE,            // ValueRef::Variable is evaluated on the target object of an effect while it is being executed
++        CONDITION_LOCAL_CANDIDATE_REFERENCE,// ValueRef::Variable is evaluated on an object that is a candidate to be matched by a condition.  In a subcondition, this will reference the local candidate, and not the candidate of an enclosing condition.
++        CONDITION_ROOT_CANDIDATE_REFERENCE  // ValueRef::Variable is evaluated on an object that is a candidate to be matched by a condition.  In a subcondition, this will still reference the root candidate, and not the candidate of the local condition.
++    };
++
++    enum StatisticType {
++        COUNT,  // returns the number of objects matching the condition
++        SUM,    // returns the sum of the property values of all objects matching the condition
++        MEAN,   // returns the mean of the property values of all objects matching the condition
++        RMS,    // returns the sqrt of the mean of the squares of the property values of all objects matching the condition
++        MODE,   // returns the most common property value of objects matching the condition.  supported for non-numeric types such as enums.
++        MAX,    // returns the maximum value of the property amongst objects matching the condition
++        MIN,    // returns the minimum value of the property amongst objects matching the condition
++        SPREAD, // returns the (positive) difference between the maximum and minimum values of the property amongst objects matching the condition
++        STDEV,  // returns the standard deviation of the property values of all objects matching the condition
++        PRODUCT // returns the product of the property values of all objects matching the condition
++    };
++
++    template <class T>
++    struct Constant;
++    template <class T>
++    struct Variable;
++    template <class T>
++    struct Statistic;
++    struct IntToDoubleStaticCast;
++    template <class FromVariantType>
++    struct LexicalCast;
++    template <class T>
++    struct Addition;
++    template <class T>
++    struct Subtraction;
++    template <class T>
++    struct Multiplication;
++    template <class T>
++    struct Division;
++    template <class T>
++    struct Negation;
++
++    // NOTE: It is assumed in much of the supporting code that Constant<> is
++    // the first element of each variant type.  Please do not break this
++    // convention.
++
++    typedef boost::variant<
++        Constant<int>,
++        Variable<int>,
++        boost::recursive_wrapper<Addition<int> >,
++        boost::recursive_wrapper<Subtraction<int> >,
++        boost::recursive_wrapper<Multiplication<int> >,
++        boost::recursive_wrapper<Division<int> >,
++        boost::recursive_wrapper<Negation<int> >
++    > IntValueRef;
++
++    typedef boost::variant<
++        Constant<double>,
++        Variable<double>,
++        IntToDoubleStaticCast,
++        boost::recursive_wrapper<Addition<double> >,
++        boost::recursive_wrapper<Subtraction<double> >,
++        boost::recursive_wrapper<Multiplication<double> >,
++        boost::recursive_wrapper<Division<double> >,
++        boost::recursive_wrapper<Negation<double> >
++    > DoubleValueRef;
++
++    typedef boost::variant<
++        Constant<std::string>,
++        Variable<std::string>,
++        LexicalCast<int>,
++        LexicalCast<double>
++    > StringValueRef;
++
++    template <typename T>
++    struct enum_value_ref
++    {
++        typedef boost::variant<
++            Constant<T>,
++            Variable<T>
++        > type;
++    };
++
++    typedef enum_value_ref<PlanetSize>::type PlanetSizeValueRef;
++    typedef enum_value_ref<PlanetType>::type PlanetTypeValueRef;
++    typedef enum_value_ref<PlanetEnvironment>::type PlanetEnvironmentValueRef;
++    typedef enum_value_ref<UniverseObjectType>::type UniverseObjectTypeValueRef;
++    typedef enum_value_ref<StarType>::type StarTypeValueRef;
++
++    namespace detail {
++
++        template <typename T>
++        struct value_ref_type;
++
++        template <>
++        struct value_ref_type<int>
++        { typedef IntValueRef type; };
++
++        template <>
++        struct value_ref_type<double>
++        { typedef DoubleValueRef type; };
++
++        template <>
++        struct value_ref_type<std::string>
++        { typedef StringValueRef type; };
++
++        template <>
++        struct value_ref_type<PlanetSize>
++        { typedef PlanetSizeValueRef type; };
++
++        template <>
++        struct value_ref_type<PlanetType>
++        { typedef PlanetTypeValueRef type; };
++
++        template <>
++        struct value_ref_type<PlanetEnvironment>
++        { typedef PlanetEnvironmentValueRef type; };
++
++        template <>
++        struct value_ref_type<UniverseObjectType>
++        { typedef UniverseObjectTypeValueRef type; };
++
++        template <>
++        struct value_ref_type<StarType>
++        { typedef StarTypeValueRef type; };
++
++        struct const_expr :
++            public boost::static_visitor<bool>
++        {
++            template <typename T>
++            bool operator()(const T&) const
++                { return false; }
++
++            bool operator()(const Constant<int>&) const
++                { return true; }
++            bool operator()(const Constant<double>&) const
++                { return true; }
++            bool operator()(const Constant<std::string>&) const
++                { return true; }
++            bool operator()(const Constant<PlanetSize>&) const
++                { return true; }
++            bool operator()(const Constant<PlanetType>&) const
++                { return true; }
++            bool operator()(const Constant<PlanetEnvironment>&) const
++                { return true; }
++            bool operator()(const Constant<UniverseObjectType>&) const
++                { return true; }
++            bool operator()(const Constant<StarType>&) const
++                { return true; }
++        };
++
++        template <typename T>
++        struct optimize_expr :
++            public boost::static_visitor<typename detail::value_ref_type<T>::type>
++        {
++            typedef typename detail::value_ref_type<T>::type variant_type;
++
++            template <typename U>
++            variant_type operator()(const U& u) const
++                { return T(u); }
++
++#define BINARY_OPERATION(name, op)                                      \
++            variant_type operator()(const name<T>& e) const             \
++                {                                                       \
++                    const variant_type& op1 =                           \
++                        boost::apply_visitor(*this, e.m_operand1);      \
++                    const variant_type& op2 =                           \
++                        boost::apply_visitor(*this, e.m_operand2);      \
++                    if (!op1.which() && !op2.which()) {                 \
++                        return variant_type(                            \
++                            Constant<T>(                                \
++                                boost::get<Constant<T> >(op1).m_value   \
++                                op                                      \
++                                boost::get<Constant<T> >(op2).m_value   \
++                            )                                           \
++                        );                                              \
++                    } else {                                            \
++                        return variant_type(name<T>(op1, op2));         \
++                    }                                                   \
++                }
++
++            BINARY_OPERATION(Addition, +)
++            BINARY_OPERATION(Subtraction, -)
++            BINARY_OPERATION(Multiplication, *)
++            BINARY_OPERATION(Division, /)
++
++            variant_type operator()(const Negation<T>& e) const
++                {
++                    const variant_type& op = boost::apply_visitor(*this, e.m_operand);
++                    if (!op.which())
++                        return variant_type(Constant<T>(-boost::get<Constant<T> >(op)).m_value);
++                    else
++                        return variant_type(Negation<T>(op));
++                }
++        };
++
++    }
++
++    template <class T>
++    bool ConstantExpr(const boost::variant<T>& expr)
++    { return boost::apply_visitor(detail::const_expr(), expr); }
++
++    template <class T>
++    typename detail::value_ref_type<T>::type OptimizeExpr(const typename detail::value_ref_type<T>::type& expr)
++    { return boost::apply_visitor(detail::optimize_expr<T>(), expr); }
++
++}
++
++#endif // _ValueRefFwd_h_
+Index: universe/Names.cpp
+===================================================================
+--- universe/Names.cpp	(revision 0)
++++ universe/Names.cpp	(revision 0)
+@@ -0,0 +1,80 @@
++#include "Names.h"
++
++
++#define DEFINE_NAME(name) adobe::aggregate_name_t name##_name = { #name }
++
++DEFINE_NAME(Name);
++DEFINE_NAME(Species);
++DEFINE_NAME(BuildingType);
++DEFINE_NAME(Focus);
++DEFINE_NAME(Planet);
++DEFINE_NAME(System);
++DEFINE_NAME(Fleet);
++DEFINE_NAME(Value);
++DEFINE_NAME(PlanetSize);
++DEFINE_NAME(PlanetType);
++DEFINE_NAME(NextBetterPlanetType);
++DEFINE_NAME(PlanetEnvironment);
++DEFINE_NAME(ObjectType);
++DEFINE_NAME(StarType);
++DEFINE_NAME(Population);
++DEFINE_NAME(TargetPopulation);
++DEFINE_NAME(Health);
++DEFINE_NAME(TargetHealth);
++DEFINE_NAME(Farming);
++DEFINE_NAME(TargetFarming);
++DEFINE_NAME(Industry);
++DEFINE_NAME(TargetIndustry);
++DEFINE_NAME(Research);
++DEFINE_NAME(TargetResearch);
++DEFINE_NAME(Trade);
++DEFINE_NAME(TargetTrade);
++DEFINE_NAME(Mining);
++DEFINE_NAME(TargetMining);
++DEFINE_NAME(Construction);
++DEFINE_NAME(TargetConstruction);
++DEFINE_NAME(MaxFuel);
++DEFINE_NAME(Fuel);
++DEFINE_NAME(MaxStructure);
++DEFINE_NAME(Structure);
++DEFINE_NAME(MaxShield);
++DEFINE_NAME(Shield);
++DEFINE_NAME(MaxDefense);
++DEFINE_NAME(Defense);
++DEFINE_NAME(MaxTroops);
++DEFINE_NAME(Troops);
++DEFINE_NAME(FoodConsumption);
++DEFINE_NAME(Supply);
++DEFINE_NAME(Stealth);
++DEFINE_NAME(Detection);
++DEFINE_NAME(BattleSpeed);
++DEFINE_NAME(StarlaneSpeed);
++DEFINE_NAME(Damage);
++DEFINE_NAME(ROF);
++DEFINE_NAME(Range);
++DEFINE_NAME(Speed);
++DEFINE_NAME(Capacity);
++DEFINE_NAME(AntiShipDamage);
++DEFINE_NAME(AntiFighterDamage);
++DEFINE_NAME(LaunchRate);
++DEFINE_NAME(FighterWeaponRange);
++DEFINE_NAME(TradeStockpile);
++DEFINE_NAME(MineralStockpile);
++DEFINE_NAME(FoodStockpile);
++DEFINE_NAME(DistanceToSource);
++DEFINE_NAME(Owner);
++DEFINE_NAME(ID);
++DEFINE_NAME(CreationTurn);
++DEFINE_NAME(Age);
++DEFINE_NAME(ProducedByEmpireID);
++DEFINE_NAME(DesignID);
++DEFINE_NAME(FleetID);
++DEFINE_NAME(PlanetID);
++DEFINE_NAME(SystemID);
++DEFINE_NAME(FinalDestinationID);
++DEFINE_NAME(NextSystemID);
++DEFINE_NAME(PreviousSystemID);
++DEFINE_NAME(NumShips);
++DEFINE_NAME(CurrentTurn);
++
++#undef DEFINE_NAME
+Index: universe/ValueRef.h
+===================================================================
+--- universe/ValueRef.h	(revision 4281)
++++ universe/ValueRef.h	(working copy)
+@@ -7,6 +7,8 @@
+ #include "Condition.h"
+ #include "../util/MultiplayerCommon.h"
+ 
++#include <GG/adobe/name.hpp>
++
+ #include <boost/algorithm/string/case_conv.hpp>
+ #include <boost/format.hpp>
+ #include <boost/mpl/if.hpp>
+@@ -130,6 +132,8 @@
+       * otherwise, the same field is read from Eval's \a target parameter. */
+     Variable(ReferenceType ref_type, const std::string& property_name);
+ 
++    Variable(const std::vector<adobe::name_t>& property_name) {}
++
+     ReferenceType                   GetReferenceType() const;
+     const std::vector<std::string>& PropertyName() const;
+ 
+Index: universe/ValueRef_2.cpp
+===================================================================
+--- universe/ValueRef_2.cpp	(revision 0)
++++ universe/ValueRef_2.cpp	(revision 0)
+@@ -0,0 +1,470 @@
++#include "ValueRef_2.h"
++
++#include "Names.h"
++#include "Building.h"
++#include "Fleet.h"
++#include "Planet.h"
++#include "System.h"
++#include "../Empire/Empire.h"
++#include "../Empire/EmpireManager.h"
++
++
++namespace {
++
++    const UniverseObject* FollowReference(std::vector<adobe::name_t>::const_iterator first,
++                                          std::vector<adobe::name_t>::const_iterator last,
++                                          ValueRef::ReferenceType ref_type,
++                                          const ScriptingContext& context)
++    {
++        const UniverseObject* obj(0);
++        switch (ref_type) {
++        case ValueRef::INVALID_REFERENCE_TYPE:
++        case ValueRef::NON_OBJECT_REFERENCE:
++            return 0;
++        case ValueRef::SOURCE_REFERENCE:                    obj = context.source;                    break;
++        case ValueRef::EFFECT_TARGET_REFERENCE:             obj = context.effect_target;             break;
++        case ValueRef::CONDITION_LOCAL_CANDIDATE_REFERENCE: obj = context.condition_local_candidate; break;
++        case ValueRef::CONDITION_ROOT_CANDIDATE_REFERENCE:  obj = context.condition_root_candidate;  break;
++        }
++
++        const ObjectMap& objects = GetMainObjectMap();
++        while (first != last) {
++            adobe::name_t property_name = *first;
++            if (property_name == Planet_name) {
++                if (const Building* b = universe_object_cast<const Building*>(obj))
++                    obj = objects.Object<Planet>(b->PlanetID());
++                else
++                    obj = 0;
++            } else if (property_name == System_name) {
++                if (obj)
++                    obj = objects.Object<System>(obj->SystemID());
++            } else if (property_name == Fleet_name) {
++                if (const Ship* s = universe_object_cast<const Ship*>(obj))
++                    obj = objects.Object<Fleet>(s->FleetID());
++                else
++                    obj = 0;
++            }
++            ++first;
++        }
++        return obj;
++    }
++
++    std::string ReconstructName(const std::vector<adobe::name_t>& property_name,
++                                ValueRef::ReferenceType ref_type)
++    {
++        std::string retval;
++        switch (ref_type) {
++        case ValueRef::SOURCE_REFERENCE:                    retval = "Source";          break;
++        case ValueRef::EFFECT_TARGET_REFERENCE: {
++            // "Value" is actually a reference to the target object, but we
++            // don't want to output "Target.Value", so if "Value" is the
++            // property name, skip prepending "Target".  Otherwise, prepend
++            // target as with other direct object references.
++
++            if (property_name[0] != Value_name)
++                retval = "Target";
++            break;
++        }
++        case ValueRef::CONDITION_LOCAL_CANDIDATE_REFERENCE: retval = "LocalCandidate";  break;
++        case ValueRef::CONDITION_ROOT_CANDIDATE_REFERENCE:  retval = "RootCandidate";   break;
++        default:                                            retval = "?????";   break;
++        }
++        for (unsigned int i = 0; i < property_name.size(); ++i) {
++            retval += '.';
++            retval += property_name[i].c_str();
++        }
++        return retval;
++    }
++
++    struct ObjectTypeVisitor : UniverseObjectVisitor
++    {
++        ObjectTypeVisitor() : m_type(INVALID_UNIVERSE_OBJECT_TYPE) {}
++
++        virtual UniverseObject* Visit(Building* obj) const
++            { m_type = OBJ_BUILDING; return obj; }
++        virtual UniverseObject* Visit(Fleet* obj) const
++            { m_type = OBJ_FLEET; return obj; }
++        virtual UniverseObject* Visit(Planet* obj) const
++            { m_type = OBJ_PLANET; return obj; }
++        virtual UniverseObject* Visit(Ship* obj) const
++            { m_type = OBJ_SHIP; return obj; }
++        virtual UniverseObject* Visit(System* obj) const
++            { m_type = OBJ_SYSTEM; return obj; }
++
++        mutable UniverseObjectType m_type;
++    };
++
++}
++
++#define CURRENT_VALUE_CASE(T)                                           \
++    if (property_name == Value_name) {                                  \
++        if (context.current_value.empty())                              \
++            throw std::runtime_error(                                   \
++                "Variable<" #T ">::Eval(): Value could not be "         \
++                "evaluated, because no current value was provided.");   \
++        try {                                                           \
++            return boost::any_cast<T>(context.current_value);           \
++        } catch (const boost::bad_any_cast&) {                          \
++            throw std::runtime_error(                                   \
++                "Variable<" #T ">::Eval(): Value could not be "         \
++                "evaluated, because the provided current value is not " \
++                "a " #T ".");                                           \
++        }                                                               \
++    }
++
++namespace ValueRef { namespace detail {
++
++    template <>
++    int evaluate_variable<int>(const Variable<int>& e, const ScriptingContext& context)
++    {
++        adobe::name_t property_name = e.m_property_name.back();
++
++        CURRENT_VALUE_CASE(int)
++
++        const UniverseObject* object = FollowReference(e.m_property_name.begin(), e.m_property_name.end(), e.m_ref_type, context);
++        if (!object) {
++            Logger().errorStream() << "Variable<int>::Eval unable to follow reference: " << ReconstructName(e.m_property_name, e.m_ref_type);
++            return 0;
++        }
++
++        if (property_name == Owner_name) {
++            return object->Owner();
++        } else if (property_name == ID_name) {
++            return object->ID();
++        } else if (property_name == CreationTurn_name) {
++            return object->CreationTurn();
++        } else if (property_name == Age_name) {
++            return object->AgeInTurns();
++        } else if (property_name == ProducedByEmpireID_name) {
++            if (const Ship* ship = universe_object_cast<const Ship*>(object))
++                return ship->ProducedByEmpireID();
++            else if (const Building* building = universe_object_cast<const Building*>(object))
++                return building->ProducedByEmpireID();
++            else
++                return ALL_EMPIRES;
++        } else if (property_name == DesignID_name) {
++            if (const Ship* ship = universe_object_cast<const Ship*>(object))
++                return ship->DesignID();
++            else
++                return ShipDesign::INVALID_DESIGN_ID;
++        } else if (property_name == FleetID_name) {
++            if (const Ship* ship = universe_object_cast<const Ship*>(object))
++                return ship->FleetID();
++            else
++                return UniverseObject::INVALID_OBJECT_ID;
++        } else if (property_name == PlanetID_name) {
++            if (const Building* building = universe_object_cast<const Building*>(object))
++                return building->PlanetID();
++            else
++                return UniverseObject::INVALID_OBJECT_ID;
++        } else if (property_name == SystemID_name) {
++            return object->SystemID();
++        } else if (property_name == FinalDestinationID_name) {
++            if (const Fleet* fleet = universe_object_cast<const Fleet*>(object))
++                return fleet->FinalDestinationID();
++            else
++                return UniverseObject::INVALID_OBJECT_ID;
++        } else if (property_name == NextSystemID_name) {
++            if (const Fleet* fleet = universe_object_cast<const Fleet*>(object))
++                return fleet->NextSystemID();
++            else
++                return UniverseObject::INVALID_OBJECT_ID;
++        } else if (property_name == PreviousSystemID_name) {
++            if (const Fleet* fleet = universe_object_cast<const Fleet*>(object))
++                return fleet->PreviousSystemID();
++            else
++                return UniverseObject::INVALID_OBJECT_ID;
++        } else if (property_name == NumShips_name) {
++            if (const Fleet* fleet = universe_object_cast<const Fleet*>(object))
++                return fleet->NumShips();
++            else
++                return 0;
++        } else if (property_name == CurrentTurn_name) {
++            return CurrentTurn();
++        } else {
++            throw std::runtime_error("Attempted to read a non-int value \"" + ReconstructName(e.m_property_name, e.m_ref_type) + "\" using a ValueRef of type int.");
++        }
++
++        return 0;
++    }
++
++    template <>
++    double evaluate_variable<double>(const Variable<double>& e, const ScriptingContext& context)
++    {
++        adobe::name_t property_name = e.m_property_name.back();
++
++        CURRENT_VALUE_CASE(double)
++
++        const UniverseObject* object = FollowReference(e.m_property_name.begin(), e.m_property_name.end(), e.m_ref_type, context);
++        if (!object) {
++            Logger().errorStream() << "Variable<double>::Eval unable to follow reference: " << ReconstructName(e.m_property_name, e.m_ref_type);
++            return 0.0;
++        }
++
++        if        (property_name == Population_name) {
++            return object->InitialMeterValue(METER_POPULATION);
++        } else if (property_name == TargetPopulation_name) {
++            return object->InitialMeterValue(METER_TARGET_POPULATION);
++        } else if (property_name == Health_name) {
++            return object->InitialMeterValue(METER_HEALTH);
++        } else if (property_name == TargetHealth_name) {
++            return object->InitialMeterValue(METER_TARGET_HEALTH);
++
++        } else if (property_name == Farming_name) {
++            return object->InitialMeterValue(METER_FARMING);
++        } else if (property_name == TargetFarming_name) {
++            return object->InitialMeterValue(METER_TARGET_FARMING);
++        } else if (property_name == Industry_name) {
++            return object->InitialMeterValue(METER_INDUSTRY);
++        } else if (property_name == TargetIndustry_name) {
++            return object->InitialMeterValue(METER_TARGET_INDUSTRY);
++        } else if (property_name == Research_name) {
++            return object->InitialMeterValue(METER_RESEARCH);
++        } else if (property_name == TargetResearch_name) {
++            return object->InitialMeterValue(METER_TARGET_RESEARCH);
++        } else if (property_name == Trade_name) {
++            return object->InitialMeterValue(METER_TRADE);
++        } else if (property_name == TargetTrade_name) {
++            return object->InitialMeterValue(METER_TARGET_TRADE);
++        } else if (property_name == Mining_name) {
++            return object->InitialMeterValue(METER_MINING);
++        } else if (property_name == TargetMining_name) {
++            return object->InitialMeterValue(METER_TARGET_MINING);
++        } else if (property_name == Construction_name) {
++            return object->InitialMeterValue(METER_CONSTRUCTION);
++        } else if (property_name == TargetConstruction_name) {
++            return object->InitialMeterValue(METER_TARGET_CONSTRUCTION);
++
++        } else if (property_name == MaxFuel_name) {
++            return object->InitialMeterValue(METER_MAX_FUEL);
++        } else if (property_name == Fuel_name) {
++            return object->InitialMeterValue(METER_FUEL);
++        } else if (property_name == MaxStructure_name) {
++            return object->InitialMeterValue(METER_MAX_STRUCTURE);
++        } else if (property_name == Structure_name) {
++            return object->InitialMeterValue(METER_STRUCTURE);
++        } else if (property_name == MaxShield_name) {
++            return object->InitialMeterValue(METER_MAX_SHIELD);
++        } else if (property_name == Shield_name) {
++            return object->InitialMeterValue(METER_SHIELD);
++        } else if (property_name == MaxDefense_name) {
++            return object->InitialMeterValue(METER_MAX_DEFENSE);
++        } else if (property_name == Defense_name) {
++            return object->InitialMeterValue(METER_DEFENSE);
++        } else if (property_name == MaxTroops_name) {
++            return object->InitialMeterValue(METER_MAX_TROOPS);
++        } else if (property_name == Troops_name) {
++            return object->InitialMeterValue(METER_TROOPS);
++
++        } else if (property_name == FoodConsumption_name) {
++            return object->InitialMeterValue(METER_FOOD_CONSUMPTION);
++        } else if (property_name == Supply_name) {
++            return object->InitialMeterValue(METER_SUPPLY);
++        } else if (property_name == Stealth_name) {
++            return object->InitialMeterValue(METER_STEALTH);
++        } else if (property_name == Detection_name) {
++            return object->InitialMeterValue(METER_DETECTION);
++        } else if (property_name == BattleSpeed_name) {
++            return object->InitialMeterValue(METER_BATTLE_SPEED);
++        } else if (property_name == StarlaneSpeed_name) {
++            return object->InitialMeterValue(METER_STARLANE_SPEED);
++
++        } else if (property_name == Damage_name) {
++            return object->InitialMeterValue(METER_DAMAGE);
++        } else if (property_name == ROF_name) {
++            return object->InitialMeterValue(METER_ROF);
++        } else if (property_name == Range_name) {
++            return object->InitialMeterValue(METER_RANGE);
++        } else if (property_name == Speed_name) {
++            return object->InitialMeterValue(METER_SPEED);
++        } else if (property_name == Capacity_name) {
++            return object->InitialMeterValue(METER_CAPACITY);
++        } else if (property_name == AntiShipDamage_name) {
++            return object->InitialMeterValue(METER_ANTI_SHIP_DAMAGE);
++        } else if (property_name == AntiFighterDamage_name) {
++            return object->InitialMeterValue(METER_ANTI_FIGHTER_DAMAGE);
++        } else if (property_name == LaunchRate_name) {
++            return object->InitialMeterValue(METER_LAUNCH_RATE);
++        } else if (property_name == FighterWeaponRange_name) {
++            return object->InitialMeterValue(METER_FIGHTER_WEAPON_RANGE);
++
++        } else if (property_name == TradeStockpile_name) {
++            if (Empire* empire = Empires().Lookup(object->Owner()))
++                return empire->ResourceStockpile(RE_TRADE);
++        } else if (property_name == MineralStockpile_name) {
++            if (Empire* empire = Empires().Lookup(object->Owner()))
++                return empire->ResourceStockpile(RE_MINERALS);
++        } else if (property_name == FoodStockpile_name) {
++            if (Empire* empire = Empires().Lookup(object->Owner()))
++                return empire->ResourceStockpile(RE_FOOD);
++
++        } else if (property_name == DistanceToSource_name) {
++            if (!context.source) {
++                Logger().errorStream() << "ValueRef::Variable<double>::Eval can't find distance to source because no source was passed";
++                return 0.0;
++            }
++            double delta_x = object->X() - context.source->X();
++            double delta_y = object->Y() - context.source->Y();
++            return std::sqrt(delta_x * delta_x + delta_y * delta_y);
++
++        } else {
++            throw std::runtime_error("Attempted to read a non-double value \"" + ReconstructName(e.m_property_name, e.m_ref_type) + "\" using a ValueRef of type double.");
++        }
++
++        return 0.0;
++    }
++
++    template <>
++    std::string evaluate_variable<std::string>(const Variable<std::string>& e, const ScriptingContext& context)
++    {
++        adobe::name_t property_name = e.m_property_name.back();
++
++        CURRENT_VALUE_CASE(std::string)
++
++        const UniverseObject* object = FollowReference(e.m_property_name.begin(), e.m_property_name.end(), e.m_ref_type, context);
++        if (!object) {
++            Logger().errorStream() << "Variable<std::string>::Eval unable to follow reference: " << ReconstructName(e.m_property_name, e.m_ref_type);
++            return "";
++        }
++
++        if (property_name == Name_name) {
++            return object->Name();
++        } else if (property_name == Species_name) {
++            if (const Planet* planet = universe_object_cast<const Planet*>(object))
++                return planet->SpeciesName();
++            else if (const Ship* ship = universe_object_cast<const Ship*>(object))
++                return ship->SpeciesName();
++        } else if (property_name == BuildingType_name) {
++            if (const Building* building = universe_object_cast<const Building*>(object))
++                return building->BuildingTypeName();
++        } else if (property_name == Focus_name) {
++            if (const Planet* planet = universe_object_cast<const Planet*>(object))
++                return planet->Focus();
++        } else {
++            throw std::runtime_error("Attempted to read a non-string value \"" + ReconstructName(e.m_property_name, e.m_ref_type) + "\" using a ValueRef of type std::string.");
++        }
++
++        return "";
++    }
++
++    template <>
++    PlanetSize evaluate_variable<PlanetSize>(const Variable<PlanetSize>& e, const ScriptingContext& context)
++    {
++        adobe::name_t property_name = e.m_property_name.back();
++
++        CURRENT_VALUE_CASE(PlanetSize);
++
++        if (property_name == PlanetSize_name) {
++            const UniverseObject* object = FollowReference(e.m_property_name.begin(), e.m_property_name.end(), e.m_ref_type, context);
++            if (!object) {
++                Logger().errorStream() << "Variable<PlanetSize>::Eval unable to follow reference: " << ReconstructName(e.m_property_name, e.m_ref_type);
++                return INVALID_PLANET_SIZE;
++            }
++            if (const Planet* p = universe_object_cast<const Planet*>(object))
++                return p->Size();
++        } else {
++            throw std::runtime_error("Attempted to read a non-PlanetSize value \"" + ReconstructName(e.m_property_name, e.m_ref_type) + "\" using a ValueRef of type PlanetSize.");
++        }
++
++        return INVALID_PLANET_SIZE;
++    }
++
++    template <>
++    PlanetType evaluate_variable<PlanetType>(const Variable<PlanetType>& e, const ScriptingContext& context)
++    {
++        adobe::name_t property_name = e.m_property_name.back();
++
++        CURRENT_VALUE_CASE(PlanetType)
++
++        const UniverseObject* object = FollowReference(e.m_property_name.begin(), e.m_property_name.end(), e.m_ref_type, context);
++        if (!object) {
++            Logger().errorStream() << "Variable<PlanetType>::Eval unable to follow reference: " << ReconstructName(e.m_property_name, e.m_ref_type);
++            return INVALID_PLANET_TYPE;
++        }
++
++        if (property_name == PlanetType_name) {
++            if (const Planet* p = universe_object_cast<const Planet*>(object))
++                return p->Type();
++        } else if (property_name == NextBetterPlanetType_name) {
++            if (const Planet* p = universe_object_cast<const Planet*>(object))
++                return p->NextBetterPlanetTypeForSpecies();
++        } else {
++            throw std::runtime_error("Attempted to read a non-PlanetType value \"" + ReconstructName(e.m_property_name, e.m_ref_type) + "\" using a ValueRef of type PlanetType.");
++        }
++
++        return INVALID_PLANET_TYPE;
++    }
++
++    template <>
++    PlanetEnvironment evaluate_variable<PlanetEnvironment>(const Variable<PlanetEnvironment>& e, const ScriptingContext& context)
++    {
++        adobe::name_t property_name = e.m_property_name.back();
++
++        CURRENT_VALUE_CASE(PlanetEnvironment);
++
++        if (property_name == PlanetEnvironment_name) {
++            const UniverseObject* object = FollowReference(e.m_property_name.begin(), e.m_property_name.end(), e.m_ref_type, context);
++            if (!object) {
++                Logger().errorStream() << "Variable<PlanetEnvironment>::Eval unable to follow reference: " << ReconstructName(e.m_property_name, e.m_ref_type);
++                return INVALID_PLANET_ENVIRONMENT;
++            }
++            if (const Planet* p = universe_object_cast<const Planet*>(object))
++                return p->EnvironmentForSpecies();
++        } else {
++            throw std::runtime_error("Attempted to read a non-PlanetEnvironment value \"" + ReconstructName(e.m_property_name, e.m_ref_type) + "\" using a ValueRef of type PlanetEnvironment.");
++        }
++
++        return INVALID_PLANET_ENVIRONMENT;
++    }
++
++    template <>
++    UniverseObjectType evaluate_variable<UniverseObjectType>(const Variable<UniverseObjectType>& e, const ScriptingContext& context)
++    {
++        adobe::name_t property_name = e.m_property_name.back();
++
++        CURRENT_VALUE_CASE(UniverseObjectType)
++
++        if (property_name == ObjectType_name) {
++            const UniverseObject* object = FollowReference(e.m_property_name.begin(), e.m_property_name.end(), e.m_ref_type, context);
++            if (!object) {
++                Logger().errorStream() << "Variable<UniverseObjectType>::Eval unable to follow reference: " << ReconstructName(e.m_property_name, e.m_ref_type);
++                return INVALID_UNIVERSE_OBJECT_TYPE;
++            }
++            ObjectTypeVisitor v;
++            if (object->Accept(v)) {
++                return v.m_type;
++            } else if (dynamic_cast<const PopCenter*>(object)) {
++                return OBJ_POP_CENTER;
++            } else if (dynamic_cast<const ResourceCenter*>(object)) {
++                return OBJ_PROD_CENTER;
++            }
++        } else {
++            throw std::runtime_error("Attempted to read a non-ObjectType value \"" + ReconstructName(e.m_property_name, e.m_ref_type) + "\" using a ValueRef of type ObjectType.");
++        }
++        return INVALID_UNIVERSE_OBJECT_TYPE;
++    }
++
++    template <>
++    StarType evaluate_variable<StarType>(const Variable<StarType>& e, const ScriptingContext& context)
++    {
++        adobe::name_t property_name = e.m_property_name.back();
++
++        CURRENT_VALUE_CASE(StarType)
++
++        if (property_name == StarType_name) {
++            const UniverseObject* object = FollowReference(e.m_property_name.begin(), e.m_property_name.end(), e.m_ref_type, context);
++            if (!object) {
++                Logger().errorStream() << "Variable<StarType>::Eval unable to follow reference: " << ReconstructName(e.m_property_name, e.m_ref_type);
++                return INVALID_STAR_TYPE;
++            }
++            if (const System* s = universe_object_cast<const System*>(object))
++                return s->GetStarType();
++        } else {
++            throw std::runtime_error("Attempted to read a non-StarType value \"" + ReconstructName(e.m_property_name, e.m_ref_type) + "\" using a ValueRef of type StarType.");
++        }
++        return INVALID_STAR_TYPE;
++    }
++
++} }
++
++#undef CURRENT_VALUE_CASE
+Index: CMakeLists.txt
+===================================================================
+--- CMakeLists.txt	(revision 4281)
++++ CMakeLists.txt	(working copy)
+@@ -328,6 +328,13 @@
+ add_subdirectory(client/AI)
+ add_subdirectory(client/human)
+ 
++option(BUILD_PARSER_TESTS "Controls generation of parser unit tests." OFF)
++
++if (BUILD_PARSER_TESTS)
++    enable_testing()
++    add_subdirectory(parse)
++endif ()
++
+ ########################################
+ # Win32 SDK-only steps                 #
+ ########################################
