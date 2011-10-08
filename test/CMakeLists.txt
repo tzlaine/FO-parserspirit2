@@ -94,7 +94,8 @@ set(THIS_EXE_SOURCES
     ../../universe/Universe.cpp
     ../../util/AppInterface.cpp
 
-    ../../universe/ValueRef_2.cpp
+#    ../../universe/ValueRef_2.cpp
+#    ../../universe/Condition_2.cpp
     ../../universe/Names.cpp
 
     test.cpp
