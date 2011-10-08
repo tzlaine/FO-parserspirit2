@@ -5,6 +5,7 @@
 #include <GG/ReportParseError.h>
 
 #include "../universe/Enums.h"
+#include "../universe/Names.h"
 #include "../universe/ValueRefFwd.h"
 
 
@@ -40,7 +41,7 @@ typedef boost::spirit::lex::lexertl::token<
     >
 > token_type;
 
-typedef boost::spirit::lex::lexertl::lexer<token_type> spirit_lexer_base_type;
+typedef boost::spirit::lex::lexertl::actor_lexer<token_type> spirit_lexer_base_type;
 
 /** The script file lexer. */
 struct lexer :
@@ -85,186 +86,9 @@ struct lexer :
     /** \name Keyword tokens.  These should be kept in lexicographically
         sorted order, so that finding, adding, and removing tokens is a bit
         easier.  See the note above the Enum tokens section. */ ///@{
-    boost::spirit::lex::token_def<adobe::name_t> activation;
-    boost::spirit::lex::token_def<adobe::name_t> added_before;
-    boost::spirit::lex::token_def<adobe::name_t> added_since;
-    boost::spirit::lex::token_def<adobe::name_t> affiliation;
-    boost::spirit::lex::token_def<adobe::name_t> age;
-    boost::spirit::lex::token_def<adobe::name_t> alignment;
-    boost::spirit::lex::token_def<adobe::name_t> all;
-    boost::spirit::lex::token_def<adobe::name_t> and_;
-    boost::spirit::lex::token_def<adobe::name_t> anti_fighter_damage;
-    boost::spirit::lex::token_def<adobe::name_t> anti_ship_damage;
-    boost::spirit::lex::token_def<adobe::name_t> armed;
-    boost::spirit::lex::token_def<adobe::name_t> asteroids;
-    boost::spirit::lex::token_def<adobe::name_t> battle_speed;
-    boost::spirit::lex::token_def<adobe::name_t> build_cost;
-    boost::spirit::lex::token_def<adobe::name_t> building;
-    boost::spirit::lex::token_def<adobe::name_t> building_type;
-    boost::spirit::lex::token_def<adobe::name_t> build_time;
-    boost::spirit::lex::token_def<adobe::name_t> capacity;
-    boost::spirit::lex::token_def<adobe::name_t> capital;
-    boost::spirit::lex::token_def<adobe::name_t> capture_result;
-    boost::spirit::lex::token_def<adobe::name_t> category;
-    boost::spirit::lex::token_def<adobe::name_t> class_;
-    boost::spirit::lex::token_def<adobe::name_t> colour;
-    boost::spirit::lex::token_def<adobe::name_t> condition;
-    boost::spirit::lex::token_def<adobe::name_t> construction;
-    boost::spirit::lex::token_def<adobe::name_t> contained_by;
-    boost::spirit::lex::token_def<adobe::name_t> contains;
-    boost::spirit::lex::token_def<adobe::name_t> created_on_turn;
-    boost::spirit::lex::token_def<adobe::name_t> creation_turn;
-    boost::spirit::lex::token_def<adobe::name_t> current_turn;
-    boost::spirit::lex::token_def<adobe::name_t> damage;
-    boost::spirit::lex::token_def<adobe::name_t> defense;
-    boost::spirit::lex::token_def<adobe::name_t> description;
-    boost::spirit::lex::token_def<adobe::name_t> design;
-    boost::spirit::lex::token_def<adobe::name_t> design_has_hull;
-    boost::spirit::lex::token_def<adobe::name_t> design_has_part;
-    boost::spirit::lex::token_def<adobe::name_t> design_has_part_class;
-    boost::spirit::lex::token_def<adobe::name_t> design_id;
-    boost::spirit::lex::token_def<adobe::name_t> detection;
-    boost::spirit::lex::token_def<adobe::name_t> distance;
-    boost::spirit::lex::token_def<adobe::name_t> distance_to_source;
-    boost::spirit::lex::token_def<adobe::name_t> effects;
-    boost::spirit::lex::token_def<adobe::name_t> effects_group;
-    boost::spirit::lex::token_def<adobe::name_t> effects_groups;
-    boost::spirit::lex::token_def<adobe::name_t> empire;
-    boost::spirit::lex::token_def<adobe::name_t> environment;
-    boost::spirit::lex::token_def<adobe::name_t> environments;
-    boost::spirit::lex::token_def<adobe::name_t> explored_by_empire;
-    boost::spirit::lex::token_def<adobe::name_t> farming;
-    boost::spirit::lex::token_def<adobe::name_t> fighter_type;
-    boost::spirit::lex::token_def<adobe::name_t> fighter_weapon_range;
-    boost::spirit::lex::token_def<adobe::name_t> final_destination_id;
-    boost::spirit::lex::token_def<adobe::name_t> fleet;
-    boost::spirit::lex::token_def<adobe::name_t> fleet_id;
-    boost::spirit::lex::token_def<adobe::name_t> fleet_supplyable_by_empire;
-    boost::spirit::lex::token_def<adobe::name_t> foci;
-    boost::spirit::lex::token_def<adobe::name_t> focus;
-    boost::spirit::lex::token_def<adobe::name_t> food_consumption;
-    boost::spirit::lex::token_def<adobe::name_t> food_stockpile;
-    boost::spirit::lex::token_def<adobe::name_t> fuel;
-    boost::spirit::lex::token_def<adobe::name_t> gas_giant;
-    boost::spirit::lex::token_def<adobe::name_t> graphic;
-    boost::spirit::lex::token_def<adobe::name_t> has_special;
-    boost::spirit::lex::token_def<adobe::name_t> health;
-    boost::spirit::lex::token_def<adobe::name_t> high;
-    boost::spirit::lex::token_def<adobe::name_t> homeworld;
-    boost::spirit::lex::token_def<adobe::name_t> hull;
-    boost::spirit::lex::token_def<adobe::name_t> id;
-    boost::spirit::lex::token_def<adobe::name_t> industry;
-    boost::spirit::lex::token_def<adobe::name_t> in_system;
-    boost::spirit::lex::token_def<adobe::name_t> item;
-    boost::spirit::lex::token_def<adobe::name_t> jumps;
-    boost::spirit::lex::token_def<adobe::name_t> launch_rate;
-    boost::spirit::lex::token_def<adobe::name_t> local_candidate;
-    boost::spirit::lex::token_def<adobe::name_t> location;
-    boost::spirit::lex::token_def<adobe::name_t> lookup_strings;
-    boost::spirit::lex::token_def<adobe::name_t> low;
-    boost::spirit::lex::token_def<adobe::name_t> max_defense;
-    boost::spirit::lex::token_def<adobe::name_t> max_fuel;
-    boost::spirit::lex::token_def<adobe::name_t> maximum_number_of;
-    boost::spirit::lex::token_def<adobe::name_t> max_shield;
-    boost::spirit::lex::token_def<adobe::name_t> max_structure;
-    boost::spirit::lex::token_def<adobe::name_t> max_troops;
-    boost::spirit::lex::token_def<adobe::name_t> mineral_stockpile;
-    boost::spirit::lex::token_def<adobe::name_t> minimum_number_of;
-    boost::spirit::lex::token_def<adobe::name_t> mining;
-    boost::spirit::lex::token_def<adobe::name_t> model;
-    boost::spirit::lex::token_def<adobe::name_t> mode_number_of;
-    boost::spirit::lex::token_def<adobe::name_t> monster;
-    boost::spirit::lex::token_def<adobe::name_t> monster_fleet;
-    boost::spirit::lex::token_def<adobe::name_t> mountable_slot_types;
-    boost::spirit::lex::token_def<adobe::name_t> name;
-    boost::spirit::lex::token_def<adobe::name_t> next_better_planet_type;
-    boost::spirit::lex::token_def<adobe::name_t> next_system_id;
-    boost::spirit::lex::token_def<adobe::name_t> not_;
-    boost::spirit::lex::token_def<adobe::name_t> number;
-    boost::spirit::lex::token_def<adobe::name_t> number_of;
-    boost::spirit::lex::token_def<adobe::name_t> num_ships;
-    boost::spirit::lex::token_def<adobe::name_t> object;
-    boost::spirit::lex::token_def<adobe::name_t> object_type;
-    boost::spirit::lex::token_def<adobe::name_t> or_;
-    boost::spirit::lex::token_def<adobe::name_t> ownedby;
-    boost::spirit::lex::token_def<adobe::name_t> owner;
-    boost::spirit::lex::token_def<adobe::name_t> owner_food_stockpile;
-    boost::spirit::lex::token_def<adobe::name_t> owner_has_tech;
-    boost::spirit::lex::token_def<adobe::name_t> owner_mineral_stockpile;
-    boost::spirit::lex::token_def<adobe::name_t> owner_trade_stockpile;
-    boost::spirit::lex::token_def<adobe::name_t> part;
-    boost::spirit::lex::token_def<adobe::name_t> parts;
-    boost::spirit::lex::token_def<adobe::name_t> planet;
-    boost::spirit::lex::token_def<adobe::name_t> planetbound;
-    boost::spirit::lex::token_def<adobe::name_t> planet_environment;
-    boost::spirit::lex::token_def<adobe::name_t> planet_id;
-    boost::spirit::lex::token_def<adobe::name_t> planet_size;
-    boost::spirit::lex::token_def<adobe::name_t> planet_type;
-    boost::spirit::lex::token_def<adobe::name_t> population;
-    boost::spirit::lex::token_def<adobe::name_t> position;
-    boost::spirit::lex::token_def<adobe::name_t> prerequisites;
-    boost::spirit::lex::token_def<adobe::name_t> previous_system_id;
-    boost::spirit::lex::token_def<adobe::name_t> probability;
-    boost::spirit::lex::token_def<adobe::name_t> produced_by_empire;
-    boost::spirit::lex::token_def<adobe::name_t> produced_by_empire_id;
-    boost::spirit::lex::token_def<adobe::name_t> producible;
-    boost::spirit::lex::token_def<adobe::name_t> property;
-    boost::spirit::lex::token_def<adobe::name_t> random;
-    boost::spirit::lex::token_def<adobe::name_t> range;
-    boost::spirit::lex::token_def<adobe::name_t> research;
-    boost::spirit::lex::token_def<adobe::name_t> researchable;
-    boost::spirit::lex::token_def<adobe::name_t> research_cost;
-    boost::spirit::lex::token_def<adobe::name_t> research_turns;
-    boost::spirit::lex::token_def<adobe::name_t> resource_supply_connected_by_empire;
-    boost::spirit::lex::token_def<adobe::name_t> rof;
-    boost::spirit::lex::token_def<adobe::name_t> root_candidate;
-    boost::spirit::lex::token_def<adobe::name_t> scope;
-    boost::spirit::lex::token_def<adobe::name_t> shield;
-    boost::spirit::lex::token_def<adobe::name_t> shipdesign;
-    boost::spirit::lex::token_def<adobe::name_t> ships;
-    boost::spirit::lex::token_def<adobe::name_t> short_description;
-    boost::spirit::lex::token_def<adobe::name_t> size;
-    boost::spirit::lex::token_def<adobe::name_t> slot;
-    boost::spirit::lex::token_def<adobe::name_t> slots;
-    boost::spirit::lex::token_def<adobe::name_t> sortby;
-    boost::spirit::lex::token_def<adobe::name_t> source;
-    boost::spirit::lex::token_def<adobe::name_t> spacebound;
-    boost::spirit::lex::token_def<adobe::name_t> spawn_limit;
-    boost::spirit::lex::token_def<adobe::name_t> spawn_rate;
-    boost::spirit::lex::token_def<adobe::name_t> special;
-    boost::spirit::lex::token_def<adobe::name_t> species;
-    boost::spirit::lex::token_def<adobe::name_t> speed;
-    boost::spirit::lex::token_def<adobe::name_t> stacking_group;
-    boost::spirit::lex::token_def<adobe::name_t> star;
-    boost::spirit::lex::token_def<adobe::name_t> starlane_speed;
-    boost::spirit::lex::token_def<adobe::name_t> star_type;
-    boost::spirit::lex::token_def<adobe::name_t> stationary;
-    boost::spirit::lex::token_def<adobe::name_t> stealth;
-    boost::spirit::lex::token_def<adobe::name_t> structure;
-    boost::spirit::lex::token_def<adobe::name_t> supply;
-    boost::spirit::lex::token_def<adobe::name_t> system;
-    boost::spirit::lex::token_def<adobe::name_t> system_id;
-    boost::spirit::lex::token_def<adobe::name_t> target;
-    boost::spirit::lex::token_def<adobe::name_t> target_construction;
-    boost::spirit::lex::token_def<adobe::name_t> target_farming;
-    boost::spirit::lex::token_def<adobe::name_t> target_health;
-    boost::spirit::lex::token_def<adobe::name_t> target_industry;
-    boost::spirit::lex::token_def<adobe::name_t> target_mining;
-    boost::spirit::lex::token_def<adobe::name_t> target_population;
-    boost::spirit::lex::token_def<adobe::name_t> target_research;
-    boost::spirit::lex::token_def<adobe::name_t> target_trade;
-    boost::spirit::lex::token_def<adobe::name_t> tech;
-    boost::spirit::lex::token_def<adobe::name_t> tech_type;
-    boost::spirit::lex::token_def<adobe::name_t> trade;
-    boost::spirit::lex::token_def<adobe::name_t> trade_stockpile;
-    boost::spirit::lex::token_def<adobe::name_t> troops;
-    boost::spirit::lex::token_def<adobe::name_t> turn;
-    boost::spirit::lex::token_def<adobe::name_t> type;
-    boost::spirit::lex::token_def<adobe::name_t> unlock;
-    boost::spirit::lex::token_def<adobe::name_t> value;
-    boost::spirit::lex::token_def<adobe::name_t> visible_to_empire;
-    boost::spirit::lex::token_def<adobe::name_t> within_distance;
-    boost::spirit::lex::token_def<adobe::name_t> within_starlane_jumps;
+#define NAME_TOKEN(r, _, name) boost::spirit::lex::token_def<adobe::name_t> BOOST_PP_CAT(name, _);
+    BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ)
+#undef NAME_TOKEN
     //@}
 
     /** \name Error token. */ ///@{

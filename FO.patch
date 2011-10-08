@@ -2,90 +2,202 @@ Index: universe/Names.h
 ===================================================================
 --- universe/Names.h	(revision 0)
 +++ universe/Names.h	(revision 0)
-@@ -0,0 +1,86 @@
+@@ -0,0 +1,198 @@
 +// -*- C++ -*-
 +#ifndef _Names_h_
 +#define _Names_h_
 +
 +#include <GG/adobe/name.hpp>
 +
++#include <boost/preprocessor/cat.hpp>
++#include <boost/preprocessor/seq/for_each.hpp>
 +
-+#define DECLARE_NAME(name) extern adobe::aggregate_name_t name##_name
 +
-+DECLARE_NAME(Name);
-+DECLARE_NAME(Species);
-+DECLARE_NAME(BuildingType);
-+DECLARE_NAME(Focus);
-+DECLARE_NAME(Planet);
-+DECLARE_NAME(System);
-+DECLARE_NAME(Fleet);
-+DECLARE_NAME(Value);
-+DECLARE_NAME(PlanetSize);
-+DECLARE_NAME(PlanetType);
-+DECLARE_NAME(NextBetterPlanetType);
-+DECLARE_NAME(PlanetEnvironment);
-+DECLARE_NAME(ObjectType);
-+DECLARE_NAME(StarType);
-+DECLARE_NAME(Population);
-+DECLARE_NAME(TargetPopulation);
-+DECLARE_NAME(Health);
-+DECLARE_NAME(TargetHealth);
-+DECLARE_NAME(Farming);
-+DECLARE_NAME(TargetFarming);
-+DECLARE_NAME(Industry);
-+DECLARE_NAME(TargetIndustry);
-+DECLARE_NAME(Research);
-+DECLARE_NAME(TargetResearch);
-+DECLARE_NAME(Trade);
-+DECLARE_NAME(TargetTrade);
-+DECLARE_NAME(Mining);
-+DECLARE_NAME(TargetMining);
-+DECLARE_NAME(Construction);
-+DECLARE_NAME(TargetConstruction);
-+DECLARE_NAME(MaxFuel);
-+DECLARE_NAME(Fuel);
-+DECLARE_NAME(MaxStructure);
-+DECLARE_NAME(Structure);
-+DECLARE_NAME(MaxShield);
-+DECLARE_NAME(Shield);
-+DECLARE_NAME(MaxDefense);
-+DECLARE_NAME(Defense);
-+DECLARE_NAME(MaxTroops);
-+DECLARE_NAME(Troops);
-+DECLARE_NAME(FoodConsumption);
-+DECLARE_NAME(Supply);
-+DECLARE_NAME(Stealth);
-+DECLARE_NAME(Detection);
-+DECLARE_NAME(BattleSpeed);
-+DECLARE_NAME(StarlaneSpeed);
-+DECLARE_NAME(Damage);
-+DECLARE_NAME(ROF);
-+DECLARE_NAME(Range);
-+DECLARE_NAME(Speed);
-+DECLARE_NAME(Capacity);
-+DECLARE_NAME(AntiShipDamage);
-+DECLARE_NAME(AntiFighterDamage);
-+DECLARE_NAME(LaunchRate);
-+DECLARE_NAME(FighterWeaponRange);
-+DECLARE_NAME(TradeStockpile);
-+DECLARE_NAME(MineralStockpile);
-+DECLARE_NAME(FoodStockpile);
-+DECLARE_NAME(DistanceToSource);
-+DECLARE_NAME(Owner);
-+DECLARE_NAME(ID);
-+DECLARE_NAME(CreationTurn);
-+DECLARE_NAME(Age);
-+DECLARE_NAME(ProducedByEmpireID);
-+DECLARE_NAME(DesignID);
-+DECLARE_NAME(FleetID);
-+DECLARE_NAME(PlanetID);
-+DECLARE_NAME(SystemID);
-+DECLARE_NAME(FinalDestinationID);
-+DECLARE_NAME(NextSystemID);
-+DECLARE_NAME(PreviousSystemID);
-+DECLARE_NAME(NumShips);
-+DECLARE_NAME(CurrentTurn);
++#define NAMES_SEQ                               \
++    (Activation)                                \
++    (AddedBefore)                               \
++    (AddedSince)                                \
++    (Affiliation)                               \
++    (Age)                                       \
++    (Alignment)                                 \
++    (All)                                       \
++    (And)                                       \
++    (AntiFighterDamage)                         \
++    (AntiShipDamage)                            \
++    (Armed)                                     \
++    (Asteroids)                                 \
++    (BattleSpeed)                               \
++    (BuildCost)                                 \
++    (Building)                                  \
++    (BuildingType)                              \
++    (BuildTime)                                 \
++    (Capacity)                                  \
++    (Capital)                                   \
++    (CaptureResult)                             \
++    (Category)                                  \
++    (Class)                                     \
++    (Colour)                                    \
++    (Condition)                                 \
++    (Construction)                              \
++    (ContainedBy)                               \
++    (Contains)                                  \
++    (CreatedOnTurn)                             \
++    (CreationTurn)                              \
++    (CurrentTurn)                               \
++    (Damage)                                    \
++    (Defense)                                   \
++    (Description)                               \
++    (Design)                                    \
++    (DesignHasHull)                             \
++    (DesignHasPart)                             \
++    (DesignHasPartClass)                        \
++    (DesignID)                                  \
++    (Detection)                                 \
++    (Distance)                                  \
++    (DistanceToSource)                          \
++    (Effects)                                   \
++    (EffectsGroup)                              \
++    (EffectsGroups)                             \
++    (Empire)                                    \
++    (Environment)                               \
++    (Environments)                              \
++    (ExploredByEmpire)                          \
++    (Farming)                                   \
++    (FighterType)                               \
++    (FighterWeaponRange)                        \
++    (FinalDestinationID)                        \
++    (Fleet)                                     \
++    (FleetID)                                   \
++    (FleetSupplyableByEmpire)                   \
++    (Foci)                                      \
++    (Focus)                                     \
++    (FoodConsumption)                           \
++    (FoodStockpile)                             \
++    (Fuel)                                      \
++    (GasGiant)                                  \
++    (Graphic)                                   \
++    (HasSpecial)                                \
++    (Health)                                    \
++    (High)                                      \
++    (Homeworld)                                 \
++    (Hull)                                      \
++    (ID)                                        \
++    (Industry)                                  \
++    (InSystem)                                  \
++    (Item)                                      \
++    (Jumps)                                     \
++    (LaunchRate)                                \
++    (LocalCandidate)                            \
++    (Location)                                  \
++    (Lookup_Strings)                            \
++    (Low)                                       \
++    (MaxDefense)                                \
++    (MaxFuel)                                   \
++    (MaximumNumberOf)                           \
++    (MaxShield)                                 \
++    (MaxStructure)                              \
++    (MaxTroops)                                 \
++    (MineralStockpile)                          \
++    (MinimumNumberOf)                           \
++    (Mining)                                    \
++    (Model)                                     \
++    (ModeNumberOf)                              \
++    (Monster)                                   \
++    (MonsterFleet)                              \
++    (MountableSlotTypes)                        \
++    (Name)                                      \
++    (NextBetterPlanetType)                      \
++    (NextSystemID)                              \
++    (Not)                                       \
++    (Number)                                    \
++    (NumberOf)                                  \
++    (NumShips)                                  \
++    (Object)                                    \
++    (ObjectType)                                \
++    (Or)                                        \
++    (OwnedBy)                                   \
++    (Owner)                                     \
++    (OwnerFoodStockpile)                        \
++    (OwnerHasTech)                              \
++    (OwnerMineralStockpile)                     \
++    (OwnerTradeStockpile)                       \
++    (Part)                                      \
++    (Parts)                                     \
++    (Planet)                                    \
++    (Planetbound)                               \
++    (PlanetEnvironment)                         \
++    (PlanetID)                                  \
++    (PlanetSize)                                \
++    (PlanetType)                                \
++    (Population)                                \
++    (Position)                                  \
++    (Prerequisites)                             \
++    (PreviousSystemID)                          \
++    (Probability)                               \
++    (ProducedByEmpire)                          \
++    (ProducedByEmpireID)                        \
++    (Producible)                                \
++    (Property)                                  \
++    (Random)                                    \
++    (Range)                                     \
++    (Research)                                  \
++    (Researchable)                              \
++    (ResearchCost)                              \
++    (ResearchTurns)                             \
++    (ResourceSupplyConnectedByEmpire)           \
++    (Rof)                                       \
++    (ROF)                                       \
++    (RootCandidate)                             \
++    (Scope)                                     \
++    (Shield)                                    \
++    (Shipdesign)                                \
++    (Ships)                                     \
++    (Short_Description)                         \
++    (Size)                                      \
++    (Slot)                                      \
++    (Slots)                                     \
++    (SortBy)                                    \
++    (Source)                                    \
++    (Spacebound)                                \
++    (SpawnLimit)                                \
++    (SpawnRate)                                 \
++    (Special)                                   \
++    (Species)                                   \
++    (Speed)                                     \
++    (StackingGroup)                             \
++    (Star)                                      \
++    (StarlaneSpeed)                             \
++    (StarType)                                  \
++    (Stationary)                                \
++    (Stealth)                                   \
++    (Structure)                                 \
++    (Supply)                                    \
++    (System)                                    \
++    (SystemID)                                  \
++    (Target)                                    \
++    (TargetConstruction)                        \
++    (TargetFarming)                             \
++    (TargetHealth)                              \
++    (TargetIndustry)                            \
++    (TargetMining)                              \
++    (TargetPopulation)                          \
++    (TargetResearch)                            \
++    (TargetTrade)                               \
++    (Tech)                                      \
++    (TechType)                                  \
++    (Trade)                                     \
++    (TradeStockpile)                            \
++    (Troops)                                    \
++    (Turn)                                      \
++    (Type)                                      \
++    (Unlock)                                    \
++    (Value)                                     \
++    (VisibleToEmpire)                           \
++    (WithinDistance)                            \
++    (WithinStarlaneJumps)
 +
++#define DECLARE_NAME(r, _, elem) extern adobe::aggregate_name_t BOOST_PP_CAT(elem, _name);
++BOOST_PP_SEQ_FOR_EACH(DECLARE_NAME, _, NAMES_SEQ)
 +#undef DECLARE_NAME
 +
 +#endif
@@ -93,7 +205,7 @@ Index: universe/ValueRef_2.h
 ===================================================================
 --- universe/ValueRef_2.h	(revision 0)
 +++ universe/ValueRef_2.h	(revision 0)
-@@ -0,0 +1,334 @@
+@@ -0,0 +1,346 @@
 +// -*- C++ -*-
 +#ifndef _ValueRef_h_
 +#define _ValueRef_h_
@@ -103,6 +215,7 @@ Index: universe/ValueRef_2.h
 +#if 0
 +#include "Condition.h"
 +#endif
++#include "Names.h"
 +#include "../util/MultiplayerCommon.h"
 +
 +#include <GG/adobe/name.hpp>
@@ -177,10 +290,21 @@ Index: universe/ValueRef_2.h
 +    template <class T>
 +    struct Variable
 +    {
-+        Variable(ReferenceType ref_type, const std::vector<adobe::name_t>& property_name) :
-+            m_ref_type(ref_type),
-+            m_property_name(property_name)
-+            {}
++        Variable(const std::vector<adobe::name_t>& property_name) :
++            m_ref_type(),
++            m_property_name(property_name.begin() + 1, property_name.end())
++            {
++                if (property_name.front() == Source_name)
++                    m_ref_type = SOURCE_REFERENCE;
++                else if (property_name.front() == Target_name)
++                    m_ref_type = EFFECT_TARGET_REFERENCE;
++                else if (property_name.front() == RootCandidate_name)
++                    m_ref_type = CONDITION_ROOT_CANDIDATE_REFERENCE;
++                else if (property_name.front() == LocalCandidate_name)
++                    m_ref_type = CONDITION_LOCAL_CANDIDATE_REFERENCE;
++                else
++                    throw std::runtime_error(std::string("Variable has an unrecognized first token ") + property_name.begin()->c_str());
++            }
 +
 +        ReferenceType                   m_ref_type;
 +        std::vector<adobe::name_t>      m_property_name;
@@ -658,86 +782,14 @@ Index: universe/Names.cpp
 ===================================================================
 --- universe/Names.cpp	(revision 0)
 +++ universe/Names.cpp	(revision 0)
-@@ -0,0 +1,80 @@
+@@ -0,0 +1,8 @@
 +#include "Names.h"
 +
++#include <boost/preprocessor/stringize.hpp>
 +
-+#define DEFINE_NAME(name) adobe::aggregate_name_t name##_name = { #name }
 +
-+DEFINE_NAME(Name);
-+DEFINE_NAME(Species);
-+DEFINE_NAME(BuildingType);
-+DEFINE_NAME(Focus);
-+DEFINE_NAME(Planet);
-+DEFINE_NAME(System);
-+DEFINE_NAME(Fleet);
-+DEFINE_NAME(Value);
-+DEFINE_NAME(PlanetSize);
-+DEFINE_NAME(PlanetType);
-+DEFINE_NAME(NextBetterPlanetType);
-+DEFINE_NAME(PlanetEnvironment);
-+DEFINE_NAME(ObjectType);
-+DEFINE_NAME(StarType);
-+DEFINE_NAME(Population);
-+DEFINE_NAME(TargetPopulation);
-+DEFINE_NAME(Health);
-+DEFINE_NAME(TargetHealth);
-+DEFINE_NAME(Farming);
-+DEFINE_NAME(TargetFarming);
-+DEFINE_NAME(Industry);
-+DEFINE_NAME(TargetIndustry);
-+DEFINE_NAME(Research);
-+DEFINE_NAME(TargetResearch);
-+DEFINE_NAME(Trade);
-+DEFINE_NAME(TargetTrade);
-+DEFINE_NAME(Mining);
-+DEFINE_NAME(TargetMining);
-+DEFINE_NAME(Construction);
-+DEFINE_NAME(TargetConstruction);
-+DEFINE_NAME(MaxFuel);
-+DEFINE_NAME(Fuel);
-+DEFINE_NAME(MaxStructure);
-+DEFINE_NAME(Structure);
-+DEFINE_NAME(MaxShield);
-+DEFINE_NAME(Shield);
-+DEFINE_NAME(MaxDefense);
-+DEFINE_NAME(Defense);
-+DEFINE_NAME(MaxTroops);
-+DEFINE_NAME(Troops);
-+DEFINE_NAME(FoodConsumption);
-+DEFINE_NAME(Supply);
-+DEFINE_NAME(Stealth);
-+DEFINE_NAME(Detection);
-+DEFINE_NAME(BattleSpeed);
-+DEFINE_NAME(StarlaneSpeed);
-+DEFINE_NAME(Damage);
-+DEFINE_NAME(ROF);
-+DEFINE_NAME(Range);
-+DEFINE_NAME(Speed);
-+DEFINE_NAME(Capacity);
-+DEFINE_NAME(AntiShipDamage);
-+DEFINE_NAME(AntiFighterDamage);
-+DEFINE_NAME(LaunchRate);
-+DEFINE_NAME(FighterWeaponRange);
-+DEFINE_NAME(TradeStockpile);
-+DEFINE_NAME(MineralStockpile);
-+DEFINE_NAME(FoodStockpile);
-+DEFINE_NAME(DistanceToSource);
-+DEFINE_NAME(Owner);
-+DEFINE_NAME(ID);
-+DEFINE_NAME(CreationTurn);
-+DEFINE_NAME(Age);
-+DEFINE_NAME(ProducedByEmpireID);
-+DEFINE_NAME(DesignID);
-+DEFINE_NAME(FleetID);
-+DEFINE_NAME(PlanetID);
-+DEFINE_NAME(SystemID);
-+DEFINE_NAME(FinalDestinationID);
-+DEFINE_NAME(NextSystemID);
-+DEFINE_NAME(PreviousSystemID);
-+DEFINE_NAME(NumShips);
-+DEFINE_NAME(CurrentTurn);
-+
++#define DEFINE_NAME(r, _, name) adobe::aggregate_name_t BOOST_PP_CAT(name, _name) = { BOOST_PP_STRINGIZE(name) };
++BOOST_PP_SEQ_FOR_EACH(DEFINE_NAME, _, NAMES_SEQ)
 +#undef DEFINE_NAME
 Index: universe/ValueRef.h
 ===================================================================

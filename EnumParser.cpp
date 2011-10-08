@@ -13,8 +13,8 @@ namespace parse {
     {
         static enum_parser_rule<PlanetSize>::type retval
             =    tok.planet_size_enum [ _val = _1 ]
-            |    tok.asteroids [ _val = SZ_ASTEROIDS ]
-            |    tok.gas_giant [ _val = SZ_GASGIANT ]
+            |    tok.Asteroids_ [ _val = SZ_ASTEROIDS ]
+            |    tok.GasGiant_ [ _val = SZ_GASGIANT ]
             ;
         return retval;
     }
@@ -24,8 +24,8 @@ namespace parse {
     {
         static enum_parser_rule<PlanetType>::type retval
             =    tok.planet_type_enum [ _val = _1 ]
-            |    tok.asteroids [ _val = PT_ASTEROIDS ]
-            |    tok.gas_giant [ _val = PT_GASGIANT ]
+            |    tok.Asteroids_ [ _val = PT_ASTEROIDS ]
+            |    tok.GasGiant_ [ _val = PT_GASGIANT ]
             ;
         return retval;
     }
@@ -44,10 +44,10 @@ namespace parse {
     {
         static enum_parser_rule<UniverseObjectType>::type retval
             =    tok.universe_object_type_enum [ _val = _1 ]
-            |    tok.building [ _val = OBJ_BUILDING ]
-            |    tok.fleet [ _val = OBJ_FLEET ]
-            |    tok.planet [ _val = OBJ_PLANET ]
-            |    tok.system [ _val = OBJ_SYSTEM ]
+            |    tok.Building_ [ _val = OBJ_BUILDING ]
+            |    tok.Fleet_ [ _val = OBJ_FLEET ]
+            |    tok.Planet_ [ _val = OBJ_PLANET ]
+            |    tok.System_ [ _val = OBJ_SYSTEM ]
             ;
         return retval;
     }

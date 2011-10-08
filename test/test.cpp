@@ -144,11 +144,3 @@ int main(int argc, char* argv[])
 
     return failures;
 }
-
-/*
-
-All the int value refs below should be run through the double and std::string
-value ref parsers too.  Similarly, all the double value refs below should be
-run through the std::string value ref parser.
-
-*/

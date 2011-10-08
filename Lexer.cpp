@@ -4,6 +4,8 @@
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/assign/list_of.hpp>
+#include <boost/preprocessor/stringize.hpp>
+#include <boost/spirit/home/phoenix.hpp>
 
 
 namespace {
@@ -61,6 +63,21 @@ namespace {
     const CaptureResult first_capture_result = CR_CAPTURE;
     const std::string statistic_type_str("(?i:count|sum|mean|rms|mode|max|min|spread|stdev|product)");
     ValueRef::StatisticType first_statistic_type = ValueRef::COUNT;
+
+    struct strip_quotes_
+    {
+        template <typename Arg1, typename Arg2>
+        struct result
+        { typedef std::string type; };
+
+        std::string operator()(const parse::text_iterator& start, const parse::text_iterator& end) const
+            {
+                std::string::const_iterator start_ = start.base();
+                std::string::const_iterator end_ = end.base();
+                return std::string(++start_, --end_);
+            }
+    };
+    const boost::phoenix::function<strip_quotes_> strip_quotes;
 }
 
 using namespace parse;
@@ -88,189 +105,26 @@ lexer::lexer() :
     capture_result_enum(capture_result_str.c_str()),
     statistic_type_enum(statistic_type_str.c_str()),
 
-    activation("(?i:activation)"),
-    added_before("(?i:addedbefore)"),
-    added_since("(?i:addedsince)"),
-    affiliation("(?i:affiliation)"),
-    age("(?i:age)"),
-    alignment("(?i:alignment)"),
-    all("(?i:all)"),
-    and_("(?i:and)"),
-    anti_fighter_damage("(?i:antifighterdamage)"),
-    anti_ship_damage("(?i:antishipdamage)"),
-    armed("(?i:armed)"),
-    asteroids("(?i:asteroids)"),
-    battle_speed("(?i:battlespeed)"),
-    build_cost("(?i:buildcost)"),
-    building("(?i:building)"),
-    building_type("(?i:buildingtype)"),
-    build_time("(?i:buildtime)"),
-    capacity("(?i:capacity)"),
-    capital("(?i:capital)"),
-    capture_result("(?i:captureresult)"),
-    category("(?i:category)"),
-    class_("(?i:class)"),
-    colour("(?i:colour)"),
-    condition("(?i:condition)"),
-    construction("(?i:construction)"),
-    contained_by("(?i:containedby)"),
-    contains("(?i:contains)"),
-    created_on_turn("(?i:createdonturn)"),
-    creation_turn("(?i:creationturn)"),
-    current_turn("(?i:currentturn)"),
-    damage("(?i:damage)"),
-    defense("(?i:defense)"),
-    description("(?i:description)"),
-    design("(?i:design)"), // TODO: is this used for shipdesign? (if so, replace)
-    design_has_hull("(?i:designhashull)"),
-    design_has_part("(?i:designhaspart)"),
-    design_has_part_class("(?i:designhaspartclass)"),
-    design_id("(?i:designid)"),
-    detection("(?i:detection)"),
-    distance("(?i:distance)"),
-    distance_to_source("(?i:distancetosource)"),
-    effects("(?i:effects)"),
-    effects_group("(?i:effectsgroup)"),
-    effects_groups("(?i:effectsgroups)"),
-    empire("(?i:empire)"),
-    environment("(?i:environment)"),
-    environments("(?i:environments)"),
-    explored_by_empire("(?i:exploredbyempire)"),
-    farming("(?i:farming)"),
-    fighter_type("(?i:fightertype)"),
-    fighter_weapon_range("(?i:fighterweaponrange)"),
-    final_destination_id("(?i:finaldestinationid)"),
-    fleet("(?i:fleet)"),
-    fleet_id("(?i:fleetid)"),
-    fleet_supplyable_by_empire("(?i:fleetsupplyablebyempire)"),
-    foci("(?i:foci)"),
-    focus("(?i:focus)"),
-    food_consumption("(?i:foodconsumption)"),
-    food_stockpile("(?i:foodstockpile)"),
-    fuel("(?i:fuel)"),
-    gas_giant("(?i:gasgiant)"),
-    graphic("(?i:graphic)"),
-    has_special("(?i:hasspecial)"),
-    health("(?i:health)"),
-    high("(?i:high)"),
-    homeworld("(?i:homeworld)"),
-    hull("(?i:hull)"),
-    id("(?i:id)"),
-    industry("(?i:industry)"),
-    in_system("(?i:insystem)"),
-    item("(?i:item)"),
-    jumps("(?i:jumps)"),
-    launch_rate("(?i:launchrate)"),
-    local_candidate("(?i:localcandidate)"),
-    location("(?i:location)"),
-    lookup_strings("(?i:lookup_strings)"), // TODO: Get rid of underscore.
-    low("(?i:low)"),
-    max_defense("(?i:maxdefense)"),
-    max_fuel("(?i:maxfuel)"),
-    maximum_number_of("(?i:maximumnumberof)"),
-    max_shield("(?i:maxshield)"),
-    max_structure("(?i:maxstructure)"),
-    max_troops("(?i:maxtroops)"),
-    mineral_stockpile("(?i:mineralstockpile)"),
-    minimum_number_of("(?i:minimumnumberof)"),
-    mining("(?i:mining)"),
-    model("(?i:model)"),
-    mode_number_of("(?i:modenumberof)"),
-    monster("(?i:monster)"),
-    monster_fleet("(?i:monsterfleet)"),
-    mountable_slot_types("(?i:mountableslottypes)"),
-    name("(?i:name)"),
-    next_better_planet_type("(?i:nextbetterplanettype)"),
-    next_system_id("(?i:nextsystemid)"),
-    not_("(?i:not)"),
-    number("(?i:number)"),
-    number_of("(?i:numberof)"),
-    num_ships("(?i:numships)"),
-    object("(?i:object)"),
-    object_type("(?i:objecttype)"),
-    or_("(?i:or)"),
-    ownedby("(?i:ownedby)"), // TODO: can we replace this with 'owner'? (if so, replace)
-    owner("(?i:owner)"),
-    owner_food_stockpile("(?i:ownerfoodstockpile)"),
-    owner_has_tech("(?i:ownerhastech)"),
-    owner_mineral_stockpile("(?i:ownermineralstockpile)"),
-    owner_trade_stockpile("(?i:ownertradestockpile)"),
-    part("(?i:part)"),
-    parts("(?i:parts)"),
-    planet("(?i:planet)"),
-    planetbound("(?i:planetbound)"),
-    planet_environment("(?i:planetenvironment)"), // TODO: can this be replaced with 'environment'?
-    planet_id("(?i:planetid)"),
-    planet_size("(?i:planetsize)"),
-    planet_type("(?i:planettype)"),
-    population("(?i:population)"),
-    position("(?i:position)"),
-    prerequisites("(?i:prerequisites)"),
-    previous_system_id("(?i:previoussystemid)"),
-    probability("(?i:probability)"),
-    produced_by_empire("(?i:producedbyempire)"),
-    produced_by_empire_id("(?i:producedbyempireid)"),
-    producible("(?i:producible)"),
-    property("(?i:property)"),
-    random("(?i:random)"),
-    range("(?i:range)"),
-    research("(?i:research)"),
-    researchable("(?i:researchable)"),
-    research_cost("(?i:researchcost)"),
-    research_turns("(?i:researchturns)"),
-    resource_supply_connected_by_empire("(?i:resourcesupplyconnectedbyempire)"),
-    rof("(?i:rof)"),
-    root_candidate("(?i:rootcandidate)"),
-    scope("(?i:scope)"),
-    shield("(?i:shield)"),
-    shipdesign("(?i:shipdesign)"),
-    ships("(?i:ships)"),
-    short_description("(?i:short_description)"), // TODO: Get rid of underscore.
-    size("(?i:size)"), // TODO: used for planetsize (so replace)
-    slot("(?i:slot)"),
-    slots("(?i:slots)"),
-    sortby("(?i:sortby)"),
-    source("(?i:source)"),
-    spacebound("(?i:spacebound)"),
-    spawn_limit("(?i:spawnlimit)"),
-    spawn_rate("(?i:spawnrate)"),
-    special("(?i:special)"),
-    species("(?i:species)"),
-    speed("(?i:speed)"),
-    stacking_group("(?i:stackinggroup)"),
-    star("(?i:star)"),
-    starlane_speed("(?i:starlanespeed)"),
-    star_type("(?i:startype)"),
-    stationary("(?i:stationary)"),
-    stealth("(?i:stealth)"),
-    structure("(?i:structure)"),
-    supply("(?i:supply)"),
-    system("(?i:system)"),
-    system_id("(?i:systemid)"),
-    target("(?i:target)"),
-    target_construction("(?i:targetconstruction)"),
-    target_farming("(?i:targetfarming)"),
-    target_health("(?i:targethealth)"),
-    target_industry("(?i:targetindustry)"),
-    target_mining("(?i:targetmining)"),
-    target_population("(?i:targetpopulation)"),
-    target_research("(?i:targetresearch)"),
-    target_trade("(?i:targettrade)"),
-    tech("(?i:tech)"),
-    tech_type("(?i:techtype)"),
-    trade("(?i:trade)"),
-    trade_stockpile("(?i:tradestockpile)"),
-    troops("(?i:troops)"),
-    turn("(?i:turn)"),
-    type("(?i:type)"),
-    unlock("(?i:unlock)"),
-    value("(?i:value)"),
-    visible_to_empire("(?i:visibletoempire)"),
-    within_distance("(?i:withindistance)"),
-    within_starlane_jumps("(?i:withinstarlanejumps)"),
+#define NAME_TOKEN(r, _, name) BOOST_PP_CAT(name, _)("(?i:" BOOST_PP_STRINGIZE(name) ")"),
+    BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ)
+#undef NAME_TOKEN
+
     error_token("\\S+?")
+
+    // TODO: Is Design used for ShipDesign? (if so, replace)
+    // TODO: Get rid of underscore in Lookup_Strings.
+    // TODO: Can we replace OwnedBy with Owner? (if so, replace)
+    // TODO: Can PlanetEnvironment be replaced with Environment?
+    // TODO: Get rid of underscore in Short_Description.
+    // TODO: Size is used for PlanetSize (so replace).
 {
     namespace lex = boost::spirit::lex;
+
+    using lex::_end;
+    using lex::_start;
+    using lex::_val;
+    using boost::phoenix::bind;
+    using boost::phoenix::construct;
 
     self
         =     inline_comment
@@ -279,7 +133,7 @@ lexer::lexer() :
         |     bool_
         |     int_
         |     double_
-        |     string
+        |     string [ _val = strip_quotes(_start, _end) ]
 
         |     planet_size_enum
         |     planet_type_enum
@@ -295,186 +149,9 @@ lexer::lexer() :
         |     capture_result_enum
         |     statistic_type_enum
 
-        |     activation
-        |     added_before
-        |     added_since
-        |     affiliation
-        |     age
-        |     alignment
-        |     all
-        |     and_
-        |     anti_fighter_damage
-        |     anti_ship_damage
-        |     armed
-        |     asteroids
-        |     battle_speed
-        |     build_cost
-        |     building
-        |     building_type
-        |     build_time
-        |     capacity
-        |     capital
-        |     capture_result
-        |     category
-        |     class_
-        |     colour
-        |     condition
-        |     construction
-        |     contained_by
-        |     contains
-        |     created_on_turn
-        |     creation_turn
-        |     current_turn
-        |     damage
-        |     defense
-        |     description
-        |     design
-        |     design_has_hull
-        |     design_has_part
-        |     design_has_part_class
-        |     design_id
-        |     detection
-        |     distance
-        |     distance_to_source
-        |     effects
-        |     effects_group
-        |     effects_groups
-        |     empire
-        |     environment
-        |     environments
-        |     explored_by_empire
-        |     farming
-        |     fighter_type
-        |     fighter_weapon_range
-        |     final_destination_id
-        |     fleet
-        |     fleet_id
-        |     fleet_supplyable_by_empire
-        |     foci
-        |     focus
-        |     food_consumption
-        |     food_stockpile
-        |     fuel
-        |     gas_giant
-        |     graphic
-        |     has_special
-        |     health
-        |     high
-        |     homeworld
-        |     hull
-        |     id
-        |     industry
-        |     in_system
-        |     item
-        |     jumps
-        |     launch_rate
-        |     local_candidate
-        |     location
-        |     lookup_strings
-        |     low
-        |     max_defense
-        |     max_fuel
-        |     maximum_number_of
-        |     max_shield
-        |     max_structure
-        |     max_troops
-        |     mineral_stockpile
-        |     minimum_number_of
-        |     mining
-        |     model
-        |     mode_number_of
-        |     monster
-        |     monster_fleet
-        |     mountable_slot_types
-        |     name
-        |     next_better_planet_type
-        |     next_system_id
-        |     not_
-        |     number
-        |     number_of
-        |     num_ships
-        |     object
-        |     object_type
-        |     or_
-        |     ownedby
-        |     owner
-        |     owner_food_stockpile
-        |     owner_has_tech
-        |     owner_mineral_stockpile
-        |     owner_trade_stockpile
-        |     part
-        |     parts
-        |     planet
-        |     planetbound
-        |     planet_environment
-        |     planet_id
-        |     planet_size
-        |     planet_type
-        |     population
-        |     position
-        |     prerequisites
-        |     previous_system_id
-        |     probability
-        |     produced_by_empire
-        |     produced_by_empire_id
-        |     producible
-        |     property
-        |     random
-        |     range
-        |     research
-        |     researchable
-        |     research_cost
-        |     research_turns
-        |     resource_supply_connected_by_empire
-        |     rof
-        |     root_candidate
-        |     scope
-        |     shield
-        |     shipdesign
-        |     ships
-        |     short_description
-        |     size
-        |     slot
-        |     slots
-        |     sortby
-        |     source
-        |     spacebound
-        |     spawn_limit
-        |     spawn_rate
-        |     special
-        |     species
-        |     speed
-        |     stacking_group
-        |     star
-        |     starlane_speed
-        |     star_type
-        |     stationary
-        |     stealth
-        |     structure
-        |     supply
-        |     system
-        |     system_id
-        |     target
-        |     target_construction
-        |     target_farming
-        |     target_health
-        |     target_industry
-        |     target_mining
-        |     target_population
-        |     target_research
-        |     target_trade
-        |     tech
-        |     tech_type
-        |     trade
-        |     trade_stockpile
-        |     troops
-        |     turn
-        |     type
-        |     unlock
-        |     value
-        |     visible_to_empire
-        |     within_distance
-        |     within_starlane_jumps
+#define NAME_TOKEN(r, _, name) | BOOST_PP_CAT(name, _) [ _val = construct<adobe::name_t>(BOOST_PP_CAT(name, _name)) ]
+        BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ)
+#undef NAME_TOKEN
 
         |     '='
         |     '+'

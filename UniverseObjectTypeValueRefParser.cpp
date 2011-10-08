@@ -22,7 +22,7 @@ namespace {
                 const name_token_rule& container_token = int_var_container_token(tok);
 
                 final_token
-                    %=   tok.object_type
+                    %=   tok.ObjectType_
                     ;
 
                 constant

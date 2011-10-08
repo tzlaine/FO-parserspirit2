@@ -20,42 +20,42 @@ namespace {
                 const name_token_rule& container_token = int_var_container_token(tok);
 
                 final_token
-                    %=   tok.farming
-                    |    tok.target_farming
-                    |    tok.industry
-                    |    tok.target_industry
-                    |    tok.research
-                    |    tok.target_research
-                    |    tok.trade
-                    |    tok.target_trade
-                    |    tok.mining
-                    |    tok.target_mining
-                    |    tok.construction
-                    |    tok.target_construction
-                    |    tok.population
-                    |    tok.target_population
-                    |    tok.health
-                    |    tok.target_health
-                    |    tok.max_fuel
-                    |    tok.fuel
-                    |    tok.max_shield
-                    |    tok.shield
-                    |    tok.max_defense
-                    |    tok.defense
-                    |    tok.max_troops
-                    |    tok.troops
-                    |    tok.max_structure
-                    |    tok.structure
-                    |    tok.supply
-                    |    tok.stealth
-                    |    tok.detection
-                    |    tok.food_consumption
-                    |    tok.battle_speed
-                    |    tok.starlane_speed
-                    |    tok.trade_stockpile
-                    |    tok.mineral_stockpile
-                    |    tok.food_stockpile
-                    |    tok.distance_to_source
+                    %=   tok.Farming_
+                    |    tok.TargetFarming_
+                    |    tok.Industry_
+                    |    tok.TargetIndustry_
+                    |    tok.Research_
+                    |    tok.TargetResearch_
+                    |    tok.Trade_
+                    |    tok.TargetTrade_
+                    |    tok.Mining_
+                    |    tok.TargetMining_
+                    |    tok.Construction_
+                    |    tok.TargetConstruction_
+                    |    tok.Population_
+                    |    tok.TargetPopulation_
+                    |    tok.Health_
+                    |    tok.TargetHealth_
+                    |    tok.MaxFuel_
+                    |    tok.Fuel_
+                    |    tok.MaxShield_
+                    |    tok.Shield_
+                    |    tok.MaxDefense_
+                    |    tok.Defense_
+                    |    tok.MaxTroops_
+                    |    tok.Troops_
+                    |    tok.MaxStructure_
+                    |    tok.Structure_
+                    |    tok.Supply_
+                    |    tok.Stealth_
+                    |    tok.Detection_
+                    |    tok.FoodConsumption_
+                    |    tok.BattleSpeed_
+                    |    tok.StarlaneSpeed_
+                    |    tok.TradeStockpile_
+                    |    tok.MineralStockpile_
+                    |    tok.FoodStockpile_
+                    |    tok.DistanceToSource_
                     ;
 
                 constant
@@ -75,8 +75,8 @@ namespace {
                            )
                       )
                     | (
-                          tok.current_turn
-                       |  tok.value
+                          tok.CurrentTurn_
+                       |  tok.Value_
                       )
                       [ push_back(_a, _1), _val = new_<ValueRef::StaticCast<int, double> >(new_<ValueRef::Variable<int> >(_a)) ]
                     ;

@@ -22,8 +22,8 @@ namespace {
                 const name_token_rule& container_token = int_var_container_token(tok);
 
                 final_token
-                    %=   tok.planet_type
-                    |    tok.next_better_planet_type
+                    %=   tok.PlanetType_
+                    |    tok.NextBetterPlanetType_
                     ;
 
                 constant

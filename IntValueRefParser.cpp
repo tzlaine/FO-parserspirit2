@@ -21,35 +21,35 @@ namespace {
                 using phoenix::static_cast_;
 
                 first_token
-                    %=   tok.source
-                    |    tok.target
-                    |    tok.local_candidate
-                    |    tok.root_candidate
+                    %=   tok.Source_
+                    |    tok.Target_
+                    |    tok.LocalCandidate_
+                    |    tok.RootCandidate_
                     ;
 
                 container_token
-                    %=   tok.planet
-                    |    tok.system
-                    |    tok.fleet
+                    %=   tok.Planet_
+                    |    tok.System_
+                    |    tok.Fleet_
                     ;
 
                 // TODO: Should we apply elements of this list only to certain
                 // containers?  For example, if one writes "Source.Planet.",
                 // "NumShips" should not follow.
                 final_token
-                    %=   tok.owner
-                    |    tok.id
-                    |    tok.creation_turn
-                    |    tok.age
-                    |    tok.produced_by_empire_id
-                    |    tok.design_id
-                    |    tok.fleet_id
-                    |    tok.planet_id
-                    |    tok.system_id
-                    |    tok.final_destination_id
-                    |    tok.next_system_id
-                    |    tok.previous_system_id
-                    |    tok.num_ships
+                    %=   tok.Owner_
+                    |    tok.ID_
+                    |    tok.CreationTurn_
+                    |    tok.Age_
+                    |    tok.ProducedByEmpireID_
+                    |    tok.DesignID_
+                    |    tok.FleetID_
+                    |    tok.PlanetID_
+                    |    tok.SystemID_
+                    |    tok.FinalDestinationID_
+                    |    tok.NextSystemID_
+                    |    tok.PreviousSystemID_
+                    |    tok.NumShips_
                     ;
 
                 constant
@@ -65,8 +65,8 @@ namespace {
                             >   final_token [ push_back(_a, _1) ]
                            )
                        |   (
-                               tok.current_turn
-                            |  tok.value
+                               tok.CurrentTurn_
+                            |  tok.Value_
                            )
                            [ push_back(_a, _1) ]
                       )

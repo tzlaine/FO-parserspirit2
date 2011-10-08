@@ -22,10 +22,10 @@ namespace {
                 const name_token_rule& container_token = int_var_container_token(tok);
 
                 final_token
-                    %=   tok.name
-                    |    tok.species
-                    |    tok.building_type
-                    |    tok.focus
+                    %=   tok.Name_
+                    |    tok.Species_
+                    |    tok.BuildingType_
+                    |    tok.Focus_
                     ;
 
                 constant
@@ -55,8 +55,8 @@ namespace {
                            )
                       )
                     | (
-                          tok.current_turn
-                       |  tok.value
+                          tok.CurrentTurn_
+                       |  tok.Value_
                       )
                       [ push_back(_a, _1), _val = new_<ValueRef::StringCast<int> >(new_<ValueRef::Variable<int> >(_a)) ]
                     ;
