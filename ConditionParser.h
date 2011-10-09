@@ -6,6 +6,9 @@
 
 #include <boost/spirit/include/qi.hpp>
 
+namespace Condition {
+    class ConditionBase;
+}
 
 namespace parse {
 

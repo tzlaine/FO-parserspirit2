@@ -5196,7 +5196,7 @@ Index: universe/Names.h
 ===================================================================
 --- universe/Names.h	(revision 0)
 +++ universe/Names.h	(revision 0)
-@@ -0,0 +1,198 @@
+@@ -0,0 +1,201 @@
 +// -*- C++ -*-
 +#ifndef _Names_h_
 +#define _Names_h_
@@ -5265,12 +5265,14 @@ Index: universe/Names.h
 +    (FleetSupplyableByEmpire)                   \
 +    (Foci)                                      \
 +    (Focus)                                     \
++    (FocusType)                                 \
 +    (FoodConsumption)                           \
 +    (FoodStockpile)                             \
 +    (Fuel)                                      \
 +    (GasGiant)                                  \
 +    (Graphic)                                   \
 +    (HasSpecial)                                \
++    (HasSpecialSinceTurn)                       \
 +    (Health)                                    \
 +    (High)                                      \
 +    (Homeworld)                                 \
@@ -5338,7 +5340,7 @@ Index: universe/Names.h
 +    (Researchable)                              \
 +    (ResearchCost)                              \
 +    (ResearchTurns)                             \
-+    (ResourceSupplyConnectedByEmpire)           \
++    (ResourceSupplyConnected)                   \
 +    (Rof)                                       \
 +    (ROF)                                       \
 +    (RootCandidate)                             \
@@ -5351,6 +5353,7 @@ Index: universe/Names.h
 +    (Slot)                                      \
 +    (Slots)                                     \
 +    (SortBy)                                    \
++    (SortKey)                                   \
 +    (Source)                                    \
 +    (Spacebound)                                \
 +    (SpawnLimit)                                \

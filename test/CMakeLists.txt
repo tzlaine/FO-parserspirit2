@@ -112,6 +112,11 @@ set(THIS_EXE_SOURCES
     ../UniverseObjectTypeValueRefParser.cpp
     ../StarTypeValueRefParser.cpp
 
+    ../ConditionParser.cpp
+    ../ConditionParser1.cpp
+    ../ConditionParser2.cpp
+    ../ConditionParser3.cpp
+
     ${CMAKE_BINARY_DIR}/util/Version.cpp
 )
 
