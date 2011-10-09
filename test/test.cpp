@@ -1,5 +1,7 @@
 #include "test.h"
 
+#include "../ConditionParser.h"
+
 #include <GG/ReportParseError.h>
 
 #include <boost/algorithm/string/classification.hpp>
@@ -117,6 +119,15 @@ int main(int argc, char* argv[])
             }
             case star_type_value_ref_parser: {
                 success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<StarType>(l), boost::spirit::qi::in_state("WS")[l.self]);
+                break;
+            }
+            case condition_parser: {
+                success = boost::spirit::qi::phrase_parse(it, end_it, parse::condition_parser(l), boost::spirit::qi::in_state("WS")[l.self]);
+                break;
+            }
+            case effect_parser: {
+                std::cout << "Effect parser not yet implemented." << std::endl;
+                exit(1);
                 break;
             }
             default:
