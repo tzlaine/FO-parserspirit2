@@ -33,6 +33,8 @@ int main(int argc, char* argv[])
     CASE(planet_environment_value_ref_parser);
     CASE(universe_object_type_value_ref_parser);
     CASE(star_type_value_ref_parser);
+    CASE(condition_parser);
+    CASE(effect_parser);
 #undef CASE
 
     if (test == unknown) {
