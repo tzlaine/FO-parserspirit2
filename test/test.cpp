@@ -11,7 +11,7 @@
 
 void print_help()
 {
-    std::cout << "Usage: test lexer|int_value_ref_parser|double_value_ref_parser|string_value_ref_parser|planet_size_value_ref_parser|planet_type_value_ref_parser|planet_environment_value_ref_parser|universe_object_type_value_ref_parser|star_type_value_ref_parser <-f filename>|<test string>" << std::endl;
+    std::cout << "Usage: test lexer|int_value_ref_parser|double_value_ref_parser|string_value_ref_parser|planet_size_value_ref_parser|planet_type_value_ref_parser|planet_environment_value_ref_parser|universe_object_type_value_ref_parser|star_type_value_ref_parser|condition_parser|effect_parser <-f filename>|<test string>" << std::endl;
 }
 
 int main(int argc, char* argv[])
