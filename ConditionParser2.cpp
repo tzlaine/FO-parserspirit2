@@ -19,10 +19,12 @@ namespace {
 
     struct condition_parser_rules_2
     {
-        condition_parser_rules_2(const parse::lexer& tok)
+        condition_parser_rules_2()
             {
+                const parse::lexer& tok = parse::lexer::instance();
+
                 const parse::value_ref_parser_rule<int>::type& int_value_ref =
-                    parse::value_ref_parser<int>(tok);
+                    parse::value_ref_parser<int>();
 
                 using qi::_1;
                 using qi::_a;
@@ -185,9 +187,9 @@ namespace {
 
 namespace parse { namespace detail {
 
-    const condition_parser_rule& condition_parser_2(const lexer& tok)
+    const condition_parser_rule& condition_parser_2()
     {
-        static condition_parser_rules_2 retval(tok);
+        static condition_parser_rules_2 retval;
         return retval.start;
     }
 

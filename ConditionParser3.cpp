@@ -19,16 +19,18 @@ namespace {
 
     struct condition_parser_rules_3
     {
-        condition_parser_rules_3(const parse::lexer& tok)
+        condition_parser_rules_3()
             {
+                const parse::lexer& tok = parse::lexer::instance();
+
                 const parse::value_ref_parser_rule<int>::type& int_value_ref =
-                    parse::value_ref_parser<int>(tok);
+                    parse::value_ref_parser<int>();
 
                 const parse::value_ref_parser_rule<double>::type& double_value_ref =
-                    parse::value_ref_parser<double>(tok);
+                    parse::value_ref_parser<double>();
 
                 const parse::value_ref_parser_rule< ::StarType>::type& star_type_value_ref =
-                    parse::value_ref_parser< ::StarType>(tok);
+                    parse::value_ref_parser< ::StarType>();
 
                 using qi::_1;
                 using qi::_a;
@@ -44,7 +46,7 @@ namespace {
                     >    tok.Distance_ > '='
                     >    double_value_ref [ _a = _1 ]
                     >    tok.Condition_ > '='
-                    >    parse::condition_parser(tok) [ _val = new_<Condition::WithinDistance>(_a, _1) ]
+                    >    parse::condition_parser() [ _val = new_<Condition::WithinDistance>(_a, _1) ]
                     ;
 
                 within_starlane_jumps
@@ -52,7 +54,7 @@ namespace {
                     >    tok.Jumps_ > '='
                     >    int_value_ref [ _a = _1 ]
                     >    tok.Condition_ > '='
-                    >    parse::condition_parser(tok) [ _val = new_<Condition::WithinStarlaneJumps>(_a, _1) ]
+                    >    parse::condition_parser() [ _val = new_<Condition::WithinStarlaneJumps>(_a, _1) ]
                     ;
 
                 number
@@ -62,7 +64,7 @@ namespace {
                     >    tok.High_ > '='
                     >    int_value_ref [ _b = _1 ]
                     >    tok.Condition_ > '='
-                    >    parse::condition_parser(tok) [ _val = new_<Condition::Number>(_a, _b, _1) ]
+                    >    parse::condition_parser() [ _val = new_<Condition::Number>(_a, _b, _1) ]
                     ;
 
                 turn
@@ -87,7 +89,7 @@ namespace {
                           >   tok.Number_ > '='
                           >   int_value_ref [ _a = _1 ]
                           >   tok.Condition_ > '='
-                          >   parse::condition_parser(tok) [ _val = new_<Condition::SortedNumberOf>(_a, _1) ]
+                          >   parse::condition_parser() [ _val = new_<Condition::SortedNumberOf>(_a, _1) ]
                          )
                     |    (
                               (
@@ -100,20 +102,20 @@ namespace {
                           >   tok.SortKey_ > '='
                           >   double_value_ref [ _c = _1 ]
                           >   tok.Condition_ > '='
-                          >   parse::condition_parser(tok) [ _val = new_<Condition::SortedNumberOf>(_a, _c, _b, _1) ]
+                          >   parse::condition_parser() [ _val = new_<Condition::SortedNumberOf>(_a, _c, _b, _1) ]
                          )
                     ;
 
                 contains
                     =    tok.Contains_
                     >    tok.Condition_ > '='
-                    >    parse::condition_parser(tok) [ _val = new_<Condition::Contains>(_1) ]
+                    >    parse::condition_parser() [ _val = new_<Condition::Contains>(_1) ]
                     ;
 
                 contained_by
                     =    tok.ContainedBy_
                     >    tok.Condition_ > '='
-                    >    parse::condition_parser(tok) [ _val = new_<Condition::ContainedBy>(_1) ]
+                    >    parse::condition_parser() [ _val = new_<Condition::ContainedBy>(_1) ]
                     ;
 
                 star_type
@@ -149,7 +151,7 @@ namespace {
                     >    tok.Empire_ > '='
                     >    int_value_ref [ _a = _1 ]
                     >    tok.Condition_ > '='
-                    >    parse::condition_parser(tok) [ _val = new_<Condition::ResourceSupplyConnectedByEmpire>(_a, _1) ]
+                    >    parse::condition_parser() [ _val = new_<Condition::ResourceSupplyConnectedByEmpire>(_a, _1) ]
                     ;
 
                 start
@@ -239,9 +241,9 @@ namespace {
 
 namespace parse { namespace detail {
 
-    const condition_parser_rule& condition_parser_3(const lexer& tok)
+    const condition_parser_rule& condition_parser_3()
     {
-        static condition_parser_rules_3 retval(tok);
+        static condition_parser_rules_3 retval;
         return retval.start;
     }
 

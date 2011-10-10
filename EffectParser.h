@@ -16,7 +16,7 @@ namespace parse {
     > effect_parser_rule;
 
     /** Returns a const reference to the Effect parser. */
-    const effect_parser_rule& effect_parser(const parse::lexer& tok);
+    const effect_parser_rule& effect_parser();
 
 }
 

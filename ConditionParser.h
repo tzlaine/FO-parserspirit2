@@ -19,7 +19,7 @@ namespace parse {
     > condition_parser_rule;
 
     /** Returns a const reference to the Condition parser. */
-    const condition_parser_rule& condition_parser(const parse::lexer& tok);
+    const condition_parser_rule& condition_parser();
 
 }
 

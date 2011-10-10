@@ -9,8 +9,9 @@ using qi::_val;
 namespace parse {
 
     template <>
-    const enum_parser_rule<PlanetSize>::type& enum_parser<PlanetSize>(const parse::lexer& tok)
+    const enum_parser_rule<PlanetSize>::type& enum_parser<PlanetSize>()
     {
+        const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<PlanetSize>::type retval
             =    tok.planet_size_enum [ _val = _1 ]
             |    tok.Asteroids_ [ _val = SZ_ASTEROIDS ]
@@ -20,8 +21,9 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<PlanetType>::type& enum_parser<PlanetType>(const parse::lexer& tok)
+    const enum_parser_rule<PlanetType>::type& enum_parser<PlanetType>()
     {
+        const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<PlanetType>::type retval
             =    tok.planet_type_enum [ _val = _1 ]
             |    tok.Asteroids_ [ _val = PT_ASTEROIDS ]
@@ -31,8 +33,9 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<PlanetEnvironment>::type& enum_parser<PlanetEnvironment>(const parse::lexer& tok)
+    const enum_parser_rule<PlanetEnvironment>::type& enum_parser<PlanetEnvironment>()
     {
+        const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<PlanetEnvironment>::type retval
             =    tok.planet_environment_enum [ _val = _1 ]
             ;
@@ -40,8 +43,9 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<UniverseObjectType>::type& enum_parser<UniverseObjectType>(const parse::lexer& tok)
+    const enum_parser_rule<UniverseObjectType>::type& enum_parser<UniverseObjectType>()
     {
+        const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<UniverseObjectType>::type retval
             =    tok.universe_object_type_enum [ _val = _1 ]
             |    tok.Building_ [ _val = OBJ_BUILDING ]
@@ -53,8 +57,9 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<StarType>::type& enum_parser<StarType>(const parse::lexer& tok)
+    const enum_parser_rule<StarType>::type& enum_parser<StarType>()
     {
+        const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<StarType>::type retval
             =    tok.star_type_enum [ _val = _1 ]
             ;

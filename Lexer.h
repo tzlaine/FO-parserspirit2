@@ -47,8 +47,7 @@ typedef boost::spirit::lex::lexertl::actor_lexer<token_type> spirit_lexer_base_t
 struct lexer :
     boost::spirit::lex::lexer<spirit_lexer_base_type>
 {
-    /** Ctor. */
-    lexer();
+    static const lexer& instance();
 
     /** \name Comment tokens */ ///@{
     boost::spirit::lex::token_def<boost::spirit::lex::omit> inline_comment;
@@ -94,6 +93,10 @@ struct lexer :
     /** \name Error token. */ ///@{
     boost::spirit::lex::token_def<boost::spirit::lex::omit> error_token;
     //@}
+
+private:
+    /** Ctor. */
+    lexer();
 };
 
 /** The type of iterator passed to the script file parser by the script file

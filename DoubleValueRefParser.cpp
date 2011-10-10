@@ -7,7 +7,7 @@ namespace {
 
     struct double_parser_rules
     {
-        double_parser_rules(const parse::lexer& tok)
+        double_parser_rules()
             {
                 using qi::_1;
                 using qi::_a;
@@ -16,8 +16,10 @@ namespace {
                 using phoenix::push_back;
                 using phoenix::static_cast_;
 
-                const name_token_rule& first_token = int_var_first_token(tok);
-                const name_token_rule& container_token = int_var_container_token(tok);
+                const parse::lexer& tok = parse::lexer::instance();
+
+                const name_token_rule& first_token = int_var_first_token();
+                const name_token_rule& container_token = int_var_container_token();
 
                 final_token
                     %=   tok.Farming_
@@ -70,7 +72,7 @@ namespace {
                        >   (
                                 final_token
                                 [ push_back(_a, _1), _val = new_<ValueRef::Variable<double> >(_a) ]
-                            |   int_var_final_token(tok)
+                            |   int_var_final_token()
                                 [ push_back(_a, _1), _val = new_<ValueRef::StaticCast<int, double> >(new_<ValueRef::Variable<int> >(_a)) ]
                            )
                       )
@@ -82,7 +84,7 @@ namespace {
                     ;
 
 #if HAVE_CONDITION_PARSER
-                initialize_numeric_statistic_parser<double>(statistic, final_token, tok);
+                initialize_numeric_statistic_parser<double>(statistic, final_token);
 #endif
 
                 initialize_expression_parsers<double>(negate_expr,
@@ -137,21 +139,21 @@ namespace {
         rule primary_expr;
     };
 
-    double_parser_rules& get_double_parser_rules(const parse::lexer& tok)
+    double_parser_rules& get_double_parser_rules()
     {
-        static double_parser_rules retval(tok);
+        static double_parser_rules retval;
         return retval;
     }
 
 }
 
-const name_token_rule& double_var_final_token(const parse::lexer& tok)
-{ return get_double_parser_rules(tok).final_token; }
+const name_token_rule& double_var_final_token()
+{ return get_double_parser_rules().final_token; }
 
 namespace parse {
 
     template <>
-    const value_ref_parser_rule<double>::type& value_ref_parser<double>(const parse::lexer& tok)
-    { return get_double_parser_rules(tok).expr; }
+    const value_ref_parser_rule<double>::type& value_ref_parser<double>()
+    { return get_double_parser_rules().expr; }
 
 }

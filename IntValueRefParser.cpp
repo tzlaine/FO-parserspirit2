@@ -7,7 +7,7 @@ namespace {
 
     struct int_parser_rules
     {
-        int_parser_rules(const parse::lexer& tok)
+        int_parser_rules()
             {
                 using qi::_1;
                 using qi::_2;
@@ -19,6 +19,8 @@ namespace {
                 using phoenix::new_;
                 using phoenix::push_back;
                 using phoenix::static_cast_;
+
+                const parse::lexer& tok = parse::lexer::instance();
 
                 first_token
                     %=   tok.Source_
@@ -74,7 +76,7 @@ namespace {
                     ;
 
 #if HAVE_CONDITION_PARSER
-                initialize_numeric_statistic_parser<int>(statistic, final_token, tok);
+                initialize_numeric_statistic_parser<int>(statistic, final_token);
 #endif
 
                 initialize_expression_parsers<int>(negate_expr,
@@ -131,27 +133,27 @@ namespace {
         rule primary_expr;
     };
 
-    int_parser_rules& get_int_parser_rules(const parse::lexer& tok)
+    int_parser_rules& get_int_parser_rules()
     {
-        static int_parser_rules retval(tok);
+        static int_parser_rules retval;
         return retval;
     }
 
 }
 
-const name_token_rule& int_var_first_token(const parse::lexer& tok)
-{ return get_int_parser_rules(tok).first_token; }
+const name_token_rule& int_var_first_token()
+{ return get_int_parser_rules().first_token; }
 
-const name_token_rule& int_var_container_token(const parse::lexer& tok)
-{ return get_int_parser_rules(tok).container_token; }
+const name_token_rule& int_var_container_token()
+{ return get_int_parser_rules().container_token; }
 
-const name_token_rule& int_var_final_token(const parse::lexer& tok)
-{ return get_int_parser_rules(tok).final_token; }
+const name_token_rule& int_var_final_token()
+{ return get_int_parser_rules().final_token; }
 
 namespace parse {
 
     template <>
-    const value_ref_parser_rule<int>::type& value_ref_parser<int>(const parse::lexer& tok)
-    { return get_int_parser_rules(tok).expr; }
+    const value_ref_parser_rule<int>::type& value_ref_parser<int>()
+    { return get_int_parser_rules().expr; }
 
 }

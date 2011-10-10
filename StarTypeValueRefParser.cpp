@@ -9,7 +9,7 @@ namespace {
 
     struct star_type_parser_rules
     {
-        star_type_parser_rules(const parse::lexer& tok)
+        star_type_parser_rules()
             {
                 using qi::_1;
                 using qi::_a;
@@ -18,15 +18,17 @@ namespace {
                 using phoenix::push_back;
                 using phoenix::static_cast_;
 
-                const name_token_rule& first_token = int_var_first_token(tok);
-                const name_token_rule& container_token = int_var_container_token(tok);
+                const parse::lexer& tok = parse::lexer::instance();
+
+                const name_token_rule& first_token = int_var_first_token();
+                const name_token_rule& container_token = int_var_container_token();
 
                 final_token
                     %=   tok.StarType_
                     ;
 
                 constant
-                    =    parse::enum_parser<StarType>(tok) [ _val = new_<ValueRef::Constant<StarType> >(_1) ]
+                    =    parse::enum_parser<StarType>() [ _val = new_<ValueRef::Constant<StarType> >(_1) ]
                     |    tok.int_ [ _val = new_<ValueRef::Constant<StarType> >(static_cast_<StarType>(_1)) ]
                     ;
 
@@ -37,7 +39,7 @@ namespace {
                     ;
 
 #if HAVE_CONDITION_PARSER
-                initialize_nonnumeric_statistic_parser<StarType>(statistic, final_token, tok);
+                initialize_nonnumeric_statistic_parser<StarType>(statistic, final_token);
 #endif
 
                 primary_expr
@@ -83,9 +85,9 @@ namespace {
 namespace parse {
 
     template <>
-    const value_ref_parser_rule<StarType>::type& value_ref_parser<StarType>(const parse::lexer& tok)
+    const value_ref_parser_rule<StarType>::type& value_ref_parser<StarType>()
     {
-        static const star_type_parser_rules retval(tok);
+        static const star_type_parser_rules retval;
         return retval.primary_expr;
     }
 

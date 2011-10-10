@@ -17,7 +17,7 @@ namespace {
 
     struct effect_parser_rules
     {
-        effect_parser_rules(const parse::lexer& tok)
+        effect_parser_rules()
             {
                 using qi::_1;
                 using qi::_a;
@@ -27,6 +27,8 @@ namespace {
                 using qi::_e;
                 using qi::_val;
                 using phoenix::new_;
+
+                const parse::lexer& tok = parse::lexer::instance();
 
                 set_meter
                     =    tok.set
@@ -184,13 +186,13 @@ namespace {
                 move_to
                     =    tok.move_to
                     >    tok.destination > '='
-                    >    condition_parser(tok) [ _val = new_<Effect::MoveTo>(_1) ]
+                    >    condition_parser() [ _val = new_<Effect::MoveTo>(_1) ]
                     ;
 
                 set_destination
                     =    tok.set_destination
                     >    tok.destination > '='
-                    >    condition_parser(tok) [ _val = new_<Effect::SetDestination>(_1) ]
+                    >    condition_parser() [ _val = new_<Effect::SetDestination>(_1) ]
                     ;
 
                 destroy
@@ -218,13 +220,13 @@ namespace {
                 add_starlanes
                     =    tok.add_starlanes
                     >    tok.endpoint > '='
-                    >    condition_parser(tok) [ _val = new_<Effect::AddStarlanes>(_1) ]
+                    >    condition_parser() [ _val = new_<Effect::AddStarlanes>(_1) ]
                     ;
 
                 remove_starlanes
                     =    tok.remove_starlanes
                     >    tok.endpoint > '='
-                    >    condition_parser(tok) [ _val = new_<Effect::RemoveStarlanes>(_1) ]
+                    >    condition_parser() [ _val = new_<Effect::RemoveStarlanes>(_1) ]
                     ;
 
                 set_star_type
@@ -431,9 +433,9 @@ namespace {
 
 namespace parse {
 
-    const effect_parser_rule& effect_parser(const parse::lexer& tok)
+    const effect_parser_rule& effect_parser()
     {
-        static effect_parser_rules retval(tok);
+        static effect_parser_rules retval;
         return retval.start;
     }
 

@@ -171,6 +171,12 @@ lexer::lexer() :
     self("WS") = lex::token_def<>("\\s+");
 }
 
+const lexer& lexer::instance()
+{
+    static const lexer retval;
+    return retval;
+}
+
 const boost::phoenix::function<GG::report_error_<parse::token_type> > parse::report_error;
 
 namespace boost { namespace spirit { namespace traits {

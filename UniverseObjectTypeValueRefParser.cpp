@@ -9,7 +9,7 @@ namespace {
 
     struct universe_object_type_parser_rules
     {
-        universe_object_type_parser_rules(const parse::lexer& tok)
+        universe_object_type_parser_rules()
             {
                 using qi::_1;
                 using qi::_a;
@@ -18,15 +18,17 @@ namespace {
                 using phoenix::push_back;
                 using phoenix::static_cast_;
 
-                const name_token_rule& first_token = int_var_first_token(tok);
-                const name_token_rule& container_token = int_var_container_token(tok);
+                const parse::lexer& tok = parse::lexer::instance();
+
+                const name_token_rule& first_token = int_var_first_token();
+                const name_token_rule& container_token = int_var_container_token();
 
                 final_token
                     %=   tok.ObjectType_
                     ;
 
                 constant
-                    =    parse::enum_parser<UniverseObjectType>(tok) [ _val = new_<ValueRef::Constant<UniverseObjectType> >(_1) ]
+                    =    parse::enum_parser<UniverseObjectType>() [ _val = new_<ValueRef::Constant<UniverseObjectType> >(_1) ]
                     |    tok.int_ [ _val = new_<ValueRef::Constant<UniverseObjectType> >(static_cast_<UniverseObjectType>(_1)) ]
                     ;
 
@@ -38,7 +40,7 @@ namespace {
 
 
 #if HAVE_CONDITION_PARSER
-                initialize_nonnumeric_statistic_parser<UniverseObjectType>(statistic, final_token, tok);
+                initialize_nonnumeric_statistic_parser<UniverseObjectType>(statistic, final_token);
 #endif
 
                 primary_expr
@@ -84,9 +86,9 @@ namespace {
 namespace parse {
 
     template <>
-    const value_ref_parser_rule<UniverseObjectType>::type& value_ref_parser<UniverseObjectType>(const parse::lexer& tok)
+    const value_ref_parser_rule<UniverseObjectType>::type& value_ref_parser<UniverseObjectType>()
     {
-        static const universe_object_type_parser_rules retval(tok);
+        static const universe_object_type_parser_rules retval;
         return retval.primary_expr;
     }
 

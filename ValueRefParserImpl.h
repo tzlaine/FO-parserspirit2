@@ -138,10 +138,11 @@ void initialize_expression_parsers(
 template <typename T>
 void initialize_numeric_statistic_parser(
     typename statistic_rule<T>::type& statistic,
-    const name_token_rule& final_token,
-    const parse::lexer& tok
+    const name_token_rule& final_token
 )
 {
+    const parse::lexer& tok = parse::lexer::instance();
+
     statistic
         = (
                (
@@ -165,10 +166,11 @@ void initialize_numeric_statistic_parser(
 template <typename T>
 void initialize_nonnumeric_statistic_parser(
     typename statistic_rule<T>::type& statistic,
-    const name_token_rule& final_token,
-    const parse::lexer& tok
+    const name_token_rule& final_token
 )
 {
+    const parse::lexer& tok = parse::lexer::instance();
+
     statistic
         = (
                tok.statistic_type_enum [ _b = _1 ] // TODO: Should be "mode" only.
@@ -183,7 +185,7 @@ void initialize_nonnumeric_statistic_parser(
 }
 #endif
 
-const name_token_rule& int_var_first_token(const parse::lexer& tok);
-const name_token_rule& int_var_container_token(const parse::lexer& tok);
-const name_token_rule& int_var_final_token(const parse::lexer& tok);
-const name_token_rule& double_var_final_token(const parse::lexer& tok);
+const name_token_rule& int_var_first_token();
+const name_token_rule& int_var_container_token();
+const name_token_rule& int_var_final_token();
+const name_token_rule& double_var_final_token();

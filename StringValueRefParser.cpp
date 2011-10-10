@@ -9,7 +9,7 @@ namespace {
 
     struct string_parser_rules
     {
-        string_parser_rules(const parse::lexer& tok)
+        string_parser_rules()
             {
                 using qi::_1;
                 using qi::_a;
@@ -18,8 +18,10 @@ namespace {
                 using phoenix::push_back;
                 using phoenix::new_;
 
-                const name_token_rule& first_token = int_var_first_token(tok);
-                const name_token_rule& container_token = int_var_container_token(tok);
+                const parse::lexer& tok = parse::lexer::instance();
+
+                const name_token_rule& first_token = int_var_first_token();
+                const name_token_rule& container_token = int_var_container_token();
 
                 final_token
                     %=   tok.Name_
@@ -31,11 +33,11 @@ namespace {
                 constant
                     =    tok.string [ _val = new_<ValueRef::Constant<std::string> >(_1) ]
                     |    as_string [
-                              parse::enum_parser<PlanetSize>(tok)
-                          |   parse::enum_parser<PlanetType>(tok)
-                          |   parse::enum_parser<PlanetEnvironment>(tok)
-                          |   parse::enum_parser<UniverseObjectType>(tok)
-                          |   parse::enum_parser<StarType>(tok)
+                              parse::enum_parser<PlanetSize>()
+                          |   parse::enum_parser<PlanetType>()
+                          |   parse::enum_parser<PlanetEnvironment>()
+                          |   parse::enum_parser<UniverseObjectType>()
+                          |   parse::enum_parser<StarType>()
                           |   tok.double_
                           |   tok.int_
                          ]
@@ -48,9 +50,9 @@ namespace {
                        >   (
                                 final_token
                                 [ push_back(_a, _1), _val = new_<ValueRef::Variable<std::string> >(_a) ]
-                            |   int_var_final_token(tok)
+                            |   int_var_final_token()
                                 [ push_back(_a, _1), _val = new_<ValueRef::StringCast<int> >(new_<ValueRef::Variable<int> >(_a)) ]
-                            |   double_var_final_token(tok)
+                            |   double_var_final_token()
                                 [ push_back(_a, _1), _val = new_<ValueRef::StringCast<double> >(new_<ValueRef::Variable<double> >(_a)) ]
                            )
                       )
@@ -62,7 +64,7 @@ namespace {
                     ;
 
 #if HAVE_CONDITION_PARSER
-                initialize_nonnumeric_statistic_parser<std::string>(statistic, final_token, tok);
+                initialize_nonnumeric_statistic_parser<std::string>(statistic, final_token);
 #endif
 
                 expr
@@ -121,9 +123,9 @@ namespace {
 namespace parse {
 
     template <>
-    const value_ref_parser_rule<std::string>::type& value_ref_parser<std::string>(const parse::lexer& tok)
+    const value_ref_parser_rule<std::string>::type& value_ref_parser<std::string>()
     {
-        static const string_parser_rules retval(tok);
+        static const string_parser_rules retval;
         return retval.expr;
     }
 

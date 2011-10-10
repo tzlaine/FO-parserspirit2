@@ -9,7 +9,7 @@ namespace {
 
     struct planet_type_parser_rules
     {
-        planet_type_parser_rules(const parse::lexer& tok)
+        planet_type_parser_rules()
             {
                 using qi::_1;
                 using qi::_a;
@@ -18,8 +18,10 @@ namespace {
                 using phoenix::push_back;
                 using phoenix::static_cast_;
 
-                const name_token_rule& first_token = int_var_first_token(tok);
-                const name_token_rule& container_token = int_var_container_token(tok);
+                const parse::lexer& tok = parse::lexer::instance();
+
+                const name_token_rule& first_token = int_var_first_token();
+                const name_token_rule& container_token = int_var_container_token();
 
                 final_token
                     %=   tok.PlanetType_
@@ -27,7 +29,7 @@ namespace {
                     ;
 
                 constant
-                    =    parse::enum_parser<PlanetType>(tok) [ _val = new_<ValueRef::Constant<PlanetType> >(_1) ]
+                    =    parse::enum_parser<PlanetType>() [ _val = new_<ValueRef::Constant<PlanetType> >(_1) ]
                     |    tok.int_ [ _val = new_<ValueRef::Constant<PlanetType> >(static_cast_<PlanetType>(_1)) ]
                     ;
 
@@ -38,7 +40,7 @@ namespace {
                     ;
 
 #if HAVE_CONDITION_PARSER
-                initialize_nonnumeric_statistic_parser<PlanetType>(statistic, final_token, tok);
+                initialize_nonnumeric_statistic_parser<PlanetType>(statistic, final_token);
 #endif
 
                 primary_expr
@@ -84,9 +86,9 @@ namespace {
 namespace parse {
 
     template <>
-    const value_ref_parser_rule<PlanetType>::type& value_ref_parser<PlanetType>(const parse::lexer& tok)
+    const value_ref_parser_rule<PlanetType>::type& value_ref_parser<PlanetType>()
     {
-        static const planet_type_parser_rules retval(tok);
+        static const planet_type_parser_rules retval;
         return retval.primary_expr;
     }
 

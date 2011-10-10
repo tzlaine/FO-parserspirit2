@@ -8,7 +8,7 @@
 
 struct lexer_test_rules
 {
-    lexer_test_rules(const parse::lexer& tok);
+    lexer_test_rules();
 
     typedef boost::spirit::qi::rule<
         parse::token_iterator,

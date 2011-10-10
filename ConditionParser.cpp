@@ -3,18 +3,18 @@
 
 namespace parse {
 
-    const condition_parser_rule& condition_parser(const lexer& tok)
+    const condition_parser_rule& condition_parser()
     {
-        static const condition_parser_rule& rules_1 = detail::condition_parser_1(tok);
-        static const condition_parser_rule& rules_2 = detail::condition_parser_2(tok);
-        static const condition_parser_rule& rules_3 = detail::condition_parser_3(tok);
+        static const condition_parser_rule& rule_1 = detail::condition_parser_1();
+        static const condition_parser_rule& rule_2 = detail::condition_parser_2();
+        static const condition_parser_rule& rule_3 = detail::condition_parser_3();
         static condition_parser_rule retval;
         static bool once = true;
         if (once) {
             retval
-                %=   rules_1
-                |    rules_2
-                |    rules_3
+                %=   rule_1
+                |    rule_2
+                |    rule_3
                 ;
             once = false;
         }
