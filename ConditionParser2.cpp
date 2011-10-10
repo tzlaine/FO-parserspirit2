@@ -26,10 +26,10 @@ namespace {
                 const parse::value_ref_parser_rule<int>::type& int_value_ref =
                     parse::value_ref_parser<int>();
 
-                using qi::_1;
-                using qi::_a;
-                using qi::_b;
-                using qi::_val;
+                qi::_1_type _1;
+                qi::_a_type _a;
+                qi::_b_type _b;
+                qi::_val_type _val;
                 using phoenix::new_;
 
                 has_special

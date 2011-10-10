@@ -28,13 +28,13 @@ namespace {
                 const parse::value_ref_parser_rule<std::string>::type& string_value_ref =
                     parse::value_ref_parser<std::string>();
 
-                using qi::_1;
-                using qi::_2;
-                using qi::_3;
-                using qi::_4;
-                using qi::_a;
-                using qi::_b;
-                using qi::_val;
+                qi::_1_type _1;
+                qi::_2_type _2;
+                qi::_3_type _3;
+                qi::_4_type _4;
+                qi::_a_type _a;
+                qi::_b_type _b;
+                qi::_val_type _val;
                 using phoenix::new_;
                 using phoenix::push_back;
 

@@ -90,12 +90,12 @@ void initialize_expression_parsers(
     typename parse::value_ref_parser_rule<T>::type& primary_expr
 )
 {
-    using qi::_1;
-    using qi::_a;
-    using qi::_b;
-    using qi::_c;
-    using qi::_val;
-    using qi::lit;
+    qi::_1_type _1;
+    qi::_a_type _a;
+    qi::_b_type _b;
+    qi::_c_type _c;
+    qi::_val_type _val;
+    qi::lit_type lit;
     using phoenix::new_;
 
     negate_expr

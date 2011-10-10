@@ -2,6 +2,8 @@
 #ifndef _Lexer_h_
 #define _Lexer_h_
 
+#define BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
+
 #include <GG/ReportParseError.h>
 
 #include "../universe/Enums.h"

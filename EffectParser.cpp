@@ -19,13 +19,13 @@ namespace {
     {
         effect_parser_rules()
             {
-                using qi::_1;
-                using qi::_a;
-                using qi::_b;
-                using qi::_c;
-                using qi::_d;
-                using qi::_e;
-                using qi::_val;
+                qi::_1_type _1;
+                qi::_a_type _a;
+                qi::_b_type _b;
+                qi::_c_type_c ;
+                qi::_d_type _d;
+                qi::_e_type _e;
+                qi::_val_type _val;
                 using phoenix::new_;
 
                 const parse::lexer& tok = parse::lexer::instance();

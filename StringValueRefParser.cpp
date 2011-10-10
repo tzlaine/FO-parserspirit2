@@ -11,10 +11,10 @@ namespace {
     {
         string_parser_rules()
             {
-                using qi::_1;
-                using qi::_a;
-                using qi::_val;
-                using qi::as_string;
+                qi::_1_type _1;
+                qi::_a_type _a;
+                qi::_val_type _val;
+                qi::as_string_type as_string;
                 using phoenix::push_back;
                 using phoenix::new_;
 

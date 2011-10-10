@@ -9,13 +9,13 @@ namespace {
     {
         int_parser_rules()
             {
-                using qi::_1;
-                using qi::_2;
-                using qi::_3;
-                using qi::_4;
-                using qi::_a;
-                using qi::_val;
-                using qi::lit;
+                qi::_1_type _1;
+                qi::_2_type _2;
+                qi::_3_type _3;
+                qi::_4_type _4;
+                qi::_a_type _a;
+                qi::_val_type _val;
+                qi::lit_type lit;
                 using phoenix::new_;
                 using phoenix::push_back;
                 using phoenix::static_cast_;

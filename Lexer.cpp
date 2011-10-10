@@ -120,9 +120,9 @@ lexer::lexer() :
 {
     namespace lex = boost::spirit::lex;
 
-    using lex::_end;
-    using lex::_start;
-    using lex::_val;
+    lex::_end_type _end;
+    lex::_start_type _start;
+    lex::_val_type _val;
     using boost::phoenix::bind;
     using boost::phoenix::construct;
 

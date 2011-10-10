@@ -5,7 +5,7 @@ lexer_test_rules::lexer_test_rules()
 {
     namespace qi = boost::spirit::qi;
     namespace phoenix = boost::phoenix;
-    using qi::_1;
+    qi::_1_type _1;
     using phoenix::val;
 
     const parse::lexer& tok = parse::lexer::instance();

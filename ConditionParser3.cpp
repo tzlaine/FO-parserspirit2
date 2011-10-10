@@ -32,12 +32,12 @@ namespace {
                 const parse::value_ref_parser_rule< ::StarType>::type& star_type_value_ref =
                     parse::value_ref_parser< ::StarType>();
 
-                using qi::_1;
-                using qi::_a;
-                using qi::_b;
-                using qi::_c;
-                using qi::_d;
-                using qi::_val;
+                qi::_1_type _1;
+                qi::_a_type _a;
+                qi::_b_type _b;
+                qi::_c_type _c;
+                qi::_d_type _d;
+                qi::_val_type _val;
                 using phoenix::new_;
                 using phoenix::push_back;
 

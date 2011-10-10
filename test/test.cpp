@@ -84,47 +84,49 @@ int main(int argc, char* argv[])
         parse::token_iterator it = l.begin(first, last);
         const parse::token_iterator end_it = l.end();
 
+        boost::spirit::qi::in_state_type in_state;
+
         try {
             switch (test) {
             case lexer: {
                 lexer_test_rules rules;
-                success = boost::spirit::qi::phrase_parse(it, end_it, rules.lexer, boost::spirit::qi::in_state("WS")[l.self]);
+                success = boost::spirit::qi::phrase_parse(it, end_it, rules.lexer, in_state("WS")[l.self]);
                 break;
             }
             case int_value_ref_parser: {
-                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<int>(), boost::spirit::qi::in_state("WS")[l.self]);
+                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<int>(), in_state("WS")[l.self]);
                 break;
             }
             case double_value_ref_parser: {
-                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<double>(), boost::spirit::qi::in_state("WS")[l.self]);
+                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<double>(), in_state("WS")[l.self]);
                 break;
             }
             case string_value_ref_parser: {
-                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<std::string>(), boost::spirit::qi::in_state("WS")[l.self]);
+                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<std::string>(), in_state("WS")[l.self]);
                 break;
             }
             case planet_size_value_ref_parser: {
-                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<PlanetSize>(), boost::spirit::qi::in_state("WS")[l.self]);
+                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<PlanetSize>(), in_state("WS")[l.self]);
                 break;
             }
             case planet_type_value_ref_parser: {
-                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<PlanetType>(), boost::spirit::qi::in_state("WS")[l.self]);
+                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<PlanetType>(), in_state("WS")[l.self]);
                 break;
             }
             case planet_environment_value_ref_parser: {
-                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<PlanetEnvironment>(), boost::spirit::qi::in_state("WS")[l.self]);
+                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<PlanetEnvironment>(), in_state("WS")[l.self]);
                 break;
             }
             case universe_object_type_value_ref_parser: {
-                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<UniverseObjectType>(), boost::spirit::qi::in_state("WS")[l.self]);
+                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<UniverseObjectType>(), in_state("WS")[l.self]);
                 break;
             }
             case star_type_value_ref_parser: {
-                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<StarType>(), boost::spirit::qi::in_state("WS")[l.self]);
+                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<StarType>(), in_state("WS")[l.self]);
                 break;
             }
             case condition_parser: {
-                success = boost::spirit::qi::phrase_parse(it, end_it, parse::condition_parser(), boost::spirit::qi::in_state("WS")[l.self]);
+                success = boost::spirit::qi::phrase_parse(it, end_it, parse::condition_parser(), in_state("WS")[l.self]);
                 break;
             }
             case effect_parser: {
