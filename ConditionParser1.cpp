@@ -12,8 +12,7 @@ namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
 
 
-#define NAME(x) x.name(#x)
-//; debug(x)
+#define NAME(x) x.name(#x); debug(x)
 
 namespace {
 
@@ -30,6 +29,9 @@ namespace {
                     parse::value_ref_parser<std::string>();
 
                 using qi::_1;
+                using qi::_2;
+                using qi::_3;
+                using qi::_4;
                 using qi::_a;
                 using qi::_b;
                 using qi::_val;
@@ -148,6 +150,32 @@ namespace {
                     |    or_
                     |    not_
                     ;
+
+                NAME(string_ref_vec);
+                NAME(all);
+                NAME(source);
+                NAME(root_candidate);
+                NAME(target);
+                NAME(stationary);
+                NAME(capital);
+                NAME(monster);
+                NAME(armed);
+                NAME(owned_by);
+                NAME(homeworld);
+                NAME(building);
+                NAME(species);
+                NAME(focus_type);
+                NAME(planet_type);
+                NAME(planet_size);
+                NAME(planet_environment);
+                NAME(object_type);
+                NAME(meter_value);
+                NAME(and_);
+                NAME(or_);
+                NAME(not_);
+                NAME(start);
+
+                qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
 
         typedef boost::spirit::qi::rule<
