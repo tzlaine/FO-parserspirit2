@@ -46,7 +46,7 @@ namespace {
                     >    tok.Distance_ > '='
                     >    double_value_ref [ _a = _1 ]
                     >    tok.Condition_ > '='
-                    >    parse::condition_parser() [ _val = new_<Condition::WithinDistance>(_a, _1) ]
+                    >    parse::detail::condition_parser [ _val = new_<Condition::WithinDistance>(_a, _1) ]
                     ;
 
                 within_starlane_jumps
@@ -54,7 +54,7 @@ namespace {
                     >    tok.Jumps_ > '='
                     >    int_value_ref [ _a = _1 ]
                     >    tok.Condition_ > '='
-                    >    parse::condition_parser() [ _val = new_<Condition::WithinStarlaneJumps>(_a, _1) ]
+                    >    parse::detail::condition_parser [ _val = new_<Condition::WithinStarlaneJumps>(_a, _1) ]
                     ;
 
                 number
@@ -64,7 +64,7 @@ namespace {
                     >    tok.High_ > '='
                     >    int_value_ref [ _b = _1 ]
                     >    tok.Condition_ > '='
-                    >    parse::condition_parser() [ _val = new_<Condition::Number>(_a, _b, _1) ]
+                    >    parse::detail::condition_parser [ _val = new_<Condition::Number>(_a, _b, _1) ]
                     ;
 
                 turn
@@ -89,7 +89,7 @@ namespace {
                           >   tok.Number_ > '='
                           >   int_value_ref [ _a = _1 ]
                           >   tok.Condition_ > '='
-                          >   parse::condition_parser() [ _val = new_<Condition::SortedNumberOf>(_a, _1) ]
+                          >   parse::detail::condition_parser [ _val = new_<Condition::SortedNumberOf>(_a, _1) ]
                          )
                     |    (
                               (
@@ -102,20 +102,20 @@ namespace {
                           >   tok.SortKey_ > '='
                           >   double_value_ref [ _c = _1 ]
                           >   tok.Condition_ > '='
-                          >   parse::condition_parser() [ _val = new_<Condition::SortedNumberOf>(_a, _c, _b, _1) ]
+                          >   parse::detail::condition_parser [ _val = new_<Condition::SortedNumberOf>(_a, _c, _b, _1) ]
                          )
                     ;
 
                 contains
                     =    tok.Contains_
                     >    tok.Condition_ > '='
-                    >    parse::condition_parser() [ _val = new_<Condition::Contains>(_1) ]
+                    >    parse::detail::condition_parser [ _val = new_<Condition::Contains>(_1) ]
                     ;
 
                 contained_by
                     =    tok.ContainedBy_
                     >    tok.Condition_ > '='
-                    >    parse::condition_parser() [ _val = new_<Condition::ContainedBy>(_1) ]
+                    >    parse::detail::condition_parser [ _val = new_<Condition::ContainedBy>(_1) ]
                     ;
 
                 star_type
@@ -151,7 +151,7 @@ namespace {
                     >    tok.Empire_ > '='
                     >    int_value_ref [ _a = _1 ]
                     >    tok.Condition_ > '='
-                    >    parse::condition_parser() [ _val = new_<Condition::ResourceSupplyConnectedByEmpire>(_a, _1) ]
+                    >    parse::detail::condition_parser [ _val = new_<Condition::ResourceSupplyConnectedByEmpire>(_a, _1) ]
                     ;
 
                 start
