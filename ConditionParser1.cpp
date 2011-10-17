@@ -12,7 +12,8 @@ namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
 
 
-#define NAME(x) x.name(#x); debug(x)
+#define NAME(x) x.name(#x)
+//; debug(x)
 
 namespace {
 
