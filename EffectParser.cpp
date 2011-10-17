@@ -27,62 +27,64 @@ namespace {
                 qi::_e_type _e;
                 qi::_val_type _val;
                 using phoenix::new_;
+                using phoenix::construct;
+                using phoenix::push_back;
 
                 const parse::lexer& tok = parse::lexer::instance();
 
                 set_meter
-                    =    tok.set
+                    =    tok.Set_
                     >    enum_parser<MeterType>() [ _a = _1 ] // TODO: Only non-ship meter types.
-                    >    tok.value > '='
+                    >    tok.Value_ > '='
                     >    tok.double_ [ _val = new_<Effect::SetMeter>(_a, _1) ]
                     ;
 
                 set_ship_part_meter
-                    =    tok.set
+                    =    tok.Set_
                     >    enum_parser<MeterType>() [ _a = _1 ] // TODO: Only non-ship meter types.
                     >>   (
                               (
-                                   tok.part_class > '='
+                                   tok.PartClass_ > '='
                                >   enum_parser<ShipPartClass>() [ _b = _1 ]
-                               >   tok.value > '='
+                               >   tok.Value_ > '='
                                >   double_value_ref [ _e = _1 ]
-                               >   tok.slot_type > '='
+                               >   tok.SlotType_ > '='
                                >   enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_a, _b, _e, _1) ]
                               )
                           |   (
-                                   tok.fighter_type > '='
+                                   tok.FighterType_ > '='
                                >   enum_parser<CombatFighterType>() [ _c = _1 ]
-                               >   tok.value > '='
+                               >   tok.Value_ > '='
                                >   double_value_ref [ _e = _1 ]
-                               >   tok.slot_type > '='
+                               >   tok.SlotType_ > '='
                                >   enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_a, _c, _e, _1) ]
                               )
                           |   (
-                                   tok.part_name > '='
+                                   tok.PartName_ > '='
                                >   tok.string [ _d = _1 ]
-                               >   tok.value > '='
+                               >   tok.Value_ > '='
                                >   double_value_ref [ _e = _1 ]
-                               >   tok.slot_type > '='
+                               >   tok.SlotType_ > '='
                                >   enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_a, _d, _e, _1) ]
                               )
                          )
                     ;
 
                 set_empire_meter
-                    =    tok.set_empire_meter
+                    =    tok.SetEmpireMeter_
                     >>   (
                               (
-                                   tok.empire > '='
+                                   tok.Empire_ > '='
                                >   int_value_ref [ _a = _1 ]
-                               >   tok.meter > '='
+                               >   tok.Meter_ > '='
                                >   tok.string [ _b = _1 ]
-                               >   tok.value > '='
+                               >   tok.Value_ > '='
                                >   double_value_ref [ _val = new_<Effect::SetEmpireMeter>(_a, _b, _1) ]
                               )
                           |   (
-                                   tok.meter > '='
+                                   tok.Meter_ > '='
                                >   tok.string [ _b = _1 ]
-                               >   tok.value > '='
+                               >   tok.Value_ > '='
                                >   double_value_ref [ _val = new_<Effect::SetEmpireMeter>(_b, _1) ]
                               )
                          )
@@ -90,211 +92,202 @@ namespace {
 
                 set_empire_stockpile
                     =    (
-                              tok.set_empire_food_stockpile [ _a = RE_FOOD ]
-                          |   tok.set_empire_mineral_stockpile [ _a = RE_MINERALS ]
-                          |   tok.set_empire_trade_stockpile [ _a = RE_TRADE ]
+                              tok.SetEmpireFoodStockpile_ [ _a = RE_FOOD ]
+                          |   tok.SetEmpireMineralStockpile_ [ _a = RE_MINERALS ]
+                          |   tok.SetEmpireTradeStockpile_ [ _a = RE_TRADE ]
                          )
                     >>   (
-                              tok.value > '='
+                              tok.Value_ > '='
                           >   double_value_ref [ _val = new_<Effect::SetEmpireStockpile>(_a, _1) ]
                          )
                     |    (
-                              tok.empire > '='
+                              tok.Empire_ > '='
                           >   int_value_ref [ _b = _1 ]
-                          >   tok.value > '='
+                          >   tok.Value_ > '='
                           >   double_value_ref [ _val = new_<Effect::SetEmpireStockpile>(_b, _a, _1) ]
                          )
                     ;
 
                 set_empire_capital
-                    =    tok.set_empire_capital
+                    =    tok.SetEmpireCapital_
                     >>   (
-                              tok.empire > '='
+                              tok.Empire_ > '='
                           |   int_value_ref [ _val = new_<Effect::SetEmpireCapital>(_1) ]
                          )
                     |    eps [ _val = new_<Effect::SetEmpireCapital>() ]
                     ;
 
                 set_planet_type
-                    =    tok.set_planet_type
-                    >    tok.type > '='
+                    =    tok.SetPlanetType_
+                    >    tok.Type_ > '='
                     >    planet_type_value_ref [ _val = new_<Effect::SetPlanetType>(_1) ]
                     ;
 
                 set_planet_size
-                    =    tok.set_planet_size
-                    >    tok.size > '='
+                    =    tok.SetPlanetSize_
+                    >    tok.Size_ > '='
                     >    planet_size_value_ref [ _val = new_<Effect::SetPlanetSize>(_1) ]
                     ;
 
                 set_species
-                    =    tok.set_species
-                    >    tok.name > '='
+                    =    tok.SetSpecies_
+                    >    tok.Name_ > '='
                     >    string_value_ref [ _val = new_<Effect::SetSpecies>(_1) ]
                     ;
 
                 set_owner
-                    =    tok.set_owner
-                    >    tok.empire > '='
+                    =    tok.SetOwner_
+                    >    tok.Empire_ > '='
                     >    int_value_ref [ _val = new_<Effect::SetOwner>(_1) ]
                     ;
 
                 create_planet
-                    =    tok.create_planet
-                    >    tok.type > '='
+                    =    tok.CreatePlanet_
+                    >    tok.Type_ > '='
                     >    planet_type_value_ref [ _a = _1 ]
-                    >    tok.endpoint > '='
+                    >    tok.Endpoint_ > '='
                     >    planet_type_value_ref [ new_<Effect::CreatePlanet>(_a, _1) ]
                     ;
 
                 create_building
-                    =    tok.create_building
-                    >    tok.name > '='
+                    =    tok.CreateBuilding_
+                    >    tok.Name_ > '='
                     >    tok.string [ _val = new_<Effect::CreateBuilding>(_1) ]
                     ;
 
                 create_ship
-                    =    tok.create_ship
+                    =    tok.CreateShip_
                     >>   (
-                              tok.design_name >> '='
+                              tok.DesignName_ >> '='
                           >>  int_value_ref [ _b = _1 ]
-                          >   tok.empire > '='
+                          >   tok.Empire_ > '='
                           >   int_value_ref [ _c = _1 ]
-                          >   tok.species > '='
+                          >   tok.Species_ > '='
                           >   string_value_ref [ _val = new_<Effect::CreateShip>(_b, _c, _1) ]
                          )
                     |    (
-                              tok.design_name >> '='
+                              tok.DesignName_ >> '='
                           >>  tok.string [ _a = _1 ]
-                          >>  tok.empire >> '='
+                          >>  tok.Empire_ >> '='
                           >>  int_value_ref [ _b = _1 ]
-                          >>  tok.species > '='
+                          >>  tok.Species_ > '='
                           >   string_value_ref [ _val = new_<Effect::CreateShip>(_a, _b, _1) ]
                          )
                     |    (
-                              tok.design_name >> '='
+                              tok.DesignName_ >> '='
                           >>  tok.string [ _a = _1 ]
-                          >>  tok.empire > '='
+                          >>  tok.Empire_ > '='
                           >   string_value_ref [ _val = new_<Effect::CreateShip>(_a, _1) ]
                          )
                     |    (
-                              tok.design_name > '='
-                          >  tok.string [ _val = new_<Effect::CreateShip>(_1) ]
+                              tok.DesignName_ > '='
+                          >   tok.string [ _val = new_<Effect::CreateShip>(_1) ]
                          )
                     ;
 
                 move_to
-                    =    tok.move_to
-                    >    tok.destination > '='
+                    =    tok.MoveTo_
+                    >    tok.Destination_ > '='
                     >    condition_parser() [ _val = new_<Effect::MoveTo>(_1) ]
                     ;
 
                 set_destination
-                    =    tok.set_destination
-                    >    tok.destination > '='
+                    =    tok.SetDestination_
+                    >    tok.Destination_ > '='
                     >    condition_parser() [ _val = new_<Effect::SetDestination>(_1) ]
                     ;
 
                 destroy
-                    =    tok.destroy [ _val = new_<Effect::Destroy>() ]
+                    =    tok.Destroy_ [ _val = new_<Effect::Destroy>() ]
                     ;
 
                 victory
-                    =    tok.victory
-                    >    tok.reason > '='
+                    =    tok.Victory_
+                    >    tok.Reason_ > '='
                     >    string_value_ref [ _val = new_<Effect::Victory>(_1) ]
                     ;
 
                 add_special
-                    =    tok.add_special
-                    >    tok.name > '='
+                    =    tok.AddSpecial_
+                    >    tok.Name_ > '='
                     >    string_value_ref [ _val = new_<Effect::AddSpecial>(_1) ]
                     ;
 
                 remove_special
-                    =    tok.remove_special
-                    >    tok.name > '='
+                    =    tok.RemoveSpecial
+                    >    tok.Name_ > '='
                     >    string_value_ref [ _val = new_<Effect::RemoveSpecial>(_1) ]
                     ;
 
                 add_starlanes
-                    =    tok.add_starlanes
-                    >    tok.endpoint > '='
+                    =    tok.AddStarlanes_
+                    >    tok.Endpoint_ > '='
                     >    condition_parser() [ _val = new_<Effect::AddStarlanes>(_1) ]
                     ;
 
                 remove_starlanes
-                    =    tok.remove_starlanes
-                    >    tok.endpoint > '='
+                    =    tok.RemoveStarlanes_
+                    >    tok.Endpoint_ > '='
                     >    condition_parser() [ _val = new_<Effect::RemoveStarlanes>(_1) ]
                     ;
 
                 set_star_type
-                    =    tok.set_star_type
-                    >    tok.type > '='
+                    =    tok.SetStarType_
+                    >    tok.Type_ > '='
                     >    star_type_value_ref [ _val = new_<Effect::SetStarType>(_1) ]
                     ;
 
                 set_tech_availability
                     =    (
-                              tok.give_tech_to_owner [ _a = true, _b = true ]
-                          |   tok.revoke_tech_from_owner [ _a = false, _b = true ]
-                          |   tok.unlock_tech_items_for_owner [ _a = true, _b = false ]
-                          |   tok.lock_tech_items_for_owner [ _a = false, _b = false ]
+                              tok.GiveTechToOwner_ [ _a = true, _b = true ]
+                          |   tok.RevokeTechFromOwner_ [ _a = false, _b = true ]
+                          |   tok.UnlockTechItemsForOwner_ [ _a = true, _b = false ]
+                          |   tok.LockTechItemsForOwner_ [ _a = false, _b = false ]
                          )
-                    >    tok.name > '='
+                    >    tok.Name_ > '='
                     >    tok.string
                          [ _val = new_<Effect::SetTechAvailability>(_1, new_<ValueRef::Variable<int> >(ValueRef::EFFECT_TARGET_REFERENCE, "Owner"), _a, _b) ]
                     ;
 
-        generate_sitrep_message =
-            (str_p("generatesitrepmessage")
-             >> message_label >>                name_p[generate_sitrep_message.template_string = arg1]
-             >> !(parameters_label >>           string_and_string_ref_vector[generate_sitrep_message.parameters = arg1])
-             >> (affiliation_label >>           affiliation_type_p[generate_sitrep_message.affiliation = arg1]
-                 |                              eps_p[generate_sitrep_message.affiliation = val(AFFIL_SELF)]
-             >> empire_label >>                 int_expr_p[generate_sitrep_message.recipient_empire = arg1])
-             [generate_sitrep_message.this_ = new_<Effect::GenerateSitRepMessage>(generate_sitrep_message.template_string,
-                                                                                  generate_sitrep_message.parameters,
-                                                                                  generate_sitrep_message.recipient_empire,
-                                                                                  generate_sitrep_message.affiliation)])
-            | (str_p("generatesitrepmessage")
-               >> message_label >>              name_p[generate_sitrep_message.template_string = arg1]
-               >> !(parameters_label >>         string_and_string_ref_vector[generate_sitrep_message.parameters = arg1])
-               >> (affiliation_label >>         affiliation_type_p[generate_sitrep_message.affiliation = arg1]
-                   |                            eps_p[generate_sitrep_message.affiliation = val(AFFIL_ANY)])
-               [generate_sitrep_message.this_ = new_<Effect::GenerateSitRepMessage>(generate_sitrep_message.template_string,
-                                                                                    generate_sitrep_message.parameters,
-                                                                                    generate_sitrep_message.affiliation)]);
-
                 generate_sitrep_message
-                    =    tok.generate_sitrep_message
-                    >    tok.message > '='
+                    =    tok.GenerateSitrepMessage_
+                    >    tok.Message_ > '='
                     >    tok.string [ _a = _1 ]
                     >> - (
-                              tok.parameters > '='
+                              tok.Parameters_ > '='
                           >   string_and_string_ref_vector [ _b = _1 ]
                          )
                     >>   (
                               (
-                                   affiliation >> '='
+                                   tok.Affiliation_ >> '='
                                >>  enum_parser<EmpireAffiliationType>() [ _c = _1 ]
                                |   eps [ _c = AFFIL_SELF ]
                               )
-                          >>  tok.empire > '='
+                          >>  tok.Empire_ > '='
                           >   int_value_ref [ _val = new_<Effect::GenerateSitRepMessage>(_a, _b, _1, _c) ]
                          )
-                         )
                     |    (
-                              affiliation > '='
+                              tok.Affiliation_ > '='
                           >   enum_parser<EmpireAffiliationType>() [ _c = _1 ]
                           |   eps [ _c = AFFIL_ANY ]
                          )
                          [ _val = new_<Effect::GenerateSitRepMessage>(_a, _b, _c) ]
                     ;
 
-                string_and_string_ref_vector
-                    =    
+                string_and_string_ref
+                    =    tok.Tag_ > '='
+                    >    tok.string [ _a = _1 ]
+                    >    tok.Label_ > '='
+                    >    tok.string_value_ref [ _val = construct<string_and_string_ref_pair>(_a, _1) ]
+                    ;
+
+                string_and_string_ref_vec
+                    =    (
+                             '['
+                          > +string_and_string_ref [ push_back(_val, _1) ]
+                          >  ']'
+                         )
+                    |    string_and_string_ref [ push_back(_val, _1) ]
                     ;
 
                 start
@@ -403,6 +396,21 @@ namespace {
             parse::skipper_type
         > generate_sitrep_message_rule;
 
+        std::pair<std::string, const ValueRef::ValueRefBase<std::string>*> string_and_string_ref_pair;
+
+        typedef boost::spirit::qi::rule<
+            parse::token_iterator,
+            string_and_string_ref_pair (),
+            qi::locals<std::string>, // TODO: Consider making this an adobe::name_t, and removing the quotes in the script source files.
+            parse::skipper_type
+        > string_and_string_ref_rule;
+
+        typedef boost::spirit::qi::rule<
+            parse::token_iterator,
+            std::vector<string_and_string_ref_pair> (),
+            parse::skipper_type
+        > string_and_string_ref_vector_rule;
+
         set_meter_rule set_meter;
         set_ship_part_meter_rule set_ship_part_meter;
         set_empire_meter_rule set_empire_meter;
@@ -426,6 +434,8 @@ namespace {
         parse::effect_parser_rule set_star_type;
         set_tech_availability_rule set_tech_availability;
         generate_sitrep_message_rule generate_sitrep_message;
+        string_and_string_ref_rule string_and_string_ref;
+        string_and_string_ref_vector_rule string_and_string_ref_vector;
         parse::effect_parser_rule start;
     };
 
