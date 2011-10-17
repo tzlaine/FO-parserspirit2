@@ -144,6 +144,21 @@ namespace {
                     |    in_system
                     |    object_id
                     ;
+
+                NAME(has_special);
+                NAME(has_special_since_turn);
+                NAME(owner_has_tech);
+                NAME(design_has_hull);
+                NAME(design_has_part);
+                NAME(design_has_part_class);
+                NAME(predefined_design);
+                NAME(design_number);
+                NAME(produced_by_empire);
+                NAME(visible_to_empire);
+                NAME(explored_by_empire);
+                NAME(fleet_supplyable_by_empire);
+                NAME(in_system);
+                NAME(object_id);
             }
 
         typedef boost::spirit::qi::rule<
