@@ -35,6 +35,7 @@ namespace {
                 qi::_a_type _a;
                 qi::_b_type _b;
                 qi::_val_type _val;
+                qi::eps_type eps;
                 using phoenix::new_;
                 using phoenix::push_back;
 
@@ -80,24 +81,22 @@ namespace {
                     ;
 
                 owned_by
-                    =    (
-                              tok.OwnedBy_
-                          >   tok.Affiliation_ > '='
-                          >   tok.empire_affiliation_type_enum [ _a = _1 ]
-                          >   tok.Empire_ > '='
-                          >   int_value_ref [ _val = new_<Condition::EmpireAffiliation>(_1, _a) ]
-                         )
-                    |    (
-                              tok.OwnedBy_
-                          >   tok.Affiliation_ > '='
-                          >   tok.empire_affiliation_type_enum [ _val = new_<Condition::EmpireAffiliation>(_1) ]
+                    =    tok.OwnedBy_
+                    >    tok.Affiliation_ > '='
+                    >    tok.empire_affiliation_type_enum [ _a = _1 ]
+                    >>   (
+                              (
+                                   tok.Empire_ > '='
+                               >   int_value_ref [ _val = new_<Condition::EmpireAffiliation>(_1, _a) ]
+                              )
+                          |   eps [ _val = new_<Condition::EmpireAffiliation>(_a) ]
                          )
                     ;
 
                 homeworld
                     =    (
                               tok.Homeworld_
-                          >   tok.Name_ > '='
+                          >>  tok.Name_ > '='
                           >   string_ref_vec [ _val = new_<Condition::Homeworld>(_1) ]
                          )
                     |    tok.Homeworld_ [ _val = new_<Condition::Homeworld>() ]
