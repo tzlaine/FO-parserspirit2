@@ -168,6 +168,19 @@ namespace {
                     |    owner_stockpile
                     |    resource_supply_connected
                     ;
+
+                NAME(within_distance);
+                NAME(within_starlane_jumps);
+                NAME(number);
+                NAME(turn);
+                NAME(created_on_turn);
+                NAME(number_of);
+                NAME(contains);
+                NAME(contained_by);
+                NAME(star_type);
+                NAME(random);
+                NAME(owner_stockpile);
+                NAME(resource_supply_connected);
             }
 
         typedef boost::spirit::qi::rule<
