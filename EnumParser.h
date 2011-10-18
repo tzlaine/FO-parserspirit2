@@ -38,6 +38,25 @@ namespace parse {
     template <>
     const enum_parser_rule<StarType>::type& enum_parser<StarType>();
 
+    template <>
+    const enum_parser_rule<MeterType>::type& enum_parser<MeterType>();
+
+    template <>
+    const enum_parser_rule<EmpireAffiliationType>::type& enum_parser<EmpireAffiliationType>();
+
+    template <>
+    const enum_parser_rule<ShipSlotType>::type& enum_parser<ShipSlotType>();
+
+    template <>
+    const enum_parser_rule<ShipPartClass>::type& enum_parser<ShipPartClass>();
+
+    template <>
+    const enum_parser_rule<CombatFighterType>::type& enum_parser<CombatFighterType>();
+
+    const enum_parser_rule<MeterType>::type& non_ship_part_meter_type_enum();
+
+    const enum_parser_rule<MeterType>::type& ship_part_meter_type_enum();
+
 }
 
 #endif
