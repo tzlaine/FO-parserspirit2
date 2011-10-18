@@ -93,25 +93,25 @@ namespace {
                     >    int_value_ref [ _val = new_<Condition::NumberedShipDesign>(_1) ]
                     ;
 
-                produced_by_empire
+                produced_by_empire // TODO: Lose "empire" part.
                     =    tok.ProducedByEmpire_
                     >    tok.Empire_ > '='
                     >    int_value_ref [ _val = new_<Condition::ProducedByEmpire>(_1) ]
                     ;
 
-                visible_to_empire
+                visible_to_empire // TODO: Lose "empire" part.
                     =    tok.VisibleToEmpire_
                     >    tok.Empire_ > '='
                     >    int_value_ref [ _val = new_<Condition::VisibleToEmpire>(_1) ]
                     ;
 
-                explored_by_empire
+                explored_by_empire // TODO: Lose "empire" part.
                     =    tok.ExploredByEmpire_
                     >    tok.Empire_ > '='
                     >    int_value_ref [ _val = new_<Condition::ExploredByEmpire>(_1) ]
                     ;
 
-                fleet_supplyable_by_empire
+                fleet_supplyable_by_empire // TODO: Lose "empire" part.
                     =    tok.FleetSupplyableByEmpire_
                     >    tok.Empire_ > '='
                     >    int_value_ref [ _val = new_<Condition::FleetSupplyableByEmpire>(_1) ]
