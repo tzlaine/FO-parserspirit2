@@ -59,7 +59,7 @@ namespace {
                 set_meter
                     =    tok.Set_
                     >>   parse::non_ship_part_meter_type_enum() [ _a = _1 ]
-                    >    tok.Value_ > '='
+                    >>   tok.Value_ > '='
                     >    double_value_ref [ _val = new_<Effect::SetMeter>(_a, _1) ]
                     ;
 
@@ -186,30 +186,32 @@ namespace {
                 create_ship
                     =    tok.CreateShip_
                     >>   (
-                              tok.DesignName_ >> '='
-                          >>  int_value_ref [ _b = _1 ]
-                          >   tok.Empire_ > '='
-                          >   int_value_ref [ _c = _1 ]
-                          >   tok.Species_ > '='
-                          >   string_value_ref [ _val = new_<Effect::CreateShip>(_b, _c, _1) ]
-                         )
-                    |    (
-                              tok.DesignName_ >> '='
-                          >>  tok.string [ _a = _1 ]
-                          >>  tok.Empire_ >> '='
-                          >>  int_value_ref [ _b = _1 ]
-                          >>  tok.Species_ > '='
-                          >   string_value_ref [ _val = new_<Effect::CreateShip>(_a, _b, _1) ]
-                         )
-                    |    (
-                              tok.DesignName_ >> '='
-                          >>  tok.string [ _a = _1 ]
-                          >>  tok.Empire_ > '='
-                          >   int_value_ref [ _val = new_<Effect::CreateShip>(_a, _1) ]
-                         )
-                    |    (
-                              tok.DesignName_ > '='
-                          >   tok.string [ _val = new_<Effect::CreateShip>(_1) ]
+                              (
+                                   tok.DesignName_ >> '='
+                               >>  int_value_ref [ _b = _1 ]
+                               >   tok.Empire_ > '='
+                               >   int_value_ref [ _c = _1 ]
+                               >   tok.Species_ > '='
+                               >   string_value_ref [ _val = new_<Effect::CreateShip>(_b, _c, _1) ]
+                              )
+                          |   (
+                                   tok.DesignName_ >> '='
+                               >>  tok.string [ _a = _1 ]
+                               >>  tok.Empire_ >> '='
+                               >>  int_value_ref [ _b = _1 ]
+                               >>  tok.Species_ > '='
+                               >   string_value_ref [ _val = new_<Effect::CreateShip>(_a, _b, _1) ]
+                              )
+                          |   (
+                                   tok.DesignName_ >> '='
+                               >>  tok.string [ _a = _1 ]
+                               >>  tok.Empire_ > '='
+                               >   int_value_ref [ _val = new_<Effect::CreateShip>(_a, _1) ]
+                              )
+                          |   (
+                                   tok.DesignName_ > '='
+                               >   tok.string [ _val = new_<Effect::CreateShip>(_1) ]
+                              )
                          )
                     ;
 

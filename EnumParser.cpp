@@ -217,6 +217,9 @@ namespace parse {
             |    tok.AntiFighterDamage_ [ _val = METER_ANTI_FIGHTER_DAMAGE ]
             |    tok.LaunchRate_ [ _val = METER_LAUNCH_RATE ]
             |    tok.FighterWeaponRange_ [ _val = METER_FIGHTER_WEAPON_RANGE ]
+            |    tok.Stealth_ [ _val = METER_STEALTH ]
+            |    tok.Detection_ [ _val = METER_DETECTION ]
+            |    tok.Structure_ [ _val = METER_STRUCTURE ]
             ;
         return retval;
     }
