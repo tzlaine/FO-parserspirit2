@@ -298,7 +298,7 @@ namespace {
                          [ _val = new_<Effect::GenerateSitRepMessage>(_a, _b, _c) ]
                     ;
 
-                string_and_string_ref
+                string_and_string_ref // TODO: Try to make this simpler.
                     =    tok.Tag_ > '='
                     >    tok.string [ _a = _1 ]
                     >    tok.Label_ > '='
