@@ -196,4 +196,4 @@ add_test_and_data_files(parser_test star_type_value_ref_parser -f star_type_vari
 add_test_and_data_files(parser_test condition_parser -f condition_parser_1)
 add_test_and_data_files(parser_test condition_parser -f condition_parser_2)
 add_test_and_data_files(parser_test condition_parser -f condition_parser_3)
-add_test_and_data_files(parser_test condition_parser -f effect_parser)
+add_test_and_data_files(parser_test effect_parser -f effect_parser)
