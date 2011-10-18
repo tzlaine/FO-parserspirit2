@@ -5196,7 +5196,7 @@ Index: universe/Names.h
 ===================================================================
 --- universe/Names.h	(revision 0)
 +++ universe/Names.h	(revision 0)
-@@ -0,0 +1,239 @@
+@@ -0,0 +1,240 @@
 +// -*- C++ -*-
 +#ifndef _Names_h_
 +#define _Names_h_
@@ -5244,6 +5244,7 @@ Index: universe/Names.h
 +    (CreationTurn)                              \
 +    (CurrentTurn)                               \
 +    (Damage)                                    \
++    (Data)                                      \
 +    (Defense)                                   \
 +    (Description)                               \
 +    (Design)                                    \

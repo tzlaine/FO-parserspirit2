@@ -100,8 +100,8 @@ RevokeTechFromOwner  Name = "Tech Foo"
 UnlockTechItemsForOwner  Name = "Tech Foo"
 LockTechItemsForOwner  Name = "Tech Foo"
 GenerateSitrepMessage Message = "Foo"  Parameters = Tag = "Foo" Data = "Bar"  Affiliation = EnemyOf  Empire = 1
-GenerateSitrepMessage Message = "Foo"  Parameters = Tag = [ "Foo" Data = "Bar" Tag = "Foo" Data = "Bar" ]  Affiliation = EnemyOf  Empire = 1
+GenerateSitrepMessage Message = "Foo"  Parameters = [ Tag = "Foo" Data = "Bar" Tag = "Foo" Data = "Bar" ]  Affiliation = EnemyOf  Empire = 1
 GenerateSitrepMessage Message = "Foo"  Affiliation = EnemyOf  Empire = 1
-GenerateSitrepMessage Message = "Foo"  Parameters = "Foo" Data = "Bar"  Affiliation = EnemyOf
-GenerateSitrepMessage Message = "Foo"  Parameters = [ "Foo" Data = "Bar" Tag = "Foo" Data = "Bar" ]  Affiliation = EnemyOf
+GenerateSitrepMessage Message = "Foo"  Parameters = Tag = "Foo" Data = "Bar"  Affiliation = EnemyOf
+GenerateSitrepMessage Message = "Foo"  Parameters = [ Tag = "Foo" Data = "Bar" Tag = "Foo" Data = "Bar" ]  Affiliation = EnemyOf
 GenerateSitrepMessage Message = "Foo"  Affiliation = EnemyOf

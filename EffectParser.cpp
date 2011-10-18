@@ -283,31 +283,33 @@ namespace {
                     =    tok.GenerateSitrepMessage_
                     >    tok.Message_ > '='
                     >    tok.string [ _a = _1 ]
-                    >> - (
+                    >>  -(
                               tok.Parameters_ > '='
                           >   string_and_string_ref_vector [ _b = _1 ]
                          )
                     >>   (
                               (
-                                   tok.Affiliation_ >> '='
-                               >>  parse::enum_parser<EmpireAffiliationType>() [ _c = _1 ]
-                               |   eps [ _c = AFFIL_SELF ]
+                                   (
+                                        tok.Affiliation_ >> '='
+                                    >>  parse::enum_parser<EmpireAffiliationType>() [ _c = _1 ]
+                                    |   eps [ _c = AFFIL_SELF ]
+                                   )
+                               >>  tok.Empire_ > '='
+                               >   int_value_ref [ _val = new_<Effect::GenerateSitRepMessage>(_a, _b, _1, _c) ]
                               )
-                          >>  tok.Empire_ > '='
-                          >   int_value_ref [ _val = new_<Effect::GenerateSitRepMessage>(_a, _b, _1, _c) ]
+                          |   (
+                                   tok.Affiliation_ > '='
+                               >   parse::enum_parser<EmpireAffiliationType>() [ _c = _1 ]
+                               |   eps [ _c = AFFIL_ANY ]
+                              )
+                              [ _val = new_<Effect::GenerateSitRepMessage>(_a, _b, _c) ]
                          )
-                    |    (
-                              tok.Affiliation_ > '='
-                          >   parse::enum_parser<EmpireAffiliationType>() [ _c = _1 ]
-                          |   eps [ _c = AFFIL_ANY ]
-                         )
-                         [ _val = new_<Effect::GenerateSitRepMessage>(_a, _b, _c) ]
                     ;
 
                 string_and_string_ref // TODO: Try to make this simpler.
                     =    tok.Tag_ > '='
                     >    tok.string [ _a = _1 ]
-                    >    tok.Label_ > '='
+                    >    tok.Data_ > '='
                     >    string_value_ref [ _val = construct<string_and_string_ref_pair>(_a, _1) ]
                     ;
 
