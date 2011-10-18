@@ -1,0 +1,14 @@
+HasSpecial  Name = "Special Foo"
+HasSpecialSinceTurn  Name = "Foo"  Low = 1  High = 2
+OwnerHasTech  Name = "Foo"
+DesignHasHull  Name = "Foo"
+DesignHasPart  Low = 1  High = 2  Class = "Foo"
+DesignHasPartClass  Low = 1  High = 2  Class = ShortRange
+Design  Name = "Foo"
+Design  Design = 1
+ProducedByEmpire  Empire = 1
+VisibleToEmpire  Empire = 1
+ExploredByEmpire  Empire = 1
+FleetSupplyableByEmpire  Empire = 1
+InSystem  ID = 1
+Object  ID = 1

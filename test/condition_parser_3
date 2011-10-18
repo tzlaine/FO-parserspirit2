@@ -1,0 +1,18 @@
+WithinDistance  Distance = 1.0  Condition = All
+WithinStarlaneJumps  Jumps = 1  Condition = All
+Number  Low = 1  High = 2  Condition = All
+Turn  Low = 1 High = 2
+CreatedOnTurn   Low = 1  High = 2
+NumberOf  Number = 1  Condition = All
+MaximumNumberOf  Number = 1  SortKey = 1.0  Condition = All
+MinimumNumberOf  Number = 1  SortKey = 1.0  Condition = All
+ModeNumberOf  Number = 1  SortKey = 1.0  Condition = All
+Contains  Condition = All
+ContainedBy  Condition = All
+Star  Type = Blue
+Star  Type = [ Blue BlackHole ]
+Random  Probability = 1.0
+OwnerFoodStockpile  Low = 1.0  High = 2.0
+OwnerMineralStockpile  Low = 1.0  High = 2.0
+OwnerTradeStockpile  Low = 1.0  High = 2.0
+ResourceSupplyConnected  Empire = 1  Condition = All

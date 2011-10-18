@@ -1,0 +1,21 @@
+All
+Source
+RootCandidate
+Target
+Stationary
+Capital
+Monster
+Armed
+OwnedBy  Affiliation = EnemyOf  Empire = Source.Planet.Owner
+OwnedBy  Affiliation = EnemyOf
+Homeworld  Name = "Homeworld Foo"
+Homeworld  Name = [ "Homeworld Foo" "Homeworld Bar" ]
+Homeworld
+Building  Name = "Building Foo"
+Building  Name = [ "Building Foo" "Building Bar" ]
+Species Name = "Species Foo"
+Species Name = [ "Species Foo" "Species Bar" ]
+Species
+FocusType  Type = "Focus Foo"
+FocusType  Type = [ "Focus Foo" "Focus Bar" ]
+FocusType
