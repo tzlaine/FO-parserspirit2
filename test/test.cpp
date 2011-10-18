@@ -66,8 +66,6 @@ int main(int argc, char* argv[])
 
     const parse::lexer& l = parse::lexer::instance();
 
-    parse::condition_parser(); // Initialize condition_parser.
-
     unsigned int failures = 0;
     for (std::size_t i = 0; i < strings.size(); ++i) {
         const std::string& string = strings[i];
