@@ -129,13 +129,28 @@ lexer::lexer() :
     self
         =     inline_comment
         |     end_of_line_comment
+        |     '='
+        |     '+'
+        |     '-'
+        |     '*'
+        |     '/'
+        |     '.'
+        |     ','
+        |     '('
+        |     ')'
+        |     '['
+        |     ']'
+        ;
 
-        |     bool_
+    self
+        +=    bool_
         |     int_
         |     double_
         |     string [ _val = strip_quotes(_start, _end) ]
+        ;
 
-        |     planet_size_enum
+    self
+        +=    planet_size_enum
         |     planet_type_enum
         |     planet_environment_enum
         |     universe_object_type_enum
@@ -148,25 +163,15 @@ lexer::lexer() :
         |     ship_slot_type_enum
         |     capture_result_enum
         |     statistic_type_enum
-
-        |     '='
-        |     '+'
-        |     '-'
-        |     '*'
-        |     '/'
-        |     '.'
-        |     ','
-        |     '('
-        |     ')'
-        |     '['
-        |     ']'
-
-        |     error_token
         ;
 
-#define NAME_TOKEN(r, _, name) self |= BOOST_PP_CAT(name, _) [ _val = construct<adobe::name_t>(BOOST_PP_CAT(name, _name)) ];
+#define NAME_TOKEN(r, _, name) self += BOOST_PP_CAT(name, _) [ _val = construct<adobe::name_t>(BOOST_PP_CAT(name, _name)) ];
         BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ)
 #undef NAME_TOKEN
+
+    self
+        +=    error_token
+        ;
 
     self("WS") = lex::token_def<>("\\s+");
 }
