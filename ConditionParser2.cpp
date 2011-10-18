@@ -28,6 +28,9 @@ namespace {
                     parse::value_ref_parser<int>();
 
                 qi::_1_type _1;
+                qi::_2_type _2;
+                qi::_3_type _3;
+                qi::_4_type _4;
                 qi::_a_type _a;
                 qi::_b_type _b;
                 qi::_val_type _val;
@@ -160,6 +163,8 @@ namespace {
                 NAME(fleet_supplyable_by_empire);
                 NAME(in_system);
                 NAME(object_id);
+
+                qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
 
         typedef boost::spirit::qi::rule<

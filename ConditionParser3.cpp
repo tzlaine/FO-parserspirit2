@@ -33,6 +33,9 @@ namespace {
                     parse::value_ref_parser< ::StarType>();
 
                 qi::_1_type _1;
+                qi::_2_type _2;
+                qi::_3_type _3;
+                qi::_4_type _4;
                 qi::_a_type _a;
                 qi::_b_type _b;
                 qi::_c_type _c;
@@ -181,6 +184,8 @@ namespace {
                 NAME(random);
                 NAME(owner_stockpile);
                 NAME(resource_supply_connected);
+
+                qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
 
         typedef boost::spirit::qi::rule<
