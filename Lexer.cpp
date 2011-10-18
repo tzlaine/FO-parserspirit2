@@ -149,10 +149,6 @@ lexer::lexer() :
         |     capture_result_enum
         |     statistic_type_enum
 
-#define NAME_TOKEN(r, _, name) | BOOST_PP_CAT(name, _) [ _val = construct<adobe::name_t>(BOOST_PP_CAT(name, _name)) ]
-        BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ)
-#undef NAME_TOKEN
-
         |     '='
         |     '+'
         |     '-'
@@ -167,6 +163,10 @@ lexer::lexer() :
 
         |     error_token
         ;
+
+#define NAME_TOKEN(r, _, name) self |= BOOST_PP_CAT(name, _) [ _val = construct<adobe::name_t>(BOOST_PP_CAT(name, _name)) ];
+        BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ)
+#undef NAME_TOKEN
 
     self("WS") = lex::token_def<>("\\s+");
 }
