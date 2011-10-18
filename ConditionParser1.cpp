@@ -3,6 +3,7 @@
 #include "EnumParser.h"
 #include "ValueRefParser.h"
 #include "../universe/Condition.h"
+#include "../universe/ValueRef.h"
 
 #include <GG/ReportParseError.h>
 
@@ -27,8 +28,23 @@ namespace {
                 const parse::value_ref_parser_rule<int>::type& int_value_ref =
                     parse::value_ref_parser<int>();
 
+                const parse::value_ref_parser_rule<double>::type& double_value_ref =
+                    parse::value_ref_parser<double>();
+
                 const parse::value_ref_parser_rule<std::string>::type& string_value_ref =
                     parse::value_ref_parser<std::string>();
+
+                const parse::value_ref_parser_rule<PlanetType>::type& planet_type_value_ref =
+                    parse::value_ref_parser<PlanetType>();
+
+                const parse::value_ref_parser_rule<PlanetSize>::type& planet_size_value_ref =
+                    parse::value_ref_parser<PlanetSize>();
+
+                const parse::value_ref_parser_rule<PlanetEnvironment>::type& planet_environment_value_ref =
+                    parse::value_ref_parser<PlanetEnvironment>();
+
+                const parse::value_ref_parser_rule<UniverseObjectType>::type& universe_object_type_value_ref =
+                    parse::value_ref_parser<UniverseObjectType>();
 
                 qi::_1_type _1;
                 qi::_2_type _2;
@@ -38,6 +54,7 @@ namespace {
                 qi::_b_type _b;
                 qi::_val_type _val;
                 qi::eps_type eps;
+                qi::lit_type lit;
                 using phoenix::new_;
                 using phoenix::push_back;
 
@@ -128,7 +145,73 @@ namespace {
                     |    tok.FocusType_ [ _val = new_<Condition::FocusType>(std::vector<const ValueRef::ValueRefBase<std::string>*>()) ]
                     ;
 
-                // TODO: Several members are uninitialized, and not tested (e.g. planet_type).
+                planet_type
+                    =    tok.Planet_
+                    >>   tok.Type_ > '='
+                    >>   (
+                              '[' > +planet_type_value_ref [ push_back(_a, _1) ] > ']'
+                          |   planet_type_value_ref [ push_back(_a, _1) ]
+                         )
+                         [ _val = new_<Condition::PlanetType>(_a) ]
+                    ;
+
+                planet_size
+                    =    tok.Planet_
+                    >>   tok.PlanetSize_ > '='
+                    >>   (
+                              '[' > +planet_size_value_ref [ push_back(_a, _1) ] > ']'
+                          |   planet_size_value_ref [ push_back(_a, _1) ]
+                         )
+                         [ _val = new_<Condition::PlanetSize>(_a) ]
+                    ;
+
+                planet_environment
+                    =    tok.Planet_
+                    >>   tok.Environment_ > '='
+                    >>   (
+                              '[' > +planet_environment_value_ref [ push_back(_a, _1) ] > ']'
+                          |   planet_environment_value_ref [ push_back(_a, _1) ]
+                         )
+                         [ _val = new_<Condition::PlanetEnvironment>(_a) ]
+                    ;
+
+                object_type
+                    =    parse::enum_parser<UniverseObjectType>() [ _val = new_<Condition::Type>(new_<ValueRef::Constant<UniverseObjectType> >(_1)) ]
+                    |    (
+                              tok.ObjectType_
+                          >   tok.Type_ > '='
+                          >   universe_object_type_value_ref [ _val = new_<Condition::Type>(_1) ]
+                         )
+                    ;
+
+                meter_value
+                    =    parse::non_ship_part_meter_type_enum() [ _a = _1 ]
+                    >    tok.Low_ > '='
+                    >    double_value_ref [ _b = _1 ]
+                    >    tok.High_ > '='
+                    >    double_value_ref [ _val = new_<Condition::MeterValue>(_a, _b, _1) ]
+                    ;
+
+                and_
+                    =    tok.And_
+                    >    '['
+                    >    parse::detail::condition_parser [ push_back(_a, _1) ]
+                    >   +parse::detail::condition_parser [ push_back(_a, _1) ]
+                    >    lit(']') [ _val = new_<Condition::And>(_a) ]
+                    ;
+
+                or_
+                    =    tok.Or_
+                    >    '['
+                    >    parse::detail::condition_parser [ push_back(_a, _1) ]
+                    >   +parse::detail::condition_parser [ push_back(_a, _1) ]
+                    >    lit(']') [ _val = new_<Condition::Or>(_a) ]
+                    ;
+
+                not_
+                    =    tok.Not_
+                    >    parse::detail::condition_parser [ _val = new_<Condition::Not>(_1) ]
+                    ;
 
                 start
                     %=   all
@@ -199,11 +282,38 @@ namespace {
             Condition::ConditionBase* (),
             qi::locals<
                 MeterType,
-                ValueRef::ValueRefBase<double>*,
                 ValueRef::ValueRefBase<double>*
             >,
             parse::skipper_type
-        > value_ref_ints_rule;
+        > meter_value_rule;
+
+        typedef boost::spirit::qi::rule<
+            parse::token_iterator,
+            Condition::ConditionBase* (),
+            qi::locals<std::vector<const ValueRef::ValueRefBase<PlanetType>*> >,
+            parse::skipper_type
+        > planet_type_rule;
+
+        typedef boost::spirit::qi::rule<
+            parse::token_iterator,
+            Condition::ConditionBase* (),
+            qi::locals<std::vector<const ValueRef::ValueRefBase<PlanetSize>*> >,
+            parse::skipper_type
+        > planet_size_rule;
+
+        typedef boost::spirit::qi::rule<
+            parse::token_iterator,
+            Condition::ConditionBase* (),
+            qi::locals<std::vector<const ValueRef::ValueRefBase<PlanetEnvironment>*> >,
+            parse::skipper_type
+        > planet_environment_rule;
+
+        typedef boost::spirit::qi::rule<
+            parse::token_iterator,
+            Condition::ConditionBase* (),
+            qi::locals<std::vector<const Condition::ConditionBase*> >,
+            parse::skipper_type
+        > and_or_rule;
 
         string_ref_vec_rule string_ref_vec;
         parse::condition_parser_rule all;
@@ -219,13 +329,13 @@ namespace {
         parse::condition_parser_rule building;
         parse::condition_parser_rule species;
         parse::condition_parser_rule focus_type;
-        parse::condition_parser_rule planet_type;
-        parse::condition_parser_rule planet_size;
-        parse::condition_parser_rule planet_environment;
+        planet_type_rule planet_type;
+        planet_size_rule planet_size;
+        planet_environment_rule planet_environment;
         parse::condition_parser_rule object_type;
-        value_ref_ints_rule meter_value;
-        parse::condition_parser_rule and_;
-        parse::condition_parser_rule or_;
+        meter_value_rule meter_value;
+        and_or_rule and_;
+        and_or_rule or_;
         parse::condition_parser_rule not_;
         parse::condition_parser_rule start;
     };
