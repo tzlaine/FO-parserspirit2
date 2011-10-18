@@ -45,6 +45,12 @@ namespace parse {
     const enum_parser_rule<EmpireAffiliationType>::type& enum_parser<EmpireAffiliationType>();
 
     template <>
+    const enum_parser_rule<UnlockableItemType>::type& enum_parser<UnlockableItemType>();
+
+    template <>
+    const enum_parser_rule<TechType>::type& enum_parser<TechType>();
+
+    template <>
     const enum_parser_rule<ShipSlotType>::type& enum_parser<ShipSlotType>();
 
     template <>
@@ -52,6 +58,12 @@ namespace parse {
 
     template <>
     const enum_parser_rule<CombatFighterType>::type& enum_parser<CombatFighterType>();
+
+    template <>
+    const enum_parser_rule<CaptureResult>::type& enum_parser<CaptureResult>();
+
+    template <>
+    const enum_parser_rule<ValueRef::StatisticType>::type& enum_parser<ValueRef::StatisticType>();
 
     const enum_parser_rule<MeterType>::type& non_ship_part_meter_type_enum();
 
