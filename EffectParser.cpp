@@ -169,7 +169,7 @@ namespace {
                     =    tok.CreatePlanet_
                     >    tok.Type_ > '='
                     >    planet_type_value_ref [ _a = _1 ]
-                    >    tok.Endpoint_ > '='
+                    >    tok.Endpoint_ > '='  // TODO: Shouldn't this be PlanetSize?
                     >    planet_size_value_ref [ new_<Effect::CreatePlanet>(_a, _1) ]
                     ;
 
