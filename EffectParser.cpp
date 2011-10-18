@@ -25,11 +25,15 @@ namespace {
         effect_parser_rules()
             {
                 qi::_1_type _1;
+                qi::_2_type _2;
+                qi::_3_type _3;
+                qi::_4_type _4;
                 qi::_a_type _a;
                 qi::_b_type _b;
                 qi::_c_type _c;
                 qi::_d_type _d;
                 qi::_e_type _e;
+                qi::_r1_type _r1;
                 qi::_val_type _val;
                 qi::eps_type eps;
                 using phoenix::new_;
@@ -67,51 +71,55 @@ namespace {
                     =    tok.Set_
                     >    parse::ship_part_meter_type_enum() [ _a = _1 ]
                     >>   (
-                              (
-                                   tok.PartClass_ > '='
-                               >   parse::enum_parser<ShipPartClass>() [ _b = _1 ]
-                               >   tok.Value_ > '='
-                               >   double_value_ref [ _e = _1 ]
-                               >   tok.SlotType_ > '='
-                               >   parse::enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_a, _b, _e, _1) ]
-                              )
-                          |   (
-                                   tok.FighterType_ > '='
-                               >   parse::enum_parser<CombatFighterType>() [ _c = _1 ]
-                               >   tok.Value_ > '='
-                               >   double_value_ref [ _e = _1 ]
-                               >   tok.SlotType_ > '='
-                               >   parse::enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_a, _c, _e, _1) ]
-                              )
-                          |   (
-                                   tok.PartName_ > '='
-                               >   tok.string [ _d = _1 ]
-                               >   tok.Value_ > '='
-                               >   double_value_ref [ _e = _1 ]
-                               >   tok.SlotType_ > '='
-                               >   parse::enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_a, _d, _e, _1) ]
-                              )
+                              set_ship_part_meter_suffix_1(_a) [ _val = _1 ]
+                          |   set_ship_part_meter_suffix_2(_a) [ _val = _1 ]
+                          |   set_ship_part_meter_suffix_3(_a) [ _val = _1 ]
                          )
                     ;
 
-                set_empire_meter
+                set_ship_part_meter_suffix_1
+                    =    tok.PartClass_ > '='
+                    >    parse::enum_parser<ShipPartClass>() [ _a = _1 ]
+                    >    tok.Value_ > '='
+                    >    double_value_ref [ _d = _1 ]
+                    >    tok.SlotType_ > '='
+                    >    parse::enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_r1, _a, _d, _1) ]
+                    ;
+
+                set_ship_part_meter_suffix_2
+                    =    tok.FighterType_ > '='
+                    >    parse::enum_parser<CombatFighterType>() [ _b = _1 ]
+                    >    tok.Value_ > '='
+                    >    double_value_ref [ _d = _1 ]
+                    >    tok.SlotType_ > '='
+                    >    parse::enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_r1, _b, _d, _1) ]
+                    ;
+
+                set_ship_part_meter_suffix_3
+                    =    tok.PartName_ > '='
+                    >    tok.string [ _c = _1 ]
+                    >    tok.Value_ > '='
+                    >    double_value_ref [ _d = _1 ]
+                    >    tok.SlotType_ > '='
+                    >    parse::enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_r1, _c, _d, _1) ]
+                    ;
+
+                set_empire_meter_1
                     =    tok.SetEmpireMeter_
-                    >>   (
-                              (
-                                   tok.Empire_ > '='
-                               >   int_value_ref [ _a = _1 ]
-                               >   tok.Meter_ > '='
-                               >   tok.string [ _b = _1 ]
-                               >   tok.Value_ > '='
-                               >   double_value_ref [ _val = new_<Effect::SetEmpireMeter>(_a, _b, _1) ]
-                              )
-                          |   (
-                                   tok.Meter_ > '='
-                               >   tok.string [ _b = _1 ]
-                               >   tok.Value_ > '='
-                               >   double_value_ref [ _val = new_<Effect::SetEmpireMeter>(_b, _1) ]
-                              )
-                         )
+                    >>   tok.Empire_ > '='
+                    >    int_value_ref [ _a = _1 ]
+                    >    tok.Meter_ > '='
+                    >    tok.string [ _b = _1 ]
+                    >    tok.Value_ > '='
+                    >    double_value_ref [ _val = new_<Effect::SetEmpireMeter>(_a, _b, _1) ]
+                    ;
+
+                set_empire_meter_2
+                    =    tok.SetEmpireMeter_
+                    >>   tok.Meter_ > '='
+                    >    tok.string [ _b = _1 ]
+                    >    tok.Value_ > '='
+                    >    double_value_ref [ _val = new_<Effect::SetEmpireMeter>(_b, _1) ]
                     ;
 
                 set_empire_stockpile
@@ -183,36 +191,38 @@ namespace {
                     >    string_value_ref [ _val = new_<Effect::CreateBuilding>(_1) ]
                     ;
 
-                create_ship
+                create_ship_1
                     =    tok.CreateShip_
-                    >>   (
-                              (
-                                   tok.DesignName_ >> '='
-                               >>  int_value_ref [ _b = _1 ]
-                               >   tok.Empire_ > '='
-                               >   int_value_ref [ _c = _1 ]
-                               >   tok.Species_ > '='
-                               >   string_value_ref [ _val = new_<Effect::CreateShip>(_b, _c, _1) ]
-                              )
-                          |   (
-                                   tok.DesignName_ >> '='
-                               >>  tok.string [ _a = _1 ]
-                               >>  tok.Empire_ >> '='
-                               >>  int_value_ref [ _b = _1 ]
-                               >>  tok.Species_ > '='
-                               >   string_value_ref [ _val = new_<Effect::CreateShip>(_a, _b, _1) ]
-                              )
-                          |   (
-                                   tok.DesignName_ >> '='
-                               >>  tok.string [ _a = _1 ]
-                               >>  tok.Empire_ > '='
-                               >   int_value_ref [ _val = new_<Effect::CreateShip>(_a, _1) ]
-                              )
-                          |   (
-                                   tok.DesignName_ > '='
-                               >   tok.string [ _val = new_<Effect::CreateShip>(_1) ]
-                              )
-                         )
+                    >>   tok.DesignName_ >> '='
+                    >>   int_value_ref [ _b = _1 ]
+                    >    tok.Empire_ > '='
+                    >    int_value_ref [ _c = _1 ]
+                    >    tok.Species_ > '='
+                    >    string_value_ref [ _val = new_<Effect::CreateShip>(_b, _c, _1) ]
+                    ;
+
+                create_ship_2
+                    =    tok.CreateShip_
+                    >>   tok.DesignName_ >> '='
+                    >>   tok.string [ _a = _1 ]
+                    >>   tok.Empire_ >> '='
+                    >>   int_value_ref [ _b = _1 ]
+                    >>   tok.Species_ > '='
+                    >    string_value_ref [ _val = new_<Effect::CreateShip>(_a, _b, _1) ]
+                    ;
+
+                create_ship_3
+                    =    tok.CreateShip_
+                    >>   tok.DesignName_ >> '='
+                    >>   tok.string [ _a = _1 ]
+                    >>   tok.Empire_ > '='
+                    >    int_value_ref [ _val = new_<Effect::CreateShip>(_a, _1) ]
+                    ;
+
+                create_ship_4
+                    =    tok.CreateShip_
+                    >>   tok.DesignName_ > '='
+                    >    tok.string [ _val = new_<Effect::CreateShip>(_1) ]
                     ;
 
                 move_to
@@ -325,7 +335,8 @@ namespace {
                 start
                     %=   set_meter
                     |    set_ship_part_meter
-                    |    set_empire_meter
+                    |    set_empire_meter_1
+                    |    set_empire_meter_2
                     |    set_empire_stockpile
                     |    set_empire_capital
                     |    set_planet_type
@@ -334,7 +345,10 @@ namespace {
                     |    set_owner
                     |    create_planet
                     |    create_building
-                    |    create_ship
+                    |    create_ship_1
+                    |    create_ship_2
+                    |    create_ship_3
+                    |    create_ship_4
                     |    move_to
                     |    set_destination
                     |    destroy
@@ -347,6 +361,36 @@ namespace {
                     |    set_tech_availability
                     |    generate_sitrep_message
                     ;
+
+                NAME(set_meter);
+                NAME(set_ship_part_meter);
+                NAME(set_empire_meter_1);
+                NAME(set_empire_meter_2);
+                NAME(set_empire_stockpile);
+                NAME(set_empire_capital);
+                NAME(set_planet_type);
+                NAME(set_planet_size);
+                NAME(set_species);
+                NAME(set_owner);
+                NAME(create_planet);
+                NAME(create_building);
+                NAME(create_ship_1);
+                NAME(create_ship_2);
+                NAME(create_ship_3);
+                NAME(create_ship_4);
+                NAME(move_to);
+                NAME(set_destination);
+                NAME(destroy);
+                NAME(victory);
+                NAME(add_special);
+                NAME(remove_special);
+                NAME(add_starlanes);
+                NAME(remove_starlanes);
+                NAME(set_star_type);
+                NAME(set_tech_availability);
+                NAME(generate_sitrep_message);
+
+                qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
 
         typedef boost::spirit::qi::rule<
@@ -359,15 +403,21 @@ namespace {
         typedef boost::spirit::qi::rule<
             parse::token_iterator,
             Effect::EffectBase* (),
+            qi::locals<MeterType>,
+            parse::skipper_type
+        > set_ship_part_meter_rule;
+
+        typedef boost::spirit::qi::rule<
+            parse::token_iterator,
+            Effect::EffectBase* (MeterType),
             qi::locals<
-                MeterType,
                 ShipPartClass,
                 CombatFighterType,
                 std::string,
                 ValueRef::ValueRefBase<double>*
             >,
             parse::skipper_type
-        > set_ship_part_meter_rule;
+        > set_ship_part_meter_suffix_rule;
 
         typedef boost::spirit::qi::rule<
             parse::token_iterator,
@@ -445,7 +495,11 @@ namespace {
 
         set_meter_rule set_meter;
         set_ship_part_meter_rule set_ship_part_meter;
-        set_empire_meter_rule set_empire_meter;
+        set_empire_meter_rule set_empire_meter_1;
+        set_empire_meter_rule set_empire_meter_2;
+        set_ship_part_meter_suffix_rule set_ship_part_meter_suffix_1;
+        set_ship_part_meter_suffix_rule set_ship_part_meter_suffix_2;
+        set_ship_part_meter_suffix_rule set_ship_part_meter_suffix_3;
         set_empire_stockpile_rule set_empire_stockpile;
         parse::effect_parser_rule set_empire_capital;
         parse::effect_parser_rule set_planet_type;
@@ -454,7 +508,10 @@ namespace {
         parse::effect_parser_rule set_owner;
         create_planet_rule create_planet;
         parse::effect_parser_rule create_building;
-        create_ship_rule create_ship;
+        create_ship_rule create_ship_1;
+        create_ship_rule create_ship_2;
+        create_ship_rule create_ship_3;
+        create_ship_rule create_ship_4;
         parse::effect_parser_rule move_to;
         parse::effect_parser_rule set_destination;
         parse::effect_parser_rule destroy;
