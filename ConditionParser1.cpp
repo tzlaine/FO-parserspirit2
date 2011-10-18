@@ -1,5 +1,6 @@
 #include "ConditionParserImpl.h"
 
+#include "EnumParser.h"
 #include "ValueRefParser.h"
 #include "../universe/Condition.h"
 
@@ -84,7 +85,7 @@ namespace {
                 owned_by
                     =    tok.OwnedBy_
                     >    tok.Affiliation_ > '='
-                    >    tok.empire_affiliation_type_enum [ _a = _1 ]
+                    >    parse::enum_parser<EmpireAffiliationType>() [ _a = _1 ]
                     >>   (
                               (
                                    tok.Empire_ > '='

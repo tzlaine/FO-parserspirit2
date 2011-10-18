@@ -1,5 +1,6 @@
 #include "ConditionParserImpl.h"
 
+#include "EnumParser.h"
 #include "ValueRefParser.h"
 #include "../universe/Condition.h"
 
@@ -77,7 +78,7 @@ namespace {
                     >    tok.High_ > '='
                     >    int_value_ref [ _b = _1 ]
                     >    tok.Class_ > '='
-                    >    tok.ship_part_class_enum [ _val = new_<Condition::DesignHasPartClass>(_a, _b, _1) ]
+                    >    parse::enum_parser<ShipPartClass>() [ _val = new_<Condition::DesignHasPartClass>(_a, _b, _1) ]
                     ;
 
                 predefined_design

@@ -151,7 +151,7 @@ void initialize_numeric_statistic_parser(
                 >   condition/*TODO!*/ [ _c = _1 ]
                )
            |   (
-                    tok.statistic_type_enum [ _b = _1 ]
+                    parse::enum_parser<ValueRef::StatisticType>() [ _b = _1 ]
                 >>  tok.property
                 >> -((tok.planet | tok.system | tok.fleet) [ push_back(_a, _1) ] > '.')
                 >   final_token [ push_back(_a, _1) ]
@@ -173,7 +173,7 @@ void initialize_nonnumeric_statistic_parser(
 
     statistic
         = (
-               tok.statistic_type_enum [ _b = _1 ] // TODO: Should be "mode" only.
+               parse::enum_parser<ValueRef::StatisticType>() [ _b = _1 ] // TODO: Should be "mode" only.
            >>  tok.property
            >> -((tok.planet | tok.system | tok.fleet) [ push_back(_a, _1) ] > '.')
            >   final_token [ push_back(_a, _1) ]
