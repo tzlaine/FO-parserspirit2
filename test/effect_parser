@@ -1,0 +1,107 @@
+Set  TargetPopulation  Value = 1.0
+Set  TargetHealth  Value = 1.0
+Set  TargetFarming  Value = 1.0
+Set  TargetIndustry  Value = 1.0
+Set  TargetResearch  Value = 1.0
+Set  TargetTrade  Value = 1.0
+Set  TargetMining  Value = 1.0
+Set  TargetConstruction  Value = 1.0
+Set  MaxFuel  Value = 1.0
+Set  MaxShield  Value = 1.0
+Set  MaxStructure  Value = 1.0
+Set  MaxDefense  Value = 1.0
+Set  MaxTroops  Value = 1.0
+Set  Population  Value = 1.0
+Set  Health  Value = 1.0
+Set  Farming  Value = 1.0
+Set  Industry  Value = 1.0
+Set  Research  Value = 1.0
+Set  Trade  Value = 1.0
+Set  Mining  Value = 1.0
+Set  Construction  Value = 1.0
+Set  Fuel  Value = 1.0
+Set  Shield  Value = 1.0
+Set  Structure  Value = 1.0
+Set  Defense  Value = 1.0
+Set  Troops  Value = 1.0
+Set  FoodConsumption  Value = 1.0
+Set  Supply  Value = 1.0
+Set  Stealth  Value = 1.0
+Set  Detection  Value = 1.0
+Set  BattleSpeed  Value = 1.0
+Set  StarlaneSpeed  Value = 1.0
+Set  Damage  PartClass = Missiles  Value = 1.0  SlotType = External
+Set  ROF  PartClass = Missiles  Value = 1.0  SlotType = External
+Set  Range  PartClass = Missiles  Value = 1.0  SlotType = External
+Set  Speed  PartClass = Missiles  Value = 1.0  SlotType = External
+Set  Capacity  PartClass = Missiles  Value = 1.0  SlotType = External
+Set  AntiShipDamage  PartClass = Missiles  Value = 1.0  SlotType = External
+Set  AntiFighterDamage  PartClass = Missiles  Value = 1.0  SlotType = External
+Set  LaunchRate  PartClass = Missiles  Value = 1.0  SlotType = External
+Set  FighterWeaponRange  PartClass = Missiles  Value = 1.0  SlotType = External
+Set  Stealth  PartClass = Missiles  Value = 1.0  SlotType = External
+Set  Structure  PartClass = Missiles  Value = 1.0  SlotType = External
+Set  Detection  PartClass = Missiles  Value = 1.0  SlotType = External
+Set  Damage  FighterType = Bomber  Value = 1.0  SlotType = External
+Set  ROF  FighterType = Bomber  Value = 1.0  SlotType = External
+Set  Range  FighterType = Bomber  Value = 1.0  SlotType = External
+Set  Speed  FighterType = Bomber  Value = 1.0  SlotType = External
+Set  Capacity  FighterType = Bomber  Value = 1.0  SlotType = External
+Set  AntiShipDamage  FighterType = Bomber  Value = 1.0  SlotType = External
+Set  AntiFighterDamage  FighterType = Bomber  Value = 1.0  SlotType = External
+Set  LaunchRate  FighterType = Bomber  Value = 1.0  SlotType = External
+Set  FighterWeaponRange  FighterType = Bomber  Value = 1.0  SlotType = External
+Set  Stealth  FighterType = Bomber  Value = 1.0  SlotType = External
+Set  Structure  FighterType = Bomber  Value = 1.0  SlotType = External
+Set  Detection  FighterType = Bomber  Value = 1.0  SlotType = External
+Set  Damage  PartName = "Part Foo"  Value = 1.0  SlotType = External
+Set  ROF  PartName = "Part Foo"  Value = 1.0  SlotType = External
+Set  Range  PartName = "Part Foo"  Value = 1.0  SlotType = External
+Set  Speed  PartName = "Part Foo"  Value = 1.0  SlotType = External
+Set  Capacity  PartName = "Part Foo"  Value = 1.0  SlotType = External
+Set  AntiShipDamage  PartName = "Part Foo"  Value = 1.0  SlotType = External
+Set  AntiFighterDamage  PartName = "Part Foo"  Value = 1.0  SlotType = External
+Set  LaunchRate  PartName = "Part Foo"  Value = 1.0  SlotType = External
+Set  FighterWeaponRange  PartName = "Part Foo"  Value = 1.0  SlotType = External
+Set  Stealth  PartName = "Part Foo"  Value = 1.0  SlotType = External
+Set  Structure  PartName = "Part Foo"  Value = 1.0  SlotType = External
+Set  Detection  PartName = "Part Foo"  Value = 1.0  SlotType = External
+SetEmpireMeter  Empire = 1  Meter = "Foo"  Value = 1.0
+SetEmpireMeter  Meter = "Foo"  Value = 1.0
+SetEmpireFoodStockpile  Value = 1.0
+SetEmpireMineralStockpile  Value = 1.0
+SetEmpireTradeStockpile  Value = 1.0
+SetEmpireFoodStockpile  Empire = 1  Value = 1.0
+SetEmpireMineralStockpile  Empire = 1  Value = 1.0
+SetEmpireTradeStockpile  Empire = 1  Value = 1.0
+SetEmpireCapital
+SetEmpireCapital  Empire = 1
+SetPlanetType  Type = Swamp
+SetPlanetSize  PlanetSize = Small
+SetSpecies  Name = "Foo"
+SetOwner  Empire = 1
+CreatePlanet  Type = Swamp  Endpoint = Small
+CreateBuilding  Name = "Foo"
+CreateShip  DesignName = "Design Foo"  Empire = 1  Species = "Foo"
+CreateShip  DesignName = 1  Empire = 1  Species = "Foo"
+CreateShip  DesignName = "Design Foo"  Empire = 1
+CreateShip  DesignName = "Design Foo"
+MoveTo  Destination = All
+SetDestination  Destination = All
+Destroy
+Victory  Reason = "Foo"
+AddSpecial  Name = "Foo"
+RemoveSpecial  Name = "Foo"
+AddStarlanes  Endpoint = All
+RemoveStarlanes  Endpoint = All
+SetStarType  Type = Blue
+GiveTechToOwner  Name = "Tech Foo"
+RevokeTechFromOwner  Name = "Tech Foo"
+UnlockTechItemsForOwner  Name = "Tech Foo"
+LockTechItemsForOwner  Name = "Tech Foo"
+GenerateSitrepMessage Message = "Foo"  Parameters = Tag = "Foo" Data = "Bar"  Affiliation = EnemyOf  Empire = 1
+GenerateSitrepMessage Message = "Foo"  Parameters = Tag = [ "Foo" Data = "Bar" Tag = "Foo" Data = "Bar" ]  Affiliation = EnemyOf  Empire = 1
+GenerateSitrepMessage Message = "Foo"  Affiliation = EnemyOf  Empire = 1
+GenerateSitrepMessage Message = "Foo"  Parameters = "Foo" Data = "Bar"  Affiliation = EnemyOf
+GenerateSitrepMessage Message = "Foo"  Parameters = [ "Foo" Data = "Bar" Tag = "Foo" Data = "Bar" ]  Affiliation = EnemyOf
+GenerateSitrepMessage Message = "Foo"  Affiliation = EnemyOf
