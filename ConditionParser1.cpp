@@ -127,6 +127,8 @@ namespace {
                     |    tok.FocusType_ [ _val = new_<Condition::FocusType>(std::vector<const ValueRef::ValueRefBase<std::string>*>()) ]
                     ;
 
+                // TODO: Several members are uninitialized, and not tested (e.g. planet_type).
+
                 start
                     %=   all
                     |    source
