@@ -5196,7 +5196,7 @@ Index: universe/Names.h
 ===================================================================
 --- universe/Names.h	(revision 0)
 +++ universe/Names.h	(revision 0)
-@@ -0,0 +1,201 @@
+@@ -0,0 +1,240 @@
 +// -*- C++ -*-
 +#ifndef _Names_h_
 +#define _Names_h_
@@ -5211,6 +5211,8 @@ Index: universe/Names.h
 +    (Activation)                                \
 +    (AddedBefore)                               \
 +    (AddedSince)                                \
++    (AddSpecial)                                \
++    (AddStarlanes)                              \
 +    (Affiliation)                               \
 +    (Age)                                       \
 +    (Alignment)                                 \
@@ -5235,7 +5237,10 @@ Index: universe/Names.h
 +    (Construction)                              \
 +    (ContainedBy)                               \
 +    (Contains)                                  \
++    (CreateBuilding)                            \
 +    (CreatedOnTurn)                             \
++    (CreatePlanet)                              \
++    (CreateShip)                                \
 +    (CreationTurn)                              \
 +    (CurrentTurn)                               \
 +    (Damage)                                    \
@@ -5246,6 +5251,9 @@ Index: universe/Names.h
 +    (DesignHasPart)                             \
 +    (DesignHasPartClass)                        \
 +    (DesignID)                                  \
++    (DesignName)                                \
++    (Destination)                               \
++    (Destroy)                                   \
 +    (Detection)                                 \
 +    (Distance)                                  \
 +    (DistanceToSource)                          \
@@ -5253,6 +5261,7 @@ Index: universe/Names.h
 +    (EffectsGroup)                              \
 +    (EffectsGroups)                             \
 +    (Empire)                                    \
++    (Endpoint)                                  \
 +    (Environment)                               \
 +    (Environments)                              \
 +    (ExploredByEmpire)                          \
@@ -5270,6 +5279,8 @@ Index: universe/Names.h
 +    (FoodStockpile)                             \
 +    (Fuel)                                      \
 +    (GasGiant)                                  \
++    (GenerateSitrepMessage)                     \
++    (GiveTechToOwner)                           \
 +    (Graphic)                                   \
 +    (HasSpecial)                                \
 +    (HasSpecialSinceTurn)                       \
@@ -5282,9 +5293,11 @@ Index: universe/Names.h
 +    (InSystem)                                  \
 +    (Item)                                      \
 +    (Jumps)                                     \
++    (Label)                                     \
 +    (LaunchRate)                                \
 +    (LocalCandidate)                            \
 +    (Location)                                  \
++    (LockTechItemsForOwner)                     \
 +    (Lookup_Strings)                            \
 +    (Low)                                       \
 +    (MaxDefense)                                \
@@ -5293,6 +5306,8 @@ Index: universe/Names.h
 +    (MaxShield)                                 \
 +    (MaxStructure)                              \
 +    (MaxTroops)                                 \
++    (Message)                                   \
++    (Meter)                                     \
 +    (MineralStockpile)                          \
 +    (MinimumNumberOf)                           \
 +    (Mining)                                    \
@@ -5301,6 +5316,7 @@ Index: universe/Names.h
 +    (Monster)                                   \
 +    (MonsterFleet)                              \
 +    (MountableSlotTypes)                        \
++    (MoveTo)                                    \
 +    (Name)                                      \
 +    (NextBetterPlanetType)                      \
 +    (NextSystemID)                              \
@@ -5317,7 +5333,10 @@ Index: universe/Names.h
 +    (OwnerHasTech)                              \
 +    (OwnerMineralStockpile)                     \
 +    (OwnerTradeStockpile)                       \
++    (Parameters)                                \
 +    (Part)                                      \
++    (PartClass)                                 \
++    (PartName)                                  \
 +    (Parts)                                     \
 +    (Planet)                                    \
 +    (Planetbound)                               \
@@ -5336,15 +5355,31 @@ Index: universe/Names.h
 +    (Property)                                  \
 +    (Random)                                    \
 +    (Range)                                     \
++    (Reason)                                    \
++    (RemoveSpecial)                             \
++    (RemoveStarlanes)                           \
 +    (Research)                                  \
 +    (Researchable)                              \
 +    (ResearchCost)                              \
 +    (ResearchTurns)                             \
 +    (ResourceSupplyConnected)                   \
++    (RevokeTechFromOwner)                       \
 +    (Rof)                                       \
 +    (ROF)                                       \
 +    (RootCandidate)                             \
 +    (Scope)                                     \
++    (Set)                                       \
++    (SetDestination)                            \
++    (SetEmpireCapital)                          \
++    (SetEmpireFoodStockpile)                    \
++    (SetEmpireMeter)                            \
++    (SetEmpireMineralStockpile)                 \
++    (SetEmpireTradeStockpile)                   \
++    (SetOwner)                                  \
++    (SetPlanetSize)                             \
++    (SetPlanetType)                             \
++    (SetSpecies)                                \
++    (SetStarType)                               \
 +    (Shield)                                    \
 +    (Shipdesign)                                \
 +    (Ships)                                     \
@@ -5352,6 +5387,7 @@ Index: universe/Names.h
 +    (Size)                                      \
 +    (Slot)                                      \
 +    (Slots)                                     \
++    (SlotType)                                  \
 +    (SortBy)                                    \
 +    (SortKey)                                   \
 +    (Source)                                    \
@@ -5371,6 +5407,7 @@ Index: universe/Names.h
 +    (Supply)                                    \
 +    (System)                                    \
 +    (SystemID)                                  \
++    (Tag)                                       \
 +    (Target)                                    \
 +    (TargetConstruction)                        \
 +    (TargetFarming)                             \
@@ -5388,7 +5425,9 @@ Index: universe/Names.h
 +    (Turn)                                      \
 +    (Type)                                      \
 +    (Unlock)                                    \
++    (UnlockTechItemsForOwner)                   \
 +    (Value)                                     \
++    (Victory)                                   \
 +    (VisibleToEmpire)                           \
 +    (WithinDistance)                            \
 +    (WithinStarlaneJumps)
@@ -5747,6 +5786,19 @@ Index: universe/ValueRef_2.h
 +std::string DumpIndent();
 +
 +#endif
+Index: universe/Names.cpp
+===================================================================
+--- universe/Names.cpp	(revision 0)
++++ universe/Names.cpp	(revision 0)
+@@ -0,0 +1,8 @@
++#include "Names.h"
++
++#include <boost/preprocessor/stringize.hpp>
++
++
++#define DEFINE_NAME(r, _, name) adobe::aggregate_name_t BOOST_PP_CAT(name, _name) = { BOOST_PP_STRINGIZE(name) };
++BOOST_PP_SEQ_FOR_EACH(DEFINE_NAME, _, NAMES_SEQ)
++#undef DEFINE_NAME
 Index: universe/ValueRefFwd_2.h
 ===================================================================
 --- universe/ValueRefFwd_2.h	(revision 0)
@@ -5973,19 +6025,6 @@ Index: universe/ValueRefFwd_2.h
 +}
 +
 +#endif
-Index: universe/Names.cpp
-===================================================================
---- universe/Names.cpp	(revision 0)
-+++ universe/Names.cpp	(revision 0)
-@@ -0,0 +1,8 @@
-+#include "Names.h"
-+
-+#include <boost/preprocessor/stringize.hpp>
-+
-+
-+#define DEFINE_NAME(r, _, name) adobe::aggregate_name_t BOOST_PP_CAT(name, _name) = { BOOST_PP_STRINGIZE(name) };
-+BOOST_PP_SEQ_FOR_EACH(DEFINE_NAME, _, NAMES_SEQ)
-+#undef DEFINE_NAME
 Index: universe/Condition_2.h
 ===================================================================
 --- universe/Condition_2.h	(revision 0)
@@ -7608,7 +7647,7 @@ Index: universe/Condition_2.h
 +#endif
 Index: universe/ValueRef.h
 ===================================================================
---- universe/ValueRef.h	(revision 4281)
+--- universe/ValueRef.h	(revision 4405)
 +++ universe/ValueRef.h	(working copy)
 @@ -7,6 +7,8 @@
  #include "Condition.h"
@@ -8105,9 +8144,9 @@ Index: universe/ValueRef_2.cpp
 +#undef CURRENT_VALUE_CASE
 Index: CMakeLists.txt
 ===================================================================
---- CMakeLists.txt	(revision 4281)
+--- CMakeLists.txt	(revision 4405)
 +++ CMakeLists.txt	(working copy)
-@@ -328,6 +328,13 @@
+@@ -333,6 +333,13 @@
  add_subdirectory(client/AI)
  add_subdirectory(client/human)
  

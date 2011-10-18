@@ -119,6 +119,8 @@ set(THIS_EXE_SOURCES
     ../ConditionParser2.cpp
     ../ConditionParser3.cpp
 
+    ../EffectParser.cpp
+
     ${CMAKE_BINARY_DIR}/util/Version.cpp
 )
 

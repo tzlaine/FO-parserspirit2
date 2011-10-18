@@ -1,8 +1,7 @@
 #include "test.h"
 
 #include "../ConditionParser.h"
-
-#include <GG/ReportParseError.h>
+#include "../EffectParser.h"
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -130,8 +129,7 @@ int main(int argc, char* argv[])
                 break;
             }
             case effect_parser: {
-                std::cout << "Effect parser not yet implemented." << std::endl;
-                exit(1);
+                success = boost::spirit::qi::phrase_parse(it, end_it, parse::effect_parser(), in_state("WS")[l.self]);
                 break;
             }
             default:

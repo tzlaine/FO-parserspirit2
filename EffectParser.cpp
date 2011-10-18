@@ -1,6 +1,10 @@
 #include "EffectParser.h"
 
+#include "ConditionParserImpl.h"
+#include "EnumParser.h"
+#include "ValueRefParser.h"
 #include "../universe/Effect.h"
+#include "../universe/ValueRef.h"
 
 #include <GG/ReportParseError.h>
 
@@ -11,7 +15,8 @@ namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
 
 
-#define NAME(x) x.name(#x); debug(x)
+#define NAME(x) x.name(#x)
+//; debug(x)
 
 namespace {
 
@@ -22,42 +27,61 @@ namespace {
                 qi::_1_type _1;
                 qi::_a_type _a;
                 qi::_b_type _b;
-                qi::_c_type_c ;
+                qi::_c_type _c;
                 qi::_d_type _d;
                 qi::_e_type _e;
                 qi::_val_type _val;
+                qi::eps_type eps;
                 using phoenix::new_;
                 using phoenix::construct;
                 using phoenix::push_back;
 
                 const parse::lexer& tok = parse::lexer::instance();
 
+                const parse::value_ref_parser_rule<int>::type& int_value_ref =
+                    parse::value_ref_parser<int>();
+
+                const parse::value_ref_parser_rule<double>::type& double_value_ref =
+                    parse::value_ref_parser<double>();
+
+                const parse::value_ref_parser_rule<std::string>::type& string_value_ref =
+                    parse::value_ref_parser<std::string>();
+
+                const parse::value_ref_parser_rule<PlanetType>::type& planet_type_value_ref =
+                    parse::value_ref_parser<PlanetType>();
+
+                const parse::value_ref_parser_rule<PlanetSize>::type& planet_size_value_ref =
+                    parse::value_ref_parser<PlanetSize>();
+
+                const parse::value_ref_parser_rule<StarType>::type& star_type_value_ref =
+                    parse::value_ref_parser<StarType>();
+
                 set_meter
                     =    tok.Set_
-                    >    enum_parser<MeterType>() [ _a = _1 ] // TODO: Only non-ship meter types.
+                    >    parse::enum_parser<MeterType>() [ _a = _1 ] // TODO: Only non-ship meter types.
                     >    tok.Value_ > '='
-                    >    tok.double_ [ _val = new_<Effect::SetMeter>(_a, _1) ]
+                    >    double_value_ref [ _val = new_<Effect::SetMeter>(_a, _1) ]
                     ;
 
                 set_ship_part_meter
                     =    tok.Set_
-                    >    enum_parser<MeterType>() [ _a = _1 ] // TODO: Only non-ship meter types.
+                    >    parse::enum_parser<MeterType>() [ _a = _1 ] // TODO: Only ship meter types.
                     >>   (
                               (
                                    tok.PartClass_ > '='
-                               >   enum_parser<ShipPartClass>() [ _b = _1 ]
+                               >   parse::enum_parser<ShipPartClass>() [ _b = _1 ]
                                >   tok.Value_ > '='
                                >   double_value_ref [ _e = _1 ]
                                >   tok.SlotType_ > '='
-                               >   enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_a, _b, _e, _1) ]
+                               >   parse::enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_a, _b, _e, _1) ]
                               )
                           |   (
                                    tok.FighterType_ > '='
-                               >   enum_parser<CombatFighterType>() [ _c = _1 ]
+                               >   parse::enum_parser<CombatFighterType>() [ _c = _1 ]
                                >   tok.Value_ > '='
                                >   double_value_ref [ _e = _1 ]
                                >   tok.SlotType_ > '='
-                               >   enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_a, _c, _e, _1) ]
+                               >   parse::enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_a, _c, _e, _1) ]
                               )
                           |   (
                                    tok.PartName_ > '='
@@ -65,7 +89,7 @@ namespace {
                                >   tok.Value_ > '='
                                >   double_value_ref [ _e = _1 ]
                                >   tok.SlotType_ > '='
-                               >   enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_a, _d, _e, _1) ]
+                               >   parse::enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_a, _d, _e, _1) ]
                               )
                          )
                     ;
@@ -146,13 +170,13 @@ namespace {
                     >    tok.Type_ > '='
                     >    planet_type_value_ref [ _a = _1 ]
                     >    tok.Endpoint_ > '='
-                    >    planet_type_value_ref [ new_<Effect::CreatePlanet>(_a, _1) ]
+                    >    planet_size_value_ref [ new_<Effect::CreatePlanet>(_a, _1) ]
                     ;
 
                 create_building
                     =    tok.CreateBuilding_
                     >    tok.Name_ > '='
-                    >    tok.string [ _val = new_<Effect::CreateBuilding>(_1) ]
+                    >    string_value_ref [ _val = new_<Effect::CreateBuilding>(_1) ]
                     ;
 
                 create_ship
@@ -177,7 +201,7 @@ namespace {
                               tok.DesignName_ >> '='
                           >>  tok.string [ _a = _1 ]
                           >>  tok.Empire_ > '='
-                          >   string_value_ref [ _val = new_<Effect::CreateShip>(_a, _1) ]
+                          >   int_value_ref [ _val = new_<Effect::CreateShip>(_a, _1) ]
                          )
                     |    (
                               tok.DesignName_ > '='
@@ -188,13 +212,13 @@ namespace {
                 move_to
                     =    tok.MoveTo_
                     >    tok.Destination_ > '='
-                    >    condition_parser() [ _val = new_<Effect::MoveTo>(_1) ]
+                    >    parse::detail::condition_parser [ _val = new_<Effect::MoveTo>(_1) ]
                     ;
 
                 set_destination
                     =    tok.SetDestination_
                     >    tok.Destination_ > '='
-                    >    condition_parser() [ _val = new_<Effect::SetDestination>(_1) ]
+                    >    parse::detail::condition_parser [ _val = new_<Effect::SetDestination>(_1) ]
                     ;
 
                 destroy
@@ -204,31 +228,31 @@ namespace {
                 victory
                     =    tok.Victory_
                     >    tok.Reason_ > '='
-                    >    string_value_ref [ _val = new_<Effect::Victory>(_1) ]
+                    >    tok.string [ _val = new_<Effect::Victory>(_1) ]
                     ;
 
                 add_special
                     =    tok.AddSpecial_
                     >    tok.Name_ > '='
-                    >    string_value_ref [ _val = new_<Effect::AddSpecial>(_1) ]
+                    >    tok.string [ _val = new_<Effect::AddSpecial>(_1) ]
                     ;
 
                 remove_special
-                    =    tok.RemoveSpecial
+                    =    tok.RemoveSpecial_
                     >    tok.Name_ > '='
-                    >    string_value_ref [ _val = new_<Effect::RemoveSpecial>(_1) ]
+                    >    tok.string [ _val = new_<Effect::RemoveSpecial>(_1) ]
                     ;
 
                 add_starlanes
                     =    tok.AddStarlanes_
                     >    tok.Endpoint_ > '='
-                    >    condition_parser() [ _val = new_<Effect::AddStarlanes>(_1) ]
+                    >    parse::detail::condition_parser [ _val = new_<Effect::AddStarlanes>(_1) ]
                     ;
 
                 remove_starlanes
                     =    tok.RemoveStarlanes_
                     >    tok.Endpoint_ > '='
-                    >    condition_parser() [ _val = new_<Effect::RemoveStarlanes>(_1) ]
+                    >    parse::detail::condition_parser [ _val = new_<Effect::RemoveStarlanes>(_1) ]
                     ;
 
                 set_star_type
@@ -260,7 +284,7 @@ namespace {
                     >>   (
                               (
                                    tok.Affiliation_ >> '='
-                               >>  enum_parser<EmpireAffiliationType>() [ _c = _1 ]
+                               >>  parse::enum_parser<EmpireAffiliationType>() [ _c = _1 ]
                                |   eps [ _c = AFFIL_SELF ]
                               )
                           >>  tok.Empire_ > '='
@@ -268,7 +292,7 @@ namespace {
                          )
                     |    (
                               tok.Affiliation_ > '='
-                          >   enum_parser<EmpireAffiliationType>() [ _c = _1 ]
+                          >   parse::enum_parser<EmpireAffiliationType>() [ _c = _1 ]
                           |   eps [ _c = AFFIL_ANY ]
                          )
                          [ _val = new_<Effect::GenerateSitRepMessage>(_a, _b, _c) ]
@@ -278,10 +302,10 @@ namespace {
                     =    tok.Tag_ > '='
                     >    tok.string [ _a = _1 ]
                     >    tok.Label_ > '='
-                    >    tok.string_value_ref [ _val = construct<string_and_string_ref_pair>(_a, _1) ]
+                    >    string_value_ref [ _val = construct<string_and_string_ref_pair>(_a, _1) ]
                     ;
 
-                string_and_string_ref_vec
+                string_and_string_ref_vector
                     =    (
                              '['
                           > +string_and_string_ref [ push_back(_val, _1) ]
@@ -396,7 +420,7 @@ namespace {
             parse::skipper_type
         > generate_sitrep_message_rule;
 
-        std::pair<std::string, const ValueRef::ValueRefBase<std::string>*> string_and_string_ref_pair;
+        typedef std::pair<std::string, const ValueRef::ValueRefBase<std::string>*> string_and_string_ref_pair;
 
         typedef boost::spirit::qi::rule<
             parse::token_iterator,

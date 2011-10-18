@@ -7,6 +7,12 @@
 #include <boost/spirit/include/qi.hpp>
 
 
+namespace Effect {
+
+    class EffectBase;
+
+}
+
 namespace parse {
 
     typedef boost::spirit::qi::rule<
