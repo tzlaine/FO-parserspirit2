@@ -59,7 +59,7 @@ namespace {
     const ShipPartClass first_ship_part_class = PC_SHORT_RANGE;
     const std::string ship_slot_type_str("(?i:external|internal)");
     const ShipSlotType first_ship_slot_type = SL_EXTERNAL;
-    const std::string capture_result_str("(?i:capture|destroy|retain)");
+    const std::string capture_result_str("(?i:capture|retain)");
     const CaptureResult first_capture_result = CR_CAPTURE;
     const std::string statistic_type_str("(?i:count|sum|mean|rms|mode|max|min|spread|stdev|product)");
     ValueRef::StatisticType first_statistic_type = ValueRef::COUNT;

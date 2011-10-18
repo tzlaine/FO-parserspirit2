@@ -146,6 +146,7 @@ namespace parse {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<CaptureResult>::type retval
             =    tok.capture_result_enum [ _val = _1 ]
+            |    tok.Destroy_ [ _val = CR_DESTROY ]
             ;
         return retval;
     }
