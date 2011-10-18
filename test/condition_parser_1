@@ -19,3 +19,46 @@ Species
 FocusType  Type = "Focus Foo"
 FocusType  Type = [ "Focus Foo" "Focus Bar" ]
 FocusType
+Planet  Type = Swamp
+Planet  Type = [ Swamp Toxic ]
+Planet  PlanetSize = Small
+Planet  PlanetSize = [ Small Medium ]
+Planet  Environment = Adequate
+Planet  Environment = [ Adequate Good ]
+Ship
+ObjectType  Type = Ship
+TargetPopulation  Low = 1  High = 2
+TargetHealth  Low = 1  High = 2
+TargetFarming  Low = 1  High = 2
+TargetIndustry  Low = 1  High = 2
+TargetResearch  Low = 1  High = 2
+TargetTrade  Low = 1  High = 2
+TargetMining  Low = 1  High = 2
+TargetConstruction  Low = 1  High = 2
+MaxFuel  Low = 1  High = 2
+MaxShield  Low = 1  High = 2
+MaxStructure  Low = 1  High = 2
+MaxDefense  Low = 1  High = 2
+MaxTroops  Low = 1  High = 2
+Population  Low = 1  High = 2
+Health  Low = 1  High = 2
+Farming  Low = 1  High = 2
+Industry  Low = 1  High = 2
+Research  Low = 1  High = 2
+Trade  Low = 1  High = 2
+Mining  Low = 1  High = 2
+Construction  Low = 1  High = 2
+Fuel  Low = 1  High = 2
+Shield  Low = 1  High = 2
+Structure  Low = 1  High = 2
+Defense  Low = 1  High = 2
+Troops  Low = 1  High = 2
+FoodConsumption  Low = 1  High = 2
+Supply  Low = 1  High = 2
+Stealth  Low = 1  High = 2
+Detection  Low = 1  High = 2
+BattleSpeed  Low = 1  High = 2
+StarlaneSpeed  Low = 1  High = 2
+And  [ All All ]
+Or [ All All ]
+Not All
