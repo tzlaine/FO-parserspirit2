@@ -58,14 +58,14 @@ namespace {
 
                 set_meter
                     =    tok.Set_
-                    >    parse::enum_parser<MeterType>() [ _a = _1 ] // TODO: Only non-ship meter types.
+                    >>   parse::non_ship_part_meter_type_enum() [ _a = _1 ]
                     >    tok.Value_ > '='
                     >    double_value_ref [ _val = new_<Effect::SetMeter>(_a, _1) ]
                     ;
 
                 set_ship_part_meter
                     =    tok.Set_
-                    >    parse::enum_parser<MeterType>() [ _a = _1 ] // TODO: Only ship meter types.
+                    >    parse::ship_part_meter_type_enum() [ _a = _1 ]
                     >>   (
                               (
                                    tok.PartClass_ > '='
@@ -121,24 +121,28 @@ namespace {
                           |   tok.SetEmpireTradeStockpile_ [ _a = RE_TRADE ]
                          )
                     >>   (
-                              tok.Value_ > '='
-                          >   double_value_ref [ _val = new_<Effect::SetEmpireStockpile>(_a, _1) ]
-                         )
-                    |    (
-                              tok.Empire_ > '='
-                          >   int_value_ref [ _b = _1 ]
-                          >   tok.Value_ > '='
-                          >   double_value_ref [ _val = new_<Effect::SetEmpireStockpile>(_b, _a, _1) ]
+                              (
+                                   tok.Value_ > '='
+                               >   double_value_ref [ _val = new_<Effect::SetEmpireStockpile>(_a, _1) ]
+                              )
+                          |   (
+                                   tok.Empire_ > '='
+                               >   int_value_ref [ _b = _1 ]
+                               >   tok.Value_ > '='
+                               >   double_value_ref [ _val = new_<Effect::SetEmpireStockpile>(_b, _a, _1) ]
+                              )
                          )
                     ;
 
                 set_empire_capital
                     =    tok.SetEmpireCapital_
                     >>   (
-                              tok.Empire_ > '='
-                          |   int_value_ref [ _val = new_<Effect::SetEmpireCapital>(_1) ]
+                              (
+                                   tok.Empire_ > '='
+                               >   int_value_ref [ _val = new_<Effect::SetEmpireCapital>(_1) ]
+                              )
+                          |   eps [ _val = new_<Effect::SetEmpireCapital>() ]
                          )
-                    |    eps [ _val = new_<Effect::SetEmpireCapital>() ]
                     ;
 
                 set_planet_type
@@ -149,7 +153,7 @@ namespace {
 
                 set_planet_size
                     =    tok.SetPlanetSize_
-                    >    tok.Size_ > '='
+                    >    tok.PlanetSize_ > '='
                     >    planet_size_value_ref [ _val = new_<Effect::SetPlanetSize>(_1) ]
                     ;
 
