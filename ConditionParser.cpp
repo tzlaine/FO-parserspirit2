@@ -18,6 +18,7 @@ namespace parse {
                 |    detail::condition_parser_2()
                 |    detail::condition_parser_3()
                 ;
+            detail::condition_parser.name("condition");
             once = false;
         }
         return detail::condition_parser;
