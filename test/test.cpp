@@ -137,22 +137,22 @@ int main(int argc, char* argv[])
             }
 
             if (success && it == end_it) {
-                std::cout <<  "Successful parse.\n";
+                std::cout <<  "Successful parse." << std::endl;
             } else {
-                std::cout <<  "Failed parse of \"" << string << "\".\n";
+                std::cout <<  "Failed parse of \"" << string << "\"." << std::endl;
                 ++failures;
             }
         } catch (const boost::spirit::qi::expectation_failure<parse::token_iterator>&) {
-            std::cout <<  "Failed parse of \"" << string << "\" (qi::expectation_failure<> exception).\n";
+            std::cout <<  "Failed parse of \"" << string << "\" (qi::expectation_failure<> exception)." << std::endl;
             ++failures;
         }
     }
 
     if (1u < strings.size()) {
         if (failures)
-            std::cout << failures << " failures total.\n";
+            std::cout << failures << " failures total." << std::endl;
         else
-            std::cout << "All parses successful.\n";
+            std::cout << "All parses successful." << std::endl;
     }
 
     return failures;
