@@ -41,6 +41,9 @@ int main(int argc, char* argv[])
     CASE(effect_parser);
 #undef CASE
 
+    // TODO: Add error reporting mode that shows what the error messages look
+    // like if you strip out one token at a time from the input strings.
+
     if (test == unknown) {
         print_help();
         exit(1);
