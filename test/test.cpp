@@ -2,15 +2,18 @@
 
 #include "../ConditionParser.h"
 #include "../EffectParser.h"
+#include "../universe/ValueRef.h"
 
+#include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
+
 #include <fstream>
 
 
 void print_help()
 {
-    std::cout << "Usage: test lexer|int_value_ref_parser|double_value_ref_parser|string_value_ref_parser|planet_size_value_ref_parser|planet_type_value_ref_parser|planet_environment_value_ref_parser|universe_object_type_value_ref_parser|star_type_value_ref_parser|condition_parser|effect_parser <-f filename>|<test string>" << std::endl;
+    std::cout << "Usage: test lexer|int_value_ref_parser|double_value_ref_parser|string_value_ref_parser|planet_size_value_ref_parser|planet_type_value_ref_parser|planet_environment_value_ref_parser|universe_object_type_value_ref_parser|star_type_value_ref_parser|int_value_ref_evaluation|double_value_ref_evaluation|condition_parser|effect_parser <-f filename>|<test string>" << std::endl;
 }
 
 int main(int argc, char* argv[])
@@ -32,6 +35,8 @@ int main(int argc, char* argv[])
     CASE(planet_environment_value_ref_parser);
     CASE(universe_object_type_value_ref_parser);
     CASE(star_type_value_ref_parser);
+    CASE(int_value_ref_evaluation);
+    CASE(double_value_ref_evaluation);
     CASE(condition_parser);
     CASE(effect_parser);
 #undef CASE
@@ -72,8 +77,13 @@ int main(int argc, char* argv[])
         if (string.empty())
             continue;
 
+        const std::size_t equals_position =
+            test == int_value_ref_evaluation || test == double_value_ref_evaluation ?
+            string.find('=') :
+            std::string::npos;
+
         parse::text_iterator first(string.begin());
-        const parse::text_iterator last(string.end());
+        const parse::text_iterator last(equals_position == std::string::npos ? string.end() : string.begin() + equals_position);
 
         bool success = false;
 
@@ -124,6 +134,32 @@ int main(int argc, char* argv[])
                 success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<StarType>(), in_state("WS")[l.self]);
                 break;
             }
+            case int_value_ref_evaluation: {
+                ValueRef::ValueRefBase<int>* result = 0;
+                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<int>(), in_state("WS")[l.self], result);
+                assert(equals_position != std::string::npos);
+                const int expected_result = boost::lexical_cast<int>(string.substr(equals_position + 1, -1));
+                if (result->Eval() == expected_result) {
+                    std::cout <<  "Correct evaluation." << std::endl;
+                } else {
+                    std::cout <<  "Incorrect evaluation of \"" << string << "\".  Got " << result->Eval() << "." << std::endl;
+                    ++failures;
+                }
+                break;
+            }
+            case double_value_ref_evaluation: {
+                ValueRef::ValueRefBase<double>* result = 0;
+                success = boost::spirit::qi::phrase_parse(it, end_it, parse::value_ref_parser<double>(), in_state("WS")[l.self], result);
+                assert(equals_position != std::string::npos);
+                const double expected_result = boost::lexical_cast<double>(string.substr(equals_position + 1, -1));
+                if (result->Eval() == expected_result) {
+                    std::cout <<  "Correct evaluation." << std::endl;
+                } else {
+                    std::cout <<  "Incorrect evaluation of \"" << string << "\".  Got " << result->Eval() << "." << std::endl;
+                    ++failures;
+                }
+                break;
+            }
             case condition_parser: {
                 success = boost::spirit::qi::phrase_parse(it, end_it, parse::condition_parser(), in_state("WS")[l.self]);
                 break;
@@ -137,7 +173,8 @@ int main(int argc, char* argv[])
             }
 
             if (success && it == end_it) {
-                std::cout <<  "Successful parse." << std::endl;
+                if (test != int_value_ref_evaluation && test != double_value_ref_evaluation)
+                    std::cout <<  "Successful parse." << std::endl;
             } else {
                 std::cout <<  "Failed parse of \"" << string << "\"." << std::endl;
                 ++failures;

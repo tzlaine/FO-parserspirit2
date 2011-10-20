@@ -193,6 +193,8 @@ add_test_and_data_files(parser_test universe_object_type_value_ref_parser -f uni
 add_test_and_data_files(parser_test universe_object_type_value_ref_parser -f universe_object_type_variable)
 add_test_and_data_files(parser_test star_type_value_ref_parser -f star_type_constant)
 add_test_and_data_files(parser_test star_type_value_ref_parser -f star_type_variable)
+add_test_and_data_files(parser_test int_value_ref_evaluation -f int_arithmetic_evaluated)
+add_test_and_data_files(parser_test double_value_ref_evaluation -f double_arithmetic_evaluated)
 add_test_and_data_files(parser_test condition_parser -f condition_parser_1)
 add_test_and_data_files(parser_test condition_parser -f condition_parser_2)
 add_test_and_data_files(parser_test condition_parser -f condition_parser_3)

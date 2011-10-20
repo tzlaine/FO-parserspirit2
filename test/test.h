@@ -29,6 +29,8 @@ enum test_type {
     planet_environment_value_ref_parser,
     universe_object_type_value_ref_parser,
     star_type_value_ref_parser,
+    int_value_ref_evaluation,
+    double_value_ref_evaluation,
     condition_parser,
     effect_parser
 };
