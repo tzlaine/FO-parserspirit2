@@ -63,9 +63,7 @@ namespace {
                       [ push_back(_a, _1), _val = new_<ValueRef::StringCast<int> >(new_<ValueRef::Variable<int> >(_a)) ]
                     ;
 
-#if HAVE_CONDITION_PARSER
                 initialize_nonnumeric_statistic_parser<std::string>(statistic, final_token);
-#endif
 
                 expr
                     %=   primary_expr
@@ -75,17 +73,13 @@ namespace {
                     %=   '(' > expr > ')'
                     |    constant
                     |    variable
-#if HAVE_CONDITION_PARSER
                     |    statistic
-#endif
                     ;
 
                 NAME(final_token);
                 NAME(constant);
                 NAME(variable);
-#if HAVE_CONDITION_PARSER
                 NAME(statistic);
-#endif
                 NAME(negate_expr);
                 NAME(expr);
                 NAME(primary_expr);
@@ -97,16 +91,12 @@ namespace {
 
         typedef parse::value_ref_parser_rule<std::string>::type rule;
         typedef variable_rule<std::string>::type variable_rule;
-#if HAVE_CONDITION_PARSER
         typedef statistic_rule<std::string>::type statistic_rule;
-#endif
 
         name_token_rule final_token;
         rule constant;
         variable_rule variable;
-#if HAVE_CONDITION_PARSER
         statistic_rule statistic;
-#endif
         rule negate_expr;
         rule expr;
         rule primary_expr;

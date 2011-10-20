@@ -39,24 +39,18 @@ namespace {
                     ;
 
 
-#if HAVE_CONDITION_PARSER
                 initialize_nonnumeric_statistic_parser<UniverseObjectType>(statistic, final_token);
-#endif
 
                 primary_expr
                     %=   constant
                     |    variable
-#if HAVE_CONDITION_PARSER
                     |    statistic
-#endif
                     ;
 
                 NAME(final_token);
                 NAME(constant);
                 NAME(variable);
-#if HAVE_CONDITION_PARSER
                 NAME(statistic);
-#endif
                 NAME(primary_expr);
 
 #if 0  // TODO: Fix this!
@@ -66,16 +60,12 @@ namespace {
 
         typedef parse::value_ref_parser_rule<UniverseObjectType>::type rule;
         typedef variable_rule<UniverseObjectType>::type variable_rule;
-#if HAVE_CONDITION_PARSER
         typedef statistic_rule<UniverseObjectType>::type statistic_rule;
-#endif
 
         name_token_rule final_token;
         rule constant;
         variable_rule variable;
-#if HAVE_CONDITION_PARSER
         statistic_rule statistic;
-#endif
         rule primary_expr;
     };
 

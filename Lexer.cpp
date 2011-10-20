@@ -44,7 +44,6 @@ namespace {
     const std::string planet_environment_str("(?i:uninhabitable|hostile|poor|adequate|good)");
     const PlanetEnvironment first_planet_environment = PE_UNINHABITABLE;
     const std::string universe_object_type_str("(?i:ship|populationcenter|productioncenter)");
-    const UniverseObjectType first_universe_object_type = OBJ_SHIP;
     const std::string star_type_str("(?i:blue|white|yellow|orange|red|neutron|blackhole|nostar)");
     const StarType first_star_type = STAR_BLUE;
     const std::string empire_affiliation_type_str("(?i:theempire|enemyof|allyof|anyempire)");
@@ -61,8 +60,7 @@ namespace {
     const ShipSlotType first_ship_slot_type = SL_EXTERNAL;
     const std::string capture_result_str("(?i:capture|retain)");
     const CaptureResult first_capture_result = CR_CAPTURE;
-    const std::string statistic_type_str("(?i:count|sum|mean|rms|mode|max|min|spread|stdev|product)");
-    ValueRef::StatisticType first_statistic_type = ValueRef::COUNT;
+    const std::string statistic_type_str("(?i:count|sum|mean|rms|max|min|spread|stdev|product)");
 
     struct strip_quotes_
     {
@@ -273,7 +271,31 @@ namespace boost { namespace spirit { namespace traits {
 
     ASSIGN_TO_ATTRIBUTE_DEF(ShipSlotType, ship_slot_type);
     ASSIGN_TO_ATTRIBUTE_DEF(CaptureResult, capture_result);
-    ASSIGN_TO_ATTRIBUTE_DEF(ValueRef::StatisticType, statistic_type);
+
+    void assign_to_attribute_from_iterators<ValueRef::StatisticType, parse::text_iterator, void>::
+    call(const parse::text_iterator& first, const parse::text_iterator& last, ValueRef::StatisticType& attr)
+    {
+        typedef std::map<std::string, ValueRef::StatisticType> MapType;
+        static const MapType strings = boost::assign::list_of<std::pair<std::string, ValueRef::StatisticType> >
+            ("count", ValueRef::COUNT)
+            ("sum", ValueRef::SUM)
+            ("mean", ValueRef::MEAN)
+            ("rms", ValueRef::RMS)
+            ("mode", ValueRef::MODE)
+            ("max", ValueRef::MAX)
+            ("min", ValueRef::MIN)
+            ("spread", ValueRef::SPREAD)
+            ("stdev", ValueRef::STDEV)
+            ("product", ValueRef::PRODUCT)
+            ;
+        std::string match(first, last);
+        boost::algorithm::to_lower(match);
+        MapType::const_iterator it = strings.find(match);
+        if (it == strings.end())
+            attr = ValueRef::INVALID_STATISTIC_TYPE;
+        else
+            attr = it->second;
+    }
 
 #undef ASSIGN_TO_ATTRIBUTE_DEF
 

@@ -5196,7 +5196,7 @@ Index: universe/Names.h
 ===================================================================
 --- universe/Names.h	(revision 0)
 +++ universe/Names.h	(revision 0)
-@@ -0,0 +1,240 @@
+@@ -0,0 +1,241 @@
 +// -*- C++ -*-
 +#ifndef _Names_h_
 +#define _Names_h_
@@ -5312,6 +5312,7 @@ Index: universe/Names.h
 +    (MineralStockpile)                          \
 +    (MinimumNumberOf)                           \
 +    (Mining)                                    \
++    (Mode)                                      \
 +    (Model)                                     \
 +    (ModeNumberOf)                              \
 +    (Monster)                                   \
@@ -7647,7 +7648,7 @@ Index: universe/Condition_2.h
 +#endif
 Index: universe/ValueRef.h
 ===================================================================
---- universe/ValueRef.h	(revision 4405)
+--- universe/ValueRef.h	(revision 4420)
 +++ universe/ValueRef.h	(working copy)
 @@ -7,6 +7,8 @@
  #include "Condition.h"
@@ -7667,6 +7668,31 @@ Index: universe/ValueRef.h
      ReferenceType                   GetReferenceType() const;
      const std::vector<std::string>& PropertyName() const;
  
+@@ -166,6 +170,12 @@
+               StatisticType stat_type,
+               const Condition::ConditionBase* sampling_condition);
+ 
++    Statistic(const std::vector<adobe::name_t>& property_name,
++              StatisticType stat_type,
++              const Condition::ConditionBase* sampling_condition) :
++        ValueRef::Variable<T>(property_name)
++        {}
++
+     StatisticType                   GetStatisticType() const;
+     const Condition::ConditionBase* SamplingCondition() const;
+ 
+Index: universe/ValueRefFwd.h
+===================================================================
+--- universe/ValueRefFwd.h	(revision 4420)
++++ universe/ValueRefFwd.h	(working copy)
+@@ -19,6 +19,7 @@
+     template <class T> struct Variable;
+     template <class T> struct Statistic;
+     enum StatisticType {
++        INVALID_STATISTIC_TYPE = -1,
+         COUNT,  // returns the number of objects matching the condition
+         SUM,    // returns the sum of the property values of all objects matching the condition
+         MEAN,   // returns the mean of the property values of all objects matching the condition
 Index: universe/ValueRef_2.cpp
 ===================================================================
 --- universe/ValueRef_2.cpp	(revision 0)
@@ -8144,7 +8170,7 @@ Index: universe/ValueRef_2.cpp
 +#undef CURRENT_VALUE_CASE
 Index: CMakeLists.txt
 ===================================================================
---- CMakeLists.txt	(revision 4405)
+--- CMakeLists.txt	(revision 4420)
 +++ CMakeLists.txt	(working copy)
 @@ -333,6 +333,13 @@
  add_subdirectory(client/AI)

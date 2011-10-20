@@ -1,12 +1,12 @@
 // -*- C++ -*-
 #include "ValueRefParser.h"
 
+#include "ConditionParserImpl.h"
+#include "EnumParser.h"
 #include "../universe/ValueRef.h"
 
 #include <boost/spirit/home/phoenix.hpp>
 
-
-#define HAVE_CONDITION_PARSER 0
 
 namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
@@ -57,7 +57,6 @@ struct variable_rule
     > type;
 };
 
-#if HAVE_CONDITION_PARSER
 template <typename T>
 struct statistic_rule
 {
@@ -72,7 +71,6 @@ struct statistic_rule
         parse::skipper_type
     > type;
 };
-#endif
 
 template <typename T>
 struct operator_or_operand
@@ -197,7 +195,6 @@ void initialize_expression_parsers(
         ;
 }
 
-#if HAVE_CONDITION_PARSER
 template <typename T>
 void initialize_numeric_statistic_parser(
     typename statistic_rule<T>::type& statistic,
@@ -206,23 +203,31 @@ void initialize_numeric_statistic_parser(
 {
     const parse::lexer& tok = parse::lexer::instance();
 
+    qi::_1_type _1;
+    qi::_a_type _a;
+    qi::_b_type _b;
+    qi::_c_type _c;
+    qi::_val_type _val;
+    using phoenix::new_;
+    using phoenix::push_back;
+
     statistic
-        = (
-               (
-                    tok.number [ _b = ValueRef::COUNT ]
-                >>  tok.condition
-                >   condition/*TODO!*/ [ _c = _1 ]
-               )
-           |   (
-                    parse::enum_parser<ValueRef::StatisticType>() [ _b = _1 ]
-                >>  tok.property
-                >> -((tok.planet | tok.system | tok.fleet) [ push_back(_a, _1) ] > '.')
-                >   final_token [ push_back(_a, _1) ]
-                >   tok.condition
-                >   condition/*TODO!*/ [ _c = _1 ]
-               )
-          )
-          [ _val = new_<ValueRef::Statistic<T> >(_a, _b, _c) ]
+        =    (
+                  (
+                       tok.Number_ [ _b = ValueRef::COUNT ]
+                   >>  tok.Condition_ > '='
+                   >   parse::detail::condition_parser [ _c = _1 ]
+                  )
+              |   (
+                       parse::enum_parser<ValueRef::StatisticType>() [ _b = _1 ]
+                   >>  tok.Property_ > '='
+                   >> -((tok.Planet_ | tok.System_ | tok.Fleet_) [ push_back(_a, _1) ] > '.')
+                   >   final_token [ push_back(_a, _1) ]
+                   >   tok.Condition_ > '='
+                   >   parse::detail::condition_parser [ _c = _1 ]
+                  )
+             )
+             [ _val = new_<ValueRef::Statistic<T> >(_a, _b, _c) ]
         ;
 }
 
@@ -234,19 +239,26 @@ void initialize_nonnumeric_statistic_parser(
 {
     const parse::lexer& tok = parse::lexer::instance();
 
+    qi::_1_type _1;
+    qi::_a_type _a;
+    qi::_b_type _b;
+    qi::_c_type _c;
+    qi::_val_type _val;
+    using phoenix::new_;
+    using phoenix::push_back;
+
     statistic
-        = (
-               parse::enum_parser<ValueRef::StatisticType>() [ _b = _1 ] // TODO: Should be "mode" only.
-           >>  tok.property
-           >> -((tok.planet | tok.system | tok.fleet) [ push_back(_a, _1) ] > '.')
-           >   final_token [ push_back(_a, _1) ]
-           >   tok.condition
-           >   condition/*TODO!*/ [ _c = _1 ]
-          )
-          [ _val = new_<ValueRef::Statistic<T> >(_a, _b, _c) ]
+        =    (
+                  tok.Mode_ [ _b = ValueRef::MODE ]
+              >>  tok.Property_ > '='
+              >> -((tok.Planet_ | tok.System_ | tok.Fleet_) [ push_back(_a, _1) ] > '.')
+              >   final_token [ push_back(_a, _1) ]
+              >   tok.Condition_ > '='
+              >   parse::detail::condition_parser [ _c = _1 ]
+             )
+             [ _val = new_<ValueRef::Statistic<T> >(_a, _b, _c) ]
         ;
 }
-#endif
 
 const name_token_rule& int_var_first_token();
 const name_token_rule& int_var_container_token();

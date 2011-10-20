@@ -157,6 +157,7 @@ namespace parse {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<ValueRef::StatisticType>::type retval
             =    tok.statistic_type_enum [ _val = _1 ]
+            |    tok.Mode_ [ _val = ValueRef::MODE ]
             ;
         return retval;
     }
