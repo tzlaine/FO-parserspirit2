@@ -1,0 +1,14 @@
+Number  Condition = All
+
+Mode  Property = Fleet.Name  Condition = All
+Mode  Property = Fleet.Species  Condition = All
+Mode  Property = Fleet.BuildingType  Condition = All
+Mode  Property = Fleet.Focus  Condition = All
+Mode  Property = Planet.Name  Condition = All
+Mode  Property = Planet.Species  Condition = All
+Mode  Property = Planet.BuildingType  Condition = All
+Mode  Property = Planet.Focus  Condition = All
+Mode  Property = System.Name  Condition = All
+Mode  Property = System.Species  Condition = All
+Mode  Property = System.BuildingType  Condition = All
+Mode  Property = System.Focus  Condition = All

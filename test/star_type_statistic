@@ -1,0 +1,5 @@
+Number  Condition = All
+
+Mode  Property = Fleet.StarType  Condition = All
+Mode  Property = Planet.StarType  Condition = All
+Mode  Property = System.StarType  Condition = All

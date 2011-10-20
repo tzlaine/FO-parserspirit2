@@ -1,0 +1,8 @@
+Number  Condition = All
+
+Mode  Property = Fleet.PlanetType  Condition = All
+Mode  Property = Fleet.NextBetterPlanetType  Condition = All
+Mode  Property = Planet.PlanetType  Condition = All
+Mode  Property = Planet.NextBetterPlanetType  Condition = All
+Mode  Property = System.PlanetType  Condition = All
+Mode  Property = System.NextBetterPlanetType  Condition = All
