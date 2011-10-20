@@ -87,8 +87,6 @@ namespace {
                 NAME(statistic);
 #endif
                 NAME(negate_expr);
-                NAME(multiplicative_expr);
-                NAME(additive_expr);
                 NAME(expr);
                 NAME(primary_expr);
 
@@ -102,7 +100,6 @@ namespace {
 #if HAVE_CONDITION_PARSER
         typedef statistic_rule<std::string>::type statistic_rule;
 #endif
-        typedef binary_op_expr_rule<std::string>::type binary_expression_rule;
 
         name_token_rule final_token;
         rule constant;
@@ -111,8 +108,6 @@ namespace {
         statistic_rule statistic;
 #endif
         rule negate_expr;
-        binary_expression_rule multiplicative_expr;
-        binary_expression_rule additive_expr;
         rule expr;
         rule primary_expr;
     };

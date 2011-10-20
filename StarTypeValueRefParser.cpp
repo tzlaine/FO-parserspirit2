@@ -68,7 +68,6 @@ namespace {
 #if HAVE_CONDITION_PARSER
         typedef statistic_rule<StarType>::type statistic_rule;
 #endif
-        typedef binary_op_expr_rule<StarType>::type binary_expression_rule;
 
         name_token_rule final_token;
         rule constant;
