@@ -3,6 +3,9 @@
 #include <GG/ReportParseError.h>
 
 
+name_token_rule first_token;
+name_token_rule container_token;
+
 namespace {
 
     struct int_parser_rules
@@ -111,8 +114,6 @@ namespace {
         typedef multiplicative_expr_rule<int>::type multiplicative_expression_rule;
         typedef additive_expr_rule<int>::type additive_expression_rule;
 
-        name_token_rule first_token;
-        name_token_rule container_token;
         name_token_rule final_token;
         rule constant;
         variable_rule variable;
@@ -131,12 +132,6 @@ namespace {
     }
 
 }
-
-const name_token_rule& int_var_first_token()
-{ return get_int_parser_rules().first_token; }
-
-const name_token_rule& int_var_container_token()
-{ return get_int_parser_rules().container_token; }
 
 const name_token_rule& int_var_final_token()
 { return get_int_parser_rules().final_token; }

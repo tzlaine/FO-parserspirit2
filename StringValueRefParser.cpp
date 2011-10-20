@@ -20,9 +20,6 @@ namespace {
 
                 const parse::lexer& tok = parse::lexer::instance();
 
-                const name_token_rule& first_token = int_var_first_token();
-                const name_token_rule& container_token = int_var_container_token();
-
                 final_token
                     %=   tok.Name_
                     |    tok.Species_

@@ -195,8 +195,8 @@ void initialize_expression_parsers(
         ;
 }
 
-const name_token_rule& int_var_first_token();
-const name_token_rule& int_var_container_token();
+extern name_token_rule first_token;
+extern name_token_rule container_token;
 const name_token_rule& int_var_final_token();
 const name_token_rule& double_var_final_token();
 
@@ -220,13 +220,13 @@ void initialize_numeric_statistic_parser(
         =    (
                   (
                        tok.Number_ [ _b = ValueRef::COUNT ]
-                   >>  tok.Condition_ > '='
+                   >   tok.Condition_ > '='
                    >   parse::detail::condition_parser [ _c = _1 ]
                   )
               |   (
                        parse::enum_parser<ValueRef::StatisticType>() [ _b = _1 ]
-                   >>  tok.Property_ > '='
-                   >> -(int_var_container_token() [ push_back(_a, _1) ] > '.')
+                   >   tok.Property_ > '='
+                   >  -(container_token [ push_back(_a, _1) ] > '.')
                    >   final_token [ push_back(_a, _1) ]
                    >   tok.Condition_ > '='
                    >   parse::detail::condition_parser [ _c = _1 ]
@@ -255,8 +255,8 @@ void initialize_nonnumeric_statistic_parser(
     statistic
         =    (
                   tok.Mode_ [ _b = ValueRef::MODE ]
-              >>  tok.Property_ > '='
-              >> -(int_var_container_token() [ push_back(_a, _1) ] > '.')
+              >   tok.Property_ > '='
+              >  -(container_token [ push_back(_a, _1) ] > '.')
               >   final_token [ push_back(_a, _1) ]
               >   tok.Condition_ > '='
               >   parse::detail::condition_parser [ _c = _1 ]

@@ -1,0 +1,5 @@
+Number  Condition = All
+
+Mode  Property = Fleet.ObjectType  Condition = All
+Mode  Property = Planet.ObjectType  Condition = All
+Mode  Property = System.ObjectType  Condition = All
