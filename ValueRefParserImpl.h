@@ -19,7 +19,7 @@ namespace phoenix = boost::phoenix;
 #define NAME(x) x.name(#x)
 #endif
 
-// This is just here to satisfy the requirements of qi::debug(<rule>).
+// These are just here to satisfy the requirements of qi::debug(<rule>).
 namespace adobe {
     inline std::ostream& operator<<(std::ostream& os, const std::vector<name_t>& name_vec)
     {
@@ -30,6 +30,14 @@ namespace adobe {
         os << "]";
         return os;
     }
+}
+
+namespace boost {
+    inline std::ostream& operator<<(std::ostream& os, const std::vector<variant<ValueRef::OpType, ValueRef::ValueRefBase<int>*> >& name_vec)
+    { return os << "[int expression stack]"; }
+
+    inline std::ostream& operator<<(std::ostream& os, const std::vector<variant<ValueRef::OpType, ValueRef::ValueRefBase<double>*> >& name_vec)
+    { return os << "[double expression stack]"; }
 }
 
 typedef qi::rule<
@@ -67,25 +75,80 @@ struct statistic_rule
 #endif
 
 template <typename T>
-struct binary_op_expr_rule
+struct operator_or_operand
+{ typedef boost::variant<ValueRef::OpType, ValueRef::ValueRefBase<T>*> type; };
+
+template <typename T>
+struct operator_or_operand_vector
+{ typedef std::vector<typename operator_or_operand<T>::type> type; };
+
+template <typename T>
+struct expression_value_type;
+
+template <typename T>
+struct expression_value_type<std::vector<boost::variant<ValueRef::OpType, ValueRef::ValueRefBase<T>*> > >
+{ typedef T type; };
+
+template <typename T>
+struct multiplicative_expr_rule
 {
     typedef qi::rule<
         parse::token_iterator,
-        ValueRef::ValueRefBase<T>* (),
-        qi::locals<
-            ValueRef::OpType,
-            ValueRef::ValueRefBase<T>*,
-            ValueRef::ValueRefBase<T>*
-        >,
+        void (typename operator_or_operand_vector<T>::type&),
+        qi::locals<ValueRef::OpType>,
         parse::skipper_type
     > type;
 };
 
 template <typename T>
+struct additive_expr_rule
+{
+    typedef qi::rule<
+        parse::token_iterator,
+        ValueRef::ValueRefBase<T>* (),
+        qi::locals<
+            typename operator_or_operand_vector<T>::type,
+            ValueRef::OpType
+        >,
+        parse::skipper_type
+    > type;
+};
+
+struct make_expression_
+{
+    template <typename Arg>
+    struct result
+    { typedef ValueRef::ValueRefBase<typename expression_value_type<Arg>::type>* type; };
+
+    template <typename Arg>
+    typename result<Arg>::type operator()(const Arg& arg) const
+        {
+            typedef typename expression_value_type<Arg>::type value_type;
+            std::vector<ValueRef::ValueRefBase<value_type>*> operand_stack;
+            operand_stack.reserve(arg.size());
+            const typename Arg::const_iterator end_it = arg.end();
+            for (typename Arg::const_iterator it = arg.begin(); it != end_it; ++it) {
+                if (const ValueRef::OpType* op = boost::get<ValueRef::OpType>(&*it)) { // operator
+                    ValueRef::ValueRefBase<value_type>* right = operand_stack.back();
+                    operand_stack.pop_back();
+                    ValueRef::ValueRefBase<value_type>* left = operand_stack.back();
+                    operand_stack.pop_back();
+                    // TODO: Constant folding.
+                    operand_stack.push_back(new ValueRef::Operation<value_type>(*op, left, right));
+                } else {
+                    operand_stack.push_back(boost::get<ValueRef::ValueRefBase<value_type>*>(*it));
+                }
+            }
+            return operand_stack[0];
+        }
+};
+const boost::phoenix::function<make_expression_> make_expression;
+
+template <typename T>
 void initialize_expression_parsers(
     typename parse::value_ref_parser_rule<T>::type& negate_expr,
-    typename binary_op_expr_rule<T>::type& multiplicative_expr,
-    typename binary_op_expr_rule<T>::type& additive_expr,
+    typename multiplicative_expr_rule<T>::type& multiplicative_expr,
+    typename additive_expr_rule<T>::type& additive_expr,
     typename parse::value_ref_parser_rule<T>::type& expr,
     typename parse::value_ref_parser_rule<T>::type& primary_expr
 )
@@ -93,10 +156,11 @@ void initialize_expression_parsers(
     qi::_1_type _1;
     qi::_a_type _a;
     qi::_b_type _b;
-    qi::_c_type _c;
+    qi::_r1_type _r1;
     qi::_val_type _val;
     qi::lit_type lit;
     using phoenix::new_;
+    using phoenix::push_back;
 
     negate_expr
         =    '-' > primary_expr [ _val = new_<ValueRef::Operation<T> >(ValueRef::NEGATE, _1) ]
@@ -104,29 +168,28 @@ void initialize_expression_parsers(
         ;
 
     multiplicative_expr
-        = (
-               negate_expr [ _b = _1 ]
-           >>  (
-                    lit('*') [_a = ValueRef::TIMES]
-                |   lit('/') [_a = ValueRef::DIVIDES]
-               )
-           >   multiplicative_expr [ _c = _1 ]
-          )
-          [ _val = new_<ValueRef::Operation<T> >(_a, _b, _c) ]
-        | negate_expr [ _val = _1 ]
+        =    negate_expr [ push_back(_r1, _1) ]
+        >>  *(
+                  (
+                       lit('*') [ _a = ValueRef::TIMES ]
+                   |   lit('/') [ _a = ValueRef::DIVIDES ]
+                  )
+              >   negate_expr [ push_back(_r1, _1) ]
+             ) [ push_back(_r1, _a) ]
         ;
 
     additive_expr
-        = (
-               multiplicative_expr [ _b = _1 ]
-           >>  (
-                    lit('+') [_a = ValueRef::PLUS]
-                |   lit('-') [_a = ValueRef::MINUS]
-               )
-           >   additive_expr [ _c = _1 ]
-          )
-          [ _val = new_<ValueRef::Operation<T> >(_a, _b, _c) ]
-        | multiplicative_expr [ _val = _1 ]
+        =    (
+                  multiplicative_expr(_a)
+              >> *(
+                       (
+                            lit('+') [ _b = ValueRef::PLUS ]
+                        |   lit('-') [ _b = ValueRef::MINUS ]
+                       )
+                   >   multiplicative_expr(_a)
+                  ) [ push_back(_a, _b) ]
+             )
+             [ _val = make_expression(_a) ]
         ;
 
     expr

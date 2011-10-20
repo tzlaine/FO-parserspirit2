@@ -116,7 +116,8 @@ namespace {
 #if HAVE_CONDITION_PARSER
         typedef statistic_rule<int>::type statistic_rule;
 #endif
-        typedef binary_op_expr_rule<int>::type binary_expression_rule;
+        typedef multiplicative_expr_rule<int>::type multiplicative_expression_rule;
+        typedef additive_expr_rule<int>::type additive_expression_rule;
 
         name_token_rule first_token;
         name_token_rule container_token;
@@ -127,8 +128,8 @@ namespace {
         statistic_rule statistic;
 #endif
         rule negate_expr;
-        binary_expression_rule multiplicative_expr;
-        binary_expression_rule additive_expr;
+        multiplicative_expression_rule multiplicative_expr;
+        additive_expression_rule additive_expr;
         rule expr;
         rule primary_expr;
     };
