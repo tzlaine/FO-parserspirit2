@@ -1,7 +1,5 @@
 #define FUSION_MAX_VECTOR_SIZE 20
 
-#include "Parse.h"
-
 #include "ParseImpl.h"
 #include "../universe/Building.h"
 

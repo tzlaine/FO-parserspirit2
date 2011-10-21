@@ -121,6 +121,7 @@ set(THIS_EXE_SOURCES
 
     ../EffectParser.cpp
 
+    ../Parse.cpp
     ../BuildingsParser.cpp
 
     ${CMAKE_BINARY_DIR}/util/Version.cpp

@@ -4,6 +4,7 @@
 
 #include "ConditionParserImpl.h"
 #include "EnumParser.h"
+#include "Parse.h"
 #include "../util/MultiplayerCommon.h"
 
 #include <boost/filesystem/fstream.hpp>
@@ -13,6 +14,18 @@
 
 namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
+
+namespace parse {
+
+    typedef boost::spirit::qi::rule<
+        parse::token_iterator,
+        std::vector<boost::shared_ptr<const Effect::EffectsGroup> > (),
+        parse::skipper_type
+    > effects_group_rule;
+
+    effects_group_rule& effects_group_parser();
+
+}
 
 template <typename Rules, typename Data>
 void parse_file(const boost::filesystem::path& path, Data& data)
