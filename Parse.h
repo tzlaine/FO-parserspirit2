@@ -19,6 +19,8 @@ class Species;
 
 namespace parse {
 
+    void init();
+
     void buildings(const boost::filesystem::path& path, std::map<std::string, BuildingType*>& building_types);
 
     void specials(const boost::filesystem::path& path, std::map<std::string, Special*>& specials_);

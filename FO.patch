@@ -5196,7 +5196,7 @@ Index: universe/Names.h
 ===================================================================
 --- universe/Names.h	(revision 0)
 +++ universe/Names.h	(revision 0)
-@@ -0,0 +1,241 @@
+@@ -0,0 +1,246 @@
 +// -*- C++ -*-
 +#ifndef _Names_h_
 +#define _Names_h_
@@ -7653,7 +7653,7 @@ Index: universe/Condition_2.h
 +#endif
 Index: universe/ValueRef.h
 ===================================================================
---- universe/ValueRef.h	(revision 4420)
+--- universe/ValueRef.h	(revision 4423)
 +++ universe/ValueRef.h	(working copy)
 @@ -7,6 +7,8 @@
  #include "Condition.h"
@@ -7688,7 +7688,7 @@ Index: universe/ValueRef.h
  
 Index: universe/ValueRefFwd.h
 ===================================================================
---- universe/ValueRefFwd.h	(revision 4420)
+--- universe/ValueRefFwd.h	(revision 4423)
 +++ universe/ValueRefFwd.h	(working copy)
 @@ -19,6 +19,7 @@
      template <class T> struct Variable;
@@ -7700,7 +7700,7 @@ Index: universe/ValueRefFwd.h
          MEAN,   // returns the mean of the property values of all objects matching the condition
 Index: universe/Tech.h
 ===================================================================
---- universe/Tech.h	(revision 4417)
+--- universe/Tech.h	(revision 4423)
 +++ universe/Tech.h	(working copy)
 @@ -141,7 +141,7 @@
      given a set of currently-known techs. */
@@ -8196,7 +8196,7 @@ Index: universe/ValueRef_2.cpp
 +#undef CURRENT_VALUE_CASE
 Index: CMakeLists.txt
 ===================================================================
---- CMakeLists.txt	(revision 4420)
+--- CMakeLists.txt	(revision 4423)
 +++ CMakeLists.txt	(working copy)
 @@ -333,6 +333,13 @@
  add_subdirectory(client/AI)

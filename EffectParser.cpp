@@ -41,7 +41,6 @@ namespace {
                 using phoenix::push_back;
 
                 const parse::lexer& tok = parse::lexer::instance();
-                parse::condition_parser(); // Make sure condition parser is initialized. // TODO: Move this into a top-level initialize_parsers().
 
                 const parse::value_ref_parser_rule<int>::type& int_value_ref =
                     parse::value_ref_parser<int>();

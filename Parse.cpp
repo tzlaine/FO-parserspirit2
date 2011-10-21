@@ -135,51 +135,60 @@ namespace {
 
 }
 
-namespace parse { namespace detail {
+namespace parse {
 
-    effects_group_rule& effects_group_parser()
+    void init()
     {
-        static effects_group_rules rules;
-        return rules.start;
+        parse::condition_parser();
     }
 
-    color_parser_rule& color_parser()
-    {
-        static color_parser_rules rules;
-        return rules.start;
-    }
+    namespace detail {
 
-    item_spec_parser_rule& item_spec_parser()
-    {
-        static item_spec_parser_rules rules;
-        return rules.start;
-    }
-
-    void parse_file_common(const boost::filesystem::path& path,
-                           const parse::lexer& l,
-                           parse::text_iterator& first,
-                           parse::token_iterator& it)
-    {
-        const std::string filename = path.string();
-
-        std::string file_contents;
+        effects_group_rule& effects_group_parser()
         {
-            boost::filesystem::ifstream ifs(path);
-            if (ifs) {
-                std::getline(ifs, file_contents, '\0');
-            } else {
-                Logger().errorStream() << "Unable to open data file " << filename;
-                return;
-            }
+            static effects_group_rules rules;
+            return rules.start;
         }
 
-        first = parse::text_iterator(file_contents.begin());
-        parse::text_iterator last(file_contents.end());
+        color_parser_rule& color_parser()
+        {
+            static color_parser_rules rules;
+            return rules.start;
+        }
 
-        GG::detail::s_begin = first;
-        GG::detail::s_end = last;
-        GG::detail::s_filename = filename.c_str();
-        it = l.begin(first, last);
+        item_spec_parser_rule& item_spec_parser()
+        {
+            static item_spec_parser_rules rules;
+            return rules.start;
+        }
+
+        void parse_file_common(const boost::filesystem::path& path,
+                               const parse::lexer& l,
+                               parse::text_iterator& first,
+                               parse::token_iterator& it)
+        {
+            const std::string filename = path.string();
+
+            std::string file_contents;
+            {
+                boost::filesystem::ifstream ifs(path);
+                if (ifs) {
+                    std::getline(ifs, file_contents, '\0');
+                } else {
+                    Logger().errorStream() << "Unable to open data file " << filename;
+                    return;
+                }
+            }
+
+            first = parse::text_iterator(file_contents.begin());
+            parse::text_iterator last(file_contents.end());
+
+            GG::detail::s_begin = first;
+            GG::detail::s_end = last;
+            GG::detail::s_filename = filename.c_str();
+            it = l.begin(first, last);
+        }
+
     }
 
-} }
+}
