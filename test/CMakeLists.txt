@@ -123,6 +123,7 @@ set(THIS_EXE_SOURCES
 
     ../Parse.cpp
     ../BuildingsParser.cpp
+    ../SpecialsParser.cpp
 
     ${CMAKE_BINARY_DIR}/util/Version.cpp
 )
