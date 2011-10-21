@@ -7693,6 +7693,27 @@ Index: universe/ValueRefFwd.h
          COUNT,  // returns the number of objects matching the condition
          SUM,    // returns the sum of the property values of all objects matching the condition
          MEAN,   // returns the mean of the property values of all objects matching the condition
+Index: universe/Tech.h
+===================================================================
+--- universe/Tech.h	(revision 4417)
++++ universe/Tech.h	(working copy)
+@@ -141,7 +141,7 @@
+     given a set of currently-known techs. */
+ class TechManager
+ {
+-private:
++public:
+     struct CategoryIndex {};
+     struct NameIndex {};
+     typedef boost::multi_index_container<
+@@ -166,7 +166,6 @@
+         >
+     > TechContainer;
+ 
+-public:
+     /** iterator that runs over techs within a category */
+     typedef TechContainer::index<CategoryIndex>::type::const_iterator category_iterator;
+ 
 Index: universe/ValueRef_2.cpp
 ===================================================================
 --- universe/ValueRef_2.cpp	(revision 0)
