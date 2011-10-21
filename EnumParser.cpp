@@ -21,6 +21,7 @@ namespace parse {
             |    tok.Asteroids_ [ _val = SZ_ASTEROIDS ]
             |    tok.GasGiant_ [ _val = SZ_GASGIANT ]
             ;
+        retval.name("PlanetSize");
         return retval;
     }
 
@@ -33,6 +34,7 @@ namespace parse {
             |    tok.Asteroids_ [ _val = PT_ASTEROIDS ]
             |    tok.GasGiant_ [ _val = PT_GASGIANT ]
             ;
+        retval.name("PlanetType");
         return retval;
     }
 
@@ -43,6 +45,7 @@ namespace parse {
         static enum_parser_rule<PlanetEnvironment>::type retval
             =    tok.planet_environment_enum [ _val = _1 ]
             ;
+        retval.name("PlanetEnvironment");
         return retval;
     }
 
@@ -57,6 +60,7 @@ namespace parse {
             |    tok.Planet_ [ _val = OBJ_PLANET ]
             |    tok.System_ [ _val = OBJ_SYSTEM ]
             ;
+        retval.name("UniverseObjectType");
         return retval;
     }
 
@@ -67,6 +71,7 @@ namespace parse {
         static enum_parser_rule<StarType>::type retval
             =    tok.star_type_enum [ _val = _1 ]
             ;
+        retval.name("StarType");
         return retval;
     }
 
@@ -77,6 +82,7 @@ namespace parse {
             =    non_ship_part_meter_type_enum() [ _val = _1 ]
             |    ship_part_meter_type_enum() [ _val = _1 ]
             ;
+        retval.name("MeterType");
         return retval;
     }
 
@@ -87,6 +93,7 @@ namespace parse {
         static enum_parser_rule<EmpireAffiliationType>::type retval
             =    tok.empire_affiliation_type_enum [ _val = _1 ]
             ;
+        retval.name("EmpireAffiliationType");
         return retval;
     }
 
@@ -97,6 +104,7 @@ namespace parse {
         static enum_parser_rule<UnlockableItemType>::type retval
             =    tok.unlockable_item_type_enum [ _val = _1 ]
             ;
+        retval.name("UnlockableItemType");
         return retval;
     }
 
@@ -107,6 +115,7 @@ namespace parse {
         static enum_parser_rule<TechType>::type retval
             =    tok.tech_type_enum [ _val = _1 ]
             ;
+        retval.name("TechType");
         return retval;
     }
 
@@ -117,6 +126,7 @@ namespace parse {
         static enum_parser_rule<ShipSlotType>::type retval
             =    tok.ship_slot_type_enum [ _val = _1 ]
             ;
+        retval.name("ShipSlotType");
         return retval;
     }
 
@@ -127,6 +137,7 @@ namespace parse {
         static enum_parser_rule<ShipPartClass>::type retval
             =    tok.ship_part_class_enum [ _val = _1 ]
             ;
+        retval.name("ShipPartClass");
         return retval;
     }
 
@@ -137,6 +148,7 @@ namespace parse {
         static enum_parser_rule<CombatFighterType>::type retval
             =    tok.combat_fighter_type_enum [ _val = _1 ]
             ;
+        retval.name("CombatFighterType");
         return retval;
     }
 
@@ -148,6 +160,7 @@ namespace parse {
             =    tok.capture_result_enum [ _val = _1 ]
             |    tok.Destroy_ [ _val = CR_DESTROY ]
             ;
+        retval.name("CaptureResult");
         return retval;
     }
 
@@ -159,6 +172,7 @@ namespace parse {
             =    tok.statistic_type_enum [ _val = _1 ]
             |    tok.Mode_ [ _val = ValueRef::MODE ]
             ;
+        retval.name("StatisticType");
         return retval;
     }
 
@@ -203,6 +217,7 @@ namespace parse {
             |    tok.BattleSpeed_ [ _val = METER_BATTLE_SPEED ]
             |    tok.StarlaneSpeed_ [ _val = METER_STARLANE_SPEED ]
             ;
+        retval.name("non-ship-part MeterType");
         return retval;
     }
 
@@ -223,6 +238,7 @@ namespace parse {
             |    tok.Detection_ [ _val = METER_DETECTION ]
             |    tok.Structure_ [ _val = METER_STRUCTURE ]
             ;
+        retval.name("ship-part MeterType");
         return retval;
     }
 

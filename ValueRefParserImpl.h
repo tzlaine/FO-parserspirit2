@@ -12,7 +12,7 @@ namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
 
 
-#define DEBUG_VALUEREF_PARSE 0
+#define DEBUG_VALUEREF_PARSE 1
 #if DEBUG_VALUEREF_PARSE
 #define NAME(x) x.name(#x); debug(x)
 #else
@@ -227,9 +227,9 @@ void initialize_numeric_statistic_parser(
                   )
               |   (
                        parse::enum_parser<ValueRef::StatisticType>() [ _b = _1 ]
-                   >   tok.Property_ > '='
-                   >  -(container_token [ push_back(_a, _1) ] > '.')
-                   >   final_token [ push_back(_a, _1) ]
+                   >>  tok.Property_ >> '='
+                   >> -(container_token [ push_back(_a, _1) ] >> '.')
+                   >>  final_token [ push_back(_a, _1) ]
                    >   tok.Condition_ > '='
                    >   parse::detail::condition_parser [ _c = _1 ]
                   )

@@ -96,8 +96,8 @@ namespace {
                     %=   '(' > expr > ')'
                     |    constant
                     |    variable
-                    |    statistic
                     |    int_statistic
+                    |    statistic
                     ;
 
                 NAME(final_token);
