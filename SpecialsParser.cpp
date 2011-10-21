@@ -69,7 +69,7 @@ namespace {
                           >   parse::effects_group_parser() [ _f = _1 ]
                          )
                     >    tok.Graphic_ > '='
-                    >    tok.string [ insert(_r1, new_<Special>(_a, _b, _f, _c, _d, _e, _g)) ]
+                    >    tok.string [ insert(_r1, new_<Special>(_a, _b, _f, _c, _d, _e, _1)) ]
                     ;
 
                 start
@@ -86,8 +86,7 @@ namespace {
                 double,
                 int,
                 Condition::ConditionBase*,
-                std::vector<boost::shared_ptr<const Effect::EffectsGroup> >,
-                std::string
+                std::vector<boost::shared_ptr<const Effect::EffectsGroup> >
             >,
             parse::skipper_type
         > special_rule;
