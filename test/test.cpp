@@ -2,6 +2,7 @@
 
 #include "../ConditionParser.h"
 #include "../EffectParser.h"
+#include "../Parse.h"
 #include "../universe/ValueRef.h"
 
 #include <boost/lexical_cast.hpp>
