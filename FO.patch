@@ -5227,6 +5227,8 @@ Index: universe/Names.h
 +    (Building)                                  \
 +    (BuildingType)                              \
 +    (BuildTime)                                 \
++    (CanColonize)                               \
++    (CanProduceShips)                           \
 +    (Capacity)                                  \
 +    (Capital)                                   \
 +    (CaptureResult)                             \
@@ -5346,6 +5348,7 @@ Index: universe/Names.h
 +    (PlanetID)                                  \
 +    (PlanetSize)                                \
 +    (PlanetType)                                \
++    (Playable)                                  \
 +    (Population)                                \
 +    (Position)                                  \
 +    (Prerequisites)                             \
