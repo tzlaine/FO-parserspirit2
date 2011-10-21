@@ -125,6 +125,7 @@ set(THIS_EXE_SOURCES
     ../BuildingsParser.cpp
     ../SpecialsParser.cpp
     ../SpeciesParser.cpp
+    ../TechsParser.cpp
 
     ${CMAKE_BINARY_DIR}/util/Version.cpp
 )

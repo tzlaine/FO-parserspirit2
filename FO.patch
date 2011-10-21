@@ -5431,6 +5431,7 @@ Index: universe/Names.h
 +    (Unlock)                                    \
 +    (UnlockTechItemsForOwner)                   \
 +    (Unproducible)                              \
++    (Unresearchable)                            \
 +    (Value)                                     \
 +    (Victory)                                   \
 +    (VisibleToEmpire)                           \

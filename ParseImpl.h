@@ -25,6 +25,19 @@ namespace parse { namespace detail {
 
     effects_group_rule& effects_group_parser();
 
+    typedef boost::spirit::qi::rule<
+        token_iterator,
+        GG::Clr (),
+        qi::locals<
+            unsigned int,
+            unsigned int,
+            unsigned int
+        >,
+        skipper_type
+    > color_parser_rule;
+
+    color_parser_rule& color_parser();
+
     void parse_file_common(const boost::filesystem::path& path,
                            const lexer& l,
                            text_iterator& first,
@@ -41,11 +54,10 @@ namespace parse { namespace detail {
         parse_file_common(path, l, first, it);
 
         boost::spirit::qi::in_state_type in_state;
-        using boost::phoenix::ref;
 
         static Rules rules;
 
-        boost::spirit::qi::phrase_parse(it, l.end(), rules.start(ref(arg1)), in_state("WS")[l.self]);
+        boost::spirit::qi::phrase_parse(it, l.end(), rules.start(boost::phoenix::ref(arg1)), in_state("WS")[l.self]);
     }
 
     template <typename Rules, typename Arg1, typename Arg2>
@@ -59,11 +71,10 @@ namespace parse { namespace detail {
         parse_file_common(path, l, first, it);
 
         boost::spirit::qi::in_state_type in_state;
-        using boost::phoenix::ref;
 
         static Rules rules;
 
-        boost::spirit::qi::phrase_parse(it, l.end(), rules.start(ref(arg1), ref(arg2)), in_state("WS")[l.self]);
+        boost::spirit::qi::phrase_parse(it, l.end(), rules.start(boost::phoenix::ref(arg1), boost::phoenix::ref(arg2)), in_state("WS")[l.self]);
     }
 
 } }
