@@ -5385,7 +5385,7 @@ Index: universe/Names.h
 +    (SetSpecies)                                \
 +    (SetStarType)                               \
 +    (Shield)                                    \
-+    (Shipdesign)                                \
++    (ShipDesign)                                \
 +    (Ships)                                     \
 +    (Short_Description)                         \
 +    (Size)                                      \
