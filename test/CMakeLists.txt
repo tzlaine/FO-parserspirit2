@@ -130,6 +130,7 @@ set(THIS_EXE_SOURCES
     ../ShipPartsParser.cpp
     ../ShipHullsParser.cpp
     ../ShipDesignsParser.cpp
+    ../FleetPlansParser.cpp
 
     ${CMAKE_BINARY_DIR}/util/Version.cpp
 )
