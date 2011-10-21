@@ -62,7 +62,7 @@ struct statistic_rule
 {
     typedef qi::rule<
         parse::token_iterator,
-        ValueRef::ValueRefBase<T>* (),
+        ValueRef::Statistic<T>* (),
         qi::locals<
             std::vector<adobe::name_t>,
             ValueRef::StatisticType,
@@ -198,7 +198,9 @@ void initialize_expression_parsers(
 extern name_token_rule first_token;
 extern name_token_rule container_token;
 const name_token_rule& int_var_final_token();
+const statistic_rule<int>::type& int_var_statistic();
 const name_token_rule& double_var_final_token();
+const statistic_rule<double>::type& double_var_statistic();
 
 template <typename T>
 void initialize_numeric_statistic_parser(

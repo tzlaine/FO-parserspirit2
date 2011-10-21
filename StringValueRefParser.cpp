@@ -62,6 +62,14 @@ namespace {
 
                 initialize_nonnumeric_statistic_parser<std::string>(statistic, final_token);
 
+                int_statistic
+                    =    int_var_statistic() [ _val = new_<ValueRef::StringCast<int> >(_1) ]
+                    ;
+
+                double_statistic
+                    =    double_var_statistic() [ _val = new_<ValueRef::StringCast<double> >(_1) ]
+                    ;
+
                 expr
                     %=   primary_expr
                     ;
@@ -71,12 +79,16 @@ namespace {
                     |    constant
                     |    variable
                     |    statistic
+                    |    int_statistic
+                    |    double_statistic
                     ;
 
                 NAME(final_token);
                 NAME(constant);
                 NAME(variable);
                 NAME(statistic);
+                NAME(int_statistic);
+                NAME(double_statistic);
                 NAME(negate_expr);
                 NAME(expr);
                 NAME(primary_expr);
@@ -94,6 +106,8 @@ namespace {
         rule constant;
         variable_rule variable;
         statistic_rule statistic;
+        rule int_statistic;
+        rule double_statistic;
         rule negate_expr;
         rule expr;
         rule primary_expr;

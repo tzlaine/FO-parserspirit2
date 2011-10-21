@@ -88,17 +88,23 @@ namespace {
                                                       expr,
                                                       primary_expr);
 
+                int_statistic
+                    =    int_var_statistic() [ _val = new_<ValueRef::StaticCast<int, double> >(_1) ]
+                    ;
+
                 primary_expr
                     %=   '(' > expr > ')'
                     |    constant
                     |    variable
                     |    statistic
+                    |    int_statistic
                     ;
 
                 NAME(final_token);
                 NAME(constant);
                 NAME(variable);
                 NAME(statistic);
+                NAME(int_statistic);
                 NAME(negate_expr);
                 NAME(multiplicative_expr);
                 NAME(additive_expr);
@@ -120,6 +126,7 @@ namespace {
         rule constant;
         variable_rule variable;
         statistic_rule statistic;
+        rule int_statistic;
         rule negate_expr;
         multiplicative_expression_rule multiplicative_expr;
         additive_expression_rule additive_expr;
@@ -137,6 +144,9 @@ namespace {
 
 const name_token_rule& double_var_final_token()
 { return get_double_parser_rules().final_token; }
+
+const statistic_rule<double>::type& double_var_statistic()
+{ return get_double_parser_rules().statistic; }
 
 namespace parse {
 

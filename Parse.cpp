@@ -1,6 +1,7 @@
 #include "ParseImpl.h"
 
 #include "EffectParser.h"
+#include "ValueRefParser.h"
 #include "../universe/Effect.h"
 
 
@@ -139,7 +140,8 @@ namespace parse {
 
     void init()
     {
-        parse::condition_parser();
+        value_ref_parser<int>();
+        condition_parser();
     }
 
     namespace detail {

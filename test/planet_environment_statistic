@@ -1,5 +1,3 @@
-Number  Condition = All
-
 Mode  Property = Fleet.PlanetEnvironment  Condition = All
 Mode  Property = Planet.PlanetEnvironment  Condition = All
 Mode  Property = System.PlanetEnvironment  Condition = All

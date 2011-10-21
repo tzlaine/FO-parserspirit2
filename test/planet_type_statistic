@@ -1,5 +1,3 @@
-Number  Condition = All
-
 Mode  Property = Fleet.PlanetType  Condition = All
 Mode  Property = Fleet.NextBetterPlanetType  Condition = All
 Mode  Property = Planet.PlanetType  Condition = All

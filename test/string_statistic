@@ -1,5 +1,3 @@
-Number  Condition = All
-
 Mode  Property = Fleet.Name  Condition = All
 Mode  Property = Fleet.Species  Condition = All
 Mode  Property = Fleet.BuildingType  Condition = All

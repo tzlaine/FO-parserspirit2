@@ -1,5 +1,3 @@
-Number  Condition = All
-
 Mode  Property = Fleet.PlanetSize  Condition = All
 Mode  Property = Planet.PlanetSize  Condition = All
 Mode  Property = System.PlanetSize  Condition = All

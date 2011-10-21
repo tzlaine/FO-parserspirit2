@@ -136,6 +136,9 @@ namespace {
 const name_token_rule& int_var_final_token()
 { return get_int_parser_rules().final_token; }
 
+const statistic_rule<int>::type& int_var_statistic()
+{ return get_int_parser_rules().statistic; }
+
 namespace parse {
 
     template <>
