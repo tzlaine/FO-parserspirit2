@@ -103,14 +103,6 @@ namespace {
                          [ _val = construct<Tech::TechInfo>(_a, _b, _c, _e, _d, _f, _g, _h) ]
                     ;
 
-                item_spec
-                    =    tok.Item_
-                    >    tok.Type_ > '='
-                    >    parse::enum_parser<UnlockableItemType>() [ _a = _1 ]
-                    >    tok.Name_ > '='
-                    >    tok.string [ _val = construct<ItemSpec>(_a, _1) ]
-                    ;
-
                 tech
                     =    tok.Tech_
                     >    tech_info [ _a = _1 ]
@@ -124,8 +116,8 @@ namespace {
                     >   -(
                               tok.Unlock_ > '='
                           >   (
-                                   '[' > +item_spec [ push_back(_c, _1) ] > ']'
-                               |   item_spec [ push_back(_c, _1) ]
+                                   '[' > +parse::detail::item_spec_parser() [ push_back(_c, _1) ] > ']'
+                               |   parse::detail::item_spec_parser() [ push_back(_c, _1) ]
                               )
                          )
                     >   -(
@@ -175,13 +167,6 @@ namespace {
 
         typedef boost::spirit::qi::rule<
             parse::token_iterator,
-            ItemSpec (),
-            qi::locals<UnlockableItemType>,
-            parse::skipper_type
-        > item_spec_rule;
-
-        typedef boost::spirit::qi::rule<
-            parse::token_iterator,
             void (TechManager::TechContainer&),
             qi::locals<
                 Tech::TechInfo,
@@ -210,7 +195,6 @@ namespace {
         > start_rule;
 
         tech_info_rule tech_info;
-        item_spec_rule item_spec;
         tech_rule tech;
         category_rule category;
         start_rule start;

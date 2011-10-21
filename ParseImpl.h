@@ -38,6 +38,15 @@ namespace parse { namespace detail {
 
     color_parser_rule& color_parser();
 
+    typedef boost::spirit::qi::rule<
+        parse::token_iterator,
+        ItemSpec (),
+        qi::locals<UnlockableItemType>,
+        parse::skipper_type
+    > item_spec_parser_rule;
+
+    item_spec_parser_rule& item_spec_parser();
+
     void parse_file_common(const boost::filesystem::path& path,
                            const lexer& l,
                            text_iterator& first,

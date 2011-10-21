@@ -110,6 +110,29 @@ namespace {
         parse::detail::color_parser_rule start;
     };
 
+    struct item_spec_parser_rules
+    {
+        item_spec_parser_rules()
+            {
+                const parse::lexer& tok = parse::lexer::instance();
+
+                qi::_1_type _1;
+                qi::_a_type _a;
+                qi::_val_type _val;
+                using phoenix::construct;
+
+                start
+                    =    tok.Item_
+                    >    tok.Type_ > '='
+                    >    parse::enum_parser<UnlockableItemType>() [ _a = _1 ]
+                    >    tok.Name_ > '='
+                    >    tok.string [ _val = construct<ItemSpec>(_a, _1) ]
+                    ;
+            }
+
+        parse::detail::item_spec_parser_rule start;
+    };
+
 }
 
 namespace parse { namespace detail {
@@ -123,6 +146,12 @@ namespace parse { namespace detail {
     color_parser_rule& color_parser()
     {
         static color_parser_rules rules;
+        return rules.start;
+    }
+
+    item_spec_parser_rule& item_spec_parser()
+    {
+        static item_spec_parser_rules rules;
         return rules.start;
     }
 
