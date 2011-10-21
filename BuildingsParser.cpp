@@ -66,12 +66,10 @@ namespace {
                               parse::enum_parser<CaptureResult>() [ _g = _1 ]
                           |   eps [ _g = CR_CAPTURE ]
                          )
-#if 0
                     >   -(
                               tok.EffectsGroups_ > '='
-                          >   effects_group [ _h = _1 ]
+                          >   parse::effects_group_parser() [ _h = _1 ]
                          )
-#endif
                     >    tok.Graphic_ > '='
                     >    tok.string [ insert(_r1, new_<BuildingType>(_a, _b, _c, _d, _e, _g, _f, _h, _1)) ]
                     ;
