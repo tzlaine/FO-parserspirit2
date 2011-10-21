@@ -66,14 +66,14 @@ namespace {
                          )
                     >   -(
                               tok.EffectsGroups_ > '='
-                          >   parse::effects_group_parser() [ _f = _1 ]
+                          >   parse::detail::effects_group_parser() [ _f = _1 ]
                          )
                     >    tok.Graphic_ > '='
                     >    tok.string [ insert(_r1, new_<Special>(_a, _b, _f, _c, _d, _e, _1)) ]
                     ;
 
                 start
-                    =   +special(_val)
+                    =   +special(_r1)
                     ;
             }
 
@@ -93,7 +93,7 @@ namespace {
 
         typedef boost::spirit::qi::rule<
             parse::token_iterator,
-            std::map<std::string, Special*> (),
+            void (std::map<std::string, Special*>&),
             parse::skipper_type
         > start_rule;
 
@@ -106,6 +106,6 @@ namespace {
 namespace parse {
 
     void specials(const boost::filesystem::path& path, std::map<std::string, Special*>& specials_)
-    { parse_file<rules, std::map<std::string, Special*> >(path, specials_); }
+    { detail::parse_file<rules, std::map<std::string, Special*> >(path, specials_); }
 
 }

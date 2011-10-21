@@ -86,7 +86,7 @@ namespace {
                          )
                     >   -(
                               tok.EffectsGroups_
-                          >   parse::effects_group_parser() [ _g = _1 ]
+                          >   parse::detail::effects_group_parser() [ _g = _1 ]
                          )
                     >   -(
                               tok.Environments_
@@ -97,7 +97,7 @@ namespace {
                     ;
 
                 start
-                    =   +species(_val)
+                    =   +species(_r1)
                     ;
             }
 
@@ -143,7 +143,7 @@ namespace {
 
         typedef boost::spirit::qi::rule<
             parse::token_iterator,
-            std::map<std::string, Species*> (),
+            void (std::map<std::string, Species*>&),
             parse::skipper_type
         > start_rule;
 
@@ -159,6 +159,6 @@ namespace {
 namespace parse {
 
     void species(const boost::filesystem::path& path, std::map<std::string, Species*>& species_)
-    { parse_file<rules, std::map<std::string, Species*> >(path, species_); }
+    { detail::parse_file<rules, std::map<std::string, Species*> >(path, species_); }
 
 }

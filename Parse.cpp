@@ -60,12 +60,12 @@ namespace {
         > effects_group_rule;
 
         effects_group_rule effects_group;
-        parse::effects_group_rule start;
+        parse::detail::effects_group_rule start;
     };
 
 }
 
-namespace parse {
+namespace parse { namespace detail {
 
     effects_group_rule& effects_group_parser()
     {
@@ -73,4 +73,31 @@ namespace parse {
         return rules_.start;
     }
 
-}
+    void parse_file_common(const boost::filesystem::path& path,
+                           const parse::lexer& l,
+                           parse::text_iterator& first,
+                           parse::token_iterator& it)
+    {
+        const std::string filename = path.string();
+
+        std::string file_contents;
+        {
+            boost::filesystem::ifstream ifs(path);
+            if (ifs) {
+                std::getline(ifs, file_contents, '\0');
+            } else {
+                Logger().errorStream() << "Unable to open data file " << filename;
+                return;
+            }
+        }
+
+        first = parse::text_iterator(file_contents.begin());
+        parse::text_iterator last(file_contents.end());
+
+        GG::detail::s_begin = first;
+        GG::detail::s_end = last;
+        GG::detail::s_filename = filename.c_str();
+        it = l.begin(first, last);
+    }
+
+} }

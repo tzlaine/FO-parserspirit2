@@ -15,50 +15,57 @@
 namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
 
-namespace parse {
+namespace parse { namespace detail {
 
     typedef boost::spirit::qi::rule<
-        parse::token_iterator,
+        token_iterator,
         std::vector<boost::shared_ptr<const Effect::EffectsGroup> > (),
-        parse::skipper_type
+        skipper_type
     > effects_group_rule;
 
     effects_group_rule& effects_group_parser();
 
-}
+    void parse_file_common(const boost::filesystem::path& path,
+                           const lexer& l,
+                           text_iterator& first,
+                           token_iterator& it);
 
-template <typename Rules, typename Data>
-void parse_file(const boost::filesystem::path& path, Data& data)
-{
-    const std::string filename = path.string();
-
-    std::string file_contents;
+    template <typename Rules, typename Arg1>
+    void parse_file(const boost::filesystem::path& path, Arg1& arg1)
     {
-        boost::filesystem::ifstream ifs(path);
-        if (ifs) {
-            std::getline(ifs, file_contents, '\0');
-        } else {
-            Logger().errorStream() << "Unable to open data file " << filename;
-            return;
-        }
+        text_iterator first;
+        token_iterator it;
+
+        const lexer& l = lexer::instance();
+
+        parse_file_common(path, l, first, it);
+
+        boost::spirit::qi::in_state_type in_state;
+        using boost::phoenix::ref;
+
+        static Rules rules;
+
+        boost::spirit::qi::phrase_parse(it, l.end(), rules.start(ref(arg1)), in_state("WS")[l.self]);
     }
 
-    parse::text_iterator first(file_contents.begin());
-    const parse::text_iterator last(file_contents.end());
+    template <typename Rules, typename Arg1, typename Arg2>
+    void parse_file(const boost::filesystem::path& path, Arg1& arg1, Arg2& arg2)
+    {
+        text_iterator first;
+        token_iterator it;
 
-    const parse::lexer& l = parse::lexer::instance();
+        const lexer& l = lexer::instance();
 
-    GG::detail::s_begin = first;
-    GG::detail::s_end = last;
-    GG::detail::s_filename = filename.c_str();
-    parse::token_iterator it = l.begin(first, last);
-    const parse::token_iterator end_it = l.end();
+        parse_file_common(path, l, first, it);
 
-    boost::spirit::qi::in_state_type in_state;
+        boost::spirit::qi::in_state_type in_state;
+        using boost::phoenix::ref;
 
-    static Rules rules;
+        static Rules rules;
 
-    boost::spirit::qi::phrase_parse(it, end_it, rules.start, in_state("WS")[l.self], data);
-}
+        boost::spirit::qi::phrase_parse(it, l.end(), rules.start(ref(arg1), ref(arg2)), in_state("WS")[l.self]);
+    }
+
+} }
 
 #endif

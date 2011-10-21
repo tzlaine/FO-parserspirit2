@@ -68,14 +68,14 @@ namespace {
                          )
                     >   -(
                               tok.EffectsGroups_ > '='
-                          >   parse::effects_group_parser() [ _h = _1 ]
+                          >   parse::detail::effects_group_parser() [ _h = _1 ]
                          )
                     >    tok.Graphic_ > '='
                     >    tok.string [ insert(_r1, new_<BuildingType>(_a, _b, _c, _d, _e, _g, _f, _h, _1)) ]
                     ;
 
                 start
-                    =   +building_type(_val)
+                    =   +building_type(_r1)
                     ;
             }
 
@@ -97,7 +97,7 @@ namespace {
 
         typedef boost::spirit::qi::rule<
             parse::token_iterator,
-            std::map<std::string, BuildingType*> (),
+            void (std::map<std::string, BuildingType*>&),
             parse::skipper_type
         > start_rule;
 
@@ -110,6 +110,6 @@ namespace {
 namespace parse {
 
     void buildings(const boost::filesystem::path& path, std::map<std::string, BuildingType*>& building_types)
-    { parse_file<rules, std::map<std::string, BuildingType*> >(path, building_types); }
+    { detail::parse_file<rules, std::map<std::string, BuildingType*> >(path, building_types); }
 
 }
