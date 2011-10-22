@@ -5196,7 +5196,7 @@ Index: universe/Names.h
 ===================================================================
 --- universe/Names.h	(revision 0)
 +++ universe/Names.h	(revision 0)
-@@ -0,0 +1,246 @@
+@@ -0,0 +1,247 @@
 +// -*- C++ -*-
 +#ifndef _Names_h_
 +#define _Names_h_
@@ -5216,6 +5216,7 @@ Index: universe/Names.h
 +    (Affiliation)                               \
 +    (Age)                                       \
 +    (Alignment)                                 \
++    (AlignmentEffects)                          \
 +    (All)                                       \
 +    (And)                                       \
 +    (AntiFighterDamage)                         \
