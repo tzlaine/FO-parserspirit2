@@ -14,6 +14,10 @@ namespace {
                 start
                     =   +parse::detail::item_spec_parser() [ push_back(_r1, _1) ]
                     ;
+
+#if 0 // TODO: Fix this!
+                qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
+#endif
             }
 
         typedef boost::spirit::qi::rule<

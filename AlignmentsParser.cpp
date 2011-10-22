@@ -3,7 +3,6 @@
 #include "../Empire/Empire.h"
 
 
-
 namespace {
 
     std::vector<boost::shared_ptr<const Effect::EffectsGroup> >* g_effects_groups = 0;
@@ -45,6 +44,8 @@ namespace {
                               )
                          )
                     ;
+
+                qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
 
         typedef boost::spirit::qi::rule<

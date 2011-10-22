@@ -144,9 +144,13 @@ namespace {
                 start
                     =   +(
                               tech(_r1)
-                          |   category(phoenix::ref(*g_categories)) // TODO: Using _r2 here as I would lke to do seems to give GCC 4.6 fits.
+                          |   category(phoenix::ref(*g_categories)) // TODO: Using _r2 here as I would like to do seems to give GCC 4.6 fits.
                          )
                     ;
+
+#if 0 // TODO: Fix this!
+                qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
+#endif
             }
 
         typedef boost::spirit::qi::rule<

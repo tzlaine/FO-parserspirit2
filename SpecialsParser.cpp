@@ -75,6 +75,8 @@ namespace {
                 start
                     =   +special(_r1)
                     ;
+
+                qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
 
         typedef boost::spirit::qi::rule<
