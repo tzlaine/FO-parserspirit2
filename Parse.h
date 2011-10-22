@@ -37,7 +37,7 @@ namespace parse {
 
     void ship_designs(const boost::filesystem::path& path, std::map<std::string, ShipDesign*>& designs);
 
-    void fleet_plans(const boost::filesystem::path& path, std::vector<FleetPlan>& fleet_plans_);
+    void fleet_plans(const boost::filesystem::path& path, std::vector<FleetPlan*>& fleet_plans_);
 
     void monster_fleet_plans(const boost::filesystem::path& path, std::vector<MonsterFleetPlan*>& monster_fleet_plans_);
 
