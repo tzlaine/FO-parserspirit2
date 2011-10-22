@@ -175,7 +175,9 @@ namespace parse {
             {
                 boost::filesystem::ifstream ifs(path);
                 if (ifs) {
-                    std::getline(ifs, file_contents, '\0');
+                    while (ifs) {
+                        file_contents += ifs.get();
+                    }
                 } else {
                     Logger().errorStream() << "Unable to open data file " << filename;
                     return;
