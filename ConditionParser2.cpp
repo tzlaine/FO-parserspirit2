@@ -75,12 +75,12 @@ namespace {
 
                 predefined_design
                     =    tok.Design_
-                    >>   parse::label(Name_name) > tok.string [ _val = new_<Condition::PredefinedShipDesign>(_1) ] // TODO: make this condition Design = "name"
+                    >>   parse::label(Name_name) >> tok.string [ _val = new_<Condition::PredefinedShipDesign>(_1) ]
                     ;
 
                 design_number
                     =    tok.Design_
-                    >>   parse::label(Design_name) > int_value_ref [ _val = new_<Condition::NumberedShipDesign>(_1) ] // TODO: make this condition Design = #
+                    >    parse::label(Design_name) > int_value_ref [ _val = new_<Condition::NumberedShipDesign>(_1) ]
                     ;
 
                 produced_by_empire // TODO: Lose "empire" part.

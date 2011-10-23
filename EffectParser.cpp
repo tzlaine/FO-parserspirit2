@@ -64,7 +64,7 @@ namespace {
                 set_meter
                     =    tok.Set_
                     >>   parse::non_ship_part_meter_type_enum() [ _a = _1 ]
-                    >>   parse::label(Value_name) > double_value_ref [ _val = new_<Effect::SetMeter>(_a, _1) ]
+                    >>   parse::label(Value_name) >> double_value_ref [ _val = new_<Effect::SetMeter>(_a, _1) ]
                     ;
 
                 set_ship_part_meter
@@ -78,15 +78,15 @@ namespace {
                     ;
 
                 set_ship_part_meter_suffix_1
-                    =    parse::label(PartClass_name) > parse::enum_parser<ShipPartClass>() [ _a = _1 ]
-                    >    parse::label(Value_name)     > double_value_ref [ _d = _1 ]
-                    >    parse::label(SlotType_name)  > parse::enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_r1, _a, _d, _1) ]
+                    =    parse::label(PartClass_name) >> parse::enum_parser<ShipPartClass>() [ _a = _1 ]
+                    >    parse::label(Value_name)     >  double_value_ref [ _d = _1 ]
+                    >    parse::label(SlotType_name)  >  parse::enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_r1, _a, _d, _1) ]
                     ;
 
                 set_ship_part_meter_suffix_2
-                    =    parse::label(FighterType_name) > parse::enum_parser<CombatFighterType>() [ _b = _1 ]
-                    >    parse::label(Value_name)       > double_value_ref [ _d = _1 ]
-                    >    parse::label(SlotType_name)    > parse::enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_r1, _b, _d, _1) ]
+                    =    parse::label(FighterType_name) >> parse::enum_parser<CombatFighterType>() [ _b = _1 ]
+                    >    parse::label(Value_name)       >  double_value_ref [ _d = _1 ]
+                    >    parse::label(SlotType_name)    >  parse::enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_r1, _b, _d, _1) ]
                     ;
 
                 set_ship_part_meter_suffix_3
@@ -97,15 +97,15 @@ namespace {
 
                 set_empire_meter_1
                     =    tok.SetEmpireMeter_
-                    >>   parse::label(Empire_name) > int_value_ref [ _a = _1 ]
-                    >    parse::label(Meter_name)  > tok.string [ _b = _1 ]
-                    >    parse::label(Value_name)  > double_value_ref [ _val = new_<Effect::SetEmpireMeter>(_a, _b, _1) ]
+                    >>   parse::label(Empire_name) >> int_value_ref [ _a = _1 ]
+                    >    parse::label(Meter_name)  >  tok.string [ _b = _1 ]
+                    >    parse::label(Value_name)  >  double_value_ref [ _val = new_<Effect::SetEmpireMeter>(_a, _b, _1) ]
                     ;
 
                 set_empire_meter_2
                     =    tok.SetEmpireMeter_
-                    >>   parse::label(Meter_name) > tok.string [ _b = _1 ]
-                    >    parse::label(Value_name) > double_value_ref [ _val = new_<Effect::SetEmpireMeter>(_b, _1) ]
+                    >>   parse::label(Meter_name) >> tok.string [ _b = _1 ]
+                    >    parse::label(Value_name) >  double_value_ref [ _val = new_<Effect::SetEmpireMeter>(_b, _1) ]
                     ;
 
                 set_empire_stockpile
@@ -116,11 +116,11 @@ namespace {
                          )
                     >>   (
                               (
-                                   parse::label(Value_name) > double_value_ref [ _val = new_<Effect::SetEmpireStockpile>(_a, _1) ]
+                                   parse::label(Value_name)  >> double_value_ref [ _val = new_<Effect::SetEmpireStockpile>(_a, _1) ]
                               )
                           |   (
-                                   parse::label(Empire_name) > int_value_ref [ _b = _1 ]
-                               >   parse::label(Value_name)  > double_value_ref [ _val = new_<Effect::SetEmpireStockpile>(_b, _a, _1) ]
+                                   parse::label(Empire_name) >  int_value_ref [ _b = _1 ]
+                               >   parse::label(Value_name)  >  double_value_ref [ _val = new_<Effect::SetEmpireStockpile>(_b, _a, _1) ]
                               )
                          )
                     ;
@@ -129,7 +129,7 @@ namespace {
                     =    tok.SetEmpireCapital_
                     >>   (
                               (
-                                   parse::label(Empire_name) > int_value_ref [ _val = new_<Effect::SetEmpireCapital>(_1) ]
+                                   parse::label(Empire_name) >> int_value_ref [ _val = new_<Effect::SetEmpireCapital>(_1) ]
                               )
                           |   eps [ _val = new_<Effect::SetEmpireCapital>() ]
                          )
@@ -177,18 +177,18 @@ namespace {
                     =    tok.CreateShip_
                     >>   parse::label(DesignName_name) >> tok.string [ _a = _1 ]
                     >>   parse::label(Empire_name)     >> int_value_ref [ _b = _1 ]
-                    >>   parse::label(Species_name)    >  string_value_ref [ _val = new_<Effect::CreateShip>(_a, _b, _1) ]
+                    >>   parse::label(Species_name)    >> string_value_ref [ _val = new_<Effect::CreateShip>(_a, _b, _1) ]
                     ;
 
                 create_ship_3
                     =    tok.CreateShip_
                     >>   parse::label(DesignName_name) >> tok.string [ _a = _1 ]
-                    >>   parse::label(Empire_name)     >  int_value_ref [ _val = new_<Effect::CreateShip>(_a, _1) ]
+                    >>   parse::label(Empire_name)     >> int_value_ref [ _val = new_<Effect::CreateShip>(_a, _1) ]
                     ;
 
                 create_ship_4
                     =    tok.CreateShip_
-                    >>   parse::label(DesignName_name) > tok.string [ _val = new_<Effect::CreateShip>(_1) ]
+                    >    parse::label(DesignName_name) > tok.string [ _val = new_<Effect::CreateShip>(_1) ]
                     ;
 
                 move_to
@@ -248,20 +248,18 @@ namespace {
 
                 generate_sitrep_message
                     =    tok.GenerateSitrepMessage_
-                    >    parse::label(Message_name) > tok.string [ _a = _1 ]
-                    >>  -(
-                              parse::label(Parameters_name) > string_and_string_ref_vector [ _b = _1 ]
-                         )
+                    >    parse::label(Message_name)    >  tok.string [ _a = _1 ]
+                    >    parse::label(Parameters_name) > -string_and_string_ref_vector [ _b = _1 ]
                     >>   (
                               (
                                    (
                                         parse::label(Affiliation_name) >> parse::enum_parser<EmpireAffiliationType>() [ _c = _1 ]
                                     |   eps [ _c = AFFIL_SELF ]
                                    )
-                               >>  parse::label(Empire_name) > int_value_ref [ _val = new_<Effect::GenerateSitRepMessage>(_a, _b, _1, _c) ]
+                               >>  parse::label(Empire_name) >> int_value_ref [ _val = new_<Effect::GenerateSitRepMessage>(_a, _b, _1, _c) ]
                               )
                           |   (
-                                   parse::label(Affiliation_name) > parse::enum_parser<EmpireAffiliationType>() [ _c = _1 ]
+                                   parse::label(Affiliation_name) >> parse::enum_parser<EmpireAffiliationType>() [ _c = _1 ]
                                |   eps [ _c = AFFIL_ANY ]
                               )
                               [ _val = new_<Effect::GenerateSitRepMessage>(_a, _b, _c) ]
@@ -269,8 +267,8 @@ namespace {
                     ;
 
                 string_and_string_ref // TODO: Try to make this simpler.
-                    =    parse::label(Tag_name)  > tok.string [ _a = _1 ]
-                    >    parse::label(Data_name) > string_value_ref [ _val = construct<string_and_string_ref_pair>(_a, _1) ]
+                    =    parse::label(Tag_name)  >> tok.string [ _a = _1 ]
+                    >>   parse::label(Data_name) >  string_value_ref [ _val = construct<string_and_string_ref_pair>(_a, _1) ]
                     ;
 
                 string_and_string_ref_vector
