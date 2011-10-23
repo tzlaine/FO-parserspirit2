@@ -104,6 +104,7 @@ set(THIS_EXE_SOURCES
     lexer_test_rules.cpp
 
     ../Lexer.cpp
+    ../Label.cpp
     ../EnumParser.cpp
     ../IntValueRefParser.cpp
     ../DoubleValueRefParser.cpp

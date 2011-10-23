@@ -96,9 +96,14 @@ struct lexer :
     boost::spirit::lex::token_def<boost::spirit::lex::omit> error_token;
     //@}
 
+    /** Returns the token_def<adobe::name_t> associated with \a name. */
+    const boost::spirit::lex::token_def<adobe::name_t>& name_token(adobe::name_t name) const;
+
 private:
     /** Ctor. */
     lexer();
+
+    std::map<adobe::name_t, boost::spirit::lex::token_def<adobe::name_t>*> m_name_tokens;
 };
 
 /** The type of iterator passed to the script file parser by the script file

@@ -163,8 +163,13 @@ lexer::lexer() :
         |     statistic_type_enum
         ;
 
-#define NAME_TOKEN(r, _, name) self += BOOST_PP_CAT(name, _) [ _val = construct<adobe::name_t>(BOOST_PP_CAT(name, _name)) ];
-        BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ)
+#define NAME_TOKEN(r, _, name)                                          \
+    {                                                                   \
+        adobe::name_t n(BOOST_PP_CAT(name, _name));                     \
+        self += BOOST_PP_CAT(name, _) [ _val = n ];                     \
+        m_name_tokens[n] = &BOOST_PP_CAT(name, _);                      \
+    }
+    BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ)
 #undef NAME_TOKEN
 
     self
@@ -178,6 +183,13 @@ const lexer& lexer::instance()
 {
     static const lexer retval;
     return retval;
+}
+
+const boost::spirit::lex::token_def<adobe::name_t>& lexer::name_token(adobe::name_t name) const
+{
+    std::map<adobe::name_t, boost::spirit::lex::token_def<adobe::name_t>*>::const_iterator it = m_name_tokens.find(name);
+    assert(it != m_name_tokens.end());
+    return *it->second;
 }
 
 const boost::phoenix::function<GG::report_error_<parse::token_type> > parse::report_error;
