@@ -23,8 +23,7 @@ namespace {
 
                 fleet_plan
                     =    tok.Fleet_
-                    >    parse::label(Name_name)
-                    >    tok.string [ _a = _1 ]
+                    >    parse::label(Name_name) > tok.string [ _a = _1 ]
                     >    parse::label(Ships_name)
                     >    (
                               '[' > +tok.string [ push_back(_b, _1) ] > ']'

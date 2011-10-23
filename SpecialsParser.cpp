@@ -47,30 +47,23 @@ namespace {
 
                 special
                     =    tok.Special_
-                    >    parse::label(Name_name)
-                    >    tok.string [ _a = _1 ]
-                    >    parse::label(Description_name)
-                    >    tok.string [ _b = _1 ]
+                    >    parse::label(Name_name)        > tok.string [ _a = _1 ]
+                    >    parse::label(Description_name) > tok.string [ _b = _1 ]
                     >    (
-                              parse::label(SpawnRate_name)
-                          >   tok.double_ [ _c = _1 ]
+                              parse::label(SpawnRate_name)  > tok.double_ [ _c = _1 ]
                           |   eps [ _c = 1.0 ]
                          )
                     >    (
-                              parse::label(SpawnLimit_name)
-                          >   tok.int_ [ _d = _1 ]
+                              parse::label(SpawnLimit_name) > tok.int_ [ _d = _1 ]
                           |   eps [ _d = 9999 ]
                          )
                     >   -(
-                              parse::label(Location_name)
-                          >   parse::detail::condition_parser [ _e = _1 ]
+                              parse::label(Location_name)      > parse::detail::condition_parser [ _e = _1 ]
                          )
                     >   -(
-                              parse::label(EffectsGroups_name)
-                          >   parse::detail::effects_group_parser() [ _f = _1 ]
+                              parse::label(EffectsGroups_name) > parse::detail::effects_group_parser() [ _f = _1 ]
                          )
-                    >    parse::label(Graphic_name)
-                    >    tok.string [ insert(_r1, new_<Special>(_a, _b, _f, _c, _d, _e, _1)) ]
+                    >    parse::label(Graphic_name) > tok.string [ insert(_r1, new_<Special>(_a, _b, _f, _c, _d, _e, _1)) ]
                     ;
 
                 start

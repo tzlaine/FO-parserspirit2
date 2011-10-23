@@ -27,26 +27,22 @@ namespace {
 
                 monster_fleet_plan
                     =    tok.MonsterFleet_
-                    >    parse::label(Name_name)
-                    >    tok.string [ _a = _1 ]
+                    >    parse::label(Name_name) > tok.string [ _a = _1 ]
                     >    parse::label(Ships_name)
                     >    (
                               '[' > +tok.string [ push_back(_b, _1) ] > ']'
                           |   tok.string [ push_back(_b, _1) ]
                          )
                     >    (
-                              parse::label(SpawnRate_name)
-                          >   tok.double_ [ _c = _1 ]
+                              parse::label(SpawnRate_name) > tok.double_ [ _c = _1 ]
                           |   eps [ _c = 1.0 ]
                          )
                     >    (
-                              parse::label(SpawnLimit_name)
-                          >   tok.int_ [ _d = _1 ]
+                              parse::label(SpawnLimit_name) > tok.int_ [ _d = _1 ]
                           |   eps [ _d = 9999 ]
                          )
                     >   -(
-                              parse::label(Location_name)
-                          >   parse::detail::condition_parser [ _e = _1 ]
+                              parse::label(Location_name) > parse::detail::condition_parser [ _e = _1 ]
                          )
                          [ push_back(_r1, new_<MonsterFleetPlan>(_a, _b, _c, _d, _e)) ]
                     ;

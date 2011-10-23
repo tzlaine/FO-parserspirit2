@@ -48,31 +48,24 @@ namespace {
 
                 building_type
                     =    tok.BuildingType_
-                    >    parse::label(Name_name)
-                    >    tok.string [ _a = _1 ]
-                    >    parse::label(Description_name)
-                    >    tok.string [ _b = _1 ]
-                    >    parse::label(BuildCost_name)
-                    >    tok.double_ [ _c = _1 ]
-                    >    parse::label(BuildTime_name)
-                    >    tok.int_ [ _d = _1 ]
+                    >    parse::label(Name_name)        > tok.string [ _a = _1 ]
+                    >    parse::label(Description_name) > tok.string [ _b = _1 ]
+                    >    parse::label(BuildCost_name)   > tok.double_ [ _c = _1 ]
+                    >    parse::label(BuildTime_name)   > tok.int_ [ _d = _1 ]
                     >    (
                              tok.Producible_ [ _e = true ]
                           |  tok.Unproducible_ [ _e = false ]
                          )
-                    >    parse::label(Location_name)
-                    >    parse::detail::condition_parser [ _f = _1 ]
+                    >    parse::label(Location_name) > parse::detail::condition_parser [ _f = _1 ]
                     >    parse::label(CaptureResult_name)
                     >    (
                               parse::enum_parser<CaptureResult>() [ _g = _1 ]
                           |   eps [ _g = CR_CAPTURE ]
                          )
                     >   -(
-                              parse::label(EffectsGroups_name)
-                          >   parse::detail::effects_group_parser() [ _h = _1 ]
+                              parse::label(EffectsGroups_name) > parse::detail::effects_group_parser() [ _h = _1 ]
                          )
-                    >    parse::label(Graphic_name)
-                    >    tok.string [ insert(_r1, new_<BuildingType>(_a, _b, _c, _d, _e, _g, _f, _h, _1)) ]
+                    >    parse::label(Graphic_name) > tok.string [ insert(_r1, new_<BuildingType>(_a, _b, _c, _d, _e, _g, _f, _h, _1)) ]
                     ;
 
                 start

@@ -76,24 +76,17 @@ namespace {
                 using phoenix::push_back;
 
                 tech_info
-                    =    parse::label(Name_name)
-                    >    tok.string [ _a = _1 ]
-                    >    parse::label(Description_name)
-                    >    tok.string [ _b = _1 ]
-                    >    parse::label(Short_Description_name) // TODO: Get rid of underscore.
-                    >    tok.string [ _c = _1 ]
-                    >    parse::label(TechType_name)
-                    >    parse::enum_parser<TechType>() [ _d = _1 ]
-                    >    parse::label(Category_name)
-                    >    tok.string [ _e = _1 ]
+                    =    parse::label(Name_name)              > tok.string [ _a = _1 ]
+                    >    parse::label(Description_name)       > tok.string [ _b = _1 ]
+                    >    parse::label(Short_Description_name) > tok.string [ _c = _1 ] // TODO: Get rid of underscore.
+                    >    parse::label(TechType_name)          > parse::enum_parser<TechType>() [ _d = _1 ]
+                    >    parse::label(Category_name)          > tok.string [ _e = _1 ]
                     >    (
-                              parse::label(ResearchCost_name)
-                          >   tok.double_ [ _f = _1 ]
+                              parse::label(ResearchCost_name) > tok.double_ [ _f = _1 ]
                           |   eps [ _f = 1.0 ]
                          )
                     >    (
-                              parse::label(ResearchTurns_name)
-                          >   tok.int_ [ _g = _1 ]
+                              parse::label(ResearchTurns_name) > tok.int_ [ _g = _1 ]
                           |   eps [ _g = 1 ]
                          )
                     >    (
@@ -122,24 +115,19 @@ namespace {
                               )
                          )
                     >   -(
-                              parse::label(EffectsGroups_name)
-                          >   parse::detail::effects_group_parser() [ _d = _1 ]
+                              parse::label(EffectsGroups_name) > parse::detail::effects_group_parser() [ _d = _1 ]
                          )
                     >   -(
-                              parse::label(Graphic_name)
-                          >   tok.string [ _e = _1 ]
+                              parse::label(Graphic_name) > tok.string [ _e = _1 ]
                          )
                          [ insert_tech(_r1, new_<Tech>(_a, _d, _b, _c, _e)) ]
                     ;
 
                 category
-                    =    parse::label(Category_name)
-                    >    parse::label(Name_name)
-                    >    tok.string [ _a = _1 ]
-                    >    parse::label(Graphic_name)
-                    >    tok.string [ _b = _1 ]
-                    >    parse::label(Colour_name)
-                    >    parse::detail::color_parser() [ insert_category(_r1, new_<TechCategory>(_a, _b, _1)) ]
+                    =    tok.Category_
+                    >    parse::label(Name_name)    > tok.string [ _a = _1 ]
+                    >    parse::label(Graphic_name) > tok.string [ _b = _1 ]
+                    >    parse::label(Colour_name)  > parse::detail::color_parser() [ insert_category(_r1, new_<TechCategory>(_a, _b, _1)) ]
                     ;
 
                 start

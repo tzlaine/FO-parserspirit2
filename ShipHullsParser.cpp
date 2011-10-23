@@ -54,8 +54,7 @@ namespace {
 
                 slot
                     =    tok.Slot_
-                    >    parse::label(Type_name)
-                    >    parse::enum_parser<ShipSlotType>() [ _a = _1 ]
+                    >    parse::label(Type_name) > parse::enum_parser<ShipSlotType>() [ _a = _1 ]
                     >    tok.Position_
                     >    '('
                     >    tok.double_ [ _b = _1 ]
@@ -65,52 +64,40 @@ namespace {
                     ;
 
                 hull_stats
-                    =    parse::label(Speed_name)
-                    >    tok.double_ [ _a = _1 ]
-                    >    parse::label(StarlaneSpeed_name)
-                    >    tok.double_ [ _b = _1 ]
-                    >    parse::label(Fuel_name)
-                    >    tok.double_ [ _c = _1 ]
-                    >    parse::label(Stealth_name)
-                    >    tok.double_ [ _d = _1 ]
-                    >    parse::label(Structure_name)
-                    >    tok.double_ [ _val = construct<HullTypeStats>(_a, _b, _c, _d, _1) ]
+                    =    parse::label(Speed_name)         > tok.double_ [ _a = _1 ]
+                    >    parse::label(StarlaneSpeed_name) > tok.double_ [ _b = _1 ]
+                    >    parse::label(Fuel_name)          > tok.double_ [ _c = _1 ]
+                    >    parse::label(Stealth_name)       > tok.double_ [ _d = _1 ]
+                    >    parse::label(Structure_name)     > tok.double_ [ _val = construct<HullTypeStats>(_a, _b, _c, _d, _1) ]
                     ;
 
                 hull
                     =    tok.Hull_
-                    >    parse::label(Name_name)
-                    >    tok.string [ _a = _1 ]
-                    >    parse::label(Description_name)
-                    >    tok.string [ _b = _1 ]
+                    >    parse::label(Name_name)        > tok.string [ _a = _1 ]
+                    >    parse::label(Description_name) > tok.string [ _b = _1 ]
                     >    hull_stats [ _c = _1 ]
-                    >    parse::label(BuildCost_name)
-                    >    tok.double_ [ _d = _1 ]
-                    >    parse::label(BuildTime_name)
-                    >    tok.int_ [ _e = _1 ]
+                    >    parse::label(BuildCost_name)   > tok.double_ [ _d = _1 ]
+                    >    parse::label(BuildTime_name)   > tok.int_ [ _e = _1 ]
                     >    (
                               tok.Unproducible_ [ _f = false ]
                           |   tok.Producible_ [ _f = true ]
                           |   eps [ _f = true ]
                          )
                     >   -(
-                              tok.Slots_
+                              parse::label(Slots_name)
                           >   (
                                    '[' > +slot [ push_back(_g, _1) ] > ']'
                                |   slot [ push_back(_g, _1) ]
                               )
                          )
                     >    (
-                              parse::label(Location_name)
-                          >   parse::detail::condition_parser [ _h = _1 ]
+                              parse::label(Location_name) > parse::detail::condition_parser [ _h = _1 ]
                           |   eps [ _h = new_<Condition::All>() ]
                          )
                     >   -(
-                              parse::label(EffectsGroups_name)
-                          >   parse::detail::effects_group_parser() [ _i = _1 ]
+                              parse::label(EffectsGroups_name) > parse::detail::effects_group_parser() [ _i = _1 ]
                          )
-                    >    parse::label(Graphic_name)
-                    >    tok.string [ insert(_r1, new_<HullType>(_a, _b, _c, _d, _e, _f, _g, _h, _i, _1)) ]
+                    >    parse::label(Graphic_name) > tok.string [ insert(_r1, new_<HullType>(_a, _b, _c, _d, _e, _f, _g, _h, _i, _1)) ]
                     ;
 
                 start

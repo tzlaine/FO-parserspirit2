@@ -60,11 +60,7 @@ namespace {
                 using phoenix::push_back;
 
                 string_ref_vec
-                    =    (
-                              '['
-                          >  +string_value_ref [ push_back(_val, _1) ]
-                          >   ']'
-                         )
+                    =    '[' > +string_value_ref [ push_back(_val, _1) ] > ']'
                     |    string_value_ref [ push_back(_val, _1) ]
                     ;
 
@@ -102,13 +98,9 @@ namespace {
 
                 owned_by
                     =    tok.OwnedBy_
-                    >    parse::label(Affiliation_name)
-                    >    parse::enum_parser<EmpireAffiliationType>() [ _a = _1 ]
+                    >    parse::label(Affiliation_name) > parse::enum_parser<EmpireAffiliationType>() [ _a = _1 ]
                     >>   (
-                              (
-                                   parse::label(Empire_name)
-                               >   int_value_ref [ _val = new_<Condition::EmpireAffiliation>(_1, _a) ]
-                              )
+                              parse::label(Empire_name) > int_value_ref [ _val = new_<Condition::EmpireAffiliation>(_1, _a) ]
                           |   eps [ _val = new_<Condition::EmpireAffiliation>(_a) ]
                          )
                     ;
@@ -116,23 +108,20 @@ namespace {
                 homeworld
                     =    (
                               tok.Homeworld_
-                          >>  parse::label(Name_name)
-                          >   string_ref_vec [ _val = new_<Condition::Homeworld>(_1) ]
+                          >>  parse::label(Name_name) > string_ref_vec [ _val = new_<Condition::Homeworld>(_1) ]
                          )
                     |    tok.Homeworld_ [ _val = new_<Condition::Homeworld>() ]
                     ;
 
                 building
                     =    tok.Building_
-                    >    parse::label(Name_name)
-                    >    string_ref_vec [ _val = new_<Condition::Building>(_1) ]
+                    >    parse::label(Name_name) > string_ref_vec [ _val = new_<Condition::Building>(_1) ]
                     ;
 
                 species
                     =    (
                               tok.Species_
-                          >>  parse::label(Name_name)
-                          >   string_ref_vec [ _val = new_<Condition::Species>(_1) ]
+                          >>  parse::label(Name_name) > string_ref_vec [ _val = new_<Condition::Species>(_1) ]
                          )
                     |    tok.Species_ [ _val = new_<Condition::Species>() ]
                     ;
@@ -140,8 +129,7 @@ namespace {
                 focus_type
                     =    (
                               tok.FocusType_
-                          >>  parse::label(Type_name)
-                          >   string_ref_vec [ _val = new_<Condition::FocusType>(_1) ]
+                          >>  parse::label(Type_name) > string_ref_vec [ _val = new_<Condition::FocusType>(_1) ]
                          )
                     |    tok.FocusType_ [ _val = new_<Condition::FocusType>(std::vector<const ValueRef::ValueRefBase<std::string>*>()) ]
                     ;
@@ -180,33 +168,26 @@ namespace {
                     =    parse::enum_parser<UniverseObjectType>() [ _val = new_<Condition::Type>(new_<ValueRef::Constant<UniverseObjectType> >(_1)) ]
                     |    (
                               tok.ObjectType_
-                          >   parse::label(Type_name)
-                          >   universe_object_type_value_ref [ _val = new_<Condition::Type>(_1) ]
+                          >   parse::label(Type_name) > universe_object_type_value_ref [ _val = new_<Condition::Type>(_1) ]
                          )
                     ;
 
                 meter_value
                     =    parse::non_ship_part_meter_type_enum() [ _a = _1 ]
-                    >    parse::label(Low_name)
-                    >    double_value_ref [ _b = _1 ]
-                    >    parse::label(High_name)
-                    >    double_value_ref [ _val = new_<Condition::MeterValue>(_a, _b, _1) ]
+                    >    parse::label(Low_name)  > double_value_ref [ _b = _1 ]
+                    >    parse::label(High_name) > double_value_ref [ _val = new_<Condition::MeterValue>(_a, _b, _1) ]
                     ;
 
                 and_
                     =    tok.And_
-                    >    '['
-                    >    parse::detail::condition_parser [ push_back(_a, _1) ]
-                    >   +parse::detail::condition_parser [ push_back(_a, _1) ]
-                    >    lit(']') [ _val = new_<Condition::And>(_a) ]
+                    >    '[' > parse::detail::condition_parser [ push_back(_a, _1) ] > +parse::detail::condition_parser [ push_back(_a, _1) ] > lit(']')
+                         [ _val = new_<Condition::And>(_a) ]
                     ;
 
                 or_
                     =    tok.Or_
-                    >    '['
-                    >    parse::detail::condition_parser [ push_back(_a, _1) ]
-                    >   +parse::detail::condition_parser [ push_back(_a, _1) ]
-                    >    lit(']') [ _val = new_<Condition::Or>(_a) ]
+                    >    '[' > parse::detail::condition_parser [ push_back(_a, _1) ] > +parse::detail::condition_parser [ push_back(_a, _1) ] > lit(']')
+                         [ _val = new_<Condition::Or>(_a) ]
                     ;
 
                 not_

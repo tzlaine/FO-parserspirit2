@@ -27,25 +27,20 @@ namespace {
 
                 effects_group
                     =    tok.EffectsGroup_
-                    >    parse::label(Scope_name)
-                    >    parse::detail::condition_parser [ _a = _1 ]
+                    >    parse::label(Scope_name) > parse::detail::condition_parser [ _a = _1 ]
                     >   -(
-                              parse::label(Activation_name)
-                          >   parse::detail::condition_parser [ _b = _1 ]
+                              parse::label(Activation_name) > parse::detail::condition_parser [ _b = _1 ]
                          )
                     >   -(
-                              parse::label(StackingGroup_name)
-                          >   tok.string [ _c = _1 ]
+                              parse::label(StackingGroup_name) > tok.string [ _c = _1 ]
                          )
-                    >    parse::label(Effects_name)
-                    >    '['
-                    >    (+parse::effect_parser()) [ _d = _1 ]
-                    >    lit(']') [ _val = new_<Effect::EffectsGroup>(_a, _b, _d, _c) ]
+                    >    parse::label(Effects_name) > '[' > (+parse::effect_parser()) [ _d = _1 ] > lit(']')
+                         [ _val = new_<Effect::EffectsGroup>(_a, _b, _d, _c) ]
                     ;
 
                 start
-                    =    effects_group [ push_back(_val, construct<boost::shared_ptr<const Effect::EffectsGroup> >(_1)) ]
-                    |    '[' > +effects_group [ push_back(_val, construct<boost::shared_ptr<const Effect::EffectsGroup> >(_1)) ] > ']'
+                    =    '[' > +effects_group [ push_back(_val, construct<boost::shared_ptr<const Effect::EffectsGroup> >(_1)) ] > ']'
+                    |    effects_group [ push_back(_val, construct<boost::shared_ptr<const Effect::EffectsGroup> >(_1)) ]
                     ;
             }
 
@@ -125,10 +120,8 @@ namespace {
 
                 start
                     =    tok.Item_
-                    >    parse::label(Type_name)
-                    >    parse::enum_parser<UnlockableItemType>() [ _a = _1 ]
-                    >    parse::label(Name_name)
-                    >    tok.string [ _val = construct<ItemSpec>(_a, _1) ]
+                    >    parse::label(Type_name) > parse::enum_parser<UnlockableItemType>() [ _a = _1 ]
+                    >    parse::label(Name_name) > tok.string [ _val = construct<ItemSpec>(_a, _1) ]
                     ;
             }
 

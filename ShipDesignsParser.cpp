@@ -43,21 +43,16 @@ namespace {
 
                 design
                     =    tok.ShipDesign_
-                    >    parse::label(Name_name)
-                    >    tok.string [ _a = _1 ]
-                    >    parse::label(Description_name)
-                    >    tok.string [ _b = _1 ]
-                    >    parse::label(Hull_name)
-                    >    tok.string [ _c = _1 ]
+                    >    parse::label(Name_name)        > tok.string [ _a = _1 ]
+                    >    parse::label(Description_name) > tok.string [ _b = _1 ]
+                    >    parse::label(Hull_name)        > tok.string [ _c = _1 ]
                     >    parse::label(Parts_name)
                     >    (
                               '[' > +tok.string [ push_back(_d, _1) ] > ']'
                           |   tok.string [ push_back(_d, _1) ]
                          )
-                    >    parse::label(Graphic_name)
-                    >    tok.string [ _e = _1 ]
-                    >    parse::label(Model_name)
-                    >    tok.string [ insert(_r1, new_<ShipDesign>(_a, _b, ALL_EMPIRES, 0, _c, _d, _e, _1)) ]
+                    >    parse::label(Graphic_name) > tok.string [ _e = _1 ]
+                    >    parse::label(Model_name)   > tok.string [ insert(_r1, new_<ShipDesign>(_a, _b, ALL_EMPIRES, 0, _c, _d, _e, _1)) ]
                     ;
 
                 start
