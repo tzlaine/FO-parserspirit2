@@ -1,6 +1,7 @@
 #define FUSION_MAX_VECTOR_SIZE 20
 
 #include "ParseImpl.h"
+#include "Label.h"
 
 
 namespace {
@@ -42,20 +43,20 @@ namespace {
 
                 design
                     =    tok.ShipDesign_
-                    >    tok.Name_ > '='
+                    >    parse::label(Name_name)
                     >    tok.string [ _a = _1 ]
-                    >    tok.Description_ > '='
+                    >    parse::label(Description_name)
                     >    tok.string [ _b = _1 ]
-                    >    tok.Hull_ > '='
+                    >    parse::label(Hull_name)
                     >    tok.string [ _c = _1 ]
-                    >    tok.Parts_ > '='
+                    >    parse::label(Parts_name)
                     >    (
                               '[' > +tok.string [ push_back(_d, _1) ] > ']'
                           |   tok.string [ push_back(_d, _1) ]
                          )
-                    >    tok.Graphic_ > '='
+                    >    parse::label(Graphic_name)
                     >    tok.string [ _e = _1 ]
-                    >    tok.Model_ > '='
+                    >    parse::label(Model_name)
                     >    tok.string [ insert(_r1, new_<ShipDesign>(_a, _b, ALL_EMPIRES, 0, _c, _d, _e, _1)) ]
                     ;
 

@@ -1,6 +1,7 @@
 #define FUSION_MAX_VECTOR_SIZE 20
 
 #include "ParseImpl.h"
+#include "Label.h"
 #include "../universe/Species.h"
 
 
@@ -49,13 +50,13 @@ namespace {
 
                 focus_type
                     =    tok.Focus_
-                    >    tok.Name_ > '='
+                    >    parse::label(Name_name)
                     >    tok.string [ _a = _1 ]
-                    >    tok.Description_ > '='
+                    >    parse::label(Description_name)
                     >    tok.string [ _b = _1 ]
-                    >    tok.Location_ > '='
+                    >    parse::label(Location_name)
                     >    parse::detail::condition_parser [ _c = _1 ]
-                    >    tok.Graphic_ > '='
+                    >    parse::label(Graphic_name)
                     >    tok.string [ _val = construct<FocusType>(_a, _b, _c, _1) ]
                     ;
 
@@ -65,22 +66,22 @@ namespace {
                     ;
 
                 environment_map
-                    =    tok.Type_ > '='
+                    =    parse::label(Type_name)
                     >    environment_map_element [ insert(_val, _1) ]
                     >    '[' > +environment_map_element [ insert(_val, _1) ] > ']'
                     ;
 
                 species
                     =    tok.Species_
-                    >    tok.Name_ > '='
+                    >    parse::label(Name_name)
                     >    tok.string [ _a = _1 ]
-                    >    tok.Description_ > '='
+                    >    parse::label(Description_name)
                     >    tok.string [ _b = _1 ]
                     >   -tok.Playable_ [ _c = true ]
                     >   -tok.CanProduceShips_ [ _d = true ]
                     >   -tok.CanColonize_ [ _e = true ]
                     >   -(
-                              tok.Foci_ > '='
+                              parse::label(Foci_name)
                           >   focus_type [ push_back(_f, _1) ]
                           |   '[' > +focus_type [ push_back(_f, _1) ] > ']'
                          )
@@ -92,7 +93,7 @@ namespace {
                               tok.Environments_
                           >   environment_map [ _h = _1 ]
                          )
-                    >    tok.Graphic_ > '='
+                    >    parse::label(Graphic_name)
                     >    tok.string [ insert_species(_r1, new_<Species>(_a, _b, _f, _h, _g, _c, _d, _e, _1)) ]
                     ;
 

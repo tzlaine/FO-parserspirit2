@@ -1,5 +1,7 @@
 #include "ParseImpl.h"
 
+#include "Label.h"
+
 
 namespace {
 

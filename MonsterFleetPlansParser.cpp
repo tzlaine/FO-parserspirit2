@@ -1,5 +1,7 @@
 #include "ParseImpl.h"
 
+#include "Label.h"
+
 
 namespace {
 
@@ -25,25 +27,25 @@ namespace {
 
                 monster_fleet_plan
                     =    tok.MonsterFleet_
-                    >    tok.Name_ > '='
+                    >    parse::label(Name_name)
                     >    tok.string [ _a = _1 ]
-                    >    tok.Ships_ > '='
+                    >    parse::label(Ships_name)
                     >    (
                               '[' > +tok.string [ push_back(_b, _1) ] > ']'
                           |   tok.string [ push_back(_b, _1) ]
                          )
                     >    (
-                              tok.SpawnRate_ > '='
+                              parse::label(SpawnRate_name)
                           >   tok.double_ [ _c = _1 ]
                           |   eps [ _c = 1.0 ]
                          )
                     >    (
-                              tok.SpawnLimit_ > '='
+                              parse::label(SpawnLimit_name)
                           >   tok.int_ [ _d = _1 ]
                           |   eps [ _d = 9999 ]
                          )
                     >   -(
-                              tok.Location_ > '='
+                              parse::label(Location_name)
                           >   parse::detail::condition_parser [ _e = _1 ]
                          )
                          [ push_back(_r1, new_<MonsterFleetPlan>(_a, _b, _c, _d, _e)) ]

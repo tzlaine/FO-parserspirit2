@@ -3,6 +3,7 @@
 
 #include "ParseImpl.h"
 #include "EnumParser.h"
+#include "Label.h"
 #include "../universe/Condition.h"
 
 
@@ -53,7 +54,7 @@ namespace {
 
                 slot
                     =    tok.Slot_
-                    >    tok.Type_ > '='
+                    >    parse::label(Type_name)
                     >    parse::enum_parser<ShipSlotType>() [ _a = _1 ]
                     >    tok.Position_
                     >    '('
@@ -64,28 +65,28 @@ namespace {
                     ;
 
                 hull_stats
-                    =    tok.Speed_ > '='
+                    =    parse::label(Speed_name)
                     >    tok.double_ [ _a = _1 ]
-                    >    tok.StarlaneSpeed_ > '='
+                    >    parse::label(StarlaneSpeed_name)
                     >    tok.double_ [ _b = _1 ]
-                    >    tok.Fuel_ > '='
+                    >    parse::label(Fuel_name)
                     >    tok.double_ [ _c = _1 ]
-                    >    tok.Stealth_ > '='
+                    >    parse::label(Stealth_name)
                     >    tok.double_ [ _d = _1 ]
-                    >    tok.Structure_ > '='
+                    >    parse::label(Structure_name)
                     >    tok.double_ [ _val = construct<HullTypeStats>(_a, _b, _c, _d, _1) ]
                     ;
 
                 hull
                     =    tok.Hull_
-                    >    tok.Name_ > '='
+                    >    parse::label(Name_name)
                     >    tok.string [ _a = _1 ]
-                    >    tok.Description_ > '='
+                    >    parse::label(Description_name)
                     >    tok.string [ _b = _1 ]
                     >    hull_stats [ _c = _1 ]
-                    >    tok.BuildCost_ > '='
+                    >    parse::label(BuildCost_name)
                     >    tok.double_ [ _d = _1 ]
-                    >    tok.BuildTime_ > '='
+                    >    parse::label(BuildTime_name)
                     >    tok.int_ [ _e = _1 ]
                     >    (
                               tok.Unproducible_ [ _f = false ]
@@ -100,15 +101,15 @@ namespace {
                               )
                          )
                     >    (
-                              tok.Location_ > '='
+                              parse::label(Location_name)
                           >   parse::detail::condition_parser [ _h = _1 ]
                           |   eps [ _h = new_<Condition::All>() ]
                          )
                     >   -(
-                              tok.EffectsGroups_ > '='
+                              parse::label(EffectsGroups_name)
                           >   parse::detail::effects_group_parser() [ _i = _1 ]
                          )
-                    >    tok.Graphic_ > '='
+                    >    parse::label(Graphic_name)
                     >    tok.string [ insert(_r1, new_<HullType>(_a, _b, _c, _d, _e, _f, _g, _h, _i, _1)) ]
                     ;
 

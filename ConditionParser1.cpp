@@ -1,6 +1,7 @@
 #include "ConditionParserImpl.h"
 
 #include "EnumParser.h"
+#include "Label.h"
 #include "ValueRefParser.h"
 #include "../universe/Condition.h"
 #include "../universe/ValueRef.h"
@@ -101,11 +102,11 @@ namespace {
 
                 owned_by
                     =    tok.OwnedBy_
-                    >    tok.Affiliation_ > '='
+                    >    parse::label(Affiliation_name)
                     >    parse::enum_parser<EmpireAffiliationType>() [ _a = _1 ]
                     >>   (
                               (
-                                   tok.Empire_ > '='
+                                   parse::label(Empire_name)
                                >   int_value_ref [ _val = new_<Condition::EmpireAffiliation>(_1, _a) ]
                               )
                           |   eps [ _val = new_<Condition::EmpireAffiliation>(_a) ]
@@ -115,7 +116,7 @@ namespace {
                 homeworld
                     =    (
                               tok.Homeworld_
-                          >>  tok.Name_ > '='
+                          >>  parse::label(Name_name)
                           >   string_ref_vec [ _val = new_<Condition::Homeworld>(_1) ]
                          )
                     |    tok.Homeworld_ [ _val = new_<Condition::Homeworld>() ]
@@ -123,14 +124,14 @@ namespace {
 
                 building
                     =    tok.Building_
-                    >    tok.Name_ > '='
+                    >    parse::label(Name_name)
                     >    string_ref_vec [ _val = new_<Condition::Building>(_1) ]
                     ;
 
                 species
                     =    (
                               tok.Species_
-                          >>  tok.Name_ > '='
+                          >>  parse::label(Name_name)
                           >   string_ref_vec [ _val = new_<Condition::Species>(_1) ]
                          )
                     |    tok.Species_ [ _val = new_<Condition::Species>() ]
@@ -139,7 +140,7 @@ namespace {
                 focus_type
                     =    (
                               tok.FocusType_
-                          >>  tok.Type_ > '='
+                          >>  parse::label(Type_name)
                           >   string_ref_vec [ _val = new_<Condition::FocusType>(_1) ]
                          )
                     |    tok.FocusType_ [ _val = new_<Condition::FocusType>(std::vector<const ValueRef::ValueRefBase<std::string>*>()) ]
@@ -147,7 +148,7 @@ namespace {
 
                 planet_type
                     =    tok.Planet_
-                    >>   tok.Type_ > '='
+                    >>   parse::label(Type_name)
                     >>   (
                               '[' > +planet_type_value_ref [ push_back(_a, _1) ] > ']'
                           |   planet_type_value_ref [ push_back(_a, _1) ]
@@ -157,7 +158,7 @@ namespace {
 
                 planet_size
                     =    tok.Planet_
-                    >>   tok.PlanetSize_ > '='
+                    >>   parse::label(PlanetSize_name)
                     >>   (
                               '[' > +planet_size_value_ref [ push_back(_a, _1) ] > ']'
                           |   planet_size_value_ref [ push_back(_a, _1) ]
@@ -167,7 +168,7 @@ namespace {
 
                 planet_environment
                     =    tok.Planet_
-                    >>   tok.Environment_ > '='
+                    >>   parse::label(Environment_name)
                     >>   (
                               '[' > +planet_environment_value_ref [ push_back(_a, _1) ] > ']'
                           |   planet_environment_value_ref [ push_back(_a, _1) ]
@@ -179,16 +180,16 @@ namespace {
                     =    parse::enum_parser<UniverseObjectType>() [ _val = new_<Condition::Type>(new_<ValueRef::Constant<UniverseObjectType> >(_1)) ]
                     |    (
                               tok.ObjectType_
-                          >   tok.Type_ > '='
+                          >   parse::label(Type_name)
                           >   universe_object_type_value_ref [ _val = new_<Condition::Type>(_1) ]
                          )
                     ;
 
                 meter_value
                     =    parse::non_ship_part_meter_type_enum() [ _a = _1 ]
-                    >    tok.Low_ > '='
+                    >    parse::label(Low_name)
                     >    double_value_ref [ _b = _1 ]
-                    >    tok.High_ > '='
+                    >    parse::label(High_name)
                     >    double_value_ref [ _val = new_<Condition::MeterValue>(_a, _b, _1) ]
                     ;
 

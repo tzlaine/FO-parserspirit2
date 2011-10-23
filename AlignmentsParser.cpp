@@ -1,5 +1,6 @@
 #include "ParseImpl.h"
 
+#include "Label.h"
 #include "../Empire/Empire.h"
 
 
@@ -26,12 +27,9 @@ namespace {
 
                 alignment
                     =    tok.Alignment_
-                    >    tok.Name_ > '='
-                    >    tok.string [ _a = _1 ]
-                    >    tok.Description_ > '='
-                    >    tok.string [ _b = _1 ]
-                    >    tok.Graphic_ > '='
-                    >    tok.string [ push_back(_r1, construct<Alignment>(_a, _b, _1)) ]
+                    >    parse::label(Name_name)        > tok.string [ _a = _1 ]
+                    >    parse::label(Description_name) > tok.string [ _b = _1 ]
+                    >    parse::label(Graphic_name)     > tok.string [ push_back(_r1, construct<Alignment>(_a, _b, _1)) ]
                     ;
 
                 start
@@ -39,8 +37,7 @@ namespace {
                               alignment(_r1)
                           >> -(
                                    tok.AlignmentEffects_
-                               >   tok.EffectsGroups_ > '='
-                               >   parse::detail::effects_group_parser() [ phoenix::ref(*g_effects_groups) = _1 ]
+                               >   parse::label(EffectsGroups_name) > parse::detail::effects_group_parser() [ phoenix::ref(*g_effects_groups) = _1 ]
                               )
                          )
                     ;

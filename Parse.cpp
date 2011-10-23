@@ -1,6 +1,7 @@
 #include "ParseImpl.h"
 
 #include "EffectParser.h"
+#include "Label.h"
 #include "ValueRefParser.h"
 #include "../universe/Effect.h"
 
@@ -26,17 +27,17 @@ namespace {
 
                 effects_group
                     =    tok.EffectsGroup_
-                    >    tok.Scope_ > '='
+                    >    parse::label(Scope_name)
                     >    parse::detail::condition_parser [ _a = _1 ]
                     >   -(
-                              tok.Activation_ > '='
+                              parse::label(Activation_name)
                           >   parse::detail::condition_parser [ _b = _1 ]
                          )
                     >   -(
-                              tok.StackingGroup_ > '='
+                              parse::label(StackingGroup_name)
                           >   tok.string [ _c = _1 ]
                          )
-                    >    tok.Effects_ > '='
+                    >    parse::label(Effects_name)
                     >    '['
                     >    (+parse::effect_parser()) [ _d = _1 ]
                     >    lit(']') [ _val = new_<Effect::EffectsGroup>(_a, _b, _d, _c) ]
@@ -124,9 +125,9 @@ namespace {
 
                 start
                     =    tok.Item_
-                    >    tok.Type_ > '='
+                    >    parse::label(Type_name)
                     >    parse::enum_parser<UnlockableItemType>() [ _a = _1 ]
-                    >    tok.Name_ > '='
+                    >    parse::label(Name_name)
                     >    tok.string [ _val = construct<ItemSpec>(_a, _1) ]
                     ;
             }

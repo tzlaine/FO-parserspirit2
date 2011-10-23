@@ -3,6 +3,7 @@
 
 #include "ConditionParserImpl.h"
 #include "EnumParser.h"
+#include "Label.h"
 #include "../universe/ValueRef.h"
 
 #include <boost/spirit/home/phoenix.hpp>
@@ -222,15 +223,15 @@ void initialize_numeric_statistic_parser(
         =    (
                   (
                        tok.Number_ [ _b = ValueRef::COUNT ]
-                   >   tok.Condition_ > '='
+                   >   parse::label(Condition_name)
                    >   parse::detail::condition_parser [ _c = _1 ]
                   )
               |   (
                        parse::enum_parser<ValueRef::StatisticType>() [ _b = _1 ]
-                   >>  tok.Property_ >> '='
+                   >>  parse::label(Property_name)
                    >> -(container_token [ push_back(_a, _1) ] >> '.')
                    >>  final_token [ push_back(_a, _1) ]
-                   >   tok.Condition_ > '='
+                   >   parse::label(Condition_name)
                    >   parse::detail::condition_parser [ _c = _1 ]
                   )
              )
@@ -257,10 +258,10 @@ void initialize_nonnumeric_statistic_parser(
     statistic
         =    (
                   tok.Mode_ [ _b = ValueRef::MODE ]
-              >   tok.Property_ > '='
+              >   parse::label(Property_name)
               >  -(container_token [ push_back(_a, _1) ] > '.')
               >   final_token [ push_back(_a, _1) ]
-              >   tok.Condition_ > '='
+              >   parse::label(Condition_name)
               >   parse::detail::condition_parser [ _c = _1 ]
              )
              [ _val = new_<ValueRef::Statistic<T> >(_a, _b, _c) ]

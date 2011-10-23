@@ -1,5 +1,7 @@
 #include "ParseImpl.h"
 
+#include "Label.h"
+
 
 namespace {
 
@@ -21,9 +23,9 @@ namespace {
 
                 fleet_plan
                     =    tok.Fleet_
-                    >    tok.Name_ > '='
+                    >    parse::label(Name_name)
                     >    tok.string [ _a = _1 ]
-                    >    tok.Ships_ > '='
+                    >    parse::label(Ships_name)
                     >    (
                               '[' > +tok.string [ push_back(_b, _1) ] > ']'
                           |   tok.string [ push_back(_b, _1) ]

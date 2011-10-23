@@ -1,6 +1,7 @@
 #define FUSION_MAX_VECTOR_SIZE 20
 
 #include "ParseImpl.h"
+#include "Label.h"
 #include "../universe/Building.h"
 
 
@@ -47,30 +48,30 @@ namespace {
 
                 building_type
                     =    tok.BuildingType_
-                    >    tok.Name_ > '='
+                    >    parse::label(Name_name)
                     >    tok.string [ _a = _1 ]
-                    >    tok.Description_ > '='
+                    >    parse::label(Description_name)
                     >    tok.string [ _b = _1 ]
-                    >    tok.BuildCost_ > '='
+                    >    parse::label(BuildCost_name)
                     >    tok.double_ [ _c = _1 ]
-                    >    tok.BuildTime_ > '='
+                    >    parse::label(BuildTime_name)
                     >    tok.int_ [ _d = _1 ]
                     >    (
                              tok.Producible_ [ _e = true ]
                           |  tok.Unproducible_ [ _e = false ]
                          )
-                    >    tok.Location_ > '='
+                    >    parse::label(Location_name)
                     >    parse::detail::condition_parser [ _f = _1 ]
-                    >    tok.CaptureResult_ > '='
+                    >    parse::label(CaptureResult_name)
                     >    (
                               parse::enum_parser<CaptureResult>() [ _g = _1 ]
                           |   eps [ _g = CR_CAPTURE ]
                          )
                     >   -(
-                              tok.EffectsGroups_ > '='
+                              parse::label(EffectsGroups_name)
                           >   parse::detail::effects_group_parser() [ _h = _1 ]
                          )
-                    >    tok.Graphic_ > '='
+                    >    parse::label(Graphic_name)
                     >    tok.string [ insert(_r1, new_<BuildingType>(_a, _b, _c, _d, _e, _g, _f, _h, _1)) ]
                     ;
 

@@ -1,6 +1,7 @@
 #include "ConditionParserImpl.h"
 
 #include "EnumParser.h"
+#include "Label.h"
 #include "ValueRefParser.h"
 #include "../universe/Condition.h"
 
@@ -38,97 +39,97 @@ namespace {
 
                 has_special
                     =    tok.HasSpecial_
-                    >    tok.Name_ > '='
+                    >    parse::label(Name_name)
                     >    tok.string [ _val = new_<Condition::HasSpecial>(_1) ]
                     ;
 
                 has_special_since_turn
                     =    tok.HasSpecialSinceTurn_
-                    >    tok.Name_ > '='
+                    >    parse::label(Name_name)
                     >    tok.string [ _a = _1 ]
-                    >    tok.Low_ > '='
+                    >    parse::label(Low_name)
                     >    int_value_ref [ _b = _1 ]
-                    >    tok.High_ > '='
+                    >    parse::label(High_name)
                     >    int_value_ref [ _val = new_<Condition::HasSpecial>(_a, _b, _1) ]
                     ;
 
                 owner_has_tech
                     =    tok.OwnerHasTech_
-                    >    tok.Name_ > '='
+                    >    parse::label(Name_name)
                     >    tok.string [ _val = new_<Condition::OwnerHasTech>(_1) ]
                     ;
 
                 design_has_hull
                     =    tok.DesignHasHull_
-                    >    tok.Name_ > '='
+                    >    parse::label(Name_name)
                     >    tok.string [ _val = new_<Condition::DesignHasHull>(_1) ]
                     ;
 
                 design_has_part
                     =    tok.DesignHasPart_
-                    >    tok.Low_ > '='
+                    >    parse::label(Low_name)
                     >    int_value_ref [ _a = _1 ]
-                    >    tok.High_ > '='
+                    >    parse::label(High_name)
                     >    int_value_ref [ _b = _1 ]
-                    >    tok.Class_ > '='
+                    >    parse::label(Class_name)
                     >    tok.string [ _val = new_<Condition::DesignHasPart>(_a, _b, _1) ]
                     ;
 
                 design_has_part_class
                     =    tok.DesignHasPartClass_
-                    >    tok.Low_ > '='
+                    >    parse::label(Low_name)
                     >    int_value_ref [ _a = _1 ]
-                    >    tok.High_ > '='
+                    >    parse::label(High_name)
                     >    int_value_ref [ _b = _1 ]
-                    >    tok.Class_ > '='
+                    >    parse::label(Class_name)
                     >    parse::enum_parser<ShipPartClass>() [ _val = new_<Condition::DesignHasPartClass>(_a, _b, _1) ]
                     ;
 
                 predefined_design
                     =    tok.Design_
-                    >>   tok.Name_ > '=' // TODO: make this condition Design = "name"
+                    >>   parse::label(Name_name) // TODO: make this condition Design = "name"
                     >    tok.string [ _val = new_<Condition::PredefinedShipDesign>(_1) ]
                     ;
 
                 design_number
                     =    tok.Design_
-                    >>   tok.Design_ > '=' // TODO: make this condition Design = #
+                    >>   parse::label(Design_name) // TODO: make this condition Design = #
                     >    int_value_ref [ _val = new_<Condition::NumberedShipDesign>(_1) ]
                     ;
 
                 produced_by_empire // TODO: Lose "empire" part.
                     =    tok.ProducedByEmpire_
-                    >    tok.Empire_ > '='
+                    >    parse::label(Empire_name)
                     >    int_value_ref [ _val = new_<Condition::ProducedByEmpire>(_1) ]
                     ;
 
                 visible_to_empire // TODO: Lose "empire" part.
                     =    tok.VisibleToEmpire_
-                    >    tok.Empire_ > '='
+                    >    parse::label(Empire_name)
                     >    int_value_ref [ _val = new_<Condition::VisibleToEmpire>(_1) ]
                     ;
 
                 explored_by_empire // TODO: Lose "empire" part.
                     =    tok.ExploredByEmpire_
-                    >    tok.Empire_ > '='
+                    >    parse::label(Empire_name)
                     >    int_value_ref [ _val = new_<Condition::ExploredByEmpire>(_1) ]
                     ;
 
                 fleet_supplyable_by_empire // TODO: Lose "empire" part.
                     =    tok.FleetSupplyableByEmpire_
-                    >    tok.Empire_ > '='
+                    >    parse::label(Empire_name)
                     >    int_value_ref [ _val = new_<Condition::FleetSupplyableByEmpire>(_1) ]
                     ;
 
                 in_system
                     =    tok.InSystem_
-                    >    tok.ID_ > '='
+                    >    parse::label(ID_name)
                     >    int_value_ref [ _val = new_<Condition::InSystem>(_1) ]
                     ;
 
                 object_id
                     =    tok.Object_
-                    >    tok.ID_ > '='
+                    >    parse::label(ID_name)
                     >    int_value_ref [ _val = new_<Condition::ObjectID>(_1) ]
                     ;
 

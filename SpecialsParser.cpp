@@ -1,6 +1,7 @@
 #define FUSION_MAX_VECTOR_SIZE 20
 
 #include "ParseImpl.h"
+#include "Label.h"
 #include "../universe/Special.h"
 
 
@@ -46,29 +47,29 @@ namespace {
 
                 special
                     =    tok.Special_
-                    >    tok.Name_ > '='
+                    >    parse::label(Name_name)
                     >    tok.string [ _a = _1 ]
-                    >    tok.Description_ > '='
+                    >    parse::label(Description_name)
                     >    tok.string [ _b = _1 ]
                     >    (
-                              tok.SpawnRate_ > '='
+                              parse::label(SpawnRate_name)
                           >   tok.double_ [ _c = _1 ]
                           |   eps [ _c = 1.0 ]
                          )
                     >    (
-                              tok.SpawnLimit_ > '='
+                              parse::label(SpawnLimit_name)
                           >   tok.int_ [ _d = _1 ]
                           |   eps [ _d = 9999 ]
                          )
                     >   -(
-                              tok.Location_ > '='
+                              parse::label(Location_name)
                           >   parse::detail::condition_parser [ _e = _1 ]
                          )
                     >   -(
-                              tok.EffectsGroups_ > '='
+                              parse::label(EffectsGroups_name)
                           >   parse::detail::effects_group_parser() [ _f = _1 ]
                          )
-                    >    tok.Graphic_ > '='
+                    >    parse::label(Graphic_name)
                     >    tok.string [ insert(_r1, new_<Special>(_a, _b, _f, _c, _d, _e, _1)) ]
                     ;
 

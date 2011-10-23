@@ -1,6 +1,7 @@
 #define FUSION_MAX_VECTOR_SIZE 20
 
 #include "ParseImpl.h"
+#include "Label.h"
 #include "../universe/Species.h"
 
 
@@ -75,23 +76,23 @@ namespace {
                 using phoenix::push_back;
 
                 tech_info
-                    =    tok.Name_ > '='
+                    =    parse::label(Name_name)
                     >    tok.string [ _a = _1 ]
-                    >    tok.Description_ > '='
+                    >    parse::label(Description_name)
                     >    tok.string [ _b = _1 ]
-                    >    tok.Short_Description_ > '=' // TODO: Get rid of underscore.
+                    >    parse::label(Short_Description_name) // TODO: Get rid of underscore.
                     >    tok.string [ _c = _1 ]
-                    >    tok.TechType_ > '='
+                    >    parse::label(TechType_name)
                     >    parse::enum_parser<TechType>() [ _d = _1 ]
-                    >    tok.Category_ > '='
+                    >    parse::label(Category_name)
                     >    tok.string [ _e = _1 ]
                     >    (
-                              tok.ResearchCost_ > '='
+                              parse::label(ResearchCost_name)
                           >   tok.double_ [ _f = _1 ]
                           |   eps [ _f = 1.0 ]
                          )
                     >    (
-                              tok.ResearchTurns_ > '='
+                              parse::label(ResearchTurns_name)
                           >   tok.int_ [ _g = _1 ]
                           |   eps [ _g = 1 ]
                          )
@@ -107,37 +108,37 @@ namespace {
                     =    tok.Tech_
                     >    tech_info [ _a = _1 ]
                     >   -(
-                              tok.Prerequisites_ > '='
+                              parse::label(Prerequisites_name)
                           >   (
                                    '[' > +tok.string [ insert(_b, _1) ] > ']'
                                |   tok.string [ insert(_b, _1) ]
                               )
                          )
                     >   -(
-                              tok.Unlock_ > '='
+                              parse::label(Unlock_name)
                           >   (
                                    '[' > +parse::detail::item_spec_parser() [ push_back(_c, _1) ] > ']'
                                |   parse::detail::item_spec_parser() [ push_back(_c, _1) ]
                               )
                          )
                     >   -(
-                              tok.EffectsGroups_ > '='
+                              parse::label(EffectsGroups_name)
                           >   parse::detail::effects_group_parser() [ _d = _1 ]
                          )
                     >   -(
-                              tok.Graphic_ > '='
+                              parse::label(Graphic_name)
                           >   tok.string [ _e = _1 ]
                          )
                          [ insert_tech(_r1, new_<Tech>(_a, _d, _b, _c, _e)) ]
                     ;
 
                 category
-                    =    tok.Category_ > '='
-                    >    tok.Name_ > '='
+                    =    parse::label(Category_name)
+                    >    parse::label(Name_name)
                     >    tok.string [ _a = _1 ]
-                    >    tok.Graphic_ > '='
+                    >    parse::label(Graphic_name)
                     >    tok.string [ _b = _1 ]
-                    >    tok.Colour_ > '='
+                    >    parse::label(Colour_name)
                     >    parse::detail::color_parser() [ insert_category(_r1, new_<TechCategory>(_a, _b, _1)) ]
                     ;
 
