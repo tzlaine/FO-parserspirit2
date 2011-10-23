@@ -13,7 +13,7 @@ namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
 
 
-#define DEBUG_VALUEREF_PARSE 1
+#define DEBUG_VALUEREF_PARSE 0
 #if DEBUG_VALUEREF_PARSE
 #define NAME(x) x.name(#x); debug(x)
 #else
