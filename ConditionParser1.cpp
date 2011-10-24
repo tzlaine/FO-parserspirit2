@@ -242,8 +242,6 @@ namespace {
                 NAME(or_);
                 NAME(not_);
                 NAME(start);
-
-                qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
 
         typedef boost::spirit::qi::rule<

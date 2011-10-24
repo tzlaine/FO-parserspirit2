@@ -92,10 +92,6 @@ namespace {
                 NAME(negate_expr);
                 NAME(expr);
                 NAME(primary_expr);
-
-#if 0  // TODO: Fix this!
-                qi::on_error<qi::fail>(expr, parse::report_error(_1, _2, _3, _4));
-#endif
             }
 
         typedef parse::value_ref_parser_rule<std::string>::type rule;

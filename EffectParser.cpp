@@ -333,8 +333,6 @@ namespace {
                 NAME(set_star_type);
                 NAME(set_tech_availability);
                 NAME(generate_sitrep_message);
-
-                qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
 
         typedef boost::spirit::qi::rule<

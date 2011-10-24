@@ -49,10 +49,6 @@ namespace {
                 NAME(variable);
                 NAME(statistic);
                 NAME(primary_expr);
-
-#if 0  // TODO: Fix this!
-                qi::on_error<qi::fail>(primary_expr, parse::report_error(_1, _2, _3, _4));
-#endif
             }
 
         typedef parse::value_ref_parser_rule<UniverseObjectType>::type rule;
