@@ -138,7 +138,7 @@ namespace {
                     =    tok.Planet_
                     >>   parse::label(Type_name)
                     >>   (
-                              '[' > +planet_type_value_ref [ push_back(_a, _1) ] > ']'
+                              '[' >> +planet_type_value_ref [ push_back(_a, _1) ] >> ']'
                           |   planet_type_value_ref [ push_back(_a, _1) ]
                          )
                          [ _val = new_<Condition::PlanetType>(_a) ]
@@ -148,7 +148,7 @@ namespace {
                     =    tok.Planet_
                     >>   parse::label(PlanetSize_name)
                     >>   (
-                              '[' > +planet_size_value_ref [ push_back(_a, _1) ] > ']'
+                              '[' >> +planet_size_value_ref [ push_back(_a, _1) ] >> ']'
                           |   planet_size_value_ref [ push_back(_a, _1) ]
                          )
                          [ _val = new_<Condition::PlanetSize>(_a) ]

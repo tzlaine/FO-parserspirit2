@@ -116,11 +116,11 @@ namespace {
                          )
                     >>   (
                               (
-                                   parse::label(Value_name)  >> double_value_ref [ _val = new_<Effect::SetEmpireStockpile>(_a, _1) ]
+                                   parse::label(Empire_name) >> int_value_ref [ _b = _1 ]
+                               >>  parse::label(Value_name)  >> double_value_ref [ _val = new_<Effect::SetEmpireStockpile>(_b, _a, _1) ]
                               )
                           |   (
-                                   parse::label(Empire_name) >  int_value_ref [ _b = _1 ]
-                               >   parse::label(Value_name)  >  double_value_ref [ _val = new_<Effect::SetEmpireStockpile>(_b, _a, _1) ]
+                                   parse::label(Value_name)  > double_value_ref [ _val = new_<Effect::SetEmpireStockpile>(_a, _1) ]
                               )
                          )
                     ;
