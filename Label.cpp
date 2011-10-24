@@ -16,6 +16,7 @@ namespace parse {
                       >>  '='
                      )
                 ;
+            retval.name(std::string(name.c_str()) + " =");
             return retval;
         } else {
             return it->second;
