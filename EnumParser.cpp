@@ -103,6 +103,9 @@ namespace parse {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<UnlockableItemType>::type retval
             =    tok.unlockable_item_type_enum [ _val = _1 ]
+            |    tok.Building_ [ _val = UIT_BUILDING ]
+            |    tok.ShipDesign_ [ _val = UIT_SHIP_DESIGN ]
+            |    tok.Tech_ [ _val = UIT_TECH ]
             ;
         retval.name("UnlockableItemType");
         return retval;
