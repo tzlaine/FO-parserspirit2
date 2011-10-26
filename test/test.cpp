@@ -88,67 +88,75 @@ int main(int argc, char* argv[])
 
     if (buildings_parser <= test && test <= alignments_parser) {
         assert(std::string(argv[2]) == "-f");
+        bool success = false;
         try {
             switch (test) {
             case buildings_parser: {
                 std::map<std::string, BuildingType*> building_types;
-                parse::buildings(boost::filesystem::path(argv[3]), building_types);
+                success = parse::buildings(boost::filesystem::path(argv[3]), building_types);
                 break;
             }
             case specials_parser: {
                 std::map<std::string, Special*> specials;
-                parse::specials(boost::filesystem::path(argv[3]), specials);
+                success = parse::specials(boost::filesystem::path(argv[3]), specials);
                 break;
             }
             case species_parser: {
                 std::map<std::string, Species*> species;
-                parse::species(boost::filesystem::path(argv[3]), species);
+                success = parse::species(boost::filesystem::path(argv[3]), species);
                 break;
             }
             case techs_parser: {
                 TechManager::TechContainer techs;
                 std::map<std::string, TechCategory*> tech_categories;
-                parse::techs(boost::filesystem::path(argv[3]), techs, tech_categories);
+                success = parse::techs(boost::filesystem::path(argv[3]), techs, tech_categories);
                 break;
             }
             case items_parser: {
                 std::vector<ItemSpec> items;
-                parse::items(boost::filesystem::path(argv[3]), items);
+                success = parse::items(boost::filesystem::path(argv[3]), items);
                 break;
             }
             case ship_parts_parser: {
                 std::map<std::string, PartType*> parts;
-                parse::ship_parts(boost::filesystem::path(argv[3]), parts);
+                success = parse::ship_parts(boost::filesystem::path(argv[3]), parts);
                 break;
             }
             case ship_hulls_parser: {
                 std::map<std::string, HullType*> hulls;
-                parse::ship_hulls(boost::filesystem::path(argv[3]), hulls);
+                success = parse::ship_hulls(boost::filesystem::path(argv[3]), hulls);
                 break;
             }
             case ship_designs_parser: {
                 std::map<std::string, ShipDesign*> designs;
-                parse::ship_designs(boost::filesystem::path(argv[3]), designs);
+                success = parse::ship_designs(boost::filesystem::path(argv[3]), designs);
                 break;
             }
             case fleet_plans_parser: {
                 std::vector<FleetPlan*> fleet_plans;
-                parse::fleet_plans(boost::filesystem::path(argv[3]), fleet_plans);
+                success = parse::fleet_plans(boost::filesystem::path(argv[3]), fleet_plans);
                 break;
             }
             case monster_fleet_plans_parser: {
                 std::vector<MonsterFleetPlan*> monster_fleet_plans;
-                parse::monster_fleet_plans(boost::filesystem::path(argv[3]), monster_fleet_plans);
+                success = parse::monster_fleet_plans(boost::filesystem::path(argv[3]), monster_fleet_plans);
                 break;
             }
             case alignments_parser: {
                 std::vector<Alignment> alignments;
                 std::vector<boost::shared_ptr<const Effect::EffectsGroup> > effects_groups;
-                parse::alignments(boost::filesystem::path(argv[3]), alignments, effects_groups);
+                success = parse::alignments(boost::filesystem::path(argv[3]), alignments, effects_groups);
                 break;
             }
             default:
                 break;
+            }
+
+            if (success) {
+                std::cout <<  "Successful parse." << std::endl;
+            } else {
+                std::cout <<  "Failed parse of \"" << argv[3] << "\"." << std::endl;
+                ++failures;
             }
         } catch (const boost::spirit::qi::expectation_failure<parse::token_iterator>&) {
             std::cout <<  "Failed parse of \"" << argv[3] << "\" (qi::expectation_failure<> exception)." << std::endl;

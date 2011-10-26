@@ -35,7 +35,7 @@ namespace {
 
 namespace parse {
 
-    void items(const boost::filesystem::path& path, std::vector<ItemSpec>& items_)
-    { detail::parse_file<rules, std::vector<ItemSpec> >(path, items_); }
+    bool items(const boost::filesystem::path& path, std::vector<ItemSpec>& items_)
+    { return detail::parse_file<rules, std::vector<ItemSpec> >(path, items_); }
 
 }

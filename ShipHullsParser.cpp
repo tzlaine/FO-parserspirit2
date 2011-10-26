@@ -163,7 +163,7 @@ namespace {
 
 namespace parse {
 
-    void ship_hulls(const boost::filesystem::path& path, std::map<std::string, HullType*>& hulls)
-    { detail::parse_file<rules, std::map<std::string, HullType*> >(path, hulls); }
+    bool ship_hulls(const boost::filesystem::path& path, std::map<std::string, HullType*>& hulls)
+    { return detail::parse_file<rules, std::map<std::string, HullType*> >(path, hulls); }
 
 }

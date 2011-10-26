@@ -19,7 +19,7 @@ namespace parse {
 typedef boost::spirit::line_pos_iterator<std::string::const_iterator> text_iterator;
 
 /** The type of token used by the script file lexer. */
-typedef boost::spirit::lex::lexertl::token<
+typedef boost::spirit::lex::lexertl::position_token<
     text_iterator,
     boost::mpl::vector<
         bool,

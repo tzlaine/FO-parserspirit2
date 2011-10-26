@@ -63,7 +63,7 @@ namespace {
 
 namespace parse {
 
-    void fleet_plans(const boost::filesystem::path& path, std::vector<FleetPlan*>& fleet_plans_)
-    { detail::parse_file<rules, std::vector<FleetPlan*> >(path, fleet_plans_); }
+    bool fleet_plans(const boost::filesystem::path& path, std::vector<FleetPlan*>& fleet_plans_)
+    { return detail::parse_file<rules, std::vector<FleetPlan*> >(path, fleet_plans_); }
 
 }

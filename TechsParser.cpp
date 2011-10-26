@@ -197,11 +197,11 @@ namespace {
 
 namespace parse {
 
-    void techs(const boost::filesystem::path& path, TechManager::TechContainer& techs_, std::map<std::string, TechCategory*>& categories)
+    bool techs(const boost::filesystem::path& path, TechManager::TechContainer& techs_, std::map<std::string, TechCategory*>& categories)
     {
         g_categories_seen.clear();
         g_categories = &categories;
-        detail::parse_file<rules, TechManager::TechContainer>(path, techs_);
+        return detail::parse_file<rules, TechManager::TechContainer>(path, techs_);
     }
 
 }

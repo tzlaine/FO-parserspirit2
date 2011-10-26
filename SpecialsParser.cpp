@@ -101,7 +101,7 @@ namespace {
 
 namespace parse {
 
-    void specials(const boost::filesystem::path& path, std::map<std::string, Special*>& specials_)
-    { detail::parse_file<rules, std::map<std::string, Special*> >(path, specials_); }
+    bool specials(const boost::filesystem::path& path, std::map<std::string, Special*>& specials_)
+    { return detail::parse_file<rules, std::map<std::string, Special*> >(path, specials_); }
 
 }

@@ -164,7 +164,7 @@ namespace {
 
 namespace parse {
 
-    void ship_parts(const boost::filesystem::path& path, std::map<std::string, PartType*>& parts)
-    { detail::parse_file<rules, std::map<std::string, PartType*> >(path, parts); }
+    bool ship_parts(const boost::filesystem::path& path, std::map<std::string, PartType*>& parts)
+    { return detail::parse_file<rules, std::map<std::string, PartType*> >(path, parts); }
 
 }

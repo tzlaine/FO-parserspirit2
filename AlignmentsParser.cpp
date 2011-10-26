@@ -69,12 +69,12 @@ namespace {
 
 namespace parse {
 
-    void alignments(const boost::filesystem::path& path,
+    bool alignments(const boost::filesystem::path& path,
                     std::vector<Alignment>& alignments_,
                     std::vector<boost::shared_ptr<const Effect::EffectsGroup> >& effects_groups)
     {
         g_effects_groups = &effects_groups;
-        detail::parse_file<rules, std::vector<Alignment> >(path, alignments_);
+        return detail::parse_file<rules, std::vector<Alignment> >(path, alignments_);
     }
 
 }

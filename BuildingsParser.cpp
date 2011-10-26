@@ -53,24 +53,24 @@ namespace {
                     >    parse::label(BuildCost_name)   > tok.double_ [ _c = _1 ]
                     >    parse::label(BuildTime_name)   > tok.int_ [ _d = _1 ]
                     >    (
-                             tok.Producible_ [ _e = true ]
-                          |  tok.Unproducible_ [ _e = false ]
+                             tok.Unproducible_ [ _e = false ]
+                          |  tok.Producible_ [ _e = true ]
+                          |  eps [ _e = true ]
                          )
                     >    parse::label(Location_name) > parse::detail::condition_parser [ _f = _1 ]
-                    >    parse::label(CaptureResult_name)
                     >    (
-                              parse::enum_parser<CaptureResult>() [ _g = _1 ]
+                              parse::label(CaptureResult_name) >> parse::enum_parser<CaptureResult>() [ _g = _1 ]
                           |   eps [ _g = CR_CAPTURE ]
                          )
-                    >   -(
-                              parse::label(EffectsGroups_name) > parse::detail::effects_group_parser() [ _h = _1 ]
-                         )
-                    >    parse::label(Graphic_name) > tok.string [ insert(_r1, new_<BuildingType>(_a, _b, _c, _d, _e, _g, _f, _h, _1)) ]
+                    >    parse::label(EffectsGroups_name) > -parse::detail::effects_group_parser() [ _h = _1 ]
+                    >    parse::label(Graphic_name)       >  tok.string [ insert(_r1, new_<BuildingType>(_a, _b, _c, _d, _e, _g, _f, _h, _1)) ]
                     ;
 
                 start
                     =   +building_type(_r1)
                     ;
+
+                building_type.name("BuildingType");
 
                 qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
@@ -105,7 +105,7 @@ namespace {
 
 namespace parse {
 
-    void buildings(const boost::filesystem::path& path, std::map<std::string, BuildingType*>& building_types)
-    { detail::parse_file<rules, std::map<std::string, BuildingType*> >(path, building_types); }
+    bool buildings(const boost::filesystem::path& path, std::map<std::string, BuildingType*>& building_types)
+    { return detail::parse_file<rules, std::map<std::string, BuildingType*> >(path, building_types); }
 
 }

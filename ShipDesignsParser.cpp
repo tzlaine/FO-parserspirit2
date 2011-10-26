@@ -89,7 +89,7 @@ namespace {
 
 namespace parse {
 
-    void ship_designs(const boost::filesystem::path& path, std::map<std::string, ShipDesign*>& designs)
-    { detail::parse_file<rules, std::map<std::string, ShipDesign*> >(path, designs); }
+    bool ship_designs(const boost::filesystem::path& path, std::map<std::string, ShipDesign*>& designs)
+    { return detail::parse_file<rules, std::map<std::string, ShipDesign*> >(path, designs); }
 
 }

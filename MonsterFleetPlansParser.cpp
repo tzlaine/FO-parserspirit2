@@ -81,7 +81,7 @@ namespace {
 
 namespace parse {
 
-    void monster_fleet_plans(const boost::filesystem::path& path, std::vector<MonsterFleetPlan*>& monster_fleet_plans_)
-    { detail::parse_file<rules, std::vector<MonsterFleetPlan*> >(path, monster_fleet_plans_); }
+    bool monster_fleet_plans(const boost::filesystem::path& path, std::vector<MonsterFleetPlan*>& monster_fleet_plans_)
+    { return detail::parse_file<rules, std::vector<MonsterFleetPlan*> >(path, monster_fleet_plans_); }
 
 }

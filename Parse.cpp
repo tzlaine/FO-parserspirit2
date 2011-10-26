@@ -27,14 +27,18 @@ namespace {
 
                 effects_group
                     =    tok.EffectsGroup_
-                    >    parse::label(Scope_name) > parse::detail::condition_parser [ _a = _1 ]
-                    >   -(
-                              parse::label(Activation_name) > parse::detail::condition_parser [ _b = _1 ]
+                    >>   parse::label(Scope_name) > parse::detail::condition_parser [ _a = _1 ]
+                    >>  -(
+                              parse::label(Activation_name) >> parse::detail::condition_parser [ _b = _1 ]
                          )
-                    >   -(
-                              parse::label(StackingGroup_name) > tok.string [ _c = _1 ]
+                    >>  -(
+                              parse::label(StackingGroup_name) >> tok.string [ _c = _1 ]
                          )
-                    >    parse::label(Effects_name) > '[' > (+parse::effect_parser()) [ _d = _1 ] > lit(']')
+                    >>   parse::label(Effects_name)
+                    >>   (
+                              '[' > +parse::effect_parser() [ push_back(_d, _1) ] > ']'
+                          |   parse::effect_parser() [ push_back(_d, _1) ]
+                         )
                          [ _val = new_<Effect::EffectsGroup>(_a, _b, _d, _c) ]
                     ;
 
@@ -42,6 +46,9 @@ namespace {
                     =    '[' > +effects_group [ push_back(_val, construct<boost::shared_ptr<const Effect::EffectsGroup> >(_1)) ] > ']'
                     |    effects_group [ push_back(_val, construct<boost::shared_ptr<const Effect::EffectsGroup> >(_1)) ]
                     ;
+
+                effects_group.name("EffectsGroup");
+                start.name("EffectsGroups");
             }
 
         typedef boost::spirit::qi::rule<
@@ -95,6 +102,9 @@ namespace {
                           |   eps [ construct<GG::Clr>(_a, _b, _c, 255) ]
                          )
                     ;
+
+                channel.name("color channel (0 to 255)");
+                start.name("Color");
             }
 
         typedef boost::spirit::qi::rule<
@@ -123,6 +133,8 @@ namespace {
                     >    parse::label(Type_name) > parse::enum_parser<UnlockableItemType>() [ _a = _1 ]
                     >    parse::label(Name_name) > tok.string [ _val = construct<ItemSpec>(_a, _1) ]
                     ;
+
+                start.name("ItemSpec");
             }
 
         parse::detail::item_spec_parser_rule start;
@@ -160,18 +172,17 @@ namespace parse {
 
         void parse_file_common(const boost::filesystem::path& path,
                                const parse::lexer& l,
+                               std::string& filename,
+                               std::string& file_contents,
                                parse::text_iterator& first,
                                parse::token_iterator& it)
         {
-            const std::string filename = path.string();
+            filename = path.string();
 
-            std::string file_contents;
             {
                 boost::filesystem::ifstream ifs(path);
                 if (ifs) {
-                    while (ifs) {
-                        file_contents += ifs.get();
-                    }
+                    std::getline(ifs, file_contents, '\0');
                 } else {
                     Logger().errorStream() << "Unable to open data file " << filename;
                     return;

@@ -155,7 +155,7 @@ namespace {
 
 namespace parse {
 
-    void species(const boost::filesystem::path& path, std::map<std::string, Species*>& species_)
-    { detail::parse_file<rules, std::map<std::string, Species*> >(path, species_); }
+    bool species(const boost::filesystem::path& path, std::map<std::string, Species*>& species_)
+    { return detail::parse_file<rules, std::map<std::string, Species*> >(path, species_); }
 
 }

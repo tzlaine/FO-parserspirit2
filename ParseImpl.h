@@ -49,41 +49,32 @@ namespace parse { namespace detail {
 
     void parse_file_common(const boost::filesystem::path& path,
                            const lexer& l,
+                           std::string& filename,
+                           std::string& file_contents,
                            text_iterator& first,
                            token_iterator& it);
 
     template <typename Rules, typename Arg1>
-    void parse_file(const boost::filesystem::path& path, Arg1& arg1)
+    bool parse_file(const boost::filesystem::path& path, Arg1& arg1)
     {
+        std::string filename;
+        std::string file_contents;
         text_iterator first;
         token_iterator it;
 
         const lexer& l = lexer::instance();
 
-        parse_file_common(path, l, first, it);
+        parse_file_common(path, l, filename, file_contents, first, it);
 
         boost::spirit::qi::in_state_type in_state;
 
         static Rules rules;
 
-        boost::spirit::qi::phrase_parse(it, l.end(), rules.start(boost::phoenix::ref(arg1)), in_state("WS")[l.self]);
-    }
+        bool success = boost::spirit::qi::phrase_parse(it, l.end(), rules.start(boost::phoenix::ref(arg1)), in_state("WS")[l.self]);
 
-    template <typename Rules, typename Arg1, typename Arg2>
-    void parse_file(const boost::filesystem::path& path, Arg1& arg1, Arg2& arg2)
-    {
-        text_iterator first;
-        token_iterator it;
+        std::ptrdiff_t distance = std::distance(first, GG::detail::s_end);
 
-        const lexer& l = lexer::instance();
-
-        parse_file_common(path, l, first, it);
-
-        boost::spirit::qi::in_state_type in_state;
-
-        static Rules rules;
-
-        boost::spirit::qi::phrase_parse(it, l.end(), rules.start(boost::phoenix::ref(arg1), boost::phoenix::ref(arg2)), in_state("WS")[l.self]);
+        return success && (!distance || distance == 1 && *first == '\n');
     }
 
 } }
