@@ -85,7 +85,7 @@ namespace {
                     =    tok.Part_
                     >    parse::label(Name_name)        > tok.string [ _a = _1 ]
                     >    parse::label(Description_name) > tok.string [ _b = _1 ]
-                    >    parse::label(PartClass_name)   > parse::enum_parser<ShipPartClass>() [ _c = _1 ]
+                    >    parse::label(PartClass_name)   > parse::enum_parser<ShipPartClass>() [ _c = _1 ] // TODO: This should probably be forced to agree with the part stats taht follow.
                     >    part_stats [ _d = _1 ]
                     >    parse::label(BuildCost_name)   > tok.double_ [ _e = _1 ]
                     >    parse::label(BuildTime_name)   > tok.int_ [ _f = _1 ]
