@@ -104,6 +104,11 @@ namespace {
                     =   +hull(_r1)
                     ;
 
+                slot.name("Slot");
+                hull_stats.name("Hull stats");
+                hull.name("Hull");
+                start.name("start");
+
                 qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
 

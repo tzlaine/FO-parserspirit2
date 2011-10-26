@@ -71,6 +71,7 @@ namespace {
                     ;
 
                 building_type.name("BuildingType");
+                start.name("start");
 
                 qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }

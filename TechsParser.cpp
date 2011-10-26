@@ -137,9 +137,12 @@ namespace {
                          )
                     ;
 
-#if 0 // TODO: Fix this!
+                tech_info.name("Tech info");
+                tech.name("Tech");
+                category.name("Category");
+                start.name("start");
+
                 qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
-#endif
             }
 
         typedef boost::spirit::qi::rule<

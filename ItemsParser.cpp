@@ -10,6 +10,9 @@ namespace {
         rules()
             {
                 qi::_1_type _1;
+                qi::_2_type _2;
+                qi::_3_type _3;
+                qi::_4_type _4;
                 qi::_r1_type _r1;
                 using phoenix::push_back;
 
@@ -17,9 +20,9 @@ namespace {
                     =   +parse::detail::item_spec_parser() [ push_back(_r1, _1) ]
                     ;
 
-#if 0 // TODO: Fix this!
+                start.name("start");
+
                 qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
-#endif
             }
 
         typedef boost::spirit::qi::rule<

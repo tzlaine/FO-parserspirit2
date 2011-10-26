@@ -111,6 +111,10 @@ namespace {
                     =   +part_type(_r1)
                     ;
 
+                part_stats.name("Part stats");
+                part_type.name("Part");
+                start.name("start");
+
                 qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
 

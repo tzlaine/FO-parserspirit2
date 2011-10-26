@@ -95,6 +95,12 @@ namespace {
                     =   +species(_r1)
                     ;
 
+                focus_type.name("Focus");
+                environment_map_element.name("Type = <type> Environment = <env>");
+                environment_map.name("Environments");
+                species.name("Species");
+                start.name("start");
+
                 qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
 

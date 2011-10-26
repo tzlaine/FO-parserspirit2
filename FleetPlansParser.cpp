@@ -36,6 +36,9 @@ namespace {
                     =   +fleet_plan(_r1)
                     ;
 
+                fleet_plan.name("Fleet");
+                start.name("start");
+
                 qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
 
