@@ -192,6 +192,7 @@ namespace parse {
             first = parse::text_iterator(file_contents.begin());
             parse::text_iterator last(file_contents.end());
 
+            GG::detail::s_text_it = &first;
             GG::detail::s_begin = first;
             GG::detail::s_end = last;
             GG::detail::s_filename = filename.c_str();
