@@ -91,7 +91,7 @@ namespace {
                               )
                          )
                     >    (
-                              parse::label(Location_name) > parse::detail::condition_parser [ _h = _1 ]
+                              parse::label(Location_name) >> parse::detail::condition_parser [ _h = _1 ]
                           |   eps [ _h = new_<Condition::All>() ]
                          )
                     >   -(
