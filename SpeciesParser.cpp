@@ -75,7 +75,7 @@ namespace {
                     >   -tok.CanColonize_ [ _e = true ]
                     >   -(
                               tok.Foci_
-                          >   (
+                          >>  (
                                    '[' > +focus_type [ push_back(_f, _1) ] > ']'
                                |   focus_type [ push_back(_f, _1) ]
                               )
@@ -86,7 +86,7 @@ namespace {
                          )
                     >   -(
                               tok.Environments_
-                          >   environment_map [ _h = _1 ]
+                          >>  environment_map [ _h = _1 ]
                          )
                     >    parse::label(Graphic_name) > tok.string [ insert_species(_r1, new_<Species>(_a, _b, _f, _h, _g, _c, _d, _e, _1)) ]
                     ;

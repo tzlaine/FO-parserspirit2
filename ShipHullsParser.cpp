@@ -55,7 +55,7 @@ namespace {
                 slot
                     =    tok.Slot_
                     >    parse::label(Type_name) > parse::enum_parser<ShipSlotType>() [ _a = _1 ]
-                    >    tok.Position_
+                    >    parse::label(Position_name)
                     >    '('
                     >    tok.double_ [ _b = _1 ]
                     >    ','
@@ -85,7 +85,7 @@ namespace {
                          )
                     >   -(
                               parse::label(Slots_name)
-                          >   (
+                          >>  (
                                    '[' > +slot [ push_back(_g, _1) ] > ']'
                                |   slot [ push_back(_g, _1) ]
                               )
@@ -95,7 +95,7 @@ namespace {
                           |   eps [ _h = new_<Condition::All>() ]
                          )
                     >   -(
-                              parse::label(EffectsGroups_name) > parse::detail::effects_group_parser() [ _i = _1 ]
+                              parse::label(EffectsGroups_name) >> parse::detail::effects_group_parser() [ _i = _1 ]
                          )
                     >    parse::label(Graphic_name) > tok.string [ insert(_r1, new_<HullType>(_a, _b, _c, _d, _e, _f, _g, _h, _i, _1)) ]
                     ;
