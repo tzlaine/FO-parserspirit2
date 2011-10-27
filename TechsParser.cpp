@@ -5,6 +5,19 @@
 #include "../universe/Species.h"
 
 
+#define DEBUG_PARSERS 0 // TODO: Fix this!
+
+#if DEBUG_PARSERS
+namespace std {
+    inline ostream& operator<<(ostream& os, const std::vector<ItemSpec>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::set<std::string>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::vector<boost::shared_ptr<const Effect::EffectsGroup> >&) { return os; }
+    inline ostream& operator<<(ostream& os, const TechType&) { return os; }
+    inline ostream& operator<<(ostream& os, const Tech::TechInfo&) { return os; }
+    inline ostream& operator<<(ostream& os, const boost::fusion::vector8<std::string, std::string, std::string, TechType, std::string, double, int, bool>&) { return os; }
+}
+#endif
+
 namespace {
 
     std::set<std::string> g_categories_seen;
@@ -79,17 +92,20 @@ namespace {
                     =    parse::label(Name_name)              > tok.string [ _a = _1 ]
                     >    parse::label(Description_name)       > tok.string [ _b = _1 ]
                     >    parse::label(Short_Description_name) > tok.string [ _c = _1 ] // TODO: Get rid of underscore.
-                    >    parse::label(TechType_name)          > parse::enum_parser<TechType>() [ _d = _1 ]
+                    >>  -(
+                              parse::label(TechType_name) >> parse::enum_parser<TechType>() [ _d = _1 ]
+                          |   eps [ _d = TT_THEORY ]
+                         )
                     >    parse::label(Category_name)          > tok.string [ _e = _1 ]
-                    >    (
-                              parse::label(ResearchCost_name) > tok.double_ [ _f = _1 ]
+                    >>   (
+                              parse::label(ResearchCost_name) >> tok.double_ [ _f = _1 ]
                           |   eps [ _f = 1.0 ]
                          )
-                    >    (
-                              parse::label(ResearchTurns_name) > tok.int_ [ _g = _1 ]
+                    >>   (
+                              parse::label(ResearchTurns_name) >> tok.int_ [ _g = _1 ]
                           |   eps [ _g = 1 ]
                          )
-                    >    (
+                    >>   (
                               tok.Unresearchable_ [ _h = false ]
                           |   tok.Researchable_ [ _h = true ]
                           |   eps [ _h = true ]
@@ -102,23 +118,23 @@ namespace {
                     >    tech_info [ _a = _1 ]
                     >   -(
                               parse::label(Prerequisites_name)
-                          >   (
+                          >>  (
                                    '[' > +tok.string [ insert(_b, _1) ] > ']'
                                |   tok.string [ insert(_b, _1) ]
                               )
                          )
                     >   -(
                               parse::label(Unlock_name)
-                          >   (
+                          >>  (
                                    '[' > +parse::detail::item_spec_parser() [ push_back(_c, _1) ] > ']'
                                |   parse::detail::item_spec_parser() [ push_back(_c, _1) ]
                               )
                          )
                     >   -(
-                              parse::label(EffectsGroups_name) > parse::detail::effects_group_parser() [ _d = _1 ]
+                              parse::label(EffectsGroups_name) >> parse::detail::effects_group_parser() [ _d = _1 ]
                          )
                     >   -(
-                              parse::label(Graphic_name) > tok.string [ _e = _1 ]
+                              parse::label(Graphic_name) >> tok.string [ _e = _1 ]
                          )
                          [ insert_tech(_r1, new_<Tech>(_a, _d, _b, _c, _e)) ]
                     ;
@@ -141,6 +157,13 @@ namespace {
                 tech.name("Tech");
                 category.name("Category");
                 start.name("start");
+
+#if DEBUG_PARSERS
+                debug(tech_info);
+                debug(tech);
+                debug(category);
+                debug(start);
+#endif
 
                 qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }

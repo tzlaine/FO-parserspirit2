@@ -6,6 +6,16 @@
 #include "../universe/Effect.h"
 
 
+#define DEBUG_PARSERS 0
+
+#if DEBUG_PARSERS
+namespace std {
+    inline ostream& operator<<(ostream& os, const std::vector<Effect::EffectBase*>&) { return os; }
+    inline ostream& operator<<(ostream& os, const GG::Clr&) { return os; }
+    inline ostream& operator<<(ostream& os, const ItemSpec&) { return os; }
+}
+#endif
+
 namespace {
 
     struct effects_group_rules
@@ -49,6 +59,11 @@ namespace {
 
                 effects_group.name("EffectsGroup");
                 start.name("EffectsGroups");
+
+#if DEBUG_PARSERS
+                debug(effects_group);
+                debug(start);
+#endif
             }
 
         typedef boost::spirit::qi::rule<
@@ -71,6 +86,8 @@ namespace {
     {
         color_parser_rules()
             {
+                const parse::lexer& tok = parse::lexer::instance();
+
                 qi::_1_type _1;
                 qi::_a_type _a;
                 qi::_b_type _b;
@@ -83,28 +100,27 @@ namespace {
                 using phoenix::if_;
 
                 channel
-                    =    uint_
-                         [
-                             if_ (_1 <= 255u) [
-                                 _pass = false
-                             ] .else_ [
-                                 _val = _1
-                             ]
-                         ]
+                    =    tok.int_ [ _val = _1, _pass = 0 < _1 && _1 <= 255 ]
                     ;
 
                 start
-                    =    channel [ _a = _1 ]
-                    >    channel [ _b = _1 ]
-                    >    channel [ _c = _1 ]
-                    >    (
-                              channel [ construct<GG::Clr>(_a, _b, _c, _1) ]
+                    =    '(' > channel [ _a = _1 ]
+                    >    ',' > channel [ _b = _1 ]
+                    >    ',' > channel [ _c = _1 ]
+                    >>   (
+                              ',' > channel [ construct<GG::Clr>(_a, _b, _c, _1) ]
                           |   eps [ construct<GG::Clr>(_a, _b, _c, 255) ]
                          )
+                    >    ')'
                     ;
 
-                channel.name("color channel (0 to 255)");
-                start.name("Color");
+                channel.name("colour channel (0 to 255)");
+                start.name("Colour");
+
+#if DEBUG_PARSERS
+                debug(channel);
+                debug(start);
+#endif
             }
 
         typedef boost::spirit::qi::rule<
@@ -135,6 +151,10 @@ namespace {
                     ;
 
                 start.name("ItemSpec");
+
+#if DEBUG_PARSERS
+                debug(start);
+#endif
             }
 
         parse::detail::item_spec_parser_rule start;
