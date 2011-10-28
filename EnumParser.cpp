@@ -139,6 +139,13 @@ namespace parse {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<ShipPartClass>::type retval
             =    tok.ship_part_class_enum [ _val = _1 ]
+            |    tok.Shield_ [ _val = PC_SHIELD ]
+            |    tok.Troops_ [ _val = PC_TROOPS ]
+            |    tok.Detection_ [ _val = PC_DETECTION ]
+            |    tok.Stealth_ [ _val = PC_STEALTH ]
+            |    tok.Fuel_ [ _val = PC_FUEL ]
+            |    tok.BattleSpeed_ [ _val = PC_BATTLE_SPEED ]
+            |    tok.StarlaneSpeed_ [ _val = PC_STARLANE_SPEED ]
             ;
         retval.name("ShipPartClass");
         return retval;
