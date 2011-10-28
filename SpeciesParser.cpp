@@ -5,6 +5,21 @@
 #include "../universe/Species.h"
 
 
+#define DEBUG_PARSERS 0
+
+#if DEBUG_PARSERS
+namespace std {
+    inline ostream& operator<<(ostream& os, const FocusType&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::vector<FocusType>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::vector<boost::shared_ptr<const Effect::EffectsGroup> >&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::pair<PlanetType, PlanetEnvironment>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::pair<const PlanetType, PlanetEnvironment>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::map<PlanetType, PlanetEnvironment>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::pair<const std::string, Species*>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::map<std::string, Species*>&) { return os; }
+}
+#endif
+
 namespace {
 
     struct insert_species_
@@ -57,8 +72,9 @@ namespace {
                     ;
 
                 environment_map_element
-                    =    parse::label(Type_name)        > parse::enum_parser<PlanetType>() [ _a = _1 ]
-                    >    parse::label(Environment_name) > parse::enum_parser<PlanetEnvironment>() [ _val = construct<std::pair<PlanetType, PlanetEnvironment> >(_a, _1) ]
+                    =    parse::label(Type_name)        >> parse::enum_parser<PlanetType>() [ _a = _1 ]
+                    >    parse::label(Environment_name) >  parse::enum_parser<PlanetEnvironment>()
+                         [ _val = construct<std::pair<PlanetType, PlanetEnvironment> >(_a, _1) ]
                     ;
 
                 environment_map
@@ -74,18 +90,18 @@ namespace {
                     >   -tok.CanProduceShips_ [ _d = true ]
                     >   -tok.CanColonize_ [ _e = true ]
                     >   -(
-                              tok.Foci_
+                              parse::label(Foci_name)
                           >>  (
                                    '[' > +focus_type [ push_back(_f, _1) ] > ']'
                                |   focus_type [ push_back(_f, _1) ]
                               )
                          )
                     >   -(
-                              tok.EffectsGroups_
-                          >   parse::detail::effects_group_parser() [ _g = _1 ]
+                              parse::label(EffectsGroups_name)
+                          >>  parse::detail::effects_group_parser() [ _g = _1 ]
                          )
                     >   -(
-                              tok.Environments_
+                              parse::label(Environments_name)
                           >>  environment_map [ _h = _1 ]
                          )
                     >    parse::label(Graphic_name) > tok.string [ insert_species(_r1, new_<Species>(_a, _b, _f, _h, _g, _c, _d, _e, _1)) ]
@@ -100,6 +116,14 @@ namespace {
                 environment_map.name("Environments");
                 species.name("Species");
                 start.name("start");
+
+#if DEBUG_PARSERS
+                debug(focus_type);
+                debug(environment_map_element);
+                debug(environment_map);
+                debug(species);
+                debug(start);
+#endif
 
                 qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
