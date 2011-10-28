@@ -5,16 +5,15 @@
 #include "../universe/Species.h"
 
 
-#define DEBUG_PARSERS 0 // TODO: Fix this!
+#define DEBUG_PARSERS 0
 
 #if DEBUG_PARSERS
 namespace std {
     inline ostream& operator<<(ostream& os, const std::vector<ItemSpec>&) { return os; }
     inline ostream& operator<<(ostream& os, const std::set<std::string>&) { return os; }
     inline ostream& operator<<(ostream& os, const std::vector<boost::shared_ptr<const Effect::EffectsGroup> >&) { return os; }
-    inline ostream& operator<<(ostream& os, const TechType&) { return os; }
     inline ostream& operator<<(ostream& os, const Tech::TechInfo&) { return os; }
-    inline ostream& operator<<(ostream& os, const boost::fusion::vector8<std::string, std::string, std::string, TechType, std::string, double, int, bool>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::pair<const std::string, TechCategory*>&) { return os; }
 }
 #endif
 
