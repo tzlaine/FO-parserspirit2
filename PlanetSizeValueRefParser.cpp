@@ -43,11 +43,17 @@ namespace {
                     |    statistic
                     ;
 
-                NAME(final_token);
-                NAME(constant);
-                NAME(variable);
-                NAME(statistic);
-                NAME(primary_expr);
+                final_token.name("PlanetSize variable name (e.g., PlanetSize)");
+                constant.name("PlanetSize");
+                variable.name("PlanetSize variable");
+                statistic.name("PlanetSize statistic");
+                primary_expr.name("PlanetSize expression");
+
+                DEBUG_RULE(final_token);
+                DEBUG_RULE(constant);
+                DEBUG_RULE(variable);
+                DEBUG_RULE(statistic);
+                DEBUG_RULE(primary_expr);
             }
 
         typedef parse::value_ref_parser_rule<PlanetSize>::type rule;
@@ -67,9 +73,9 @@ namespace {
 namespace parse {
 
     template <>
-    const value_ref_parser_rule<PlanetSize>::type& value_ref_parser<PlanetSize>()
+    value_ref_parser_rule<PlanetSize>::type& value_ref_parser<PlanetSize>()
     {
-        static const planet_size_parser_rules retval;
+        static planet_size_parser_rules retval;
         return retval.primary_expr;
     }
 

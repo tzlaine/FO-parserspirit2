@@ -93,17 +93,29 @@ namespace {
                     |    statistic
                     ;
 
-                NAME(first_token);
-                NAME(container_token);
-                NAME(final_token);
-                NAME(constant);
-                NAME(variable);
-                NAME(statistic);
-                NAME(negate_expr);
-                NAME(multiplicative_expr);
-                NAME(additive_expr);
-                NAME(expr);
-                NAME(primary_expr);
+                first_token.name("Source, Target, LocalCandidate, or RootCandidate");
+                container_token.name("Planet, System, or Fleet");
+                final_token.name("integer variable name (e.g., FleetID)");
+                constant.name("integer");
+                variable.name("integer variable");
+                statistic.name("integer statistic");
+                negate_expr.name("integer or integer expression");
+                multiplicative_expr.name("integer or integer expression");
+                additive_expr.name("integer or integer expression");
+                expr.name("integer expression");
+                primary_expr.name("integer expression");
+
+                DEBUG_RULE(first_token);
+                DEBUG_RULE(container_token);
+                DEBUG_RULE(final_token);
+                DEBUG_RULE(constant);
+                DEBUG_RULE(variable);
+                DEBUG_RULE(statistic);
+                DEBUG_RULE(negate_expr);
+                DEBUG_RULE(multiplicative_expr);
+                DEBUG_RULE(additive_expr);
+                DEBUG_RULE(expr);
+                DEBUG_RULE(primary_expr);
             }
 
         typedef parse::value_ref_parser_rule<int>::type rule;
@@ -140,7 +152,7 @@ const statistic_rule<int>::type& int_var_statistic()
 namespace parse {
 
     template <>
-    const value_ref_parser_rule<int>::type& value_ref_parser<int>()
+    value_ref_parser_rule<int>::type& value_ref_parser<int>()
     { return get_int_parser_rules().expr; }
 
 }

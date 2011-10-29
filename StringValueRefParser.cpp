@@ -71,27 +71,28 @@ namespace {
                     ;
 
                 expr
-                    %=   primary_expr
-                    ;
-
-                primary_expr
-                    %=   '(' > expr > ')'
-                    |    constant
+                    %=   constant
                     |    variable
                     |    int_statistic
                     |    double_statistic
                     |    statistic
                     ;
 
-                NAME(final_token);
-                NAME(constant);
-                NAME(variable);
-                NAME(statistic);
-                NAME(int_statistic);
-                NAME(double_statistic);
-                NAME(negate_expr);
-                NAME(expr);
-                NAME(primary_expr);
+                final_token.name("string variable name (e.g., Name)");
+                constant.name("string");
+                variable.name("string variable");
+                statistic.name("string statistic");
+                int_statistic.name("integer statistic");
+                double_statistic.name("real number statistic");
+                expr.name("string expression");
+
+                DEBUG_RULE(final_token);
+                DEBUG_RULE(constant);
+                DEBUG_RULE(variable);
+                DEBUG_RULE(statistic);
+                DEBUG_RULE(int_statistic);
+                DEBUG_RULE(double_statistic);
+                DEBUG_RULE(expr);
             }
 
         typedef parse::value_ref_parser_rule<std::string>::type rule;
@@ -104,7 +105,6 @@ namespace {
         statistic_rule statistic;
         rule int_statistic;
         rule double_statistic;
-        rule negate_expr;
         rule expr;
         rule primary_expr;
     };
@@ -115,9 +115,9 @@ namespace {
 namespace parse {
 
     template <>
-    const value_ref_parser_rule<std::string>::type& value_ref_parser<std::string>()
+    value_ref_parser_rule<std::string>::type& value_ref_parser<std::string>()
     {
-        static const string_parser_rules retval;
+        static string_parser_rules retval;
         return retval.expr;
     }
 

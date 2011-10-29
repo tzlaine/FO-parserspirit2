@@ -22,7 +22,7 @@ namespace parse {
     > effect_parser_rule;
 
     /** Returns a const reference to the Effect parser. */
-    const effect_parser_rule& effect_parser();
+    effect_parser_rule& effect_parser();
 
 }
 

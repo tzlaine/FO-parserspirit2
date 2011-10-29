@@ -474,7 +474,7 @@ namespace {
 
 namespace parse {
 
-    const effect_parser_rule& effect_parser()
+    effect_parser_rule& effect_parser()
     {
         static effect_parser_rules retval;
         return retval.start;

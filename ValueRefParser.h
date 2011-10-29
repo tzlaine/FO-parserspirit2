@@ -22,31 +22,31 @@ namespace parse {
 
     /** Returns a const reference to the ValueRef parser for the type \a T. */
     template <typename T>
-    const typename value_ref_parser_rule<T>::type& value_ref_parser();
+    typename value_ref_parser_rule<T>::type& value_ref_parser();
 
     template <>
-    const value_ref_parser_rule<int>::type& value_ref_parser<int>();
+    value_ref_parser_rule<int>::type& value_ref_parser<int>();
 
     template <>
-    const value_ref_parser_rule<double>::type& value_ref_parser<double>();
+    value_ref_parser_rule<double>::type& value_ref_parser<double>();
 
     template <>
-    const value_ref_parser_rule<std::string>::type& value_ref_parser<std::string>();
+    value_ref_parser_rule<std::string>::type& value_ref_parser<std::string>();
 
     template <>
-    const value_ref_parser_rule<PlanetSize>::type& value_ref_parser<PlanetSize>();
+    value_ref_parser_rule<PlanetSize>::type& value_ref_parser<PlanetSize>();
 
     template <>
-    const value_ref_parser_rule<PlanetType>::type& value_ref_parser<PlanetType>();
+    value_ref_parser_rule<PlanetType>::type& value_ref_parser<PlanetType>();
 
     template <>
-    const value_ref_parser_rule<PlanetEnvironment>::type& value_ref_parser<PlanetEnvironment>();
+    value_ref_parser_rule<PlanetEnvironment>::type& value_ref_parser<PlanetEnvironment>();
 
     template <>
-    const value_ref_parser_rule<UniverseObjectType>::type& value_ref_parser<UniverseObjectType>();
+    value_ref_parser_rule<UniverseObjectType>::type& value_ref_parser<UniverseObjectType>();
 
     template <>
-    const value_ref_parser_rule<StarType>::type& value_ref_parser<StarType>();
+    value_ref_parser_rule<StarType>::type& value_ref_parser<StarType>();
 
 }
 

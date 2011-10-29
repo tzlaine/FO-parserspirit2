@@ -44,11 +44,17 @@ namespace {
                     |    statistic
                     ;
 
-                NAME(final_token);
-                NAME(constant);
-                NAME(variable);
-                NAME(statistic);
-                NAME(primary_expr);
+                final_token.name("ObjectType variable name (e.g., ObjectType)");
+                constant.name("ObjectType");
+                variable.name("ObjectType variable");
+                statistic.name("ObjectType statistic");
+                primary_expr.name("ObjectType expression");
+
+                DEBUG_RULE(final_token);
+                DEBUG_RULE(constant);
+                DEBUG_RULE(variable);
+                DEBUG_RULE(statistic);
+                DEBUG_RULE(primary_expr);
             }
 
         typedef parse::value_ref_parser_rule<UniverseObjectType>::type rule;
@@ -68,9 +74,9 @@ namespace {
 namespace parse {
 
     template <>
-    const value_ref_parser_rule<UniverseObjectType>::type& value_ref_parser<UniverseObjectType>()
+    value_ref_parser_rule<UniverseObjectType>::type& value_ref_parser<UniverseObjectType>()
     {
-        static const universe_object_type_parser_rules retval;
+        static universe_object_type_parser_rules retval;
         return retval.primary_expr;
     }
 

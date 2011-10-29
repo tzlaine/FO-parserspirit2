@@ -13,7 +13,7 @@ namespace {
 namespace parse {
 
     template <>
-    const enum_parser_rule<PlanetSize>::type& enum_parser<PlanetSize>()
+    enum_parser_rule<PlanetSize>::type& enum_parser<PlanetSize>()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<PlanetSize>::type retval
@@ -26,7 +26,7 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<PlanetType>::type& enum_parser<PlanetType>()
+    enum_parser_rule<PlanetType>::type& enum_parser<PlanetType>()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<PlanetType>::type retval
@@ -39,7 +39,7 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<PlanetEnvironment>::type& enum_parser<PlanetEnvironment>()
+    enum_parser_rule<PlanetEnvironment>::type& enum_parser<PlanetEnvironment>()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<PlanetEnvironment>::type retval
@@ -50,7 +50,7 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<UniverseObjectType>::type& enum_parser<UniverseObjectType>()
+    enum_parser_rule<UniverseObjectType>::type& enum_parser<UniverseObjectType>()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<UniverseObjectType>::type retval
@@ -65,7 +65,7 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<StarType>::type& enum_parser<StarType>()
+    enum_parser_rule<StarType>::type& enum_parser<StarType>()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<StarType>::type retval
@@ -76,7 +76,7 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<MeterType>::type& enum_parser<MeterType>()
+    enum_parser_rule<MeterType>::type& enum_parser<MeterType>()
     {
         static enum_parser_rule<MeterType>::type retval
             =    non_ship_part_meter_type_enum() [ _val = _1 ]
@@ -87,7 +87,7 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<EmpireAffiliationType>::type& enum_parser<EmpireAffiliationType>()
+    enum_parser_rule<EmpireAffiliationType>::type& enum_parser<EmpireAffiliationType>()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<EmpireAffiliationType>::type retval
@@ -98,7 +98,7 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<UnlockableItemType>::type& enum_parser<UnlockableItemType>()
+    enum_parser_rule<UnlockableItemType>::type& enum_parser<UnlockableItemType>()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<UnlockableItemType>::type retval
@@ -112,7 +112,7 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<TechType>::type& enum_parser<TechType>()
+    enum_parser_rule<TechType>::type& enum_parser<TechType>()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<TechType>::type retval
@@ -123,7 +123,7 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<ShipSlotType>::type& enum_parser<ShipSlotType>()
+    enum_parser_rule<ShipSlotType>::type& enum_parser<ShipSlotType>()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<ShipSlotType>::type retval
@@ -134,7 +134,7 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<ShipPartClass>::type& enum_parser<ShipPartClass>()
+    enum_parser_rule<ShipPartClass>::type& enum_parser<ShipPartClass>()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<ShipPartClass>::type retval
@@ -152,7 +152,7 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<CombatFighterType>::type& enum_parser<CombatFighterType>()
+    enum_parser_rule<CombatFighterType>::type& enum_parser<CombatFighterType>()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<CombatFighterType>::type retval
@@ -163,7 +163,7 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<CaptureResult>::type& enum_parser<CaptureResult>()
+    enum_parser_rule<CaptureResult>::type& enum_parser<CaptureResult>()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<CaptureResult>::type retval
@@ -175,7 +175,7 @@ namespace parse {
     }
 
     template <>
-    const enum_parser_rule<ValueRef::StatisticType>::type& enum_parser<ValueRef::StatisticType>()
+    enum_parser_rule<ValueRef::StatisticType>::type& enum_parser<ValueRef::StatisticType>()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<ValueRef::StatisticType>::type retval
@@ -186,7 +186,7 @@ namespace parse {
         return retval;
     }
 
-    const enum_parser_rule<MeterType>::type& non_ship_part_meter_type_enum()
+    enum_parser_rule<MeterType>::type& non_ship_part_meter_type_enum()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<MeterType>::type retval
@@ -231,7 +231,7 @@ namespace parse {
         return retval;
     }
 
-    const enum_parser_rule<MeterType>::type& ship_part_meter_type_enum()
+    enum_parser_rule<MeterType>::type& ship_part_meter_type_enum()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<MeterType>::type retval

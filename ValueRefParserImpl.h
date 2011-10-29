@@ -15,9 +15,9 @@ namespace phoenix = boost::phoenix;
 
 #define DEBUG_VALUEREF_PARSE 0
 #if DEBUG_VALUEREF_PARSE
-#define NAME(x) x.name(#x); debug(x)
+#define DEBUG_RULE(x) debug(x)
 #else
-#define NAME(x) x.name(#x)
+#define DEBUG_RULE(x)
 #endif
 
 // These are just here to satisfy the requirements of qi::debug(<rule>).

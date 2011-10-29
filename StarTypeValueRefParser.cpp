@@ -43,11 +43,17 @@ namespace {
                     |    statistic
                     ;
 
-                NAME(final_token);
-                NAME(constant);
-                NAME(variable);
-                NAME(statistic);
-                NAME(primary_expr);
+                final_token.name("StarType variable name (e.g., StarType)");
+                constant.name("StarType");
+                variable.name("StarType variable");
+                statistic.name("StarType statistic");
+                primary_expr.name("StarType expression");
+
+                DEBUG_RULE(final_token);
+                DEBUG_RULE(constant);
+                DEBUG_RULE(variable);
+                DEBUG_RULE(statistic);
+                DEBUG_RULE(primary_expr);
             }
 
         typedef parse::value_ref_parser_rule<StarType>::type rule;
@@ -67,9 +73,9 @@ namespace {
 namespace parse {
 
     template <>
-    const value_ref_parser_rule<StarType>::type& value_ref_parser<StarType>()
+    value_ref_parser_rule<StarType>::type& value_ref_parser<StarType>()
     {
-        static const star_type_parser_rules retval;
+        static star_type_parser_rules retval;
         return retval.primary_expr;
     }
 

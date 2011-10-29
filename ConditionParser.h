@@ -19,7 +19,7 @@ namespace parse {
     > condition_parser_rule;
 
     /** Returns a const reference to the Condition parser. */
-    const condition_parser_rule& condition_parser();
+    condition_parser_rule& condition_parser();
 
 }
 

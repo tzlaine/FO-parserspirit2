@@ -100,16 +100,27 @@ namespace {
                     |    statistic
                     ;
 
-                NAME(final_token);
-                NAME(constant);
-                NAME(variable);
-                NAME(statistic);
-                NAME(int_statistic);
-                NAME(negate_expr);
-                NAME(multiplicative_expr);
-                NAME(additive_expr);
-                NAME(expr);
-                NAME(primary_expr);
+                final_token.name("real number variable name (e.g., Farming)");
+                constant.name("real number");
+                variable.name("real number variable");
+                statistic.name("real number statistic");
+                int_statistic.name("integer statistic");
+                negate_expr.name("real number or real number expression");
+                multiplicative_expr.name("real number or real number expression");
+                additive_expr.name("real number or real number expression");
+                expr.name("real number expression");
+                primary_expr.name("real number expression");
+
+                DEBUG_RULE(final_token);
+                DEBUG_RULE(constant);
+                DEBUG_RULE(variable);
+                DEBUG_RULE(statistic);
+                DEBUG_RULE(int_statistic);
+                DEBUG_RULE(negate_expr);
+                DEBUG_RULE(multiplicative_expr);
+                DEBUG_RULE(additive_expr);
+                DEBUG_RULE(expr);
+                DEBUG_RULE(primary_expr);
             }
 
         typedef parse::value_ref_parser_rule<double>::type rule;
@@ -147,7 +158,7 @@ const statistic_rule<double>::type& double_var_statistic()
 namespace parse {
 
     template <>
-    const value_ref_parser_rule<double>::type& value_ref_parser<double>()
+    value_ref_parser_rule<double>::type& value_ref_parser<double>()
     { return get_double_parser_rules().expr; }
 
 }

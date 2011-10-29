@@ -16,7 +16,7 @@
 
 void print_help()
 {
-    std::cout << "Usage: test lexer|planet_size_enum_parser|planet_type_enum_parser|planet_environment_enum_parser|universe_object_type_enum_parser|star_type_enum_parser|meter_type_enum_parser|non_ship_part_meter_type_enum_parser|ship_part_meter_type_enum_parser|empire_affiliation_type_enum_parser|unlockable_item_type_enum_parser|tech_type_enum_parser|ship_slot_type_enum_parser|ship_part_class_enum_parser|combat_fighter_type_enum_parser|capture_result_enum_parser|value_ref_statistic_type_enum_parser|int_value_ref_parser|double_value_ref_parser|string_value_ref_parser|planet_size_value_ref_parser|planet_type_value_ref_parser|planet_environment_value_ref_parser|universe_object_type_value_ref_parser|star_type_value_ref_parser|int_value_ref_evaluation|double_value_ref_evaluation|condition_parser|effect_parser|buildings_parser|specials_parser|species_parser|techs_parser|items_parser|ship_parts_parser|ship_hulls_parser|ship_designs_parser|fleet_plans_parser|monster_fleet_plans_parser|alignments_parser <-f filename>|<test string>" << std::endl;
+    std::cout << "Usage: test lexer|planet_size_enum_parser|planet_type_enum_parser|planet_environment_enum_parser|universe_object_type_enum_parser|star_type_enum_parser|meter_type_enum_parser|non_ship_part_meter_type_enum_parser|ship_part_meter_type_enum_parser|empire_affiliation_type_enum_parser|unlockable_item_type_enum_parser|tech_type_enum_parser|ship_slot_type_enum_parser|ship_part_class_enum_parser|combat_fighter_type_enum_parser|capture_result_enum_parser|value_ref_statistic_type_enum_parser|int_value_ref_parser|double_value_ref_parser|string_value_ref_parser|planet_size_value_ref_parser|planet_type_value_ref_parser|planet_environment_value_ref_parser|universe_object_type_value_ref_parser|star_type_value_ref_parser|int_value_ref_evaluation|double_value_ref_evaluation|condition_parser|effect_parser|buildings_parser|specials_parser|species_parser|techs_parser|items_parser|ship_parts_parser|ship_hulls_parser|ship_designs_parser|fleet_plans_parser|monster_fleet_plans_parser|alignments_parser <-f filename>|<test string> --fail" << std::endl;
 }
 
 int main(int argc, char* argv[])
@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
     }
 
     std::string str;
-    if (argc == 4) {
+    if (4 <= argc && argc <= 5) {
         if (std::string(argv[2]) != "-f") {
             print_help();
             exit(1);
@@ -95,6 +95,8 @@ int main(int argc, char* argv[])
     } else {
         str = argv[2];
     }
+
+    const bool fail = argc == 5 && argv[4] == std::string("--fail");
 
     const parse::lexer& l = parse::lexer::instance();
 
@@ -185,6 +187,46 @@ int main(int argc, char* argv[])
                                 boost::algorithm::is_any_of("\n\r"),
                                 boost::algorithm::token_compress_on);
 
+        lexer_test_rules lexer_rules;
+
+        boost::spirit::qi::_1_type _1;
+        boost::spirit::qi::_2_type _2;
+        boost::spirit::qi::_3_type _3;
+        boost::spirit::qi::_4_type _4;
+
+        switch (test) {
+        case lexer: boost::spirit::qi::on_error<boost::spirit::qi::fail>(lexer_rules.lexer, parse::report_error(_1, _2, _3, _4)); break;
+        case planet_size_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::enum_parser<PlanetSize>(), parse::report_error(_1, _2, _3, _4)); break;
+        case planet_type_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::enum_parser<PlanetType>(), parse::report_error(_1, _2, _3, _4)); break;
+        case planet_environment_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::enum_parser<PlanetEnvironment>(), parse::report_error(_1, _2, _3, _4)); break;
+        case universe_object_type_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::enum_parser<UniverseObjectType>(), parse::report_error(_1, _2, _3, _4)); break;
+        case star_type_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::enum_parser<StarType>(), parse::report_error(_1, _2, _3, _4)); break;
+        case meter_type_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::enum_parser<MeterType>(), parse::report_error(_1, _2, _3, _4)); break;
+        case non_ship_part_meter_type_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::non_ship_part_meter_type_enum(), parse::report_error(_1, _2, _3, _4)); break;
+        case ship_part_meter_type_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::ship_part_meter_type_enum(), parse::report_error(_1, _2, _3, _4)); break;
+        case empire_affiliation_type_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::enum_parser<UnlockableItemType>(), parse::report_error(_1, _2, _3, _4)); break;
+        case unlockable_item_type_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::enum_parser<UnlockableItemType>(), parse::report_error(_1, _2, _3, _4)); break;
+        case tech_type_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::enum_parser<TechType>(), parse::report_error(_1, _2, _3, _4)); break;
+        case ship_slot_type_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::enum_parser<ShipSlotType>(), parse::report_error(_1, _2, _3, _4)); break;
+        case ship_part_class_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::enum_parser<ShipPartClass>(), parse::report_error(_1, _2, _3, _4)); break;
+        case combat_fighter_type_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::enum_parser<CombatFighterType>(), parse::report_error(_1, _2, _3, _4)); break;
+        case capture_result_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::enum_parser<CaptureResult>(), parse::report_error(_1, _2, _3, _4)); break;
+        case value_ref_statistic_type_enum_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::enum_parser<ValueRef::StatisticType>(), parse::report_error(_1, _2, _3, _4)); break;
+        case int_value_ref_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::value_ref_parser<int>(), parse::report_error(_1, _2, _3, _4)); break;
+        case double_value_ref_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::value_ref_parser<double>(), parse::report_error(_1, _2, _3, _4)); break;
+        case string_value_ref_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::value_ref_parser<std::string>(), parse::report_error(_1, _2, _3, _4)); break;
+        case planet_size_value_ref_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::value_ref_parser<PlanetSize>(), parse::report_error(_1, _2, _3, _4)); break;
+        case planet_type_value_ref_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::value_ref_parser<PlanetType>(), parse::report_error(_1, _2, _3, _4)); break;
+        case planet_environment_value_ref_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::value_ref_parser<PlanetEnvironment>(), parse::report_error(_1, _2, _3, _4)); break;
+        case universe_object_type_value_ref_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::value_ref_parser<UniverseObjectType>(), parse::report_error(_1, _2, _3, _4)); break;
+        case star_type_value_ref_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::value_ref_parser<StarType>(), parse::report_error(_1, _2, _3, _4)); break;
+        case int_value_ref_evaluation: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::value_ref_parser<int>(), parse::report_error(_1, _2, _3, _4)); break;
+        case double_value_ref_evaluation: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::value_ref_parser<double>(), parse::report_error(_1, _2, _3, _4)); break;
+        case condition_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::condition_parser(), parse::report_error(_1, _2, _3, _4)); break;
+        case effect_parser: boost::spirit::qi::on_error<boost::spirit::qi::fail>(parse::effect_parser(), parse::report_error(_1, _2, _3, _4)); break;
+        default: break;
+        }
+
         for (std::size_t i = 0; i < strings.size(); ++i) {
             const std::string& string = strings[i];
             if (string.empty())
@@ -200,6 +242,7 @@ int main(int argc, char* argv[])
 
             bool success = false;
 
+            GG::detail::s_text_it = &first;
             GG::detail::s_begin = first;
             GG::detail::s_end = last;
             GG::detail::s_filename = argc == 4 ? argv[3] : "command-line";
@@ -211,8 +254,7 @@ int main(int argc, char* argv[])
             try {
                 switch (test) {
                 case lexer: {
-                    lexer_test_rules rules;
-                    success = boost::spirit::qi::phrase_parse(it, end_it, rules.lexer, in_state("WS")[l.self]);
+                    success = boost::spirit::qi::phrase_parse(it, end_it, lexer_rules.lexer, in_state("WS")[l.self]);
                     break;
                 }
                 case planet_size_enum_parser: {
@@ -350,10 +392,17 @@ int main(int argc, char* argv[])
                 }
 
                 if (success && it == end_it) {
-                    if (test != int_value_ref_evaluation && test != double_value_ref_evaluation)
-                        std::cout <<  "Successful parse." << std::endl;
+                    if (test != int_value_ref_evaluation && test != double_value_ref_evaluation) {
+                        if (fail)
+                            std::cout <<  "Successful parse of \"" << string << "\" (that's bad -- it should fail)." << std::endl;
+                        else
+                            std::cout <<  "Successful parse." << std::endl;
+                    }
                 } else {
-                    std::cout <<  "Failed parse of \"" << string << "\"." << std::endl;
+                    if (fail)
+                        std::cout <<  "Failed parse, as expected." << std::endl;
+                    else
+                        std::cout <<  "Failed parse of \"" << string << "\"." << std::endl;
                     ++failures;
                 }
             } catch (const boost::spirit::qi::expectation_failure<parse::token_iterator>&) {
@@ -364,11 +413,18 @@ int main(int argc, char* argv[])
     }
 
     if (1u < strings.size()) {
-        if (failures)
-            std::cout << failures << " failures total." << std::endl;
-        else
-            std::cout << "All parses successful." << std::endl;
+        if (fail) {
+            if (failures != strings.size())
+                std::cout << (strings.size() - failures) << " successful parses total (that's bad -- all should fail)." << std::endl;
+            else
+                std::cout << "All parses failed, as expected." << std::endl;
+        } else {
+            if (failures)
+                std::cout << failures << " failures total." << std::endl;
+            else
+                std::cout << "All parses successful." << std::endl;
+        }
     }
 
-    return failures;
+    return fail ? failures != strings.size() : failures;
 }

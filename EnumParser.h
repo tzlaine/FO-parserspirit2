@@ -19,55 +19,55 @@ namespace parse {
         > type;
     };
 
-    /** Returns a const reference to the parser for the enum \a E. */
+    /** Returns a reference to the parser for the enum \a E. */
     template <typename E>
-    const typename enum_parser_rule<E>::type& enum_parser();
+    typename enum_parser_rule<E>::type& enum_parser();
 
     template <>
-    const enum_parser_rule<PlanetSize>::type& enum_parser<PlanetSize>();
+    enum_parser_rule<PlanetSize>::type& enum_parser<PlanetSize>();
 
     template <>
-    const enum_parser_rule<PlanetType>::type& enum_parser<PlanetType>();
+    enum_parser_rule<PlanetType>::type& enum_parser<PlanetType>();
 
     template <>
-    const enum_parser_rule<PlanetEnvironment>::type& enum_parser<PlanetEnvironment>();
+    enum_parser_rule<PlanetEnvironment>::type& enum_parser<PlanetEnvironment>();
 
     template <>
-    const enum_parser_rule<UniverseObjectType>::type& enum_parser<UniverseObjectType>();
+    enum_parser_rule<UniverseObjectType>::type& enum_parser<UniverseObjectType>();
 
     template <>
-    const enum_parser_rule<StarType>::type& enum_parser<StarType>();
+    enum_parser_rule<StarType>::type& enum_parser<StarType>();
 
     template <>
-    const enum_parser_rule<MeterType>::type& enum_parser<MeterType>();
+    enum_parser_rule<MeterType>::type& enum_parser<MeterType>();
 
     template <>
-    const enum_parser_rule<EmpireAffiliationType>::type& enum_parser<EmpireAffiliationType>();
+    enum_parser_rule<EmpireAffiliationType>::type& enum_parser<EmpireAffiliationType>();
 
     template <>
-    const enum_parser_rule<UnlockableItemType>::type& enum_parser<UnlockableItemType>();
+    enum_parser_rule<UnlockableItemType>::type& enum_parser<UnlockableItemType>();
 
     template <>
-    const enum_parser_rule<TechType>::type& enum_parser<TechType>();
+    enum_parser_rule<TechType>::type& enum_parser<TechType>();
 
     template <>
-    const enum_parser_rule<ShipSlotType>::type& enum_parser<ShipSlotType>();
+    enum_parser_rule<ShipSlotType>::type& enum_parser<ShipSlotType>();
 
     template <>
-    const enum_parser_rule<ShipPartClass>::type& enum_parser<ShipPartClass>();
+    enum_parser_rule<ShipPartClass>::type& enum_parser<ShipPartClass>();
 
     template <>
-    const enum_parser_rule<CombatFighterType>::type& enum_parser<CombatFighterType>();
+    enum_parser_rule<CombatFighterType>::type& enum_parser<CombatFighterType>();
 
     template <>
-    const enum_parser_rule<CaptureResult>::type& enum_parser<CaptureResult>();
+    enum_parser_rule<CaptureResult>::type& enum_parser<CaptureResult>();
 
     template <>
-    const enum_parser_rule<ValueRef::StatisticType>::type& enum_parser<ValueRef::StatisticType>();
+    enum_parser_rule<ValueRef::StatisticType>::type& enum_parser<ValueRef::StatisticType>();
 
-    const enum_parser_rule<MeterType>::type& non_ship_part_meter_type_enum();
+    enum_parser_rule<MeterType>::type& non_ship_part_meter_type_enum();
 
-    const enum_parser_rule<MeterType>::type& ship_part_meter_type_enum();
+    enum_parser_rule<MeterType>::type& ship_part_meter_type_enum();
 
 }
 

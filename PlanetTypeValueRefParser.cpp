@@ -44,11 +44,17 @@ namespace {
                     |    statistic
                     ;
 
-                NAME(final_token);
-                NAME(constant);
-                NAME(variable);
-                NAME(statistic);
-                NAME(primary_expr);
+                final_token.name("PlanetType variable name (e.g., PlanetType)");
+                constant.name("PlanetType");
+                variable.name("PlanetType variable");
+                statistic.name("PlanetType statistic");
+                primary_expr.name("PlanetType expression");
+
+                DEBUG_RULE(final_token);
+                DEBUG_RULE(constant);
+                DEBUG_RULE(variable);
+                DEBUG_RULE(statistic);
+                DEBUG_RULE(primary_expr);
             }
 
         typedef parse::value_ref_parser_rule<PlanetType>::type rule;
@@ -68,9 +74,9 @@ namespace {
 namespace parse {
 
     template <>
-    const value_ref_parser_rule<PlanetType>::type& value_ref_parser<PlanetType>()
+    value_ref_parser_rule<PlanetType>::type& value_ref_parser<PlanetType>()
     {
-        static const planet_type_parser_rules retval;
+        static planet_type_parser_rules retval;
         return retval.primary_expr;
     }
 
