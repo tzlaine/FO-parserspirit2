@@ -7,7 +7,7 @@ import sys
 
 lines = open(sys.argv[1]).readlines()
 
-all_partial_lines = []
+all_partial_lines = set([])
 partial_line = ""
 for i in range(0, len(lines)):
     line = lines[i]
@@ -20,6 +20,6 @@ for i in range(0, len(lines)):
             partial_line = line[0:-1]
         else:
             partial_line += ' ' + line[0:-1]
-        if "Successful parse." not in lines[i + 1] and "All parses successful." not in lines[i + 1] and partial_line not in all_partial_lines:
+        if not "Successful parse." in lines[i + 1] and not "All parses successful." in lines[i + 1] and not partial_line in all_partial_lines:
             print partial_line
-            all_partial_lines += partial_line
+            all_partial_lines.add(partial_line)
