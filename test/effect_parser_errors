@@ -1,0 +1,1888 @@
+Set
+Set TargetPopulation
+Set TargetPopulation Value =
+Set TargetHealth
+Set TargetHealth Value =
+Set TargetFarming
+Set TargetFarming Value =
+Set TargetIndustry
+Set TargetIndustry Value =
+Set TargetResearch
+Set TargetResearch Value =
+Set TargetTrade
+Set TargetTrade Value =
+Set TargetMining
+Set TargetMining Value =
+Set TargetConstruction
+Set TargetConstruction Value =
+Set MaxFuel
+Set MaxFuel Value =
+Set MaxShield
+Set MaxShield Value =
+Set MaxStructure
+Set MaxStructure Value =
+Set MaxDefense
+Set MaxDefense Value =
+Set MaxTroops
+Set MaxTroops Value =
+Set Population
+Set Population Value =
+Set Health
+Set Health Value =
+Set Farming
+Set Farming Value =
+Set Industry
+Set Industry Value =
+Set Research
+Set Research Value =
+Set Trade
+Set Trade Value =
+Set Mining
+Set Mining Value =
+Set Construction
+Set Construction Value =
+Set Fuel
+Set Fuel Value =
+Set Shield
+Set Shield Value =
+Set Structure
+Set Structure Value =
+Set Defense
+Set Defense Value =
+Set Troops
+Set Troops Value =
+Set FoodConsumption
+Set FoodConsumption Value =
+Set Supply
+Set Supply Value =
+Set Stealth
+Set Stealth Value =
+Set Detection
+Set Detection Value =
+Set BattleSpeed
+Set BattleSpeed Value =
+Set StarlaneSpeed
+Set StarlaneSpeed Value =
+Set Damage
+Set Damage PartClass
+Set Damage PartClass =
+Set Damage PartClass = Missiles
+Set Damage PartClass = Missiles Value =
+Set Damage PartClass = Missiles Value = 1.0
+Set Damage PartClass = Missiles Value = 1.0 SlotType
+Set Damage PartClass = Missiles Value = 1.0 SlotType =
+Set Damage PartClass = Missiles 1.0
+Set Damage PartClass = Missiles 1.0 SlotType
+Set Damage PartClass = Missiles 1.0 SlotType =
+Set Damage Missiles
+Set Damage Missiles Value =
+Set Damage Missiles Value = 1.0
+Set Damage Missiles Value = 1.0 SlotType
+Set Damage Missiles Value = 1.0 SlotType =
+Set Damage Missiles 1.0
+Set Damage Missiles 1.0 SlotType
+Set Damage Missiles 1.0 SlotType =
+Set ROF
+Set ROF PartClass
+Set ROF PartClass =
+Set ROF PartClass = Missiles
+Set ROF PartClass = Missiles Value =
+Set ROF PartClass = Missiles Value = 1.0
+Set ROF PartClass = Missiles Value = 1.0 SlotType
+Set ROF PartClass = Missiles Value = 1.0 SlotType =
+Set ROF PartClass = Missiles 1.0
+Set ROF PartClass = Missiles 1.0 SlotType
+Set ROF PartClass = Missiles 1.0 SlotType =
+Set ROF Missiles
+Set ROF Missiles Value =
+Set ROF Missiles Value = 1.0
+Set ROF Missiles Value = 1.0 SlotType
+Set ROF Missiles Value = 1.0 SlotType =
+Set ROF Missiles 1.0
+Set ROF Missiles 1.0 SlotType
+Set ROF Missiles 1.0 SlotType =
+Set Range
+Set Range PartClass
+Set Range PartClass =
+Set Range PartClass = Missiles
+Set Range PartClass = Missiles Value =
+Set Range PartClass = Missiles Value = 1.0
+Set Range PartClass = Missiles Value = 1.0 SlotType
+Set Range PartClass = Missiles Value = 1.0 SlotType =
+Set Range PartClass = Missiles 1.0
+Set Range PartClass = Missiles 1.0 SlotType
+Set Range PartClass = Missiles 1.0 SlotType =
+Set Range Missiles
+Set Range Missiles Value =
+Set Range Missiles Value = 1.0
+Set Range Missiles Value = 1.0 SlotType
+Set Range Missiles Value = 1.0 SlotType =
+Set Range Missiles 1.0
+Set Range Missiles 1.0 SlotType
+Set Range Missiles 1.0 SlotType =
+Set Speed
+Set Speed PartClass
+Set Speed PartClass =
+Set Speed PartClass = Missiles
+Set Speed PartClass = Missiles Value =
+Set Speed PartClass = Missiles Value = 1.0
+Set Speed PartClass = Missiles Value = 1.0 SlotType
+Set Speed PartClass = Missiles Value = 1.0 SlotType =
+Set Speed PartClass = Missiles 1.0
+Set Speed PartClass = Missiles 1.0 SlotType
+Set Speed PartClass = Missiles 1.0 SlotType =
+Set Speed Missiles
+Set Speed Missiles Value =
+Set Speed Missiles Value = 1.0
+Set Speed Missiles Value = 1.0 SlotType
+Set Speed Missiles Value = 1.0 SlotType =
+Set Speed Missiles 1.0
+Set Speed Missiles 1.0 SlotType
+Set Speed Missiles 1.0 SlotType =
+Set Capacity
+Set Capacity PartClass
+Set Capacity PartClass =
+Set Capacity PartClass = Missiles
+Set Capacity PartClass = Missiles Value =
+Set Capacity PartClass = Missiles Value = 1.0
+Set Capacity PartClass = Missiles Value = 1.0 SlotType
+Set Capacity PartClass = Missiles Value = 1.0 SlotType =
+Set Capacity PartClass = Missiles 1.0
+Set Capacity PartClass = Missiles 1.0 SlotType
+Set Capacity PartClass = Missiles 1.0 SlotType =
+Set Capacity Missiles
+Set Capacity Missiles Value =
+Set Capacity Missiles Value = 1.0
+Set Capacity Missiles Value = 1.0 SlotType
+Set Capacity Missiles Value = 1.0 SlotType =
+Set Capacity Missiles 1.0
+Set Capacity Missiles 1.0 SlotType
+Set Capacity Missiles 1.0 SlotType =
+Set AntiShipDamage
+Set AntiShipDamage PartClass
+Set AntiShipDamage PartClass =
+Set AntiShipDamage PartClass = Missiles
+Set AntiShipDamage PartClass = Missiles Value =
+Set AntiShipDamage PartClass = Missiles Value = 1.0
+Set AntiShipDamage PartClass = Missiles Value = 1.0 SlotType
+Set AntiShipDamage PartClass = Missiles Value = 1.0 SlotType =
+Set AntiShipDamage PartClass = Missiles 1.0
+Set AntiShipDamage PartClass = Missiles 1.0 SlotType
+Set AntiShipDamage PartClass = Missiles 1.0 SlotType =
+Set AntiShipDamage Missiles
+Set AntiShipDamage Missiles Value =
+Set AntiShipDamage Missiles Value = 1.0
+Set AntiShipDamage Missiles Value = 1.0 SlotType
+Set AntiShipDamage Missiles Value = 1.0 SlotType =
+Set AntiShipDamage Missiles 1.0
+Set AntiShipDamage Missiles 1.0 SlotType
+Set AntiShipDamage Missiles 1.0 SlotType =
+Set AntiFighterDamage
+Set AntiFighterDamage PartClass
+Set AntiFighterDamage PartClass =
+Set AntiFighterDamage PartClass = Missiles
+Set AntiFighterDamage PartClass = Missiles Value =
+Set AntiFighterDamage PartClass = Missiles Value = 1.0
+Set AntiFighterDamage PartClass = Missiles Value = 1.0 SlotType
+Set AntiFighterDamage PartClass = Missiles Value = 1.0 SlotType =
+Set AntiFighterDamage PartClass = Missiles 1.0
+Set AntiFighterDamage PartClass = Missiles 1.0 SlotType
+Set AntiFighterDamage PartClass = Missiles 1.0 SlotType =
+Set AntiFighterDamage Missiles
+Set AntiFighterDamage Missiles Value =
+Set AntiFighterDamage Missiles Value = 1.0
+Set AntiFighterDamage Missiles Value = 1.0 SlotType
+Set AntiFighterDamage Missiles Value = 1.0 SlotType =
+Set AntiFighterDamage Missiles 1.0
+Set AntiFighterDamage Missiles 1.0 SlotType
+Set AntiFighterDamage Missiles 1.0 SlotType =
+Set LaunchRate
+Set LaunchRate PartClass
+Set LaunchRate PartClass =
+Set LaunchRate PartClass = Missiles
+Set LaunchRate PartClass = Missiles Value =
+Set LaunchRate PartClass = Missiles Value = 1.0
+Set LaunchRate PartClass = Missiles Value = 1.0 SlotType
+Set LaunchRate PartClass = Missiles Value = 1.0 SlotType =
+Set LaunchRate PartClass = Missiles 1.0
+Set LaunchRate PartClass = Missiles 1.0 SlotType
+Set LaunchRate PartClass = Missiles 1.0 SlotType =
+Set LaunchRate Missiles
+Set LaunchRate Missiles Value =
+Set LaunchRate Missiles Value = 1.0
+Set LaunchRate Missiles Value = 1.0 SlotType
+Set LaunchRate Missiles Value = 1.0 SlotType =
+Set LaunchRate Missiles 1.0
+Set LaunchRate Missiles 1.0 SlotType
+Set LaunchRate Missiles 1.0 SlotType =
+Set FighterWeaponRange
+Set FighterWeaponRange PartClass
+Set FighterWeaponRange PartClass =
+Set FighterWeaponRange PartClass = Missiles
+Set FighterWeaponRange PartClass = Missiles Value =
+Set FighterWeaponRange PartClass = Missiles Value = 1.0
+Set FighterWeaponRange PartClass = Missiles Value = 1.0 SlotType
+Set FighterWeaponRange PartClass = Missiles Value = 1.0 SlotType =
+Set FighterWeaponRange PartClass = Missiles 1.0
+Set FighterWeaponRange PartClass = Missiles 1.0 SlotType
+Set FighterWeaponRange PartClass = Missiles 1.0 SlotType =
+Set FighterWeaponRange Missiles
+Set FighterWeaponRange Missiles Value =
+Set FighterWeaponRange Missiles Value = 1.0
+Set FighterWeaponRange Missiles Value = 1.0 SlotType
+Set FighterWeaponRange Missiles Value = 1.0 SlotType =
+Set FighterWeaponRange Missiles 1.0
+Set FighterWeaponRange Missiles 1.0 SlotType
+Set FighterWeaponRange Missiles 1.0 SlotType =
+Set Stealth PartClass
+Set Stealth PartClass =
+Set Stealth PartClass = Missiles
+Set Stealth PartClass = Missiles Value =
+Set Stealth PartClass = Missiles Value = 1.0
+Set Stealth PartClass = Missiles Value = 1.0 SlotType
+Set Stealth PartClass = Missiles Value = 1.0 SlotType =
+Set Stealth PartClass = Missiles 1.0
+Set Stealth PartClass = Missiles 1.0 SlotType
+Set Stealth PartClass = Missiles 1.0 SlotType =
+Set Stealth Missiles
+Set Stealth Missiles Value =
+Set Stealth Missiles Value = 1.0
+Set Stealth Missiles Value = 1.0 SlotType
+Set Stealth Missiles Value = 1.0 SlotType =
+Set Stealth Missiles 1.0
+Set Stealth Missiles 1.0 SlotType
+Set Stealth Missiles 1.0 SlotType =
+Set Structure PartClass
+Set Structure PartClass =
+Set Structure PartClass = Missiles
+Set Structure PartClass = Missiles Value =
+Set Structure PartClass = Missiles Value = 1.0
+Set Structure PartClass = Missiles Value = 1.0 SlotType
+Set Structure PartClass = Missiles Value = 1.0 SlotType =
+Set Structure PartClass = Missiles 1.0
+Set Structure PartClass = Missiles 1.0 SlotType
+Set Structure PartClass = Missiles 1.0 SlotType =
+Set Structure Missiles
+Set Structure Missiles Value =
+Set Structure Missiles Value = 1.0
+Set Structure Missiles Value = 1.0 SlotType
+Set Structure Missiles Value = 1.0 SlotType =
+Set Structure Missiles 1.0
+Set Structure Missiles 1.0 SlotType
+Set Structure Missiles 1.0 SlotType =
+Set Detection PartClass
+Set Detection PartClass =
+Set Detection PartClass = Missiles
+Set Detection PartClass = Missiles Value =
+Set Detection PartClass = Missiles Value = 1.0
+Set Detection PartClass = Missiles Value = 1.0 SlotType
+Set Detection PartClass = Missiles Value = 1.0 SlotType =
+Set Detection PartClass = Missiles 1.0
+Set Detection PartClass = Missiles 1.0 SlotType
+Set Detection PartClass = Missiles 1.0 SlotType =
+Set Detection Missiles
+Set Detection Missiles Value =
+Set Detection Missiles Value = 1.0
+Set Detection Missiles Value = 1.0 SlotType
+Set Detection Missiles Value = 1.0 SlotType =
+Set Detection Missiles 1.0
+Set Detection Missiles 1.0 SlotType
+Set Detection Missiles 1.0 SlotType =
+Set Damage FighterType
+Set Damage FighterType =
+Set Damage FighterType = Bomber
+Set Damage FighterType = Bomber Value =
+Set Damage FighterType = Bomber Value = 1.0
+Set Damage FighterType = Bomber Value = 1.0 SlotType
+Set Damage FighterType = Bomber Value = 1.0 SlotType =
+Set Damage FighterType = Bomber 1.0
+Set Damage FighterType = Bomber 1.0 SlotType
+Set Damage FighterType = Bomber 1.0 SlotType =
+Set Damage Bomber
+Set Damage Bomber Value =
+Set Damage Bomber Value = 1.0
+Set Damage Bomber Value = 1.0 SlotType
+Set Damage Bomber Value = 1.0 SlotType =
+Set Damage Bomber 1.0
+Set Damage Bomber 1.0 SlotType
+Set Damage Bomber 1.0 SlotType =
+Set ROF FighterType
+Set ROF FighterType =
+Set ROF FighterType = Bomber
+Set ROF FighterType = Bomber Value =
+Set ROF FighterType = Bomber Value = 1.0
+Set ROF FighterType = Bomber Value = 1.0 SlotType
+Set ROF FighterType = Bomber Value = 1.0 SlotType =
+Set ROF FighterType = Bomber 1.0
+Set ROF FighterType = Bomber 1.0 SlotType
+Set ROF FighterType = Bomber 1.0 SlotType =
+Set ROF Bomber
+Set ROF Bomber Value =
+Set ROF Bomber Value = 1.0
+Set ROF Bomber Value = 1.0 SlotType
+Set ROF Bomber Value = 1.0 SlotType =
+Set ROF Bomber 1.0
+Set ROF Bomber 1.0 SlotType
+Set ROF Bomber 1.0 SlotType =
+Set Range FighterType
+Set Range FighterType =
+Set Range FighterType = Bomber
+Set Range FighterType = Bomber Value =
+Set Range FighterType = Bomber Value = 1.0
+Set Range FighterType = Bomber Value = 1.0 SlotType
+Set Range FighterType = Bomber Value = 1.0 SlotType =
+Set Range FighterType = Bomber 1.0
+Set Range FighterType = Bomber 1.0 SlotType
+Set Range FighterType = Bomber 1.0 SlotType =
+Set Range Bomber
+Set Range Bomber Value =
+Set Range Bomber Value = 1.0
+Set Range Bomber Value = 1.0 SlotType
+Set Range Bomber Value = 1.0 SlotType =
+Set Range Bomber 1.0
+Set Range Bomber 1.0 SlotType
+Set Range Bomber 1.0 SlotType =
+Set Speed FighterType
+Set Speed FighterType =
+Set Speed FighterType = Bomber
+Set Speed FighterType = Bomber Value =
+Set Speed FighterType = Bomber Value = 1.0
+Set Speed FighterType = Bomber Value = 1.0 SlotType
+Set Speed FighterType = Bomber Value = 1.0 SlotType =
+Set Speed FighterType = Bomber 1.0
+Set Speed FighterType = Bomber 1.0 SlotType
+Set Speed FighterType = Bomber 1.0 SlotType =
+Set Speed Bomber
+Set Speed Bomber Value =
+Set Speed Bomber Value = 1.0
+Set Speed Bomber Value = 1.0 SlotType
+Set Speed Bomber Value = 1.0 SlotType =
+Set Speed Bomber 1.0
+Set Speed Bomber 1.0 SlotType
+Set Speed Bomber 1.0 SlotType =
+Set Capacity FighterType
+Set Capacity FighterType =
+Set Capacity FighterType = Bomber
+Set Capacity FighterType = Bomber Value =
+Set Capacity FighterType = Bomber Value = 1.0
+Set Capacity FighterType = Bomber Value = 1.0 SlotType
+Set Capacity FighterType = Bomber Value = 1.0 SlotType =
+Set Capacity FighterType = Bomber 1.0
+Set Capacity FighterType = Bomber 1.0 SlotType
+Set Capacity FighterType = Bomber 1.0 SlotType =
+Set Capacity Bomber
+Set Capacity Bomber Value =
+Set Capacity Bomber Value = 1.0
+Set Capacity Bomber Value = 1.0 SlotType
+Set Capacity Bomber Value = 1.0 SlotType =
+Set Capacity Bomber 1.0
+Set Capacity Bomber 1.0 SlotType
+Set Capacity Bomber 1.0 SlotType =
+Set AntiShipDamage FighterType
+Set AntiShipDamage FighterType =
+Set AntiShipDamage FighterType = Bomber
+Set AntiShipDamage FighterType = Bomber Value =
+Set AntiShipDamage FighterType = Bomber Value = 1.0
+Set AntiShipDamage FighterType = Bomber Value = 1.0 SlotType
+Set AntiShipDamage FighterType = Bomber Value = 1.0 SlotType =
+Set AntiShipDamage FighterType = Bomber 1.0
+Set AntiShipDamage FighterType = Bomber 1.0 SlotType
+Set AntiShipDamage FighterType = Bomber 1.0 SlotType =
+Set AntiShipDamage Bomber
+Set AntiShipDamage Bomber Value =
+Set AntiShipDamage Bomber Value = 1.0
+Set AntiShipDamage Bomber Value = 1.0 SlotType
+Set AntiShipDamage Bomber Value = 1.0 SlotType =
+Set AntiShipDamage Bomber 1.0
+Set AntiShipDamage Bomber 1.0 SlotType
+Set AntiShipDamage Bomber 1.0 SlotType =
+Set AntiFighterDamage FighterType
+Set AntiFighterDamage FighterType =
+Set AntiFighterDamage FighterType = Bomber
+Set AntiFighterDamage FighterType = Bomber Value =
+Set AntiFighterDamage FighterType = Bomber Value = 1.0
+Set AntiFighterDamage FighterType = Bomber Value = 1.0 SlotType
+Set AntiFighterDamage FighterType = Bomber Value = 1.0 SlotType =
+Set AntiFighterDamage FighterType = Bomber 1.0
+Set AntiFighterDamage FighterType = Bomber 1.0 SlotType
+Set AntiFighterDamage FighterType = Bomber 1.0 SlotType =
+Set AntiFighterDamage Bomber
+Set AntiFighterDamage Bomber Value =
+Set AntiFighterDamage Bomber Value = 1.0
+Set AntiFighterDamage Bomber Value = 1.0 SlotType
+Set AntiFighterDamage Bomber Value = 1.0 SlotType =
+Set AntiFighterDamage Bomber 1.0
+Set AntiFighterDamage Bomber 1.0 SlotType
+Set AntiFighterDamage Bomber 1.0 SlotType =
+Set LaunchRate FighterType
+Set LaunchRate FighterType =
+Set LaunchRate FighterType = Bomber
+Set LaunchRate FighterType = Bomber Value =
+Set LaunchRate FighterType = Bomber Value = 1.0
+Set LaunchRate FighterType = Bomber Value = 1.0 SlotType
+Set LaunchRate FighterType = Bomber Value = 1.0 SlotType =
+Set LaunchRate FighterType = Bomber 1.0
+Set LaunchRate FighterType = Bomber 1.0 SlotType
+Set LaunchRate FighterType = Bomber 1.0 SlotType =
+Set LaunchRate Bomber
+Set LaunchRate Bomber Value =
+Set LaunchRate Bomber Value = 1.0
+Set LaunchRate Bomber Value = 1.0 SlotType
+Set LaunchRate Bomber Value = 1.0 SlotType =
+Set LaunchRate Bomber 1.0
+Set LaunchRate Bomber 1.0 SlotType
+Set LaunchRate Bomber 1.0 SlotType =
+Set FighterWeaponRange FighterType
+Set FighterWeaponRange FighterType =
+Set FighterWeaponRange FighterType = Bomber
+Set FighterWeaponRange FighterType = Bomber Value =
+Set FighterWeaponRange FighterType = Bomber Value = 1.0
+Set FighterWeaponRange FighterType = Bomber Value = 1.0 SlotType
+Set FighterWeaponRange FighterType = Bomber Value = 1.0 SlotType =
+Set FighterWeaponRange FighterType = Bomber 1.0
+Set FighterWeaponRange FighterType = Bomber 1.0 SlotType
+Set FighterWeaponRange FighterType = Bomber 1.0 SlotType =
+Set FighterWeaponRange Bomber
+Set FighterWeaponRange Bomber Value =
+Set FighterWeaponRange Bomber Value = 1.0
+Set FighterWeaponRange Bomber Value = 1.0 SlotType
+Set FighterWeaponRange Bomber Value = 1.0 SlotType =
+Set FighterWeaponRange Bomber 1.0
+Set FighterWeaponRange Bomber 1.0 SlotType
+Set FighterWeaponRange Bomber 1.0 SlotType =
+Set Stealth FighterType
+Set Stealth FighterType =
+Set Stealth FighterType = Bomber
+Set Stealth FighterType = Bomber Value =
+Set Stealth FighterType = Bomber Value = 1.0
+Set Stealth FighterType = Bomber Value = 1.0 SlotType
+Set Stealth FighterType = Bomber Value = 1.0 SlotType =
+Set Stealth FighterType = Bomber 1.0
+Set Stealth FighterType = Bomber 1.0 SlotType
+Set Stealth FighterType = Bomber 1.0 SlotType =
+Set Stealth Bomber
+Set Stealth Bomber Value =
+Set Stealth Bomber Value = 1.0
+Set Stealth Bomber Value = 1.0 SlotType
+Set Stealth Bomber Value = 1.0 SlotType =
+Set Stealth Bomber 1.0
+Set Stealth Bomber 1.0 SlotType
+Set Stealth Bomber 1.0 SlotType =
+Set Structure FighterType
+Set Structure FighterType =
+Set Structure FighterType = Bomber
+Set Structure FighterType = Bomber Value =
+Set Structure FighterType = Bomber Value = 1.0
+Set Structure FighterType = Bomber Value = 1.0 SlotType
+Set Structure FighterType = Bomber Value = 1.0 SlotType =
+Set Structure FighterType = Bomber 1.0
+Set Structure FighterType = Bomber 1.0 SlotType
+Set Structure FighterType = Bomber 1.0 SlotType =
+Set Structure Bomber
+Set Structure Bomber Value =
+Set Structure Bomber Value = 1.0
+Set Structure Bomber Value = 1.0 SlotType
+Set Structure Bomber Value = 1.0 SlotType =
+Set Structure Bomber 1.0
+Set Structure Bomber 1.0 SlotType
+Set Structure Bomber 1.0 SlotType =
+Set Detection FighterType
+Set Detection FighterType =
+Set Detection FighterType = Bomber
+Set Detection FighterType = Bomber Value =
+Set Detection FighterType = Bomber Value = 1.0
+Set Detection FighterType = Bomber Value = 1.0 SlotType
+Set Detection FighterType = Bomber Value = 1.0 SlotType =
+Set Detection FighterType = Bomber 1.0
+Set Detection FighterType = Bomber 1.0 SlotType
+Set Detection FighterType = Bomber 1.0 SlotType =
+Set Detection Bomber
+Set Detection Bomber Value =
+Set Detection Bomber Value = 1.0
+Set Detection Bomber Value = 1.0 SlotType
+Set Detection Bomber Value = 1.0 SlotType =
+Set Detection Bomber 1.0
+Set Detection Bomber 1.0 SlotType
+Set Detection Bomber 1.0 SlotType =
+Set Damage PartName
+Set Damage PartName =
+Set Damage PartName = Part Foo
+Set Damage PartName = Part Foo Value =
+Set Damage PartName = Part Foo Value = 1.0
+Set Damage PartName = Part Foo Value = 1.0 SlotType
+Set Damage PartName = Part Foo Value = 1.0 SlotType =
+Set Damage PartName = Part Foo 1.0
+Set Damage PartName = Part Foo 1.0 SlotType
+Set Damage PartName = Part Foo 1.0 SlotType =
+Set Damage Part Foo
+Set Damage Part Foo Value =
+Set Damage Part Foo Value = 1.0
+Set Damage Part Foo Value = 1.0 SlotType
+Set Damage Part Foo Value = 1.0 SlotType =
+Set Damage Part Foo 1.0
+Set Damage Part Foo 1.0 SlotType
+Set Damage Part Foo 1.0 SlotType =
+Set ROF PartName
+Set ROF PartName =
+Set ROF PartName = Part Foo
+Set ROF PartName = Part Foo Value =
+Set ROF PartName = Part Foo Value = 1.0
+Set ROF PartName = Part Foo Value = 1.0 SlotType
+Set ROF PartName = Part Foo Value = 1.0 SlotType =
+Set ROF PartName = Part Foo 1.0
+Set ROF PartName = Part Foo 1.0 SlotType
+Set ROF PartName = Part Foo 1.0 SlotType =
+Set ROF Part Foo
+Set ROF Part Foo Value =
+Set ROF Part Foo Value = 1.0
+Set ROF Part Foo Value = 1.0 SlotType
+Set ROF Part Foo Value = 1.0 SlotType =
+Set ROF Part Foo 1.0
+Set ROF Part Foo 1.0 SlotType
+Set ROF Part Foo 1.0 SlotType =
+Set Range PartName
+Set Range PartName =
+Set Range PartName = Part Foo
+Set Range PartName = Part Foo Value =
+Set Range PartName = Part Foo Value = 1.0
+Set Range PartName = Part Foo Value = 1.0 SlotType
+Set Range PartName = Part Foo Value = 1.0 SlotType =
+Set Range PartName = Part Foo 1.0
+Set Range PartName = Part Foo 1.0 SlotType
+Set Range PartName = Part Foo 1.0 SlotType =
+Set Range Part Foo
+Set Range Part Foo Value =
+Set Range Part Foo Value = 1.0
+Set Range Part Foo Value = 1.0 SlotType
+Set Range Part Foo Value = 1.0 SlotType =
+Set Range Part Foo 1.0
+Set Range Part Foo 1.0 SlotType
+Set Range Part Foo 1.0 SlotType =
+Set Speed PartName
+Set Speed PartName =
+Set Speed PartName = Part Foo
+Set Speed PartName = Part Foo Value =
+Set Speed PartName = Part Foo Value = 1.0
+Set Speed PartName = Part Foo Value = 1.0 SlotType
+Set Speed PartName = Part Foo Value = 1.0 SlotType =
+Set Speed PartName = Part Foo 1.0
+Set Speed PartName = Part Foo 1.0 SlotType
+Set Speed PartName = Part Foo 1.0 SlotType =
+Set Speed Part Foo
+Set Speed Part Foo Value =
+Set Speed Part Foo Value = 1.0
+Set Speed Part Foo Value = 1.0 SlotType
+Set Speed Part Foo Value = 1.0 SlotType =
+Set Speed Part Foo 1.0
+Set Speed Part Foo 1.0 SlotType
+Set Speed Part Foo 1.0 SlotType =
+Set Capacity PartName
+Set Capacity PartName =
+Set Capacity PartName = Part Foo
+Set Capacity PartName = Part Foo Value =
+Set Capacity PartName = Part Foo Value = 1.0
+Set Capacity PartName = Part Foo Value = 1.0 SlotType
+Set Capacity PartName = Part Foo Value = 1.0 SlotType =
+Set Capacity PartName = Part Foo 1.0
+Set Capacity PartName = Part Foo 1.0 SlotType
+Set Capacity PartName = Part Foo 1.0 SlotType =
+Set Capacity Part Foo
+Set Capacity Part Foo Value =
+Set Capacity Part Foo Value = 1.0
+Set Capacity Part Foo Value = 1.0 SlotType
+Set Capacity Part Foo Value = 1.0 SlotType =
+Set Capacity Part Foo 1.0
+Set Capacity Part Foo 1.0 SlotType
+Set Capacity Part Foo 1.0 SlotType =
+Set AntiShipDamage PartName
+Set AntiShipDamage PartName =
+Set AntiShipDamage PartName = Part Foo
+Set AntiShipDamage PartName = Part Foo Value =
+Set AntiShipDamage PartName = Part Foo Value = 1.0
+Set AntiShipDamage PartName = Part Foo Value = 1.0 SlotType
+Set AntiShipDamage PartName = Part Foo Value = 1.0 SlotType =
+Set AntiShipDamage PartName = Part Foo 1.0
+Set AntiShipDamage PartName = Part Foo 1.0 SlotType
+Set AntiShipDamage PartName = Part Foo 1.0 SlotType =
+Set AntiShipDamage Part Foo
+Set AntiShipDamage Part Foo Value =
+Set AntiShipDamage Part Foo Value = 1.0
+Set AntiShipDamage Part Foo Value = 1.0 SlotType
+Set AntiShipDamage Part Foo Value = 1.0 SlotType =
+Set AntiShipDamage Part Foo 1.0
+Set AntiShipDamage Part Foo 1.0 SlotType
+Set AntiShipDamage Part Foo 1.0 SlotType =
+Set AntiFighterDamage PartName
+Set AntiFighterDamage PartName =
+Set AntiFighterDamage PartName = Part Foo
+Set AntiFighterDamage PartName = Part Foo Value =
+Set AntiFighterDamage PartName = Part Foo Value = 1.0
+Set AntiFighterDamage PartName = Part Foo Value = 1.0 SlotType
+Set AntiFighterDamage PartName = Part Foo Value = 1.0 SlotType =
+Set AntiFighterDamage PartName = Part Foo 1.0
+Set AntiFighterDamage PartName = Part Foo 1.0 SlotType
+Set AntiFighterDamage PartName = Part Foo 1.0 SlotType =
+Set AntiFighterDamage Part Foo
+Set AntiFighterDamage Part Foo Value =
+Set AntiFighterDamage Part Foo Value = 1.0
+Set AntiFighterDamage Part Foo Value = 1.0 SlotType
+Set AntiFighterDamage Part Foo Value = 1.0 SlotType =
+Set AntiFighterDamage Part Foo 1.0
+Set AntiFighterDamage Part Foo 1.0 SlotType
+Set AntiFighterDamage Part Foo 1.0 SlotType =
+Set LaunchRate PartName
+Set LaunchRate PartName =
+Set LaunchRate PartName = Part Foo
+Set LaunchRate PartName = Part Foo Value =
+Set LaunchRate PartName = Part Foo Value = 1.0
+Set LaunchRate PartName = Part Foo Value = 1.0 SlotType
+Set LaunchRate PartName = Part Foo Value = 1.0 SlotType =
+Set LaunchRate PartName = Part Foo 1.0
+Set LaunchRate PartName = Part Foo 1.0 SlotType
+Set LaunchRate PartName = Part Foo 1.0 SlotType =
+Set LaunchRate Part Foo
+Set LaunchRate Part Foo Value =
+Set LaunchRate Part Foo Value = 1.0
+Set LaunchRate Part Foo Value = 1.0 SlotType
+Set LaunchRate Part Foo Value = 1.0 SlotType =
+Set LaunchRate Part Foo 1.0
+Set LaunchRate Part Foo 1.0 SlotType
+Set LaunchRate Part Foo 1.0 SlotType =
+Set FighterWeaponRange PartName
+Set FighterWeaponRange PartName =
+Set FighterWeaponRange PartName = Part Foo
+Set FighterWeaponRange PartName = Part Foo Value =
+Set FighterWeaponRange PartName = Part Foo Value = 1.0
+Set FighterWeaponRange PartName = Part Foo Value = 1.0 SlotType
+Set FighterWeaponRange PartName = Part Foo Value = 1.0 SlotType =
+Set FighterWeaponRange PartName = Part Foo 1.0
+Set FighterWeaponRange PartName = Part Foo 1.0 SlotType
+Set FighterWeaponRange PartName = Part Foo 1.0 SlotType =
+Set FighterWeaponRange Part Foo
+Set FighterWeaponRange Part Foo Value =
+Set FighterWeaponRange Part Foo Value = 1.0
+Set FighterWeaponRange Part Foo Value = 1.0 SlotType
+Set FighterWeaponRange Part Foo Value = 1.0 SlotType =
+Set FighterWeaponRange Part Foo 1.0
+Set FighterWeaponRange Part Foo 1.0 SlotType
+Set FighterWeaponRange Part Foo 1.0 SlotType =
+Set Stealth PartName
+Set Stealth PartName =
+Set Stealth PartName = Part Foo
+Set Stealth PartName = Part Foo Value =
+Set Stealth PartName = Part Foo Value = 1.0
+Set Stealth PartName = Part Foo Value = 1.0 SlotType
+Set Stealth PartName = Part Foo Value = 1.0 SlotType =
+Set Stealth PartName = Part Foo 1.0
+Set Stealth PartName = Part Foo 1.0 SlotType
+Set Stealth PartName = Part Foo 1.0 SlotType =
+Set Stealth Part Foo
+Set Stealth Part Foo Value =
+Set Stealth Part Foo Value = 1.0
+Set Stealth Part Foo Value = 1.0 SlotType
+Set Stealth Part Foo Value = 1.0 SlotType =
+Set Stealth Part Foo 1.0
+Set Stealth Part Foo 1.0 SlotType
+Set Stealth Part Foo 1.0 SlotType =
+Set Structure PartName
+Set Structure PartName =
+Set Structure PartName = Part Foo
+Set Structure PartName = Part Foo Value =
+Set Structure PartName = Part Foo Value = 1.0
+Set Structure PartName = Part Foo Value = 1.0 SlotType
+Set Structure PartName = Part Foo Value = 1.0 SlotType =
+Set Structure PartName = Part Foo 1.0
+Set Structure PartName = Part Foo 1.0 SlotType
+Set Structure PartName = Part Foo 1.0 SlotType =
+Set Structure Part Foo
+Set Structure Part Foo Value =
+Set Structure Part Foo Value = 1.0
+Set Structure Part Foo Value = 1.0 SlotType
+Set Structure Part Foo Value = 1.0 SlotType =
+Set Structure Part Foo 1.0
+Set Structure Part Foo 1.0 SlotType
+Set Structure Part Foo 1.0 SlotType =
+Set Detection PartName
+Set Detection PartName =
+Set Detection PartName = Part Foo
+Set Detection PartName = Part Foo Value =
+Set Detection PartName = Part Foo Value = 1.0
+Set Detection PartName = Part Foo Value = 1.0 SlotType
+Set Detection PartName = Part Foo Value = 1.0 SlotType =
+Set Detection PartName = Part Foo 1.0
+Set Detection PartName = Part Foo 1.0 SlotType
+Set Detection PartName = Part Foo 1.0 SlotType =
+Set Detection Part Foo
+Set Detection Part Foo Value =
+Set Detection Part Foo Value = 1.0
+Set Detection Part Foo Value = 1.0 SlotType
+Set Detection Part Foo Value = 1.0 SlotType =
+Set Detection Part Foo 1.0
+Set Detection Part Foo 1.0 SlotType
+Set Detection Part Foo 1.0 SlotType =
+SetEmpireMeter
+SetEmpireMeter Empire
+SetEmpireMeter Empire =
+SetEmpireMeter Empire = 1
+SetEmpireMeter Empire = 1 Meter
+SetEmpireMeter Empire = 1 Meter =
+SetEmpireMeter Empire = 1 Meter = Foo
+SetEmpireMeter Empire = 1 Meter = Foo Value =
+SetEmpireMeter Empire = 1 Foo
+SetEmpireMeter Empire = 1 Foo Value =
+SetEmpireMeter 1
+SetEmpireMeter 1 Meter
+SetEmpireMeter 1 Meter =
+SetEmpireMeter 1 Meter = Foo
+SetEmpireMeter 1 Meter = Foo Value =
+SetEmpireMeter 1 Foo
+SetEmpireMeter 1 Foo Value =
+SetEmpireMeter Meter
+SetEmpireMeter Meter =
+SetEmpireMeter Meter = Foo
+SetEmpireMeter Meter = Foo Value =
+SetEmpireMeter Foo
+SetEmpireMeter Foo Value =
+SetEmpireFoodStockpile
+SetEmpireFoodStockpile Value =
+SetEmpireMineralStockpile
+SetEmpireMineralStockpile Value =
+SetEmpireTradeStockpile
+SetEmpireTradeStockpile Value =
+SetEmpireFoodStockpile Empire
+SetEmpireFoodStockpile Empire =
+SetEmpireFoodStockpile Empire = 1
+SetEmpireFoodStockpile Empire = 1 Value =
+SetEmpireFoodStockpile 1 Value =
+SetEmpireMineralStockpile Empire
+SetEmpireMineralStockpile Empire =
+SetEmpireMineralStockpile Empire = 1
+SetEmpireMineralStockpile Empire = 1 Value =
+SetEmpireMineralStockpile 1 Value =
+SetEmpireTradeStockpile Empire
+SetEmpireTradeStockpile Empire =
+SetEmpireTradeStockpile Empire = 1
+SetEmpireTradeStockpile Empire = 1 Value =
+SetEmpireTradeStockpile 1 Value =
+SetEmpireCapital Empire
+SetEmpireCapital Empire =
+SetPlanetType
+SetPlanetType Type
+SetPlanetType Type =
+SetPlanetSize
+SetPlanetSize PlanetSize
+SetPlanetSize PlanetSize =
+SetSpecies
+SetSpecies Name
+SetSpecies Name =
+SetOwner
+SetOwner Empire
+SetOwner Empire =
+CreatePlanet
+CreatePlanet Type
+CreatePlanet Type =
+CreatePlanet Type = Swamp
+CreatePlanet Type = Swamp Endpoint
+CreatePlanet Type = Swamp Endpoint =
+CreatePlanet Swamp
+CreatePlanet Swamp Endpoint
+CreatePlanet Swamp Endpoint =
+CreateBuilding
+CreateBuilding Name
+CreateBuilding Name =
+CreateShip
+CreateShip DesignName
+CreateShip DesignName =
+CreateShip DesignName = Design Foo
+CreateShip DesignName = Design Foo Empire
+CreateShip DesignName = Design Foo Empire =
+CreateShip DesignName = Design Foo Empire = 1
+CreateShip DesignName = Design Foo Empire = 1 Species
+CreateShip DesignName = Design Foo Empire = 1 Species =
+CreateShip DesignName = Design Foo 1
+CreateShip DesignName = Design Foo 1 Species
+CreateShip DesignName = Design Foo 1 Species =
+CreateShip Design Foo
+CreateShip Design Foo Empire
+CreateShip Design Foo Empire =
+CreateShip Design Foo Empire = 1
+CreateShip Design Foo Empire = 1 Species
+CreateShip Design Foo Empire = 1 Species =
+CreateShip Design Foo 1
+CreateShip Design Foo 1 Species
+CreateShip Design Foo 1 Species =
+CreateShip DesignName = 1
+CreateShip DesignName = 1 Empire
+CreateShip DesignName = 1 Empire =
+CreateShip DesignName = 1 Empire = 1
+CreateShip DesignName = 1 Empire = 1 Species
+CreateShip DesignName = 1 Empire = 1 Species =
+CreateShip DesignName = 1 1
+CreateShip DesignName = 1 1 Species
+CreateShip DesignName = 1 1 Species =
+CreateShip 1
+CreateShip 1 Empire
+CreateShip 1 Empire =
+CreateShip 1 Empire = 1
+CreateShip 1 Empire = 1 Species
+CreateShip 1 Empire = 1 Species =
+CreateShip 1 1
+CreateShip 1 1 Species
+CreateShip 1 1 Species =
+MoveTo
+MoveTo Destination
+MoveTo Destination =
+SetDestination
+SetDestination Destination
+SetDestination Destination =
+Victory
+Victory Reason
+Victory Reason =
+AddSpecial
+AddSpecial Name
+AddSpecial Name =
+RemoveSpecial
+RemoveSpecial Name
+RemoveSpecial Name =
+AddStarlanes
+AddStarlanes Endpoint
+AddStarlanes Endpoint =
+RemoveStarlanes
+RemoveStarlanes Endpoint
+RemoveStarlanes Endpoint =
+SetStarType
+SetStarType Type
+SetStarType Type =
+GiveTechToOwner
+GiveTechToOwner Name
+GiveTechToOwner Name =
+RevokeTechFromOwner
+RevokeTechFromOwner Name
+RevokeTechFromOwner Name =
+UnlockTechItemsForOwner
+UnlockTechItemsForOwner Name
+UnlockTechItemsForOwner Name =
+LockTechItemsForOwner
+LockTechItemsForOwner Name
+LockTechItemsForOwner Name =
+GenerateSitrepMessage
+GenerateSitrepMessage Message
+GenerateSitrepMessage Message =
+GenerateSitrepMessage Message = Foo
+GenerateSitrepMessage Message = Foo Parameters
+GenerateSitrepMessage Message = Foo Parameters =
+GenerateSitrepMessage Message = Foo Parameters = Tag
+GenerateSitrepMessage Message = Foo Parameters = Tag =
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Data
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Data =
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Data = Bar
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Data = Bar Affiliation
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Data = Bar Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Data = Bar Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Data = Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Data = Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Data = Bar EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Data = Bar EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Data = Bar EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Bar
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Bar Affiliation
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Bar Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Bar Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Bar EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Bar EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = Tag = Foo Bar EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = Foo
+GenerateSitrepMessage Message = Foo Parameters = Foo Data
+GenerateSitrepMessage Message = Foo Parameters = Foo Data =
+GenerateSitrepMessage Message = Foo Parameters = Foo Data = Bar
+GenerateSitrepMessage Message = Foo Parameters = Foo Data = Bar Affiliation
+GenerateSitrepMessage Message = Foo Parameters = Foo Data = Bar Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = Foo Data = Bar Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = Foo Data = Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = Foo Data = Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = Foo Data = Bar EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = Foo Data = Bar EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = Foo Data = Bar EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = Foo Bar
+GenerateSitrepMessage Message = Foo Parameters = Foo Bar Affiliation
+GenerateSitrepMessage Message = Foo Parameters = Foo Bar Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = Foo Bar Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = Foo Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = Foo Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = Foo Bar EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = Foo Bar EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = Foo Bar EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Tag
+GenerateSitrepMessage Message = Foo Tag =
+GenerateSitrepMessage Message = Foo Tag = Foo
+GenerateSitrepMessage Message = Foo Tag = Foo Data
+GenerateSitrepMessage Message = Foo Tag = Foo Data =
+GenerateSitrepMessage Message = Foo Tag = Foo Data = Bar
+GenerateSitrepMessage Message = Foo Tag = Foo Data = Bar Affiliation
+GenerateSitrepMessage Message = Foo Tag = Foo Data = Bar Affiliation =
+GenerateSitrepMessage Message = Foo Tag = Foo Data = Bar Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Tag = Foo Data = Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Tag = Foo Data = Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Tag = Foo Data = Bar EnemyOf
+GenerateSitrepMessage Message = Foo Tag = Foo Data = Bar EnemyOf Empire
+GenerateSitrepMessage Message = Foo Tag = Foo Data = Bar EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Tag = Foo Bar
+GenerateSitrepMessage Message = Foo Tag = Foo Bar Affiliation
+GenerateSitrepMessage Message = Foo Tag = Foo Bar Affiliation =
+GenerateSitrepMessage Message = Foo Tag = Foo Bar Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Tag = Foo Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Tag = Foo Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Tag = Foo Bar EnemyOf
+GenerateSitrepMessage Message = Foo Tag = Foo Bar EnemyOf Empire
+GenerateSitrepMessage Message = Foo Tag = Foo Bar EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Foo
+GenerateSitrepMessage Message = Foo Foo Data
+GenerateSitrepMessage Message = Foo Foo Data =
+GenerateSitrepMessage Message = Foo Foo Data = Bar
+GenerateSitrepMessage Message = Foo Foo Data = Bar Affiliation
+GenerateSitrepMessage Message = Foo Foo Data = Bar Affiliation =
+GenerateSitrepMessage Message = Foo Foo Data = Bar Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Foo Data = Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Foo Data = Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Foo Data = Bar EnemyOf
+GenerateSitrepMessage Message = Foo Foo Data = Bar EnemyOf Empire
+GenerateSitrepMessage Message = Foo Foo Data = Bar EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Foo Bar
+GenerateSitrepMessage Message = Foo Foo Bar Affiliation
+GenerateSitrepMessage Message = Foo Foo Bar Affiliation =
+GenerateSitrepMessage Message = Foo Foo Bar Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Foo Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Foo Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Foo Bar EnemyOf
+GenerateSitrepMessage Message = Foo Foo Bar EnemyOf Empire
+GenerateSitrepMessage Message = Foo Foo Bar EnemyOf Empire =
+GenerateSitrepMessage Foo
+GenerateSitrepMessage Foo Parameters
+GenerateSitrepMessage Foo Parameters =
+GenerateSitrepMessage Foo Parameters = Tag
+GenerateSitrepMessage Foo Parameters = Tag =
+GenerateSitrepMessage Foo Parameters = Tag = Foo
+GenerateSitrepMessage Foo Parameters = Tag = Foo Data
+GenerateSitrepMessage Foo Parameters = Tag = Foo Data =
+GenerateSitrepMessage Foo Parameters = Tag = Foo Data = Bar
+GenerateSitrepMessage Foo Parameters = Tag = Foo Data = Bar Affiliation
+GenerateSitrepMessage Foo Parameters = Tag = Foo Data = Bar Affiliation =
+GenerateSitrepMessage Foo Parameters = Tag = Foo Data = Bar Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = Tag = Foo Data = Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = Tag = Foo Data = Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = Tag = Foo Data = Bar EnemyOf
+GenerateSitrepMessage Foo Parameters = Tag = Foo Data = Bar EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = Tag = Foo Data = Bar EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = Tag = Foo Bar
+GenerateSitrepMessage Foo Parameters = Tag = Foo Bar Affiliation
+GenerateSitrepMessage Foo Parameters = Tag = Foo Bar Affiliation =
+GenerateSitrepMessage Foo Parameters = Tag = Foo Bar Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = Tag = Foo Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = Tag = Foo Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = Tag = Foo Bar EnemyOf
+GenerateSitrepMessage Foo Parameters = Tag = Foo Bar EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = Tag = Foo Bar EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = Foo
+GenerateSitrepMessage Foo Parameters = Foo Data
+GenerateSitrepMessage Foo Parameters = Foo Data =
+GenerateSitrepMessage Foo Parameters = Foo Data = Bar
+GenerateSitrepMessage Foo Parameters = Foo Data = Bar Affiliation
+GenerateSitrepMessage Foo Parameters = Foo Data = Bar Affiliation =
+GenerateSitrepMessage Foo Parameters = Foo Data = Bar Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = Foo Data = Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = Foo Data = Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = Foo Data = Bar EnemyOf
+GenerateSitrepMessage Foo Parameters = Foo Data = Bar EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = Foo Data = Bar EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = Foo Bar
+GenerateSitrepMessage Foo Parameters = Foo Bar Affiliation
+GenerateSitrepMessage Foo Parameters = Foo Bar Affiliation =
+GenerateSitrepMessage Foo Parameters = Foo Bar Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = Foo Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = Foo Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = Foo Bar EnemyOf
+GenerateSitrepMessage Foo Parameters = Foo Bar EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = Foo Bar EnemyOf Empire =
+GenerateSitrepMessage Foo Tag
+GenerateSitrepMessage Foo Tag =
+GenerateSitrepMessage Foo Tag = Foo
+GenerateSitrepMessage Foo Tag = Foo Data
+GenerateSitrepMessage Foo Tag = Foo Data =
+GenerateSitrepMessage Foo Tag = Foo Data = Bar
+GenerateSitrepMessage Foo Tag = Foo Data = Bar Affiliation
+GenerateSitrepMessage Foo Tag = Foo Data = Bar Affiliation =
+GenerateSitrepMessage Foo Tag = Foo Data = Bar Affiliation = EnemyOf
+GenerateSitrepMessage Foo Tag = Foo Data = Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Tag = Foo Data = Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Tag = Foo Data = Bar EnemyOf
+GenerateSitrepMessage Foo Tag = Foo Data = Bar EnemyOf Empire
+GenerateSitrepMessage Foo Tag = Foo Data = Bar EnemyOf Empire =
+GenerateSitrepMessage Foo Tag = Foo Bar
+GenerateSitrepMessage Foo Tag = Foo Bar Affiliation
+GenerateSitrepMessage Foo Tag = Foo Bar Affiliation =
+GenerateSitrepMessage Foo Tag = Foo Bar Affiliation = EnemyOf
+GenerateSitrepMessage Foo Tag = Foo Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Tag = Foo Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Tag = Foo Bar EnemyOf
+GenerateSitrepMessage Foo Tag = Foo Bar EnemyOf Empire
+GenerateSitrepMessage Foo Tag = Foo Bar EnemyOf Empire =
+GenerateSitrepMessage Foo Foo
+GenerateSitrepMessage Foo Foo Data
+GenerateSitrepMessage Foo Foo Data =
+GenerateSitrepMessage Foo Foo Data = Bar
+GenerateSitrepMessage Foo Foo Data = Bar Affiliation
+GenerateSitrepMessage Foo Foo Data = Bar Affiliation =
+GenerateSitrepMessage Foo Foo Data = Bar Affiliation = EnemyOf
+GenerateSitrepMessage Foo Foo Data = Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Foo Data = Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Foo Data = Bar EnemyOf
+GenerateSitrepMessage Foo Foo Data = Bar EnemyOf Empire
+GenerateSitrepMessage Foo Foo Data = Bar EnemyOf Empire =
+GenerateSitrepMessage Foo Foo Bar
+GenerateSitrepMessage Foo Foo Bar Affiliation
+GenerateSitrepMessage Foo Foo Bar Affiliation =
+GenerateSitrepMessage Foo Foo Bar Affiliation = EnemyOf
+GenerateSitrepMessage Foo Foo Bar Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Foo Bar Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Foo Bar EnemyOf
+GenerateSitrepMessage Foo Foo Bar EnemyOf Empire
+GenerateSitrepMessage Foo Foo Bar EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [
+GenerateSitrepMessage Message = Foo Parameters = [ Tag
+GenerateSitrepMessage Message = Foo Parameters = [ Tag =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Data
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Data =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Data
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Data =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Data
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Data =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Data = Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Tag = Foo Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Data
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Data =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Data
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Data =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Data = Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Data = Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Data
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Data =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Data
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Data =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Data = Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Bar
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Bar ]
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo Parameters = [ Foo Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [
+GenerateSitrepMessage Message = Foo [ Tag
+GenerateSitrepMessage Message = Foo [ Tag =
+GenerateSitrepMessage Message = Foo [ Tag = Foo
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Data
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Data =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Bar
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Bar ]
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Data
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Data =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Data = Bar
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Bar
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Bar ]
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Data = Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Data
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Data =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Bar
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Bar ]
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Data
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Data =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Data = Bar
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Bar
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Bar ]
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Tag = Foo Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo
+GenerateSitrepMessage Message = Foo [ Foo Data
+GenerateSitrepMessage Message = Foo [ Foo Data =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Data
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Data =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Bar
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Bar ]
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Data
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Data =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Data = Bar
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Bar
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Bar ]
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Data = Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Bar
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag =
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Data
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Data =
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Bar
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Bar ]
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Data
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Data =
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Data = Bar
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Data = Bar ]
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Bar
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Bar ]
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Message = Foo [ Foo Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [
+GenerateSitrepMessage Foo Parameters = [ Tag
+GenerateSitrepMessage Foo Parameters = [ Tag =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ]
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Data
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Data =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ]
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Bar
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ]
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Data = Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Data
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Data =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ]
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Data
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Data =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Data = Bar
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ]
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Bar
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Bar ]
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Tag = Foo Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo
+GenerateSitrepMessage Foo Parameters = [ Foo Data
+GenerateSitrepMessage Foo Parameters = [ Foo Data =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Data
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Data =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Bar
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ]
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Data
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Data =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Data = Bar
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Data = Bar ]
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Bar
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Bar ]
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Data = Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Data
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Data =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Bar
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Bar ]
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Data
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Data =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Data = Bar
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Data = Bar ]
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Bar
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Bar ]
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo Parameters = [ Foo Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [
+GenerateSitrepMessage Foo [ Tag
+GenerateSitrepMessage Foo [ Tag =
+GenerateSitrepMessage Foo [ Tag = Foo
+GenerateSitrepMessage Foo [ Tag = Foo Data
+GenerateSitrepMessage Foo [ Tag = Foo Data =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Data
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Data =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Bar
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Bar ]
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Data
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Data =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Data = Bar
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Data = Bar ]
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Bar
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Bar ]
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Data = Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Bar
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag =
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Data
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Data =
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Bar
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Bar ]
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Data
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Data =
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Data = Bar
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Data = Bar ]
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Bar
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Bar ]
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Tag = Foo Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo
+GenerateSitrepMessage Foo [ Foo Data
+GenerateSitrepMessage Foo [ Foo Data =
+GenerateSitrepMessage Foo [ Foo Data = Bar
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag =
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Data
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Data =
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Bar
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Bar ]
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Data = Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Data
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Data =
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Data = Bar
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Data = Bar ]
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Bar
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Bar ]
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Data = Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Bar
+GenerateSitrepMessage Foo [ Foo Bar Tag
+GenerateSitrepMessage Foo [ Foo Bar Tag =
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Data
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Data =
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Data = Bar
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Data = Bar ]
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Bar
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Bar ]
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Bar ] Affiliation
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Bar Tag = Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Bar Foo
+GenerateSitrepMessage Foo [ Foo Bar Foo Data
+GenerateSitrepMessage Foo [ Foo Bar Foo Data =
+GenerateSitrepMessage Foo [ Foo Bar Foo Data = Bar
+GenerateSitrepMessage Foo [ Foo Bar Foo Data = Bar ]
+GenerateSitrepMessage Foo [ Foo Bar Foo Data = Bar ] Affiliation
+GenerateSitrepMessage Foo [ Foo Bar Foo Data = Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Foo Bar Foo Data = Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Bar Foo Data = Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Bar Foo Data = Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Foo Bar Foo Data = Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Bar Foo Data = Bar ] EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Bar Foo Bar
+GenerateSitrepMessage Foo [ Foo Bar Foo Bar ]
+GenerateSitrepMessage Foo [ Foo Bar Foo Bar ] Affiliation
+GenerateSitrepMessage Foo [ Foo Bar Foo Bar ] Affiliation =
+GenerateSitrepMessage Foo [ Foo Bar Foo Bar ] Affiliation = EnemyOf
+GenerateSitrepMessage Foo [ Foo Bar Foo Bar ] Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Bar Foo Bar ] Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo [ Foo Bar Foo Bar ] EnemyOf
+GenerateSitrepMessage Foo [ Foo Bar Foo Bar ] EnemyOf Empire
+GenerateSitrepMessage Foo [ Foo Bar Foo Bar ] EnemyOf Empire =
+GenerateSitrepMessage Message = Foo Affiliation
+GenerateSitrepMessage Message = Foo Affiliation =
+GenerateSitrepMessage Message = Foo Affiliation = EnemyOf
+GenerateSitrepMessage Message = Foo Affiliation = EnemyOf Empire
+GenerateSitrepMessage Message = Foo Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Message = Foo EnemyOf
+GenerateSitrepMessage Message = Foo EnemyOf Empire
+GenerateSitrepMessage Message = Foo EnemyOf Empire =
+GenerateSitrepMessage Foo Affiliation
+GenerateSitrepMessage Foo Affiliation =
+GenerateSitrepMessage Foo Affiliation = EnemyOf
+GenerateSitrepMessage Foo Affiliation = EnemyOf Empire
+GenerateSitrepMessage Foo Affiliation = EnemyOf Empire =
+GenerateSitrepMessage Foo EnemyOf
+GenerateSitrepMessage Foo EnemyOf Empire
+GenerateSitrepMessage Foo EnemyOf Empire =
