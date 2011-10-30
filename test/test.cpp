@@ -10,6 +10,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
+#include <boost/filesystem/fstream.hpp>
 
 #include <fstream>
 
@@ -106,7 +107,7 @@ int main(int argc, char* argv[])
     unsigned int iterations = 0;
     std::vector<std::string> strings;
 
-    if (buildings_parser <= test && test <= alignments_parser) {
+    if (!fail && buildings_parser <= test && test <= alignments_parser) {
         assert(std::string(argv[2]) == "-f");
         bool success = false;
         try {
@@ -254,6 +255,13 @@ int main(int argc, char* argv[])
 
             boost::spirit::qi::in_state_type in_state;
 
+            boost::filesystem::path file_parser_path;
+            if (buildings_parser <= test && test <= alignments_parser) {
+                file_parser_path = "tmp";
+                boost::filesystem::ofstream ofs(file_parser_path);
+                ofs << string;
+            }
+
             try {
                 switch (test) {
                 case lexer: {
@@ -388,6 +396,63 @@ int main(int argc, char* argv[])
                 }
                 case effect_parser: {
                     success = boost::spirit::qi::phrase_parse(it, end_it, parse::effect_parser(), in_state("WS")[l.self]);
+                    break;
+                }
+                case buildings_parser: {
+                    std::map<std::string, BuildingType*> building_types;
+                    success = parse::buildings(file_parser_path, building_types);
+                    break;
+                }
+                case specials_parser: {
+                    std::map<std::string, Special*> specials;
+                    success = parse::specials(file_parser_path, specials);
+                    break;
+                }
+                case species_parser: {
+                    std::map<std::string, Species*> species;
+                    success = parse::species(file_parser_path, species);
+                    break;
+                }
+                case techs_parser: {
+                    TechManager::TechContainer techs;
+                    std::map<std::string, TechCategory*> tech_categories;
+                    success = parse::techs(file_parser_path, techs, tech_categories);
+                    break;
+                }
+                case items_parser: {
+                    std::vector<ItemSpec> items;
+                    success = parse::items(file_parser_path, items);
+                    break;
+                }
+                case ship_parts_parser: {
+                    std::map<std::string, PartType*> parts;
+                    success = parse::ship_parts(file_parser_path, parts);
+                    break;
+                }
+                case ship_hulls_parser: {
+                    std::map<std::string, HullType*> hulls;
+                    success = parse::ship_hulls(file_parser_path, hulls);
+                    break;
+                }
+                case ship_designs_parser: {
+                    std::map<std::string, ShipDesign*> designs;
+                    success = parse::ship_designs(file_parser_path, designs);
+                    break;
+                }
+                case fleet_plans_parser: {
+                    std::vector<FleetPlan*> fleet_plans;
+                    success = parse::fleet_plans(file_parser_path, fleet_plans);
+                    break;
+                }
+                case monster_fleet_plans_parser: {
+                    std::vector<MonsterFleetPlan*> monster_fleet_plans;
+                    success = parse::monster_fleet_plans(file_parser_path, monster_fleet_plans);
+                    break;
+                }
+                case alignments_parser: {
+                    std::vector<Alignment> alignments;
+                    std::vector<boost::shared_ptr<const Effect::EffectsGroup> > effects_groups;
+                    success = parse::alignments(file_parser_path, alignments, effects_groups);
                     break;
                 }
                 default:
