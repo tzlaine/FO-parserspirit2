@@ -249,7 +249,9 @@ namespace {
                 generate_sitrep_message
                     =    tok.GenerateSitrepMessage_
                     >    parse::label(Message_name)    >  tok.string [ _a = _1 ]
-                    >    parse::label(Parameters_name) > -string_and_string_ref_vector [ _b = _1 ]
+                    >>  -(
+                              parse::label(Parameters_name) >> string_and_string_ref_vector [ _b = _1 ]
+                         )
                     >>   (
                               (
                                    (
