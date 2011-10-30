@@ -103,6 +103,7 @@ int main(int argc, char* argv[])
     parse::init();
 
     unsigned int failures = 0;
+    unsigned int iterations = 0;
     std::vector<std::string> strings;
 
     if (buildings_parser <= test && test <= alignments_parser) {
@@ -231,6 +232,8 @@ int main(int argc, char* argv[])
             const std::string& string = strings[i];
             if (string.empty())
                 continue;
+
+            ++iterations;
 
             const std::size_t equals_position =
                 test == int_value_ref_evaluation || test == double_value_ref_evaluation ?
@@ -414,7 +417,7 @@ int main(int argc, char* argv[])
 
     if (1u < strings.size()) {
         if (fail) {
-            if (failures != strings.size())
+            if (failures != iterations)
                 std::cout << (strings.size() - failures) << " successful parses total (that's bad -- all should fail)." << std::endl;
             else
                 std::cout << "All parses failed, as expected." << std::endl;
@@ -426,5 +429,5 @@ int main(int argc, char* argv[])
         }
     }
 
-    return fail ? failures != strings.size() : failures;
+    return fail ? failures != iterations : failures;
 }
