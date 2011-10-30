@@ -1,6 +1,17 @@
 #include "test.h"
 
 
+struct quote_
+{
+    template <typename Arg>
+    struct result
+    { typedef std::string type; };
+
+    std::string operator()(const std::string& arg1) const
+        { return '"' + arg1 + '"'; }
+};
+const boost::phoenix::function<quote_> quote;
+
 lexer_test_rules::lexer_test_rules()
 {
     namespace qi = boost::spirit::qi;
@@ -20,7 +31,7 @@ lexer_test_rules::lexer_test_rules()
                 |  as_string[ tok.bool_ ] [ std::cout << _1 << "\n" ]
                 |  as_string[ tok.int_ ] [ std::cout << _1 << "\n" ]
                 |  as_string[ tok.double_ ] [ std::cout << _1 << "\n" ]
-                |  tok.string [ std::cout << _1 << "\n" ]
+                |  tok.string [ std::cout << quote(_1) << "\n" ]
 
                 |  as_string[ tok.planet_size_enum ] [ std::cout << _1 << "\n" ]
                 |  as_string[ tok.planet_type_enum ] [ std::cout << _1 << "\n" ]

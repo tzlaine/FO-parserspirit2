@@ -4,24 +4,24 @@ HasSpecial Name =
 HasSpecialSinceTurn
 HasSpecialSinceTurn Name
 HasSpecialSinceTurn Name =
-HasSpecialSinceTurn Name = Foo
-HasSpecialSinceTurn Name = Foo Low
-HasSpecialSinceTurn Name = Foo Low =
-HasSpecialSinceTurn Name = Foo Low = 1
-HasSpecialSinceTurn Name = Foo Low = 1 High
-HasSpecialSinceTurn Name = Foo Low = 1 High =
-HasSpecialSinceTurn Name = Foo 1
-HasSpecialSinceTurn Name = Foo 1 High
-HasSpecialSinceTurn Name = Foo 1 High =
-HasSpecialSinceTurn Foo
-HasSpecialSinceTurn Foo Low
-HasSpecialSinceTurn Foo Low =
-HasSpecialSinceTurn Foo Low = 1
-HasSpecialSinceTurn Foo Low = 1 High
-HasSpecialSinceTurn Foo Low = 1 High =
-HasSpecialSinceTurn Foo 1
-HasSpecialSinceTurn Foo 1 High
-HasSpecialSinceTurn Foo 1 High =
+HasSpecialSinceTurn Name = "Foo"
+HasSpecialSinceTurn Name = "Foo" Low
+HasSpecialSinceTurn Name = "Foo" Low =
+HasSpecialSinceTurn Name = "Foo" Low = 1
+HasSpecialSinceTurn Name = "Foo" Low = 1 High
+HasSpecialSinceTurn Name = "Foo" Low = 1 High =
+HasSpecialSinceTurn Name = "Foo" 1
+HasSpecialSinceTurn Name = "Foo" 1 High
+HasSpecialSinceTurn Name = "Foo" 1 High =
+HasSpecialSinceTurn "Foo"
+HasSpecialSinceTurn "Foo" Low
+HasSpecialSinceTurn "Foo" Low =
+HasSpecialSinceTurn "Foo" Low = 1
+HasSpecialSinceTurn "Foo" Low = 1 High
+HasSpecialSinceTurn "Foo" Low = 1 High =
+HasSpecialSinceTurn "Foo" 1
+HasSpecialSinceTurn "Foo" 1 High
+HasSpecialSinceTurn "Foo" 1 High =
 OwnerHasTech
 OwnerHasTech Name
 OwnerHasTech Name =

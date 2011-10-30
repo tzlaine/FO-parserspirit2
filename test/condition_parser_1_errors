@@ -24,36 +24,36 @@ OwnedBy EnemyOf Source . Planet .
 Homeworld Name
 Homeworld Name =
 Homeworld Name = [
-Homeworld Name = [ Homeworld Foo
-Homeworld Name = [ Homeworld Foo Homeworld Bar
+Homeworld Name = [ "Homeworld Foo"
+Homeworld Name = [ "Homeworld Foo" "Homeworld Bar"
 Homeworld [
-Homeworld [ Homeworld Foo
-Homeworld [ Homeworld Foo Homeworld Bar
+Homeworld [ "Homeworld Foo"
+Homeworld [ "Homeworld Foo" "Homeworld Bar"
 Building
 Building Name
 Building Name =
 Building Name = [
-Building Name = [ Building Foo
-Building Name = [ Building Foo Building Bar
+Building Name = [ "Building Foo"
+Building Name = [ "Building Foo" "Building Bar"
 Building [
-Building [ Building Foo
-Building [ Building Foo Building Bar
+Building [ "Building Foo"
+Building [ "Building Foo" "Building Bar"
 Species Name
 Species Name =
 Species Name = [
-Species Name = [ Species Foo
-Species Name = [ Species Foo Species Bar
+Species Name = [ "Species Foo"
+Species Name = [ "Species Foo" "Species Bar"
 Species [
-Species [ Species Foo
-Species [ Species Foo Species Bar
+Species [ "Species Foo"
+Species [ "Species Foo" "Species Bar"
 FocusType Type
 FocusType Type =
 FocusType Type = [
-FocusType Type = [ Focus Foo
-FocusType Type = [ Focus Foo Focus Bar
+FocusType Type = [ "Focus Foo"
+FocusType Type = [ "Focus Foo" "Focus Bar"
 FocusType [
-FocusType [ Focus Foo
-FocusType [ Focus Foo Focus Bar
+FocusType [ "Focus Foo"
+FocusType [ "Focus Foo" "Focus Bar"
 Planet Type
 Planet Type =
 Planet Type = [
