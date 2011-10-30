@@ -281,7 +281,6 @@ add_test_and_data_files(parser_test condition_parser -f condition_parser_1_error
 add_test_and_data_files(parser_test condition_parser -f condition_parser_2_errors --fail)
 add_test_and_data_files(parser_test condition_parser -f condition_parser_3_errors --fail)
 add_test_and_data_files(parser_test effect_parser -f effect_parser_errors --fail)
-
 add_test_and_data_files(parser_test buildings_parser -f buildings_errors --fail)
 add_test_and_data_files(parser_test specials_parser -f specials_errors --fail)
 add_test_and_data_files(parser_test species_parser -f species_errors --fail)
