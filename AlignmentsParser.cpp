@@ -4,6 +4,15 @@
 #include "../Empire/Empire.h"
 
 
+#define DEBUG_PARSERS 0
+
+#if DEBUG_PARSERS
+namespace std {
+    inline ostream& operator<<(ostream& os, const std::vector<Alignment>&) { return os; }
+    inline ostream& operator<<(ostream& os, const Alignment&) { return os; }
+}
+#endif
+
 namespace {
 
     std::vector<boost::shared_ptr<const Effect::EffectsGroup> >* g_effects_groups = 0;
@@ -43,7 +52,10 @@ namespace {
                     ;
 
                 alignment.name("Alignment");
-                start.name("start");
+
+#if DEBUG_PARSERS
+                debug(alignment);
+#endif
 
                 qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }

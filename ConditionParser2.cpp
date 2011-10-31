@@ -14,9 +14,6 @@ namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
 
 
-#define NAME(x) x.name(#x)
-//; debug(x)
-
 namespace {
 
     struct condition_parser_rules_2
@@ -130,20 +127,37 @@ namespace {
                     |    object_id
                     ;
 
-                NAME(has_special);
-                NAME(has_special_since_turn);
-                NAME(owner_has_tech);
-                NAME(design_has_hull);
-                NAME(design_has_part);
-                NAME(design_has_part_class);
-                NAME(predefined_design);
-                NAME(design_number);
-                NAME(produced_by_empire);
-                NAME(visible_to_empire);
-                NAME(explored_by_empire);
-                NAME(fleet_supplyable_by_empire);
-                NAME(in_system);
-                NAME(object_id);
+                has_special.name("HasSpecial");
+                has_special_since_turn.name("HasSpecialSinceTurn");
+                owner_has_tech.name("OwnerHasTech");
+                design_has_hull.name("DesignHasHull");
+                design_has_part.name("DesignHasPart");
+                design_has_part_class.name("DesignHasPartClass");
+                predefined_design.name("PredefinedDesign");
+                design_number.name("DesignNumber");
+                produced_by_empire.name("ProducedByEmpire");
+                visible_to_empire.name("VisibleToEmpire");
+                explored_by_empire.name("ExploredByEmpire");
+                fleet_supplyable_by_empire.name("FleetSupplyableByEmpire");
+                in_system.name("InSystem");
+                object_id.name("ID");
+
+#if DEBUG_CONDITION_PARSERS
+                debug(has_special);
+                debug(has_special_since_turn);
+                debug(owner_has_tech);
+                debug(design_has_hull);
+                debug(design_has_part);
+                debug(design_has_part_class);
+                debug(predefined_design);
+                debug(design_number);
+                debug(produced_by_empire);
+                debug(visible_to_empire);
+                debug(explored_by_empire);
+                debug(fleet_supplyable_by_empire);
+                debug(in_system);
+                debug(object_id);
+#endif
             }
 
         typedef boost::spirit::qi::rule<

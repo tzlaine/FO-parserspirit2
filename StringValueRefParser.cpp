@@ -86,13 +86,15 @@ namespace {
                 double_statistic.name("real number statistic");
                 expr.name("string expression");
 
-                DEBUG_RULE(final_token);
-                DEBUG_RULE(constant);
-                DEBUG_RULE(variable);
-                DEBUG_RULE(statistic);
-                DEBUG_RULE(int_statistic);
-                DEBUG_RULE(double_statistic);
-                DEBUG_RULE(expr);
+#if DEBUG_VALUEREF_PARSERS
+                debug(final_token);
+                debug(constant);
+                debug(variable);
+                debug(statistic);
+                debug(int_statistic);
+                debug(double_statistic);
+                debug(expr);
+#endif
             }
 
         typedef parse::value_ref_parser_rule<std::string>::type rule;

@@ -13,33 +13,16 @@ namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
 
 
-#define DEBUG_VALUEREF_PARSE 0
-#if DEBUG_VALUEREF_PARSE
-#define DEBUG_RULE(x) debug(x)
-#else
-#define DEBUG_RULE(x)
-#endif
+#define DEBUG_VALUEREF_PARSERS 0
 
 // These are just here to satisfy the requirements of qi::debug(<rule>).
-namespace adobe {
-    inline std::ostream& operator<<(std::ostream& os, const std::vector<name_t>& name_vec)
-    {
-        os << "[ ";
-        for (std::size_t i = 0; i < name_vec.size(); ++i) {
-            os << name_vec[i] << " ";
-        }
-        os << "]";
-        return os;
-    }
+#if DEBUG_VALUEREF_PARSERS
+namespace std {
+    inline ostream& operator<<(ostream& os, const std::vector<adobe::name_t>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::vector<boost::variant<ValueRef::OpType, ValueRef::ValueRefBase<int>*> >&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::vector<boost::variant<ValueRef::OpType, ValueRef::ValueRefBase<double>*> >&) { return os; }
 }
-
-namespace boost {
-    inline std::ostream& operator<<(std::ostream& os, const std::vector<variant<ValueRef::OpType, ValueRef::ValueRefBase<int>*> >& name_vec)
-    { return os << "[int expression stack]"; }
-
-    inline std::ostream& operator<<(std::ostream& os, const std::vector<variant<ValueRef::OpType, ValueRef::ValueRefBase<double>*> >& name_vec)
-    { return os << "[double expression stack]"; }
-}
+#endif
 
 typedef qi::rule<
     parse::token_iterator,

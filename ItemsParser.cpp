@@ -3,6 +3,14 @@
 #include "Label.h"
 
 
+#define DEBUG_PARSERS 0
+
+#if DEBUG_PARSERS
+namespace std {
+    inline ostream& operator<<(ostream& os, const std::vector<ItemSpec>&) { return os; }
+}
+#endif
+
 namespace {
 
     struct rules

@@ -105,17 +105,19 @@ namespace {
                 expr.name("integer expression");
                 primary_expr.name("integer expression");
 
-                DEBUG_RULE(first_token);
-                DEBUG_RULE(container_token);
-                DEBUG_RULE(final_token);
-                DEBUG_RULE(constant);
-                DEBUG_RULE(variable);
-                DEBUG_RULE(statistic);
-                DEBUG_RULE(negate_expr);
-                DEBUG_RULE(multiplicative_expr);
-                DEBUG_RULE(additive_expr);
-                DEBUG_RULE(expr);
-                DEBUG_RULE(primary_expr);
+#if DEBUG_VALUEREF_PARSERS
+                debug(first_token);
+                debug(container_token);
+                debug(final_token);
+                debug(constant);
+                debug(variable);
+                debug(statistic);
+                debug(negate_expr);
+                debug(multiplicative_expr);
+                debug(additive_expr);
+                debug(expr);
+                debug(primary_expr);
+#endif
             }
 
         typedef parse::value_ref_parser_rule<int>::type rule;

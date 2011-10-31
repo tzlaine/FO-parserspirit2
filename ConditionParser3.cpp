@@ -13,8 +13,11 @@ namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
 
 
-#define NAME(x) x.name(#x)
-//; debug(x)
+#if DEBUG_CONDITION_PARSERS
+namespace std {
+    inline ostream& operator<<(ostream& os, const std::vector<const ValueRef::ValueRefBase<StarType>*>&) { return os; }
+}
+#endif
 
 namespace {
 
@@ -150,18 +153,33 @@ namespace {
                     |    resource_supply_connected
                     ;
 
-                NAME(within_distance);
-                NAME(within_starlane_jumps);
-                NAME(number);
-                NAME(turn);
-                NAME(created_on_turn);
-                NAME(number_of);
-                NAME(contains);
-                NAME(contained_by);
-                NAME(star_type);
-                NAME(random);
-                NAME(owner_stockpile);
-                NAME(resource_supply_connected);
+                within_distance.name("WithinDistance");
+                within_starlane_jumps.name("WithinStarlaneJumps");
+                number.name("Number");
+                turn.name("Turn");
+                created_on_turn.name("CreatedOnTurn");
+                number_of.name("NumberOf");
+                contains.name("Contains");
+                contained_by.name("ContainedBy");
+                star_type.name("StarType");
+                random.name("Random");
+                owner_stockpile.name("OwnerStockpile");
+                resource_supply_connected.name("ResourceSupplyConnected");
+
+#if DEBUG_CONDITION_PARSERS
+                debug(within_distance);
+                debug(within_starlane_jumps);
+                debug(number);
+                debug(turn);
+                debug(created_on_turn);
+                debug(number_of);
+                debug(contains);
+                debug(contained_by);
+                debug(star_type);
+                debug(random);
+                debug(owner_stockpile);
+                debug(resource_supply_connected);
+#endif
             }
 
         typedef boost::spirit::qi::rule<

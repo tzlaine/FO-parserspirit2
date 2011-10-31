@@ -6,6 +6,18 @@
 #include "Label.h"
 
 
+#define DEBUG_PARSERS 0
+
+#if DEBUG_PARSERS
+namespace std {
+    inline ostream& operator<<(ostream& os, const std::vector<ShipSlotType>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::vector<boost::shared_ptr<const Effect::EffectsGroup> >&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::map<std::string, PartType*>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::pair<const std::string, PartType*>&) { return os; }
+    inline ostream& operator<<(ostream& os, const PartTypeStats&) { return os; }
+}
+#endif
+
 namespace {
 
     struct insert_
@@ -111,7 +123,11 @@ namespace {
 
                 part_stats.name("Part stats");
                 part_type.name("Part");
-                start.name("start");
+
+#if DEBUG_PARSERS
+                debug(part_stats);
+                debug(part_type);
+#endif
 
                 qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }

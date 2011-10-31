@@ -5,6 +5,8 @@
 #include "ConditionParser.h"
 
 
+#define DEBUG_CONDITION_PARSERS 0
+
 namespace parse { namespace detail {
 
     extern condition_parser_rule condition_parser;

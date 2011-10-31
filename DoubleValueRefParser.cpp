@@ -111,16 +111,18 @@ namespace {
                 expr.name("real number expression");
                 primary_expr.name("real number expression");
 
-                DEBUG_RULE(final_token);
-                DEBUG_RULE(constant);
-                DEBUG_RULE(variable);
-                DEBUG_RULE(statistic);
-                DEBUG_RULE(int_statistic);
-                DEBUG_RULE(negate_expr);
-                DEBUG_RULE(multiplicative_expr);
-                DEBUG_RULE(additive_expr);
-                DEBUG_RULE(expr);
-                DEBUG_RULE(primary_expr);
+#if DEBUG_VALUEREF_PARSERS
+                debug(final_token);
+                debug(constant);
+                debug(variable);
+                debug(statistic);
+                debug(int_statistic);
+                debug(negate_expr);
+                debug(multiplicative_expr);
+                debug(additive_expr);
+                debug(expr);
+                debug(primary_expr);
+#endif
             }
 
         typedef parse::value_ref_parser_rule<double>::type rule;

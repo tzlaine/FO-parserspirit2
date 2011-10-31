@@ -3,6 +3,8 @@
 
 namespace qi = boost::spirit::qi;
 
+#define DEBUG_PARSERS 0
+
 namespace {
 
     qi::_1_type _1;
@@ -21,7 +23,14 @@ namespace parse {
             |    tok.Asteroids_ [ _val = SZ_ASTEROIDS ]
             |    tok.GasGiant_ [ _val = SZ_GASGIANT ]
             ;
-        retval.name("PlanetSize");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("PlanetSize");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -34,7 +43,14 @@ namespace parse {
             |    tok.Asteroids_ [ _val = PT_ASTEROIDS ]
             |    tok.GasGiant_ [ _val = PT_GASGIANT ]
             ;
-        retval.name("PlanetType");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("PlanetType");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -45,7 +61,14 @@ namespace parse {
         static enum_parser_rule<PlanetEnvironment>::type retval
             =    tok.planet_environment_enum [ _val = _1 ]
             ;
-        retval.name("PlanetEnvironment");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("PlanetEnvironment");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -60,7 +83,14 @@ namespace parse {
             |    tok.Planet_ [ _val = OBJ_PLANET ]
             |    tok.System_ [ _val = OBJ_SYSTEM ]
             ;
-        retval.name("UniverseObjectType");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("UniverseObjectType");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -71,7 +101,14 @@ namespace parse {
         static enum_parser_rule<StarType>::type retval
             =    tok.star_type_enum [ _val = _1 ]
             ;
-        retval.name("StarType");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("StarType");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -82,7 +119,14 @@ namespace parse {
             =    non_ship_part_meter_type_enum() [ _val = _1 ]
             |    ship_part_meter_type_enum() [ _val = _1 ]
             ;
-        retval.name("MeterType");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("MeterType");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -93,7 +137,14 @@ namespace parse {
         static enum_parser_rule<EmpireAffiliationType>::type retval
             =    tok.empire_affiliation_type_enum [ _val = _1 ]
             ;
-        retval.name("EmpireAffiliationType");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("EmpireAffiliationType");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -107,7 +158,14 @@ namespace parse {
             |    tok.ShipDesign_ [ _val = UIT_SHIP_DESIGN ]
             |    tok.Tech_ [ _val = UIT_TECH ]
             ;
-        retval.name("UnlockableItemType");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("UnlockableItemType");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -118,7 +176,14 @@ namespace parse {
         static enum_parser_rule<TechType>::type retval
             =    tok.tech_type_enum [ _val = _1 ]
             ;
-        retval.name("TechType");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("TechType");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -129,7 +194,14 @@ namespace parse {
         static enum_parser_rule<ShipSlotType>::type retval
             =    tok.ship_slot_type_enum [ _val = _1 ]
             ;
-        retval.name("ShipSlotType");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("ShipSlotType");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -147,7 +219,14 @@ namespace parse {
             |    tok.BattleSpeed_ [ _val = PC_BATTLE_SPEED ]
             |    tok.StarlaneSpeed_ [ _val = PC_STARLANE_SPEED ]
             ;
-        retval.name("ShipPartClass");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("ShipPartClass");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -158,7 +237,14 @@ namespace parse {
         static enum_parser_rule<CombatFighterType>::type retval
             =    tok.combat_fighter_type_enum [ _val = _1 ]
             ;
-        retval.name("CombatFighterType");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("CombatFighterType");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -170,7 +256,14 @@ namespace parse {
             =    tok.capture_result_enum [ _val = _1 ]
             |    tok.Destroy_ [ _val = CR_DESTROY ]
             ;
-        retval.name("CaptureResult");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("CaptureResult");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -182,7 +275,14 @@ namespace parse {
             =    tok.statistic_type_enum [ _val = _1 ]
             |    tok.Mode_ [ _val = ValueRef::MODE ]
             ;
-        retval.name("StatisticType");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("StatisticType");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -227,7 +327,14 @@ namespace parse {
             |    tok.BattleSpeed_ [ _val = METER_BATTLE_SPEED ]
             |    tok.StarlaneSpeed_ [ _val = METER_STARLANE_SPEED ]
             ;
-        retval.name("non-ship-part MeterType");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("non-ship-part MeterType");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 
@@ -248,7 +355,14 @@ namespace parse {
             |    tok.Detection_ [ _val = METER_DETECTION ]
             |    tok.Structure_ [ _val = METER_STRUCTURE ]
             ;
-        retval.name("ship-part MeterType");
+        static bool once = true;
+        if (once) {
+#ifdef DEBUG_PARSERS
+            retval.name("ship-part MeterType");
+            debug(retval);
+#endif
+            once = false;
+        }
         return retval;
     }
 

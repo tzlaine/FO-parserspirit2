@@ -16,8 +16,7 @@ namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
 
 
-#define NAME(x) x.name(#x)
-//; debug(x)
+#define DEBUG_PARSERS 0
 
 namespace {
 
@@ -168,7 +167,7 @@ namespace {
 
                 create_ship_1
                     =    tok.CreateShip_
-                    >>   parse::label(DesignName_name) >> int_value_ref [ _b = _1 ]
+                    >>   parse::label(DesignName_name) >> int_value_ref [ _b = _1 ] // TODO: DesignName -> DesignID.
                     >    parse::label(Empire_name)     >  int_value_ref [ _c = _1 ]
                     >    parse::label(Species_name)    >  string_value_ref [ _val = new_<Effect::CreateShip>(_b, _c, _1) ]
                     ;
@@ -308,33 +307,63 @@ namespace {
                     |    generate_sitrep_message
                     ;
 
-                NAME(set_meter);
-                NAME(set_ship_part_meter);
-                NAME(set_empire_meter_1);
-                NAME(set_empire_meter_2);
-                NAME(set_empire_stockpile);
-                NAME(set_empire_capital);
-                NAME(set_planet_type);
-                NAME(set_planet_size);
-                NAME(set_species);
-                NAME(set_owner);
-                NAME(create_planet);
-                NAME(create_building);
-                NAME(create_ship_1);
-                NAME(create_ship_2);
-                NAME(create_ship_3);
-                NAME(create_ship_4);
-                NAME(move_to);
-                NAME(set_destination);
-                NAME(destroy);
-                NAME(victory);
-                NAME(add_special);
-                NAME(remove_special);
-                NAME(add_starlanes);
-                NAME(remove_starlanes);
-                NAME(set_star_type);
-                NAME(set_tech_availability);
-                NAME(generate_sitrep_message);
+                set_meter.name("SetMeter");
+                set_ship_part_meter.name("SetShipPartMeter");
+                set_empire_meter_1.name("SetEmpireMeter (w/empire ID)");
+                set_empire_meter_2.name("SetEmpireMeter");
+                set_empire_stockpile.name("SetEmpireStockpile");
+                set_empire_capital.name("SetEmpireCapital");
+                set_planet_type.name("SetPlanetType");
+                set_planet_size.name("SetPlanetSize");
+                set_species.name("SetSpecies");
+                set_owner.name("SetOwner");
+                create_planet.name("CreatePlanet");
+                create_building.name("CreateBuilding");
+                create_ship_1.name("CreateShip (int DesignID");
+                create_ship_2.name("CreateShip (empire and species)");
+                create_ship_3.name("CreateShip (string DesignName and empire)");
+                create_ship_4.name("CreateShip (string DesignName  only)");
+                move_to.name("MoveTo");
+                set_destination.name("SetDestination");
+                destroy.name("Destroy");
+                victory.name("Victory");
+                add_special.name("AddSpecial");
+                remove_special.name("RemoveSpecial");
+                add_starlanes.name("AddStarlanes");
+                remove_starlanes.name("RemoveStarlanes");
+                set_star_type.name("SetStarType");
+                set_tech_availability.name("SetTechAvailability");
+                generate_sitrep_message.name("GenerateSitrepMessage");
+
+#if DEBUG_PARSER
+                debug(set_meter);
+                debug(set_ship_part_meter);
+                debug(set_empire_meter_1);
+                debug(set_empire_meter_2);
+                debug(set_empire_stockpile);
+                debug(set_empire_capital);
+                debug(set_planet_type);
+                debug(set_planet_size);
+                debug(set_species);
+                debug(set_owner);
+                debug(create_planet);
+                debug(create_building);
+                debug(create_ship_1);
+                debug(create_ship_2);
+                debug(create_ship_3);
+                debug(create_ship_4);
+                debug(move_to);
+                debug(set_destination);
+                debug(destroy);
+                debug(victory);
+                debug(add_special);
+                debug(remove_special);
+                debug(add_starlanes);
+                debug(remove_starlanes);
+                debug(set_star_type);
+                debug(set_tech_availability);
+                debug(generate_sitrep_message);
+#endif
             }
 
         typedef boost::spirit::qi::rule<

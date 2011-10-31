@@ -15,8 +15,15 @@ namespace qi = boost::spirit::qi;
 namespace phoenix = boost::phoenix;
 
 
-#define NAME(x) x.name(#x)
-//; debug(x)
+#if DEBUG_CONDITION_PARSERS
+namespace std {
+    inline ostream& operator<<(ostream& os, const std::vector<const Condition::ConditionBase*>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::vector<const ValueRef::ValueRefBase<std::string>*>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::vector<const ValueRef::ValueRefBase<PlanetSize>*>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::vector<const ValueRef::ValueRefBase<PlanetType>*>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::vector<const ValueRef::ValueRefBase<PlanetEnvironment>*>&) { return os; }
+}
+#endif
 
 namespace {
 
@@ -219,29 +226,53 @@ namespace {
                     |    not_
                     ;
 
-                NAME(string_ref_vec);
-                NAME(all);
-                NAME(source);
-                NAME(root_candidate);
-                NAME(target);
-                NAME(stationary);
-                NAME(capital);
-                NAME(monster);
-                NAME(armed);
-                NAME(owned_by);
-                NAME(homeworld);
-                NAME(building);
-                NAME(species);
-                NAME(focus_type);
-                NAME(planet_type);
-                NAME(planet_size);
-                NAME(planet_environment);
-                NAME(object_type);
-                NAME(meter_value);
-                NAME(and_);
-                NAME(or_);
-                NAME(not_);
-                NAME(start);
+                string_ref_vec.name("sequence of string expressions");
+                all.name("All");
+                source.name("Source");
+                root_candidate.name("RootCandidate");
+                target.name("Target");
+                stationary.name("Stationary");
+                capital.name("Capital");
+                monster.name("Monster");
+                armed.name("Armed");
+                owned_by.name("OwnedBy");  // TODO: Should this be renamed Affilated or similar?
+                homeworld.name("Homeworld");
+                building.name("Building");
+                species.name("Species");
+                focus_type.name("FocusType");
+                planet_type.name("PlanetType");
+                planet_size.name("PlanetSize");
+                planet_environment.name("PlanetEnvironment");
+                object_type.name("ObjectType");
+                meter_value.name("MeterValue");
+                and_.name("And");
+                or_.name("Or");
+                not_.name("Not");
+
+#if DEBUG_CONDITION_PARSERS
+                debug(string_ref_vec);
+                debug(all);
+                debug(source);
+                debug(root_candidate);
+                debug(target);
+                debug(stationary);
+                debug(capital);
+                debug(monster);
+                debug(armed);
+                debug(owned_by);
+                debug(homeworld);
+                debug(building);
+                debug(species);
+                debug(focus_type);
+                debug(planet_type);
+                debug(planet_size);
+                debug(planet_environment);
+                debug(object_type);
+                debug(meter_value);
+                debug(and_);
+                debug(or_);
+                debug(not_);
+#endif
             }
 
         typedef boost::spirit::qi::rule<

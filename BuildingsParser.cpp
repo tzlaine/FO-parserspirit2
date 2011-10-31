@@ -5,6 +5,16 @@
 #include "../universe/Building.h"
 
 
+#define DEBUG_PARSERS 0
+
+#if DEBUG_PARSERS
+namespace std {
+    inline ostream& operator<<(ostream& os, const std::vector<boost::shared_ptr<const Effect::EffectsGroup> >&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::map<std::string, BuildingType*>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::pair<const std::string, BuildingType*>&) { return os; }
+}
+#endif
+
 namespace {
 
     struct insert_
@@ -71,7 +81,10 @@ namespace {
                     ;
 
                 building_type.name("BuildingType");
-                start.name("start");
+
+#if DEBUG_PARSERS
+                debug(building_type);
+#endif
 
                 qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }

@@ -49,11 +49,13 @@ namespace {
                 statistic.name("StarType statistic");
                 primary_expr.name("StarType expression");
 
-                DEBUG_RULE(final_token);
-                DEBUG_RULE(constant);
-                DEBUG_RULE(variable);
-                DEBUG_RULE(statistic);
-                DEBUG_RULE(primary_expr);
+#if DEBUG_VALUEREF_PARSERS
+                debug(final_token);
+                debug(constant);
+                debug(variable);
+                debug(statistic);
+                debug(primary_expr);
+#endif
             }
 
         typedef parse::value_ref_parser_rule<StarType>::type rule;

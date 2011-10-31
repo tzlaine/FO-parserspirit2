@@ -4,6 +4,16 @@
 #include "Label.h"
 
 
+#define DEBUG_PARSERS 0
+
+#if DEBUG_PARSERS
+namespace std {
+    inline ostream& operator<<(ostream& os, const std::map<std::string, ShipDesign*>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::pair<const std::string, ShipDesign*>&) { return os; }
+    inline ostream& operator<<(ostream& os, const std::vector<std::string>&) { return os; }
+}
+#endif
+
 namespace {
 
     struct insert_
@@ -60,7 +70,10 @@ namespace {
                     ;
 
                 design.name("ShipDesign");
-                start.name("start");
+
+#if DEBUG_PARSERS
+                debug(design);
+#endif
 
                 qi::on_error<qi::fail>(start, parse::report_error(_1, _2, _3, _4));
             }
