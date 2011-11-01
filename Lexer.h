@@ -4,7 +4,7 @@
 
 #define BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
 
-#include <GG/ReportParseError.h>
+#include <GG/LexerFwd.h>
 
 #include "../universe/Enums.h"
 #include "../universe/Names.h"
@@ -122,8 +122,6 @@ typedef lexer::lexer_def lexer_def;
     script file parser iterator. */
 typedef boost::spirit::qi::in_state_skipper<lexer_def> skipper_type;
 
-extern const boost::phoenix::function<GG::report_error_<token_type> > report_error;
-
 }
 
 namespace boost { namespace spirit { namespace traits {
@@ -161,5 +159,7 @@ namespace boost { namespace spirit { namespace traits {
 #undef ASSIGN_TO_ATTRIBUTE_DECL
 
 } } }
+
+#include "ReportParseError.h"
 
 #endif

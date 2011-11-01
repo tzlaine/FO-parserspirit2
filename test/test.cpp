@@ -246,10 +246,10 @@ int main(int argc, char* argv[])
 
             bool success = false;
 
-            GG::detail::s_text_it = &first;
-            GG::detail::s_begin = first;
-            GG::detail::s_end = last;
-            GG::detail::s_filename = argc == 4 ? argv[3] : "command-line";
+            parse::detail::s_text_it = &first;
+            parse::detail::s_begin = first;
+            parse::detail::s_end = last;
+            parse::detail::s_filename = argc == 4 ? argv[3] : "command-line";
             parse::token_iterator it = l.begin(first, last);
             const parse::token_iterator end_it = l.end();
 

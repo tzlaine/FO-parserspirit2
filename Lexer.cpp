@@ -197,8 +197,6 @@ const boost::spirit::lex::token_def<adobe::name_t>& lexer::name_token(adobe::nam
     return *it->second;
 }
 
-const boost::phoenix::function<GG::report_error_<parse::token_type> > parse::report_error;
-
 namespace boost { namespace spirit { namespace traits {
 
     // This template specialization is required by Spirit.Lex to automatically

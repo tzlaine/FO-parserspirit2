@@ -72,7 +72,7 @@ namespace parse { namespace detail {
 
         bool success = boost::spirit::qi::phrase_parse(it, l.end(), rules.start(boost::phoenix::ref(arg1)), in_state("WS")[l.self]);
 
-        std::ptrdiff_t distance = std::distance(first, GG::detail::s_end);
+        std::ptrdiff_t distance = std::distance(first, parse::detail::s_end);
 
         return success && (!distance || distance == 1 && *first == '\n');
     }
