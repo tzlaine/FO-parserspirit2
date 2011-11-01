@@ -10,86 +10,33 @@
 namespace parse {
 
     template <typename Stream>
-    struct printer
+    struct info_visitor
     {
-        enum state {
-            none,
-            alternative,
-            sequence
-        };
-
+        typedef void result_type;
+        typedef info_visitor<Stream> this_type;
         typedef boost::spirit::utf8_string string;
 
-        printer(Stream& os) : m_os(os) {}
+        enum indented_or_flat {
+            indented,
+            flat
+        };
 
-        std::string indentation() const
+        info_visitor(Stream& os, const string& tag, std::size_t indent, indented_or_flat indented_or_flat_ = indented) :
+            m_os(os),
+            m_tag(tag),
+            m_indent(indent),
+            m_indented_or_flat(indented_or_flat_)
+            {}
+
+        void indent() const
             {
-                std::size_t indent = 0;
-                for (std::size_t i = 0; i < m_state.size(); ++i) {
-                    indent += boost::get<0>(m_state[i]) == alternative ? 1 : 0;
-                }
-                return '\n' + std::string(indent * 4, ' ');
+                if (m_indent)
+                    m_os << std::string(m_indent, ' ');
             }
 
-        void increment_element_of(state s) const
+        std::string prepare(const string& s) const
             {
-                for (std::size_t i = m_state.size(); 0 < i; ) {
-                    --i;
-                    if (boost::get<0>(m_state[i]) == s) {
-                        ++boost::get<1>(m_state[i]);
-                        if (s == sequence)
-                            s = alternative;
-                        else
-                            break;
-                    }
-                }
-            }
-
-        std::size_t element_of(state s) const
-            {
-                std::size_t retval = 0;
-                for (std::size_t i = m_state.size(); 0 < i; ) {
-                    --i;
-                    if (boost::get<0>(m_state[i]) == s) {
-                        retval = boost::get<1>(m_state[i]);
-                        break;
-                    }
-                }
-                return retval;
-            }
-
-        void element(string const& tag, string const& value, std::size_t depth) const
-        {
-            while (m_state.size() < depth + 1) {
-                if (m_state.empty())
-                    m_state.push_back(state_tuple(none, 0));
-                else
-                    m_state.push_back(m_state.back());
-            }
-            while (depth + 1 < m_state.size()) {
-                state_tuple popped_state = m_state.back();
-                m_state.pop_back();
-                if (!m_state.empty() && boost::get<1>(popped_state) && boost::get<0>(m_state.back()) == sequence)
-                    boost::get<1>(m_state.back()) += boost::get<1>(popped_state);
-            }
-
-            if (value == "") {
-                if (tag == "alternative") {
-                    m_state.push_back(state_tuple(alternative, 0));
-                    return;
-                } else if (tag == "expect" || tag == "sequence") {
-                    m_state.push_back(state_tuple(sequence, 0));
-                    return;
-                } else {
-                    m_os << '<' << tag << '>';
-                }
-            } else {
-                std::string str;
-                {
-                    std::stringstream ss;
-                    ss << value;
-                    str = ss.str();
-                }
+                std::string str = s;
                 if (str == parse::lexer::bool_regex)
                     str = "boolean (true or false)";
                 else if (str == parse::lexer::string_regex)
@@ -98,35 +45,75 @@ namespace parse {
                     str = "integer";
                 else if (str == parse::lexer::double_regex)
                     str = "real number";
-                if (!m_state.empty()) {
-                    const state s = boost::get<0>(m_state.back());
-                    increment_element_of(s);
-                    const std::size_t element_of_sequence = element_of(sequence);
-                    const std::size_t element_of_alternative = element_of(alternative);
-                    if (s == sequence && 2u <= element_of_sequence)
-                        m_os << ' ';
-                    else if (s == sequence && element_of_sequence == 1u && 2u <= element_of_alternative ||
-                             s == alternative && 2u <= element_of_alternative)
-                        m_os << indentation() << "- OR -" << indentation();
-                    else if (depth)
-                        m_os << indentation();
+                else if (str.find("(?i:") == 0)
+                    str = str.substr(4, str.size() - 5);
+                return str;
+            }
+
+        void print(const string& str) const
+            { m_os << prepare(str); }
+
+        void operator()(boost::spirit::info::nil) const
+        {
+            indent();
+            print(m_tag);
+        }
+
+        void operator()(const string& str) const
+        {
+            indent();
+            print(str);
+        }
+
+        void operator()(const boost::spirit::info& what) const
+        { boost::apply_visitor(this_type(m_os, what.tag, m_indent, m_indented_or_flat), what.value); }
+
+        void operator()(const std::pair<boost::spirit::info, boost::spirit::info>& pair) const
+        {
+            const boost::spirit::info* infos = &pair.first;
+            multi_info(infos, infos + 2);
+        }
+
+        void operator()(const std::list<boost::spirit::info>& l) const
+        { multi_info(l.begin(), l.end()); }
+
+        template <typename Iter>
+        void multi_info(Iter first, const Iter last) const
+        {
+            if (m_tag == "sequence" || m_tag == "expect") {
+                if (first->tag.find(" =") == first->tag.size() - 2)
+                    ++first;
+                const string* value = boost::get<string>(&first->value);
+                if (value && *value == "[") {
+                    for (; first != last; ++first) {
+                        boost::apply_visitor(this_type(m_os, first->tag, 1, flat), first->value);
+                    }
+                } else {
+                    boost::apply_visitor(this_type(m_os, first->tag, 1, flat), first->value);
                 }
-                m_os << str;
+            } else if (m_tag == "alternative") {
+                std::size_t indent_ = m_indented_or_flat == flat ? 1 : m_indent + 4;
+                boost::apply_visitor(this_type(m_os, first->tag, indent_, m_indented_or_flat), first->value);
+                indent();
+                ++first;
+                for (; first != last; ++first) {
+                    m_os << "-OR-";
+                    boost::apply_visitor(this_type(m_os, first->tag, indent_, m_indented_or_flat), first->value);
+                }
             }
         }
 
         Stream& m_os;
-        typedef boost::tuple<state, std::size_t> state_tuple; // state, number of elements printed in this state
-        mutable std::vector<state_tuple> m_state;
-        mutable std::vector<int> m_bias;
+        const string& m_tag;
+        int m_indent;
+        indented_or_flat m_indented_or_flat;
     };
 
     template <typename Stream>
     void pretty_print(Stream& os, boost::spirit::info const& what)
     {
-        printer<Stream> pr(os);
-        boost::spirit::basic_info_walker<printer<Stream> > w(pr, what.tag, 0);
-        boost::apply_visitor(w, what.value);
+        info_visitor<Stream> v(os, what.tag, 1);
+        boost::apply_visitor(v, what.value);
         if (what.tag == "alternative")
             os << '\n';
         else
