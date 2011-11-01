@@ -80,14 +80,19 @@ namespace {
 
 using namespace parse;
 
+const char* lexer::bool_regex = "(?i:true|false)";
+const char* lexer::int_regex = "\\d+";
+const char* lexer::double_regex = "\\d+\\.\\d*";
+const char* lexer::string_regex = "\\\"[^\\\"]*\\\"";
+
 lexer::lexer() :
     inline_comment("\\/\\*[^*]*\\*+([^/*][^*]*\\*+)*\\/"),
     end_of_line_comment("\\/\\/.*$"),
 
-    bool_("(?i:true|false)"),
-    int_("\\d+"),
-    double_("\\d+\\.\\d*"),
-    string("\\\"[^\\\"]*\\\""),
+    bool_(bool_regex),
+    int_(int_regex),
+    double_(double_regex),
+    string(string_regex),
 
     planet_size_enum(planet_size_str.c_str()),
     planet_type_enum(planet_type_str.c_str()),

@@ -99,6 +99,12 @@ struct lexer :
     /** Returns the token_def<adobe::name_t> associated with \a name. */
     const boost::spirit::lex::token_def<adobe::name_t>& name_token(adobe::name_t name) const;
 
+    static const char* bool_regex;
+    static const char* int_regex;
+    static const char* double_regex;
+    static const char* string_regex;
+
+
 private:
     /** Ctor. */
     lexer();
