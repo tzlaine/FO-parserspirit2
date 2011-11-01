@@ -25,8 +25,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("PlanetSize");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -45,8 +45,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("PlanetType");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -63,8 +63,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("PlanetEnvironment");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -85,8 +85,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("UniverseObjectType");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -103,8 +103,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("StarType");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -121,8 +121,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("MeterType");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -139,8 +139,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("EmpireAffiliationType");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -160,8 +160,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("UnlockableItemType");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -178,8 +178,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("TechType");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -196,8 +196,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("ShipSlotType");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -221,8 +221,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("ShipPartClass");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -239,8 +239,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("CombatFighterType");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -258,8 +258,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("CaptureResult");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -277,8 +277,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("StatisticType");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -329,8 +329,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("non-ship-part MeterType");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
@@ -357,8 +357,8 @@ namespace parse {
             ;
         static bool once = true;
         if (once) {
-#if DEBUG_PARSERS
             retval.name("ship-part MeterType");
+#if DEBUG_PARSERS
             debug(retval);
 #endif
             once = false;
