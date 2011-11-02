@@ -55,6 +55,7 @@ namespace {
                     |    tok.NextSystemID_
                     |    tok.PreviousSystemID_
                     |    tok.NumShips_
+                    |    tok.LastTurnBattleHere_
                     ;
 
                 constant

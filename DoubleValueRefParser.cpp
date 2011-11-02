@@ -55,6 +55,8 @@ namespace {
                     |    tok.MineralStockpile_
                     |    tok.FoodStockpile_
                     |    tok.DistanceToSource_
+                    |    tok.AllocatedFood_
+                    |    tok.FoodAllocationForMaxGrowth_
                     ;
 
                 constant
