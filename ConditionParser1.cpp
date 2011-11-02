@@ -106,7 +106,10 @@ namespace {
 
                 owned_by
                     =    tok.OwnedBy_
-                    >>   parse::label(Affiliation_name) >> parse::enum_parser<EmpireAffiliationType>() [ _a = _1 ]
+                    >>  -(
+                              parse::label(Affiliation_name) >> parse::enum_parser<EmpireAffiliationType>() [ _a = _1 ]
+                          |   eps [ _a = AFFIL_SELF ]
+                         )
                     >>   (
                               parse::label(Empire_name) >> int_value_ref [ _val = new_<Condition::EmpireAffiliation>(_1, _a) ]
                           |   eps [ _val = new_<Condition::EmpireAffiliation>(_a) ]
