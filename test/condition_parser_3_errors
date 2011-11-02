@@ -37,22 +37,16 @@ Number 1 High = 2 Condition =
 Number 1 2
 Number 1 2 Condition
 Number 1 2 Condition =
-Turn
 Turn Low
 Turn Low =
-Turn Low = 1
 Turn Low = 1 High
 Turn Low = 1 High =
-Turn 1
 Turn 1 High
 Turn 1 High =
-CreatedOnTurn
 CreatedOnTurn Low
 CreatedOnTurn Low =
-CreatedOnTurn Low = 1
 CreatedOnTurn Low = 1 High
 CreatedOnTurn Low = 1 High =
-CreatedOnTurn 1
 CreatedOnTurn 1 High
 CreatedOnTurn 1 High =
 NumberOf
