@@ -62,21 +62,35 @@ namespace {
 
                 number
                     =    tok.Number_
-                    >    parse::label(Low_name)       > int_value_ref [ _a = _1 ]
-                    >    parse::label(High_name)      > int_value_ref [ _b = _1 ]
+                    >>  -(
+                              parse::label(Low_name) >> int_value_ref [ _a = _1 ]
+                         )
+                    >>  -(
+                              parse::label(High_name) >> int_value_ref [ _b = _1 ]
+                         )
                     >    parse::label(Condition_name) > parse::detail::condition_parser [ _val = new_<Condition::Number>(_a, _b, _1) ]
                     ;
 
                 turn
                     =    tok.Turn_
-                    >    parse::label(Low_name)  > int_value_ref [ _a = _1 ]
-                    >    parse::label(High_name) > int_value_ref [ _val = new_<Condition::Turn>(_a, _1) ]
+                    >>  -(
+                              parse::label(Low_name) >> int_value_ref [ _a = _1 ]
+                         )
+                    >>  -(
+                              parse::label(High_name) >> int_value_ref [ _b = _1 ]
+                         )
+                         [ _val = new_<Condition::Turn>(_a, _1) ]
                     ;
 
                 created_on_turn
                     =    tok.CreatedOnTurn_
-                    >    parse::label(Low_name)  > int_value_ref [ _a = _1 ]
-                    >    parse::label(High_name) > int_value_ref [ _val = new_<Condition::Turn>(_a, _1) ]
+                    >>  -(
+                              parse::label(Low_name) >> int_value_ref [ _a = _1 ]
+                         )
+                    >>  -(
+                              parse::label(High_name) >> int_value_ref [ _b = _1 ]
+                         )
+                         [ _val = new_<Condition::CreatedOnTurn>(_a, _1) ]
                     ;
 
                 number_of
@@ -237,8 +251,8 @@ namespace {
         double_ref_rule within_distance;
         int_ref_rule within_starlane_jumps;
         int_ref_int_ref_rule number;
-        int_ref_rule turn;
-        int_ref_rule created_on_turn;
+        int_ref_int_ref_rule turn;
+        int_ref_int_ref_rule created_on_turn;
         int_ref_sorting_method_double_ref_rule number_of;
         parse::condition_parser_rule contains;
         parse::condition_parser_rule contained_by;
