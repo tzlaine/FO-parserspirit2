@@ -1,1071 +1,1071 @@
-Set  TargetPopulation  Value = 1.0
-Set  TargetPopulation  1.0
-Set  TargetPopulation  1.0
-Set  TargetHealth  Value = 1.0
-Set  TargetHealth  1.0
-Set  TargetHealth  1.0
-Set  TargetFarming  Value = 1.0
-Set  TargetFarming  1.0
-Set  TargetFarming  1.0
-Set  TargetIndustry  Value = 1.0
-Set  TargetIndustry  1.0
-Set  TargetIndustry  1.0
-Set  TargetResearch  Value = 1.0
-Set  TargetResearch  1.0
-Set  TargetResearch  1.0
-Set  TargetTrade  Value = 1.0
-Set  TargetTrade  1.0
-Set  TargetTrade  1.0
-Set  TargetMining  Value = 1.0
-Set  TargetMining  1.0
-Set  TargetMining  1.0
-Set  TargetConstruction  Value = 1.0
-Set  TargetConstruction  1.0
-Set  TargetConstruction  1.0
-Set  MaxFuel  Value = 1.0
-Set  MaxFuel  1.0
-Set  MaxFuel  1.0
-Set  MaxShield  Value = 1.0
-Set  MaxShield  1.0
-Set  MaxShield  1.0
-Set  MaxStructure  Value = 1.0
-Set  MaxStructure  1.0
-Set  MaxStructure  1.0
-Set  MaxDefense  Value = 1.0
-Set  MaxDefense  1.0
-Set  MaxDefense  1.0
-Set  MaxTroops  Value = 1.0
-Set  MaxTroops  1.0
-Set  MaxTroops  1.0
-Set  Population  Value = 1.0
-Set  Population  1.0
-Set  Population  1.0
-Set  Health  Value = 1.0
-Set  Health  1.0
-Set  Health  1.0
-Set  Farming  Value = 1.0
-Set  Farming  1.0
-Set  Farming  1.0
-Set  Industry  Value = 1.0
-Set  Industry  1.0
-Set  Industry  1.0
-Set  Research  Value = 1.0
-Set  Research  1.0
-Set  Research  1.0
-Set  Trade  Value = 1.0
-Set  Trade  1.0
-Set  Trade  1.0
-Set  Mining  Value = 1.0
-Set  Mining  1.0
-Set  Mining  1.0
-Set  Construction  Value = 1.0
-Set  Construction  1.0
-Set  Construction  1.0
-Set  Fuel  Value = 1.0
-Set  Fuel  1.0
-Set  Fuel  1.0
-Set  Shield  Value = 1.0
-Set  Shield  1.0
-Set  Shield  1.0
-Set  Structure  Value = 1.0
-Set  Structure  1.0
-Set  Structure  1.0
-Set  Defense  Value = 1.0
-Set  Defense  1.0
-Set  Defense  1.0
-Set  Troops  Value = 1.0
-Set  Troops  1.0
-Set  Troops  1.0
-Set  FoodConsumption  Value = 1.0
-Set  FoodConsumption  1.0
-Set  FoodConsumption  1.0
-Set  Supply  Value = 1.0
-Set  Supply  1.0
-Set  Supply  1.0
-Set  Stealth  Value = 1.0
-Set  Stealth  1.0
-Set  Stealth  1.0
-Set  Detection  Value = 1.0
-Set  Detection  1.0
-Set  Detection  1.0
-Set  BattleSpeed  Value = 1.0
-Set  BattleSpeed  1.0
-Set  BattleSpeed  1.0
-Set  StarlaneSpeed  Value = 1.0
-Set  StarlaneSpeed  1.0
-Set  StarlaneSpeed  1.0
-Set  Damage  PartClass = Missiles  Value = 1.0  SlotType = External
-Set  Damage  PartClass = Missiles  Value = 1.0  External
-Set  Damage  PartClass = Missiles  1.0  SlotType = External
-Set  Damage  PartClass = Missiles  1.0  External
-Set  Damage  Missiles  Value = 1.0  SlotType = External
-Set  Damage  Missiles  Value = 1.0  External
-Set  Damage  Missiles  1.0  SlotType = External
-Set  Damage  Missiles  1.0  External
-Set  Damage  PartClass = Missiles  Value = 1.0  External
-Set  Damage  PartClass = Missiles  1.0  External
-Set  Damage  Missiles  Value = 1.0  External
-Set  Damage  Missiles  1.0  External
-Set  Damage  PartClass = Missiles  1.0  SlotType = External
-Set  Damage  PartClass = Missiles  1.0  External
-Set  Damage  Missiles  1.0  SlotType = External
-Set  Damage  Missiles  1.0  External
-Set  Damage  PartClass = Missiles  1.0  External
-Set  Damage  Missiles  1.0  External
-Set  Damage  Missiles  Value = 1.0  SlotType = External
-Set  Damage  Missiles  Value = 1.0  External
-Set  Damage  Missiles  1.0  SlotType = External
-Set  Damage  Missiles  1.0  External
-Set  Damage  Missiles  Value = 1.0  External
-Set  Damage  Missiles  1.0  External
-Set  Damage  Missiles  1.0  SlotType = External
-Set  Damage  Missiles  1.0  External
-Set  Damage  Missiles  1.0  External
-Set  ROF  PartClass = Missiles  Value = 1.0  SlotType = External
-Set  ROF  PartClass = Missiles  Value = 1.0  External
-Set  ROF  PartClass = Missiles  1.0  SlotType = External
-Set  ROF  PartClass = Missiles  1.0  External
-Set  ROF  Missiles  Value = 1.0  SlotType = External
-Set  ROF  Missiles  Value = 1.0  External
-Set  ROF  Missiles  1.0  SlotType = External
-Set  ROF  Missiles  1.0  External
-Set  ROF  PartClass = Missiles  Value = 1.0  External
-Set  ROF  PartClass = Missiles  1.0  External
-Set  ROF  Missiles  Value = 1.0  External
-Set  ROF  Missiles  1.0  External
-Set  ROF  PartClass = Missiles  1.0  SlotType = External
-Set  ROF  PartClass = Missiles  1.0  External
-Set  ROF  Missiles  1.0  SlotType = External
-Set  ROF  Missiles  1.0  External
-Set  ROF  PartClass = Missiles  1.0  External
-Set  ROF  Missiles  1.0  External
-Set  ROF  Missiles  Value = 1.0  SlotType = External
-Set  ROF  Missiles  Value = 1.0  External
-Set  ROF  Missiles  1.0  SlotType = External
-Set  ROF  Missiles  1.0  External
-Set  ROF  Missiles  Value = 1.0  External
-Set  ROF  Missiles  1.0  External
-Set  ROF  Missiles  1.0  SlotType = External
-Set  ROF  Missiles  1.0  External
-Set  ROF  Missiles  1.0  External
-Set  Range  PartClass = Missiles  Value = 1.0  SlotType = External
-Set  Range  PartClass = Missiles  Value = 1.0  External
-Set  Range  PartClass = Missiles  1.0  SlotType = External
-Set  Range  PartClass = Missiles  1.0  External
-Set  Range  Missiles  Value = 1.0  SlotType = External
-Set  Range  Missiles  Value = 1.0  External
-Set  Range  Missiles  1.0  SlotType = External
-Set  Range  Missiles  1.0  External
-Set  Range  PartClass = Missiles  Value = 1.0  External
-Set  Range  PartClass = Missiles  1.0  External
-Set  Range  Missiles  Value = 1.0  External
-Set  Range  Missiles  1.0  External
-Set  Range  PartClass = Missiles  1.0  SlotType = External
-Set  Range  PartClass = Missiles  1.0  External
-Set  Range  Missiles  1.0  SlotType = External
-Set  Range  Missiles  1.0  External
-Set  Range  PartClass = Missiles  1.0  External
-Set  Range  Missiles  1.0  External
-Set  Range  Missiles  Value = 1.0  SlotType = External
-Set  Range  Missiles  Value = 1.0  External
-Set  Range  Missiles  1.0  SlotType = External
-Set  Range  Missiles  1.0  External
-Set  Range  Missiles  Value = 1.0  External
-Set  Range  Missiles  1.0  External
-Set  Range  Missiles  1.0  SlotType = External
-Set  Range  Missiles  1.0  External
-Set  Range  Missiles  1.0  External
-Set  Speed  PartClass = Missiles  Value = 1.0  SlotType = External
-Set  Speed  PartClass = Missiles  Value = 1.0  External
-Set  Speed  PartClass = Missiles  1.0  SlotType = External
-Set  Speed  PartClass = Missiles  1.0  External
-Set  Speed  Missiles  Value = 1.0  SlotType = External
-Set  Speed  Missiles  Value = 1.0  External
-Set  Speed  Missiles  1.0  SlotType = External
-Set  Speed  Missiles  1.0  External
-Set  Speed  PartClass = Missiles  Value = 1.0  External
-Set  Speed  PartClass = Missiles  1.0  External
-Set  Speed  Missiles  Value = 1.0  External
-Set  Speed  Missiles  1.0  External
-Set  Speed  PartClass = Missiles  1.0  SlotType = External
-Set  Speed  PartClass = Missiles  1.0  External
-Set  Speed  Missiles  1.0  SlotType = External
-Set  Speed  Missiles  1.0  External
-Set  Speed  PartClass = Missiles  1.0  External
-Set  Speed  Missiles  1.0  External
-Set  Speed  Missiles  Value = 1.0  SlotType = External
-Set  Speed  Missiles  Value = 1.0  External
-Set  Speed  Missiles  1.0  SlotType = External
-Set  Speed  Missiles  1.0  External
-Set  Speed  Missiles  Value = 1.0  External
-Set  Speed  Missiles  1.0  External
-Set  Speed  Missiles  1.0  SlotType = External
-Set  Speed  Missiles  1.0  External
-Set  Speed  Missiles  1.0  External
-Set  Capacity  PartClass = Missiles  Value = 1.0  SlotType = External
-Set  Capacity  PartClass = Missiles  Value = 1.0  External
-Set  Capacity  PartClass = Missiles  1.0  SlotType = External
-Set  Capacity  PartClass = Missiles  1.0  External
-Set  Capacity  Missiles  Value = 1.0  SlotType = External
-Set  Capacity  Missiles  Value = 1.0  External
-Set  Capacity  Missiles  1.0  SlotType = External
-Set  Capacity  Missiles  1.0  External
-Set  Capacity  PartClass = Missiles  Value = 1.0  External
-Set  Capacity  PartClass = Missiles  1.0  External
-Set  Capacity  Missiles  Value = 1.0  External
-Set  Capacity  Missiles  1.0  External
-Set  Capacity  PartClass = Missiles  1.0  SlotType = External
-Set  Capacity  PartClass = Missiles  1.0  External
-Set  Capacity  Missiles  1.0  SlotType = External
-Set  Capacity  Missiles  1.0  External
-Set  Capacity  PartClass = Missiles  1.0  External
-Set  Capacity  Missiles  1.0  External
-Set  Capacity  Missiles  Value = 1.0  SlotType = External
-Set  Capacity  Missiles  Value = 1.0  External
-Set  Capacity  Missiles  1.0  SlotType = External
-Set  Capacity  Missiles  1.0  External
-Set  Capacity  Missiles  Value = 1.0  External
-Set  Capacity  Missiles  1.0  External
-Set  Capacity  Missiles  1.0  SlotType = External
-Set  Capacity  Missiles  1.0  External
-Set  Capacity  Missiles  1.0  External
-Set  AntiShipDamage  PartClass = Missiles  Value = 1.0  SlotType = External
-Set  AntiShipDamage  PartClass = Missiles  Value = 1.0  External
-Set  AntiShipDamage  PartClass = Missiles  1.0  SlotType = External
-Set  AntiShipDamage  PartClass = Missiles  1.0  External
-Set  AntiShipDamage  Missiles  Value = 1.0  SlotType = External
-Set  AntiShipDamage  Missiles  Value = 1.0  External
-Set  AntiShipDamage  Missiles  1.0  SlotType = External
-Set  AntiShipDamage  Missiles  1.0  External
-Set  AntiShipDamage  PartClass = Missiles  Value = 1.0  External
-Set  AntiShipDamage  PartClass = Missiles  1.0  External
-Set  AntiShipDamage  Missiles  Value = 1.0  External
-Set  AntiShipDamage  Missiles  1.0  External
-Set  AntiShipDamage  PartClass = Missiles  1.0  SlotType = External
-Set  AntiShipDamage  PartClass = Missiles  1.0  External
-Set  AntiShipDamage  Missiles  1.0  SlotType = External
-Set  AntiShipDamage  Missiles  1.0  External
-Set  AntiShipDamage  PartClass = Missiles  1.0  External
-Set  AntiShipDamage  Missiles  1.0  External
-Set  AntiShipDamage  Missiles  Value = 1.0  SlotType = External
-Set  AntiShipDamage  Missiles  Value = 1.0  External
-Set  AntiShipDamage  Missiles  1.0  SlotType = External
-Set  AntiShipDamage  Missiles  1.0  External
-Set  AntiShipDamage  Missiles  Value = 1.0  External
-Set  AntiShipDamage  Missiles  1.0  External
-Set  AntiShipDamage  Missiles  1.0  SlotType = External
-Set  AntiShipDamage  Missiles  1.0  External
-Set  AntiShipDamage  Missiles  1.0  External
-Set  AntiFighterDamage  PartClass = Missiles  Value = 1.0  SlotType = External
-Set  AntiFighterDamage  PartClass = Missiles  Value = 1.0  External
-Set  AntiFighterDamage  PartClass = Missiles  1.0  SlotType = External
-Set  AntiFighterDamage  PartClass = Missiles  1.0  External
-Set  AntiFighterDamage  Missiles  Value = 1.0  SlotType = External
-Set  AntiFighterDamage  Missiles  Value = 1.0  External
-Set  AntiFighterDamage  Missiles  1.0  SlotType = External
-Set  AntiFighterDamage  Missiles  1.0  External
-Set  AntiFighterDamage  PartClass = Missiles  Value = 1.0  External
-Set  AntiFighterDamage  PartClass = Missiles  1.0  External
-Set  AntiFighterDamage  Missiles  Value = 1.0  External
-Set  AntiFighterDamage  Missiles  1.0  External
-Set  AntiFighterDamage  PartClass = Missiles  1.0  SlotType = External
-Set  AntiFighterDamage  PartClass = Missiles  1.0  External
-Set  AntiFighterDamage  Missiles  1.0  SlotType = External
-Set  AntiFighterDamage  Missiles  1.0  External
-Set  AntiFighterDamage  PartClass = Missiles  1.0  External
-Set  AntiFighterDamage  Missiles  1.0  External
-Set  AntiFighterDamage  Missiles  Value = 1.0  SlotType = External
-Set  AntiFighterDamage  Missiles  Value = 1.0  External
-Set  AntiFighterDamage  Missiles  1.0  SlotType = External
-Set  AntiFighterDamage  Missiles  1.0  External
-Set  AntiFighterDamage  Missiles  Value = 1.0  External
-Set  AntiFighterDamage  Missiles  1.0  External
-Set  AntiFighterDamage  Missiles  1.0  SlotType = External
-Set  AntiFighterDamage  Missiles  1.0  External
-Set  AntiFighterDamage  Missiles  1.0  External
-Set  LaunchRate  PartClass = Missiles  Value = 1.0  SlotType = External
-Set  LaunchRate  PartClass = Missiles  Value = 1.0  External
-Set  LaunchRate  PartClass = Missiles  1.0  SlotType = External
-Set  LaunchRate  PartClass = Missiles  1.0  External
-Set  LaunchRate  Missiles  Value = 1.0  SlotType = External
-Set  LaunchRate  Missiles  Value = 1.0  External
-Set  LaunchRate  Missiles  1.0  SlotType = External
-Set  LaunchRate  Missiles  1.0  External
-Set  LaunchRate  PartClass = Missiles  Value = 1.0  External
-Set  LaunchRate  PartClass = Missiles  1.0  External
-Set  LaunchRate  Missiles  Value = 1.0  External
-Set  LaunchRate  Missiles  1.0  External
-Set  LaunchRate  PartClass = Missiles  1.0  SlotType = External
-Set  LaunchRate  PartClass = Missiles  1.0  External
-Set  LaunchRate  Missiles  1.0  SlotType = External
-Set  LaunchRate  Missiles  1.0  External
-Set  LaunchRate  PartClass = Missiles  1.0  External
-Set  LaunchRate  Missiles  1.0  External
-Set  LaunchRate  Missiles  Value = 1.0  SlotType = External
-Set  LaunchRate  Missiles  Value = 1.0  External
-Set  LaunchRate  Missiles  1.0  SlotType = External
-Set  LaunchRate  Missiles  1.0  External
-Set  LaunchRate  Missiles  Value = 1.0  External
-Set  LaunchRate  Missiles  1.0  External
-Set  LaunchRate  Missiles  1.0  SlotType = External
-Set  LaunchRate  Missiles  1.0  External
-Set  LaunchRate  Missiles  1.0  External
-Set  FighterWeaponRange  PartClass = Missiles  Value = 1.0  SlotType = External
-Set  FighterWeaponRange  PartClass = Missiles  Value = 1.0  External
-Set  FighterWeaponRange  PartClass = Missiles  1.0  SlotType = External
-Set  FighterWeaponRange  PartClass = Missiles  1.0  External
-Set  FighterWeaponRange  Missiles  Value = 1.0  SlotType = External
-Set  FighterWeaponRange  Missiles  Value = 1.0  External
-Set  FighterWeaponRange  Missiles  1.0  SlotType = External
-Set  FighterWeaponRange  Missiles  1.0  External
-Set  FighterWeaponRange  PartClass = Missiles  Value = 1.0  External
-Set  FighterWeaponRange  PartClass = Missiles  1.0  External
-Set  FighterWeaponRange  Missiles  Value = 1.0  External
-Set  FighterWeaponRange  Missiles  1.0  External
-Set  FighterWeaponRange  PartClass = Missiles  1.0  SlotType = External
-Set  FighterWeaponRange  PartClass = Missiles  1.0  External
-Set  FighterWeaponRange  Missiles  1.0  SlotType = External
-Set  FighterWeaponRange  Missiles  1.0  External
-Set  FighterWeaponRange  PartClass = Missiles  1.0  External
-Set  FighterWeaponRange  Missiles  1.0  External
-Set  FighterWeaponRange  Missiles  Value = 1.0  SlotType = External
-Set  FighterWeaponRange  Missiles  Value = 1.0  External
-Set  FighterWeaponRange  Missiles  1.0  SlotType = External
-Set  FighterWeaponRange  Missiles  1.0  External
-Set  FighterWeaponRange  Missiles  Value = 1.0  External
-Set  FighterWeaponRange  Missiles  1.0  External
-Set  FighterWeaponRange  Missiles  1.0  SlotType = External
-Set  FighterWeaponRange  Missiles  1.0  External
-Set  FighterWeaponRange  Missiles  1.0  External
-Set  Stealth  PartClass = Missiles  Value = 1.0  SlotType = External
-Set  Stealth  PartClass = Missiles  Value = 1.0  External
-Set  Stealth  PartClass = Missiles  1.0  SlotType = External
-Set  Stealth  PartClass = Missiles  1.0  External
-Set  Stealth  Missiles  Value = 1.0  SlotType = External
-Set  Stealth  Missiles  Value = 1.0  External
-Set  Stealth  Missiles  1.0  SlotType = External
-Set  Stealth  Missiles  1.0  External
-Set  Stealth  PartClass = Missiles  Value = 1.0  External
-Set  Stealth  PartClass = Missiles  1.0  External
-Set  Stealth  Missiles  Value = 1.0  External
-Set  Stealth  Missiles  1.0  External
-Set  Stealth  PartClass = Missiles  1.0  SlotType = External
-Set  Stealth  PartClass = Missiles  1.0  External
-Set  Stealth  Missiles  1.0  SlotType = External
-Set  Stealth  Missiles  1.0  External
-Set  Stealth  PartClass = Missiles  1.0  External
-Set  Stealth  Missiles  1.0  External
-Set  Stealth  Missiles  Value = 1.0  SlotType = External
-Set  Stealth  Missiles  Value = 1.0  External
-Set  Stealth  Missiles  1.0  SlotType = External
-Set  Stealth  Missiles  1.0  External
-Set  Stealth  Missiles  Value = 1.0  External
-Set  Stealth  Missiles  1.0  External
-Set  Stealth  Missiles  1.0  SlotType = External
-Set  Stealth  Missiles  1.0  External
-Set  Stealth  Missiles  1.0  External
-Set  Structure  PartClass = Missiles  Value = 1.0  SlotType = External
-Set  Structure  PartClass = Missiles  Value = 1.0  External
-Set  Structure  PartClass = Missiles  1.0  SlotType = External
-Set  Structure  PartClass = Missiles  1.0  External
-Set  Structure  Missiles  Value = 1.0  SlotType = External
-Set  Structure  Missiles  Value = 1.0  External
-Set  Structure  Missiles  1.0  SlotType = External
-Set  Structure  Missiles  1.0  External
-Set  Structure  PartClass = Missiles  Value = 1.0  External
-Set  Structure  PartClass = Missiles  1.0  External
-Set  Structure  Missiles  Value = 1.0  External
-Set  Structure  Missiles  1.0  External
-Set  Structure  PartClass = Missiles  1.0  SlotType = External
-Set  Structure  PartClass = Missiles  1.0  External
-Set  Structure  Missiles  1.0  SlotType = External
-Set  Structure  Missiles  1.0  External
-Set  Structure  PartClass = Missiles  1.0  External
-Set  Structure  Missiles  1.0  External
-Set  Structure  Missiles  Value = 1.0  SlotType = External
-Set  Structure  Missiles  Value = 1.0  External
-Set  Structure  Missiles  1.0  SlotType = External
-Set  Structure  Missiles  1.0  External
-Set  Structure  Missiles  Value = 1.0  External
-Set  Structure  Missiles  1.0  External
-Set  Structure  Missiles  1.0  SlotType = External
-Set  Structure  Missiles  1.0  External
-Set  Structure  Missiles  1.0  External
-Set  Detection  PartClass = Missiles  Value = 1.0  SlotType = External
-Set  Detection  PartClass = Missiles  Value = 1.0  External
-Set  Detection  PartClass = Missiles  1.0  SlotType = External
-Set  Detection  PartClass = Missiles  1.0  External
-Set  Detection  Missiles  Value = 1.0  SlotType = External
-Set  Detection  Missiles  Value = 1.0  External
-Set  Detection  Missiles  1.0  SlotType = External
-Set  Detection  Missiles  1.0  External
-Set  Detection  PartClass = Missiles  Value = 1.0  External
-Set  Detection  PartClass = Missiles  1.0  External
-Set  Detection  Missiles  Value = 1.0  External
-Set  Detection  Missiles  1.0  External
-Set  Detection  PartClass = Missiles  1.0  SlotType = External
-Set  Detection  PartClass = Missiles  1.0  External
-Set  Detection  Missiles  1.0  SlotType = External
-Set  Detection  Missiles  1.0  External
-Set  Detection  PartClass = Missiles  1.0  External
-Set  Detection  Missiles  1.0  External
-Set  Detection  Missiles  Value = 1.0  SlotType = External
-Set  Detection  Missiles  Value = 1.0  External
-Set  Detection  Missiles  1.0  SlotType = External
-Set  Detection  Missiles  1.0  External
-Set  Detection  Missiles  Value = 1.0  External
-Set  Detection  Missiles  1.0  External
-Set  Detection  Missiles  1.0  SlotType = External
-Set  Detection  Missiles  1.0  External
-Set  Detection  Missiles  1.0  External
-Set  Damage  FighterType = Bomber  Value = 1.0  SlotType = External
-Set  Damage  FighterType = Bomber  Value = 1.0  External
-Set  Damage  FighterType = Bomber  1.0  SlotType = External
-Set  Damage  FighterType = Bomber  1.0  External
-Set  Damage  Bomber  Value = 1.0  SlotType = External
-Set  Damage  Bomber  Value = 1.0  External
-Set  Damage  Bomber  1.0  SlotType = External
-Set  Damage  Bomber  1.0  External
-Set  Damage  FighterType = Bomber  Value = 1.0  External
-Set  Damage  FighterType = Bomber  1.0  External
-Set  Damage  Bomber  Value = 1.0  External
-Set  Damage  Bomber  1.0  External
-Set  Damage  FighterType = Bomber  1.0  SlotType = External
-Set  Damage  FighterType = Bomber  1.0  External
-Set  Damage  Bomber  1.0  SlotType = External
-Set  Damage  Bomber  1.0  External
-Set  Damage  FighterType = Bomber  1.0  External
-Set  Damage  Bomber  1.0  External
-Set  Damage  Bomber  Value = 1.0  SlotType = External
-Set  Damage  Bomber  Value = 1.0  External
-Set  Damage  Bomber  1.0  SlotType = External
-Set  Damage  Bomber  1.0  External
-Set  Damage  Bomber  Value = 1.0  External
-Set  Damage  Bomber  1.0  External
-Set  Damage  Bomber  1.0  SlotType = External
-Set  Damage  Bomber  1.0  External
-Set  Damage  Bomber  1.0  External
-Set  ROF  FighterType = Bomber  Value = 1.0  SlotType = External
-Set  ROF  FighterType = Bomber  Value = 1.0  External
-Set  ROF  FighterType = Bomber  1.0  SlotType = External
-Set  ROF  FighterType = Bomber  1.0  External
-Set  ROF  Bomber  Value = 1.0  SlotType = External
-Set  ROF  Bomber  Value = 1.0  External
-Set  ROF  Bomber  1.0  SlotType = External
-Set  ROF  Bomber  1.0  External
-Set  ROF  FighterType = Bomber  Value = 1.0  External
-Set  ROF  FighterType = Bomber  1.0  External
-Set  ROF  Bomber  Value = 1.0  External
-Set  ROF  Bomber  1.0  External
-Set  ROF  FighterType = Bomber  1.0  SlotType = External
-Set  ROF  FighterType = Bomber  1.0  External
-Set  ROF  Bomber  1.0  SlotType = External
-Set  ROF  Bomber  1.0  External
-Set  ROF  FighterType = Bomber  1.0  External
-Set  ROF  Bomber  1.0  External
-Set  ROF  Bomber  Value = 1.0  SlotType = External
-Set  ROF  Bomber  Value = 1.0  External
-Set  ROF  Bomber  1.0  SlotType = External
-Set  ROF  Bomber  1.0  External
-Set  ROF  Bomber  Value = 1.0  External
-Set  ROF  Bomber  1.0  External
-Set  ROF  Bomber  1.0  SlotType = External
-Set  ROF  Bomber  1.0  External
-Set  ROF  Bomber  1.0  External
-Set  Range  FighterType = Bomber  Value = 1.0  SlotType = External
-Set  Range  FighterType = Bomber  Value = 1.0  External
-Set  Range  FighterType = Bomber  1.0  SlotType = External
-Set  Range  FighterType = Bomber  1.0  External
-Set  Range  Bomber  Value = 1.0  SlotType = External
-Set  Range  Bomber  Value = 1.0  External
-Set  Range  Bomber  1.0  SlotType = External
-Set  Range  Bomber  1.0  External
-Set  Range  FighterType = Bomber  Value = 1.0  External
-Set  Range  FighterType = Bomber  1.0  External
-Set  Range  Bomber  Value = 1.0  External
-Set  Range  Bomber  1.0  External
-Set  Range  FighterType = Bomber  1.0  SlotType = External
-Set  Range  FighterType = Bomber  1.0  External
-Set  Range  Bomber  1.0  SlotType = External
-Set  Range  Bomber  1.0  External
-Set  Range  FighterType = Bomber  1.0  External
-Set  Range  Bomber  1.0  External
-Set  Range  Bomber  Value = 1.0  SlotType = External
-Set  Range  Bomber  Value = 1.0  External
-Set  Range  Bomber  1.0  SlotType = External
-Set  Range  Bomber  1.0  External
-Set  Range  Bomber  Value = 1.0  External
-Set  Range  Bomber  1.0  External
-Set  Range  Bomber  1.0  SlotType = External
-Set  Range  Bomber  1.0  External
-Set  Range  Bomber  1.0  External
-Set  Speed  FighterType = Bomber  Value = 1.0  SlotType = External
-Set  Speed  FighterType = Bomber  Value = 1.0  External
-Set  Speed  FighterType = Bomber  1.0  SlotType = External
-Set  Speed  FighterType = Bomber  1.0  External
-Set  Speed  Bomber  Value = 1.0  SlotType = External
-Set  Speed  Bomber  Value = 1.0  External
-Set  Speed  Bomber  1.0  SlotType = External
-Set  Speed  Bomber  1.0  External
-Set  Speed  FighterType = Bomber  Value = 1.0  External
-Set  Speed  FighterType = Bomber  1.0  External
-Set  Speed  Bomber  Value = 1.0  External
-Set  Speed  Bomber  1.0  External
-Set  Speed  FighterType = Bomber  1.0  SlotType = External
-Set  Speed  FighterType = Bomber  1.0  External
-Set  Speed  Bomber  1.0  SlotType = External
-Set  Speed  Bomber  1.0  External
-Set  Speed  FighterType = Bomber  1.0  External
-Set  Speed  Bomber  1.0  External
-Set  Speed  Bomber  Value = 1.0  SlotType = External
-Set  Speed  Bomber  Value = 1.0  External
-Set  Speed  Bomber  1.0  SlotType = External
-Set  Speed  Bomber  1.0  External
-Set  Speed  Bomber  Value = 1.0  External
-Set  Speed  Bomber  1.0  External
-Set  Speed  Bomber  1.0  SlotType = External
-Set  Speed  Bomber  1.0  External
-Set  Speed  Bomber  1.0  External
-Set  Capacity  FighterType = Bomber  Value = 1.0  SlotType = External
-Set  Capacity  FighterType = Bomber  Value = 1.0  External
-Set  Capacity  FighterType = Bomber  1.0  SlotType = External
-Set  Capacity  FighterType = Bomber  1.0  External
-Set  Capacity  Bomber  Value = 1.0  SlotType = External
-Set  Capacity  Bomber  Value = 1.0  External
-Set  Capacity  Bomber  1.0  SlotType = External
-Set  Capacity  Bomber  1.0  External
-Set  Capacity  FighterType = Bomber  Value = 1.0  External
-Set  Capacity  FighterType = Bomber  1.0  External
-Set  Capacity  Bomber  Value = 1.0  External
-Set  Capacity  Bomber  1.0  External
-Set  Capacity  FighterType = Bomber  1.0  SlotType = External
-Set  Capacity  FighterType = Bomber  1.0  External
-Set  Capacity  Bomber  1.0  SlotType = External
-Set  Capacity  Bomber  1.0  External
-Set  Capacity  FighterType = Bomber  1.0  External
-Set  Capacity  Bomber  1.0  External
-Set  Capacity  Bomber  Value = 1.0  SlotType = External
-Set  Capacity  Bomber  Value = 1.0  External
-Set  Capacity  Bomber  1.0  SlotType = External
-Set  Capacity  Bomber  1.0  External
-Set  Capacity  Bomber  Value = 1.0  External
-Set  Capacity  Bomber  1.0  External
-Set  Capacity  Bomber  1.0  SlotType = External
-Set  Capacity  Bomber  1.0  External
-Set  Capacity  Bomber  1.0  External
-Set  AntiShipDamage  FighterType = Bomber  Value = 1.0  SlotType = External
-Set  AntiShipDamage  FighterType = Bomber  Value = 1.0  External
-Set  AntiShipDamage  FighterType = Bomber  1.0  SlotType = External
-Set  AntiShipDamage  FighterType = Bomber  1.0  External
-Set  AntiShipDamage  Bomber  Value = 1.0  SlotType = External
-Set  AntiShipDamage  Bomber  Value = 1.0  External
-Set  AntiShipDamage  Bomber  1.0  SlotType = External
-Set  AntiShipDamage  Bomber  1.0  External
-Set  AntiShipDamage  FighterType = Bomber  Value = 1.0  External
-Set  AntiShipDamage  FighterType = Bomber  1.0  External
-Set  AntiShipDamage  Bomber  Value = 1.0  External
-Set  AntiShipDamage  Bomber  1.0  External
-Set  AntiShipDamage  FighterType = Bomber  1.0  SlotType = External
-Set  AntiShipDamage  FighterType = Bomber  1.0  External
-Set  AntiShipDamage  Bomber  1.0  SlotType = External
-Set  AntiShipDamage  Bomber  1.0  External
-Set  AntiShipDamage  FighterType = Bomber  1.0  External
-Set  AntiShipDamage  Bomber  1.0  External
-Set  AntiShipDamage  Bomber  Value = 1.0  SlotType = External
-Set  AntiShipDamage  Bomber  Value = 1.0  External
-Set  AntiShipDamage  Bomber  1.0  SlotType = External
-Set  AntiShipDamage  Bomber  1.0  External
-Set  AntiShipDamage  Bomber  Value = 1.0  External
-Set  AntiShipDamage  Bomber  1.0  External
-Set  AntiShipDamage  Bomber  1.0  SlotType = External
-Set  AntiShipDamage  Bomber  1.0  External
-Set  AntiShipDamage  Bomber  1.0  External
-Set  AntiFighterDamage  FighterType = Bomber  Value = 1.0  SlotType = External
-Set  AntiFighterDamage  FighterType = Bomber  Value = 1.0  External
-Set  AntiFighterDamage  FighterType = Bomber  1.0  SlotType = External
-Set  AntiFighterDamage  FighterType = Bomber  1.0  External
-Set  AntiFighterDamage  Bomber  Value = 1.0  SlotType = External
-Set  AntiFighterDamage  Bomber  Value = 1.0  External
-Set  AntiFighterDamage  Bomber  1.0  SlotType = External
-Set  AntiFighterDamage  Bomber  1.0  External
-Set  AntiFighterDamage  FighterType = Bomber  Value = 1.0  External
-Set  AntiFighterDamage  FighterType = Bomber  1.0  External
-Set  AntiFighterDamage  Bomber  Value = 1.0  External
-Set  AntiFighterDamage  Bomber  1.0  External
-Set  AntiFighterDamage  FighterType = Bomber  1.0  SlotType = External
-Set  AntiFighterDamage  FighterType = Bomber  1.0  External
-Set  AntiFighterDamage  Bomber  1.0  SlotType = External
-Set  AntiFighterDamage  Bomber  1.0  External
-Set  AntiFighterDamage  FighterType = Bomber  1.0  External
-Set  AntiFighterDamage  Bomber  1.0  External
-Set  AntiFighterDamage  Bomber  Value = 1.0  SlotType = External
-Set  AntiFighterDamage  Bomber  Value = 1.0  External
-Set  AntiFighterDamage  Bomber  1.0  SlotType = External
-Set  AntiFighterDamage  Bomber  1.0  External
-Set  AntiFighterDamage  Bomber  Value = 1.0  External
-Set  AntiFighterDamage  Bomber  1.0  External
-Set  AntiFighterDamage  Bomber  1.0  SlotType = External
-Set  AntiFighterDamage  Bomber  1.0  External
-Set  AntiFighterDamage  Bomber  1.0  External
-Set  LaunchRate  FighterType = Bomber  Value = 1.0  SlotType = External
-Set  LaunchRate  FighterType = Bomber  Value = 1.0  External
-Set  LaunchRate  FighterType = Bomber  1.0  SlotType = External
-Set  LaunchRate  FighterType = Bomber  1.0  External
-Set  LaunchRate  Bomber  Value = 1.0  SlotType = External
-Set  LaunchRate  Bomber  Value = 1.0  External
-Set  LaunchRate  Bomber  1.0  SlotType = External
-Set  LaunchRate  Bomber  1.0  External
-Set  LaunchRate  FighterType = Bomber  Value = 1.0  External
-Set  LaunchRate  FighterType = Bomber  1.0  External
-Set  LaunchRate  Bomber  Value = 1.0  External
-Set  LaunchRate  Bomber  1.0  External
-Set  LaunchRate  FighterType = Bomber  1.0  SlotType = External
-Set  LaunchRate  FighterType = Bomber  1.0  External
-Set  LaunchRate  Bomber  1.0  SlotType = External
-Set  LaunchRate  Bomber  1.0  External
-Set  LaunchRate  FighterType = Bomber  1.0  External
-Set  LaunchRate  Bomber  1.0  External
-Set  LaunchRate  Bomber  Value = 1.0  SlotType = External
-Set  LaunchRate  Bomber  Value = 1.0  External
-Set  LaunchRate  Bomber  1.0  SlotType = External
-Set  LaunchRate  Bomber  1.0  External
-Set  LaunchRate  Bomber  Value = 1.0  External
-Set  LaunchRate  Bomber  1.0  External
-Set  LaunchRate  Bomber  1.0  SlotType = External
-Set  LaunchRate  Bomber  1.0  External
-Set  LaunchRate  Bomber  1.0  External
-Set  FighterWeaponRange  FighterType = Bomber  Value = 1.0  SlotType = External
-Set  FighterWeaponRange  FighterType = Bomber  Value = 1.0  External
-Set  FighterWeaponRange  FighterType = Bomber  1.0  SlotType = External
-Set  FighterWeaponRange  FighterType = Bomber  1.0  External
-Set  FighterWeaponRange  Bomber  Value = 1.0  SlotType = External
-Set  FighterWeaponRange  Bomber  Value = 1.0  External
-Set  FighterWeaponRange  Bomber  1.0  SlotType = External
-Set  FighterWeaponRange  Bomber  1.0  External
-Set  FighterWeaponRange  FighterType = Bomber  Value = 1.0  External
-Set  FighterWeaponRange  FighterType = Bomber  1.0  External
-Set  FighterWeaponRange  Bomber  Value = 1.0  External
-Set  FighterWeaponRange  Bomber  1.0  External
-Set  FighterWeaponRange  FighterType = Bomber  1.0  SlotType = External
-Set  FighterWeaponRange  FighterType = Bomber  1.0  External
-Set  FighterWeaponRange  Bomber  1.0  SlotType = External
-Set  FighterWeaponRange  Bomber  1.0  External
-Set  FighterWeaponRange  FighterType = Bomber  1.0  External
-Set  FighterWeaponRange  Bomber  1.0  External
-Set  FighterWeaponRange  Bomber  Value = 1.0  SlotType = External
-Set  FighterWeaponRange  Bomber  Value = 1.0  External
-Set  FighterWeaponRange  Bomber  1.0  SlotType = External
-Set  FighterWeaponRange  Bomber  1.0  External
-Set  FighterWeaponRange  Bomber  Value = 1.0  External
-Set  FighterWeaponRange  Bomber  1.0  External
-Set  FighterWeaponRange  Bomber  1.0  SlotType = External
-Set  FighterWeaponRange  Bomber  1.0  External
-Set  FighterWeaponRange  Bomber  1.0  External
-Set  Stealth  FighterType = Bomber  Value = 1.0  SlotType = External
-Set  Stealth  FighterType = Bomber  Value = 1.0  External
-Set  Stealth  FighterType = Bomber  1.0  SlotType = External
-Set  Stealth  FighterType = Bomber  1.0  External
-Set  Stealth  Bomber  Value = 1.0  SlotType = External
-Set  Stealth  Bomber  Value = 1.0  External
-Set  Stealth  Bomber  1.0  SlotType = External
-Set  Stealth  Bomber  1.0  External
-Set  Stealth  FighterType = Bomber  Value = 1.0  External
-Set  Stealth  FighterType = Bomber  1.0  External
-Set  Stealth  Bomber  Value = 1.0  External
-Set  Stealth  Bomber  1.0  External
-Set  Stealth  FighterType = Bomber  1.0  SlotType = External
-Set  Stealth  FighterType = Bomber  1.0  External
-Set  Stealth  Bomber  1.0  SlotType = External
-Set  Stealth  Bomber  1.0  External
-Set  Stealth  FighterType = Bomber  1.0  External
-Set  Stealth  Bomber  1.0  External
-Set  Stealth  Bomber  Value = 1.0  SlotType = External
-Set  Stealth  Bomber  Value = 1.0  External
-Set  Stealth  Bomber  1.0  SlotType = External
-Set  Stealth  Bomber  1.0  External
-Set  Stealth  Bomber  Value = 1.0  External
-Set  Stealth  Bomber  1.0  External
-Set  Stealth  Bomber  1.0  SlotType = External
-Set  Stealth  Bomber  1.0  External
-Set  Stealth  Bomber  1.0  External
-Set  Structure  FighterType = Bomber  Value = 1.0  SlotType = External
-Set  Structure  FighterType = Bomber  Value = 1.0  External
-Set  Structure  FighterType = Bomber  1.0  SlotType = External
-Set  Structure  FighterType = Bomber  1.0  External
-Set  Structure  Bomber  Value = 1.0  SlotType = External
-Set  Structure  Bomber  Value = 1.0  External
-Set  Structure  Bomber  1.0  SlotType = External
-Set  Structure  Bomber  1.0  External
-Set  Structure  FighterType = Bomber  Value = 1.0  External
-Set  Structure  FighterType = Bomber  1.0  External
-Set  Structure  Bomber  Value = 1.0  External
-Set  Structure  Bomber  1.0  External
-Set  Structure  FighterType = Bomber  1.0  SlotType = External
-Set  Structure  FighterType = Bomber  1.0  External
-Set  Structure  Bomber  1.0  SlotType = External
-Set  Structure  Bomber  1.0  External
-Set  Structure  FighterType = Bomber  1.0  External
-Set  Structure  Bomber  1.0  External
-Set  Structure  Bomber  Value = 1.0  SlotType = External
-Set  Structure  Bomber  Value = 1.0  External
-Set  Structure  Bomber  1.0  SlotType = External
-Set  Structure  Bomber  1.0  External
-Set  Structure  Bomber  Value = 1.0  External
-Set  Structure  Bomber  1.0  External
-Set  Structure  Bomber  1.0  SlotType = External
-Set  Structure  Bomber  1.0  External
-Set  Structure  Bomber  1.0  External
-Set  Detection  FighterType = Bomber  Value = 1.0  SlotType = External
-Set  Detection  FighterType = Bomber  Value = 1.0  External
-Set  Detection  FighterType = Bomber  1.0  SlotType = External
-Set  Detection  FighterType = Bomber  1.0  External
-Set  Detection  Bomber  Value = 1.0  SlotType = External
-Set  Detection  Bomber  Value = 1.0  External
-Set  Detection  Bomber  1.0  SlotType = External
-Set  Detection  Bomber  1.0  External
-Set  Detection  FighterType = Bomber  Value = 1.0  External
-Set  Detection  FighterType = Bomber  1.0  External
-Set  Detection  Bomber  Value = 1.0  External
-Set  Detection  Bomber  1.0  External
-Set  Detection  FighterType = Bomber  1.0  SlotType = External
-Set  Detection  FighterType = Bomber  1.0  External
-Set  Detection  Bomber  1.0  SlotType = External
-Set  Detection  Bomber  1.0  External
-Set  Detection  FighterType = Bomber  1.0  External
-Set  Detection  Bomber  1.0  External
-Set  Detection  Bomber  Value = 1.0  SlotType = External
-Set  Detection  Bomber  Value = 1.0  External
-Set  Detection  Bomber  1.0  SlotType = External
-Set  Detection  Bomber  1.0  External
-Set  Detection  Bomber  Value = 1.0  External
-Set  Detection  Bomber  1.0  External
-Set  Detection  Bomber  1.0  SlotType = External
-Set  Detection  Bomber  1.0  External
-Set  Detection  Bomber  1.0  External
-Set  Damage  PartName = "Part Foo"  Value = 1.0  SlotType = External
-Set  Damage  PartName = "Part Foo"  Value = 1.0  External
-Set  Damage  PartName = "Part Foo"  1.0  SlotType = External
-Set  Damage  PartName = "Part Foo"  1.0  External
-Set  Damage  "Part Foo"  Value = 1.0  SlotType = External
-Set  Damage  "Part Foo"  Value = 1.0  External
-Set  Damage  "Part Foo"  1.0  SlotType = External
-Set  Damage  "Part Foo"  1.0  External
-Set  Damage  PartName = "Part Foo"  Value = 1.0  External
-Set  Damage  PartName = "Part Foo"  1.0  External
-Set  Damage  "Part Foo"  Value = 1.0  External
-Set  Damage  "Part Foo"  1.0  External
-Set  Damage  PartName = "Part Foo"  1.0  SlotType = External
-Set  Damage  PartName = "Part Foo"  1.0  External
-Set  Damage  "Part Foo"  1.0  SlotType = External
-Set  Damage  "Part Foo"  1.0  External
-Set  Damage  PartName = "Part Foo"  1.0  External
-Set  Damage  "Part Foo"  1.0  External
-Set  Damage  "Part Foo"  Value = 1.0  SlotType = External
-Set  Damage  "Part Foo"  Value = 1.0  External
-Set  Damage  "Part Foo"  1.0  SlotType = External
-Set  Damage  "Part Foo"  1.0  External
-Set  Damage  "Part Foo"  Value = 1.0  External
-Set  Damage  "Part Foo"  1.0  External
-Set  Damage  "Part Foo"  1.0  SlotType = External
-Set  Damage  "Part Foo"  1.0  External
-Set  Damage  "Part Foo"  1.0  External
-Set  ROF  PartName = "Part Foo"  Value = 1.0  SlotType = External
-Set  ROF  PartName = "Part Foo"  Value = 1.0  External
-Set  ROF  PartName = "Part Foo"  1.0  SlotType = External
-Set  ROF  PartName = "Part Foo"  1.0  External
-Set  ROF  "Part Foo"  Value = 1.0  SlotType = External
-Set  ROF  "Part Foo"  Value = 1.0  External
-Set  ROF  "Part Foo"  1.0  SlotType = External
-Set  ROF  "Part Foo"  1.0  External
-Set  ROF  PartName = "Part Foo"  Value = 1.0  External
-Set  ROF  PartName = "Part Foo"  1.0  External
-Set  ROF  "Part Foo"  Value = 1.0  External
-Set  ROF  "Part Foo"  1.0  External
-Set  ROF  PartName = "Part Foo"  1.0  SlotType = External
-Set  ROF  PartName = "Part Foo"  1.0  External
-Set  ROF  "Part Foo"  1.0  SlotType = External
-Set  ROF  "Part Foo"  1.0  External
-Set  ROF  PartName = "Part Foo"  1.0  External
-Set  ROF  "Part Foo"  1.0  External
-Set  ROF  "Part Foo"  Value = 1.0  SlotType = External
-Set  ROF  "Part Foo"  Value = 1.0  External
-Set  ROF  "Part Foo"  1.0  SlotType = External
-Set  ROF  "Part Foo"  1.0  External
-Set  ROF  "Part Foo"  Value = 1.0  External
-Set  ROF  "Part Foo"  1.0  External
-Set  ROF  "Part Foo"  1.0  SlotType = External
-Set  ROF  "Part Foo"  1.0  External
-Set  ROF  "Part Foo"  1.0  External
-Set  Range  PartName = "Part Foo"  Value = 1.0  SlotType = External
-Set  Range  PartName = "Part Foo"  Value = 1.0  External
-Set  Range  PartName = "Part Foo"  1.0  SlotType = External
-Set  Range  PartName = "Part Foo"  1.0  External
-Set  Range  "Part Foo"  Value = 1.0  SlotType = External
-Set  Range  "Part Foo"  Value = 1.0  External
-Set  Range  "Part Foo"  1.0  SlotType = External
-Set  Range  "Part Foo"  1.0  External
-Set  Range  PartName = "Part Foo"  Value = 1.0  External
-Set  Range  PartName = "Part Foo"  1.0  External
-Set  Range  "Part Foo"  Value = 1.0  External
-Set  Range  "Part Foo"  1.0  External
-Set  Range  PartName = "Part Foo"  1.0  SlotType = External
-Set  Range  PartName = "Part Foo"  1.0  External
-Set  Range  "Part Foo"  1.0  SlotType = External
-Set  Range  "Part Foo"  1.0  External
-Set  Range  PartName = "Part Foo"  1.0  External
-Set  Range  "Part Foo"  1.0  External
-Set  Range  "Part Foo"  Value = 1.0  SlotType = External
-Set  Range  "Part Foo"  Value = 1.0  External
-Set  Range  "Part Foo"  1.0  SlotType = External
-Set  Range  "Part Foo"  1.0  External
-Set  Range  "Part Foo"  Value = 1.0  External
-Set  Range  "Part Foo"  1.0  External
-Set  Range  "Part Foo"  1.0  SlotType = External
-Set  Range  "Part Foo"  1.0  External
-Set  Range  "Part Foo"  1.0  External
-Set  Speed  PartName = "Part Foo"  Value = 1.0  SlotType = External
-Set  Speed  PartName = "Part Foo"  Value = 1.0  External
-Set  Speed  PartName = "Part Foo"  1.0  SlotType = External
-Set  Speed  PartName = "Part Foo"  1.0  External
-Set  Speed  "Part Foo"  Value = 1.0  SlotType = External
-Set  Speed  "Part Foo"  Value = 1.0  External
-Set  Speed  "Part Foo"  1.0  SlotType = External
-Set  Speed  "Part Foo"  1.0  External
-Set  Speed  PartName = "Part Foo"  Value = 1.0  External
-Set  Speed  PartName = "Part Foo"  1.0  External
-Set  Speed  "Part Foo"  Value = 1.0  External
-Set  Speed  "Part Foo"  1.0  External
-Set  Speed  PartName = "Part Foo"  1.0  SlotType = External
-Set  Speed  PartName = "Part Foo"  1.0  External
-Set  Speed  "Part Foo"  1.0  SlotType = External
-Set  Speed  "Part Foo"  1.0  External
-Set  Speed  PartName = "Part Foo"  1.0  External
-Set  Speed  "Part Foo"  1.0  External
-Set  Speed  "Part Foo"  Value = 1.0  SlotType = External
-Set  Speed  "Part Foo"  Value = 1.0  External
-Set  Speed  "Part Foo"  1.0  SlotType = External
-Set  Speed  "Part Foo"  1.0  External
-Set  Speed  "Part Foo"  Value = 1.0  External
-Set  Speed  "Part Foo"  1.0  External
-Set  Speed  "Part Foo"  1.0  SlotType = External
-Set  Speed  "Part Foo"  1.0  External
-Set  Speed  "Part Foo"  1.0  External
-Set  Capacity  PartName = "Part Foo"  Value = 1.0  SlotType = External
-Set  Capacity  PartName = "Part Foo"  Value = 1.0  External
-Set  Capacity  PartName = "Part Foo"  1.0  SlotType = External
-Set  Capacity  PartName = "Part Foo"  1.0  External
-Set  Capacity  "Part Foo"  Value = 1.0  SlotType = External
-Set  Capacity  "Part Foo"  Value = 1.0  External
-Set  Capacity  "Part Foo"  1.0  SlotType = External
-Set  Capacity  "Part Foo"  1.0  External
-Set  Capacity  PartName = "Part Foo"  Value = 1.0  External
-Set  Capacity  PartName = "Part Foo"  1.0  External
-Set  Capacity  "Part Foo"  Value = 1.0  External
-Set  Capacity  "Part Foo"  1.0  External
-Set  Capacity  PartName = "Part Foo"  1.0  SlotType = External
-Set  Capacity  PartName = "Part Foo"  1.0  External
-Set  Capacity  "Part Foo"  1.0  SlotType = External
-Set  Capacity  "Part Foo"  1.0  External
-Set  Capacity  PartName = "Part Foo"  1.0  External
-Set  Capacity  "Part Foo"  1.0  External
-Set  Capacity  "Part Foo"  Value = 1.0  SlotType = External
-Set  Capacity  "Part Foo"  Value = 1.0  External
-Set  Capacity  "Part Foo"  1.0  SlotType = External
-Set  Capacity  "Part Foo"  1.0  External
-Set  Capacity  "Part Foo"  Value = 1.0  External
-Set  Capacity  "Part Foo"  1.0  External
-Set  Capacity  "Part Foo"  1.0  SlotType = External
-Set  Capacity  "Part Foo"  1.0  External
-Set  Capacity  "Part Foo"  1.0  External
-Set  AntiShipDamage  PartName = "Part Foo"  Value = 1.0  SlotType = External
-Set  AntiShipDamage  PartName = "Part Foo"  Value = 1.0  External
-Set  AntiShipDamage  PartName = "Part Foo"  1.0  SlotType = External
-Set  AntiShipDamage  PartName = "Part Foo"  1.0  External
-Set  AntiShipDamage  "Part Foo"  Value = 1.0  SlotType = External
-Set  AntiShipDamage  "Part Foo"  Value = 1.0  External
-Set  AntiShipDamage  "Part Foo"  1.0  SlotType = External
-Set  AntiShipDamage  "Part Foo"  1.0  External
-Set  AntiShipDamage  PartName = "Part Foo"  Value = 1.0  External
-Set  AntiShipDamage  PartName = "Part Foo"  1.0  External
-Set  AntiShipDamage  "Part Foo"  Value = 1.0  External
-Set  AntiShipDamage  "Part Foo"  1.0  External
-Set  AntiShipDamage  PartName = "Part Foo"  1.0  SlotType = External
-Set  AntiShipDamage  PartName = "Part Foo"  1.0  External
-Set  AntiShipDamage  "Part Foo"  1.0  SlotType = External
-Set  AntiShipDamage  "Part Foo"  1.0  External
-Set  AntiShipDamage  PartName = "Part Foo"  1.0  External
-Set  AntiShipDamage  "Part Foo"  1.0  External
-Set  AntiShipDamage  "Part Foo"  Value = 1.0  SlotType = External
-Set  AntiShipDamage  "Part Foo"  Value = 1.0  External
-Set  AntiShipDamage  "Part Foo"  1.0  SlotType = External
-Set  AntiShipDamage  "Part Foo"  1.0  External
-Set  AntiShipDamage  "Part Foo"  Value = 1.0  External
-Set  AntiShipDamage  "Part Foo"  1.0  External
-Set  AntiShipDamage  "Part Foo"  1.0  SlotType = External
-Set  AntiShipDamage  "Part Foo"  1.0  External
-Set  AntiShipDamage  "Part Foo"  1.0  External
-Set  AntiFighterDamage  PartName = "Part Foo"  Value = 1.0  SlotType = External
-Set  AntiFighterDamage  PartName = "Part Foo"  Value = 1.0  External
-Set  AntiFighterDamage  PartName = "Part Foo"  1.0  SlotType = External
-Set  AntiFighterDamage  PartName = "Part Foo"  1.0  External
-Set  AntiFighterDamage  "Part Foo"  Value = 1.0  SlotType = External
-Set  AntiFighterDamage  "Part Foo"  Value = 1.0  External
-Set  AntiFighterDamage  "Part Foo"  1.0  SlotType = External
-Set  AntiFighterDamage  "Part Foo"  1.0  External
-Set  AntiFighterDamage  PartName = "Part Foo"  Value = 1.0  External
-Set  AntiFighterDamage  PartName = "Part Foo"  1.0  External
-Set  AntiFighterDamage  "Part Foo"  Value = 1.0  External
-Set  AntiFighterDamage  "Part Foo"  1.0  External
-Set  AntiFighterDamage  PartName = "Part Foo"  1.0  SlotType = External
-Set  AntiFighterDamage  PartName = "Part Foo"  1.0  External
-Set  AntiFighterDamage  "Part Foo"  1.0  SlotType = External
-Set  AntiFighterDamage  "Part Foo"  1.0  External
-Set  AntiFighterDamage  PartName = "Part Foo"  1.0  External
-Set  AntiFighterDamage  "Part Foo"  1.0  External
-Set  AntiFighterDamage  "Part Foo"  Value = 1.0  SlotType = External
-Set  AntiFighterDamage  "Part Foo"  Value = 1.0  External
-Set  AntiFighterDamage  "Part Foo"  1.0  SlotType = External
-Set  AntiFighterDamage  "Part Foo"  1.0  External
-Set  AntiFighterDamage  "Part Foo"  Value = 1.0  External
-Set  AntiFighterDamage  "Part Foo"  1.0  External
-Set  AntiFighterDamage  "Part Foo"  1.0  SlotType = External
-Set  AntiFighterDamage  "Part Foo"  1.0  External
-Set  AntiFighterDamage  "Part Foo"  1.0  External
-Set  LaunchRate  PartName = "Part Foo"  Value = 1.0  SlotType = External
-Set  LaunchRate  PartName = "Part Foo"  Value = 1.0  External
-Set  LaunchRate  PartName = "Part Foo"  1.0  SlotType = External
-Set  LaunchRate  PartName = "Part Foo"  1.0  External
-Set  LaunchRate  "Part Foo"  Value = 1.0  SlotType = External
-Set  LaunchRate  "Part Foo"  Value = 1.0  External
-Set  LaunchRate  "Part Foo"  1.0  SlotType = External
-Set  LaunchRate  "Part Foo"  1.0  External
-Set  LaunchRate  PartName = "Part Foo"  Value = 1.0  External
-Set  LaunchRate  PartName = "Part Foo"  1.0  External
-Set  LaunchRate  "Part Foo"  Value = 1.0  External
-Set  LaunchRate  "Part Foo"  1.0  External
-Set  LaunchRate  PartName = "Part Foo"  1.0  SlotType = External
-Set  LaunchRate  PartName = "Part Foo"  1.0  External
-Set  LaunchRate  "Part Foo"  1.0  SlotType = External
-Set  LaunchRate  "Part Foo"  1.0  External
-Set  LaunchRate  PartName = "Part Foo"  1.0  External
-Set  LaunchRate  "Part Foo"  1.0  External
-Set  LaunchRate  "Part Foo"  Value = 1.0  SlotType = External
-Set  LaunchRate  "Part Foo"  Value = 1.0  External
-Set  LaunchRate  "Part Foo"  1.0  SlotType = External
-Set  LaunchRate  "Part Foo"  1.0  External
-Set  LaunchRate  "Part Foo"  Value = 1.0  External
-Set  LaunchRate  "Part Foo"  1.0  External
-Set  LaunchRate  "Part Foo"  1.0  SlotType = External
-Set  LaunchRate  "Part Foo"  1.0  External
-Set  LaunchRate  "Part Foo"  1.0  External
-Set  FighterWeaponRange  PartName = "Part Foo"  Value = 1.0  SlotType = External
-Set  FighterWeaponRange  PartName = "Part Foo"  Value = 1.0  External
-Set  FighterWeaponRange  PartName = "Part Foo"  1.0  SlotType = External
-Set  FighterWeaponRange  PartName = "Part Foo"  1.0  External
-Set  FighterWeaponRange  "Part Foo"  Value = 1.0  SlotType = External
-Set  FighterWeaponRange  "Part Foo"  Value = 1.0  External
-Set  FighterWeaponRange  "Part Foo"  1.0  SlotType = External
-Set  FighterWeaponRange  "Part Foo"  1.0  External
-Set  FighterWeaponRange  PartName = "Part Foo"  Value = 1.0  External
-Set  FighterWeaponRange  PartName = "Part Foo"  1.0  External
-Set  FighterWeaponRange  "Part Foo"  Value = 1.0  External
-Set  FighterWeaponRange  "Part Foo"  1.0  External
-Set  FighterWeaponRange  PartName = "Part Foo"  1.0  SlotType = External
-Set  FighterWeaponRange  PartName = "Part Foo"  1.0  External
-Set  FighterWeaponRange  "Part Foo"  1.0  SlotType = External
-Set  FighterWeaponRange  "Part Foo"  1.0  External
-Set  FighterWeaponRange  PartName = "Part Foo"  1.0  External
-Set  FighterWeaponRange  "Part Foo"  1.0  External
-Set  FighterWeaponRange  "Part Foo"  Value = 1.0  SlotType = External
-Set  FighterWeaponRange  "Part Foo"  Value = 1.0  External
-Set  FighterWeaponRange  "Part Foo"  1.0  SlotType = External
-Set  FighterWeaponRange  "Part Foo"  1.0  External
-Set  FighterWeaponRange  "Part Foo"  Value = 1.0  External
-Set  FighterWeaponRange  "Part Foo"  1.0  External
-Set  FighterWeaponRange  "Part Foo"  1.0  SlotType = External
-Set  FighterWeaponRange  "Part Foo"  1.0  External
-Set  FighterWeaponRange  "Part Foo"  1.0  External
-Set  Stealth  PartName = "Part Foo"  Value = 1.0  SlotType = External
-Set  Stealth  PartName = "Part Foo"  Value = 1.0  External
-Set  Stealth  PartName = "Part Foo"  1.0  SlotType = External
-Set  Stealth  PartName = "Part Foo"  1.0  External
-Set  Stealth  "Part Foo"  Value = 1.0  SlotType = External
-Set  Stealth  "Part Foo"  Value = 1.0  External
-Set  Stealth  "Part Foo"  1.0  SlotType = External
-Set  Stealth  "Part Foo"  1.0  External
-Set  Stealth  PartName = "Part Foo"  Value = 1.0  External
-Set  Stealth  PartName = "Part Foo"  1.0  External
-Set  Stealth  "Part Foo"  Value = 1.0  External
-Set  Stealth  "Part Foo"  1.0  External
-Set  Stealth  PartName = "Part Foo"  1.0  SlotType = External
-Set  Stealth  PartName = "Part Foo"  1.0  External
-Set  Stealth  "Part Foo"  1.0  SlotType = External
-Set  Stealth  "Part Foo"  1.0  External
-Set  Stealth  PartName = "Part Foo"  1.0  External
-Set  Stealth  "Part Foo"  1.0  External
-Set  Stealth  "Part Foo"  Value = 1.0  SlotType = External
-Set  Stealth  "Part Foo"  Value = 1.0  External
-Set  Stealth  "Part Foo"  1.0  SlotType = External
-Set  Stealth  "Part Foo"  1.0  External
-Set  Stealth  "Part Foo"  Value = 1.0  External
-Set  Stealth  "Part Foo"  1.0  External
-Set  Stealth  "Part Foo"  1.0  SlotType = External
-Set  Stealth  "Part Foo"  1.0  External
-Set  Stealth  "Part Foo"  1.0  External
-Set  Structure  PartName = "Part Foo"  Value = 1.0  SlotType = External
-Set  Structure  PartName = "Part Foo"  Value = 1.0  External
-Set  Structure  PartName = "Part Foo"  1.0  SlotType = External
-Set  Structure  PartName = "Part Foo"  1.0  External
-Set  Structure  "Part Foo"  Value = 1.0  SlotType = External
-Set  Structure  "Part Foo"  Value = 1.0  External
-Set  Structure  "Part Foo"  1.0  SlotType = External
-Set  Structure  "Part Foo"  1.0  External
-Set  Structure  PartName = "Part Foo"  Value = 1.0  External
-Set  Structure  PartName = "Part Foo"  1.0  External
-Set  Structure  "Part Foo"  Value = 1.0  External
-Set  Structure  "Part Foo"  1.0  External
-Set  Structure  PartName = "Part Foo"  1.0  SlotType = External
-Set  Structure  PartName = "Part Foo"  1.0  External
-Set  Structure  "Part Foo"  1.0  SlotType = External
-Set  Structure  "Part Foo"  1.0  External
-Set  Structure  PartName = "Part Foo"  1.0  External
-Set  Structure  "Part Foo"  1.0  External
-Set  Structure  "Part Foo"  Value = 1.0  SlotType = External
-Set  Structure  "Part Foo"  Value = 1.0  External
-Set  Structure  "Part Foo"  1.0  SlotType = External
-Set  Structure  "Part Foo"  1.0  External
-Set  Structure  "Part Foo"  Value = 1.0  External
-Set  Structure  "Part Foo"  1.0  External
-Set  Structure  "Part Foo"  1.0  SlotType = External
-Set  Structure  "Part Foo"  1.0  External
-Set  Structure  "Part Foo"  1.0  External
-Set  Detection  PartName = "Part Foo"  Value = 1.0  SlotType = External
-Set  Detection  PartName = "Part Foo"  Value = 1.0  External
-Set  Detection  PartName = "Part Foo"  1.0  SlotType = External
-Set  Detection  PartName = "Part Foo"  1.0  External
-Set  Detection  "Part Foo"  Value = 1.0  SlotType = External
-Set  Detection  "Part Foo"  Value = 1.0  External
-Set  Detection  "Part Foo"  1.0  SlotType = External
-Set  Detection  "Part Foo"  1.0  External
-Set  Detection  PartName = "Part Foo"  Value = 1.0  External
-Set  Detection  PartName = "Part Foo"  1.0  External
-Set  Detection  "Part Foo"  Value = 1.0  External
-Set  Detection  "Part Foo"  1.0  External
-Set  Detection  PartName = "Part Foo"  1.0  SlotType = External
-Set  Detection  PartName = "Part Foo"  1.0  External
-Set  Detection  "Part Foo"  1.0  SlotType = External
-Set  Detection  "Part Foo"  1.0  External
-Set  Detection  PartName = "Part Foo"  1.0  External
-Set  Detection  "Part Foo"  1.0  External
-Set  Detection  "Part Foo"  Value = 1.0  SlotType = External
-Set  Detection  "Part Foo"  Value = 1.0  External
-Set  Detection  "Part Foo"  1.0  SlotType = External
-Set  Detection  "Part Foo"  1.0  External
-Set  Detection  "Part Foo"  Value = 1.0  External
-Set  Detection  "Part Foo"  1.0  External
-Set  Detection  "Part Foo"  1.0  SlotType = External
-Set  Detection  "Part Foo"  1.0  External
-Set  Detection  "Part Foo"  1.0  External
+SetTargetPopulation  Value = 1.0
+SetTargetPopulation  1.0
+SetTargetPopulation  1.0
+SetTargetHealth  Value = 1.0
+SetTargetHealth  1.0
+SetTargetHealth  1.0
+SetTargetFarming  Value = 1.0
+SetTargetFarming  1.0
+SetTargetFarming  1.0
+SetTargetIndustry  Value = 1.0
+SetTargetIndustry  1.0
+SetTargetIndustry  1.0
+SetTargetResearch  Value = 1.0
+SetTargetResearch  1.0
+SetTargetResearch  1.0
+SetTargetTrade  Value = 1.0
+SetTargetTrade  1.0
+SetTargetTrade  1.0
+SetTargetMining  Value = 1.0
+SetTargetMining  1.0
+SetTargetMining  1.0
+SetTargetConstruction  Value = 1.0
+SetTargetConstruction  1.0
+SetTargetConstruction  1.0
+SetMaxFuel  Value = 1.0
+SetMaxFuel  1.0
+SetMaxFuel  1.0
+SetMaxShield  Value = 1.0
+SetMaxShield  1.0
+SetMaxShield  1.0
+SetMaxStructure  Value = 1.0
+SetMaxStructure  1.0
+SetMaxStructure  1.0
+SetMaxDefense  Value = 1.0
+SetMaxDefense  1.0
+SetMaxDefense  1.0
+SetMaxTroops  Value = 1.0
+SetMaxTroops  1.0
+SetMaxTroops  1.0
+SetPopulation  Value = 1.0
+SetPopulation  1.0
+SetPopulation  1.0
+SetHealth  Value = 1.0
+SetHealth  1.0
+SetHealth  1.0
+SetFarming  Value = 1.0
+SetFarming  1.0
+SetFarming  1.0
+SetIndustry  Value = 1.0
+SetIndustry  1.0
+SetIndustry  1.0
+SetResearch  Value = 1.0
+SetResearch  1.0
+SetResearch  1.0
+SetTrade  Value = 1.0
+SetTrade  1.0
+SetTrade  1.0
+SetMining  Value = 1.0
+SetMining  1.0
+SetMining  1.0
+SetConstruction  Value = 1.0
+SetConstruction  1.0
+SetConstruction  1.0
+SetFuel  Value = 1.0
+SetFuel  1.0
+SetFuel  1.0
+SetShield  Value = 1.0
+SetShield  1.0
+SetShield  1.0
+SetStructure  Value = 1.0
+SetStructure  1.0
+SetStructure  1.0
+SetDefense  Value = 1.0
+SetDefense  1.0
+SetDefense  1.0
+SetTroops  Value = 1.0
+SetTroops  1.0
+SetTroops  1.0
+SetFoodConsumption  Value = 1.0
+SetFoodConsumption  1.0
+SetFoodConsumption  1.0
+SetSupply  Value = 1.0
+SetSupply  1.0
+SetSupply  1.0
+SetStealth  Value = 1.0
+SetStealth  1.0
+SetStealth  1.0
+SetDetection  Value = 1.0
+SetDetection  1.0
+SetDetection  1.0
+SetBattleSpeed  Value = 1.0
+SetBattleSpeed  1.0
+SetBattleSpeed  1.0
+SetStarlaneSpeed  Value = 1.0
+SetStarlaneSpeed  1.0
+SetStarlaneSpeed  1.0
+SetDamage  PartClass = Missiles  Value = 1.0  SlotType = External
+SetDamage  PartClass = Missiles  Value = 1.0  External
+SetDamage  PartClass = Missiles  1.0  SlotType = External
+SetDamage  PartClass = Missiles  1.0  External
+SetDamage  Missiles  Value = 1.0  SlotType = External
+SetDamage  Missiles  Value = 1.0  External
+SetDamage  Missiles  1.0  SlotType = External
+SetDamage  Missiles  1.0  External
+SetDamage  PartClass = Missiles  Value = 1.0  External
+SetDamage  PartClass = Missiles  1.0  External
+SetDamage  Missiles  Value = 1.0  External
+SetDamage  Missiles  1.0  External
+SetDamage  PartClass = Missiles  1.0  SlotType = External
+SetDamage  PartClass = Missiles  1.0  External
+SetDamage  Missiles  1.0  SlotType = External
+SetDamage  Missiles  1.0  External
+SetDamage  PartClass = Missiles  1.0  External
+SetDamage  Missiles  1.0  External
+SetDamage  Missiles  Value = 1.0  SlotType = External
+SetDamage  Missiles  Value = 1.0  External
+SetDamage  Missiles  1.0  SlotType = External
+SetDamage  Missiles  1.0  External
+SetDamage  Missiles  Value = 1.0  External
+SetDamage  Missiles  1.0  External
+SetDamage  Missiles  1.0  SlotType = External
+SetDamage  Missiles  1.0  External
+SetDamage  Missiles  1.0  External
+SetROF  PartClass = Missiles  Value = 1.0  SlotType = External
+SetROF  PartClass = Missiles  Value = 1.0  External
+SetROF  PartClass = Missiles  1.0  SlotType = External
+SetROF  PartClass = Missiles  1.0  External
+SetROF  Missiles  Value = 1.0  SlotType = External
+SetROF  Missiles  Value = 1.0  External
+SetROF  Missiles  1.0  SlotType = External
+SetROF  Missiles  1.0  External
+SetROF  PartClass = Missiles  Value = 1.0  External
+SetROF  PartClass = Missiles  1.0  External
+SetROF  Missiles  Value = 1.0  External
+SetROF  Missiles  1.0  External
+SetROF  PartClass = Missiles  1.0  SlotType = External
+SetROF  PartClass = Missiles  1.0  External
+SetROF  Missiles  1.0  SlotType = External
+SetROF  Missiles  1.0  External
+SetROF  PartClass = Missiles  1.0  External
+SetROF  Missiles  1.0  External
+SetROF  Missiles  Value = 1.0  SlotType = External
+SetROF  Missiles  Value = 1.0  External
+SetROF  Missiles  1.0  SlotType = External
+SetROF  Missiles  1.0  External
+SetROF  Missiles  Value = 1.0  External
+SetROF  Missiles  1.0  External
+SetROF  Missiles  1.0  SlotType = External
+SetROF  Missiles  1.0  External
+SetROF  Missiles  1.0  External
+SetRange  PartClass = Missiles  Value = 1.0  SlotType = External
+SetRange  PartClass = Missiles  Value = 1.0  External
+SetRange  PartClass = Missiles  1.0  SlotType = External
+SetRange  PartClass = Missiles  1.0  External
+SetRange  Missiles  Value = 1.0  SlotType = External
+SetRange  Missiles  Value = 1.0  External
+SetRange  Missiles  1.0  SlotType = External
+SetRange  Missiles  1.0  External
+SetRange  PartClass = Missiles  Value = 1.0  External
+SetRange  PartClass = Missiles  1.0  External
+SetRange  Missiles  Value = 1.0  External
+SetRange  Missiles  1.0  External
+SetRange  PartClass = Missiles  1.0  SlotType = External
+SetRange  PartClass = Missiles  1.0  External
+SetRange  Missiles  1.0  SlotType = External
+SetRange  Missiles  1.0  External
+SetRange  PartClass = Missiles  1.0  External
+SetRange  Missiles  1.0  External
+SetRange  Missiles  Value = 1.0  SlotType = External
+SetRange  Missiles  Value = 1.0  External
+SetRange  Missiles  1.0  SlotType = External
+SetRange  Missiles  1.0  External
+SetRange  Missiles  Value = 1.0  External
+SetRange  Missiles  1.0  External
+SetRange  Missiles  1.0  SlotType = External
+SetRange  Missiles  1.0  External
+SetRange  Missiles  1.0  External
+SetSpeed  PartClass = Missiles  Value = 1.0  SlotType = External
+SetSpeed  PartClass = Missiles  Value = 1.0  External
+SetSpeed  PartClass = Missiles  1.0  SlotType = External
+SetSpeed  PartClass = Missiles  1.0  External
+SetSpeed  Missiles  Value = 1.0  SlotType = External
+SetSpeed  Missiles  Value = 1.0  External
+SetSpeed  Missiles  1.0  SlotType = External
+SetSpeed  Missiles  1.0  External
+SetSpeed  PartClass = Missiles  Value = 1.0  External
+SetSpeed  PartClass = Missiles  1.0  External
+SetSpeed  Missiles  Value = 1.0  External
+SetSpeed  Missiles  1.0  External
+SetSpeed  PartClass = Missiles  1.0  SlotType = External
+SetSpeed  PartClass = Missiles  1.0  External
+SetSpeed  Missiles  1.0  SlotType = External
+SetSpeed  Missiles  1.0  External
+SetSpeed  PartClass = Missiles  1.0  External
+SetSpeed  Missiles  1.0  External
+SetSpeed  Missiles  Value = 1.0  SlotType = External
+SetSpeed  Missiles  Value = 1.0  External
+SetSpeed  Missiles  1.0  SlotType = External
+SetSpeed  Missiles  1.0  External
+SetSpeed  Missiles  Value = 1.0  External
+SetSpeed  Missiles  1.0  External
+SetSpeed  Missiles  1.0  SlotType = External
+SetSpeed  Missiles  1.0  External
+SetSpeed  Missiles  1.0  External
+SetCapacity  PartClass = Missiles  Value = 1.0  SlotType = External
+SetCapacity  PartClass = Missiles  Value = 1.0  External
+SetCapacity  PartClass = Missiles  1.0  SlotType = External
+SetCapacity  PartClass = Missiles  1.0  External
+SetCapacity  Missiles  Value = 1.0  SlotType = External
+SetCapacity  Missiles  Value = 1.0  External
+SetCapacity  Missiles  1.0  SlotType = External
+SetCapacity  Missiles  1.0  External
+SetCapacity  PartClass = Missiles  Value = 1.0  External
+SetCapacity  PartClass = Missiles  1.0  External
+SetCapacity  Missiles  Value = 1.0  External
+SetCapacity  Missiles  1.0  External
+SetCapacity  PartClass = Missiles  1.0  SlotType = External
+SetCapacity  PartClass = Missiles  1.0  External
+SetCapacity  Missiles  1.0  SlotType = External
+SetCapacity  Missiles  1.0  External
+SetCapacity  PartClass = Missiles  1.0  External
+SetCapacity  Missiles  1.0  External
+SetCapacity  Missiles  Value = 1.0  SlotType = External
+SetCapacity  Missiles  Value = 1.0  External
+SetCapacity  Missiles  1.0  SlotType = External
+SetCapacity  Missiles  1.0  External
+SetCapacity  Missiles  Value = 1.0  External
+SetCapacity  Missiles  1.0  External
+SetCapacity  Missiles  1.0  SlotType = External
+SetCapacity  Missiles  1.0  External
+SetCapacity  Missiles  1.0  External
+SetAntiShipDamage  PartClass = Missiles  Value = 1.0  SlotType = External
+SetAntiShipDamage  PartClass = Missiles  Value = 1.0  External
+SetAntiShipDamage  PartClass = Missiles  1.0  SlotType = External
+SetAntiShipDamage  PartClass = Missiles  1.0  External
+SetAntiShipDamage  Missiles  Value = 1.0  SlotType = External
+SetAntiShipDamage  Missiles  Value = 1.0  External
+SetAntiShipDamage  Missiles  1.0  SlotType = External
+SetAntiShipDamage  Missiles  1.0  External
+SetAntiShipDamage  PartClass = Missiles  Value = 1.0  External
+SetAntiShipDamage  PartClass = Missiles  1.0  External
+SetAntiShipDamage  Missiles  Value = 1.0  External
+SetAntiShipDamage  Missiles  1.0  External
+SetAntiShipDamage  PartClass = Missiles  1.0  SlotType = External
+SetAntiShipDamage  PartClass = Missiles  1.0  External
+SetAntiShipDamage  Missiles  1.0  SlotType = External
+SetAntiShipDamage  Missiles  1.0  External
+SetAntiShipDamage  PartClass = Missiles  1.0  External
+SetAntiShipDamage  Missiles  1.0  External
+SetAntiShipDamage  Missiles  Value = 1.0  SlotType = External
+SetAntiShipDamage  Missiles  Value = 1.0  External
+SetAntiShipDamage  Missiles  1.0  SlotType = External
+SetAntiShipDamage  Missiles  1.0  External
+SetAntiShipDamage  Missiles  Value = 1.0  External
+SetAntiShipDamage  Missiles  1.0  External
+SetAntiShipDamage  Missiles  1.0  SlotType = External
+SetAntiShipDamage  Missiles  1.0  External
+SetAntiShipDamage  Missiles  1.0  External
+SetAntiFighterDamage  PartClass = Missiles  Value = 1.0  SlotType = External
+SetAntiFighterDamage  PartClass = Missiles  Value = 1.0  External
+SetAntiFighterDamage  PartClass = Missiles  1.0  SlotType = External
+SetAntiFighterDamage  PartClass = Missiles  1.0  External
+SetAntiFighterDamage  Missiles  Value = 1.0  SlotType = External
+SetAntiFighterDamage  Missiles  Value = 1.0  External
+SetAntiFighterDamage  Missiles  1.0  SlotType = External
+SetAntiFighterDamage  Missiles  1.0  External
+SetAntiFighterDamage  PartClass = Missiles  Value = 1.0  External
+SetAntiFighterDamage  PartClass = Missiles  1.0  External
+SetAntiFighterDamage  Missiles  Value = 1.0  External
+SetAntiFighterDamage  Missiles  1.0  External
+SetAntiFighterDamage  PartClass = Missiles  1.0  SlotType = External
+SetAntiFighterDamage  PartClass = Missiles  1.0  External
+SetAntiFighterDamage  Missiles  1.0  SlotType = External
+SetAntiFighterDamage  Missiles  1.0  External
+SetAntiFighterDamage  PartClass = Missiles  1.0  External
+SetAntiFighterDamage  Missiles  1.0  External
+SetAntiFighterDamage  Missiles  Value = 1.0  SlotType = External
+SetAntiFighterDamage  Missiles  Value = 1.0  External
+SetAntiFighterDamage  Missiles  1.0  SlotType = External
+SetAntiFighterDamage  Missiles  1.0  External
+SetAntiFighterDamage  Missiles  Value = 1.0  External
+SetAntiFighterDamage  Missiles  1.0  External
+SetAntiFighterDamage  Missiles  1.0  SlotType = External
+SetAntiFighterDamage  Missiles  1.0  External
+SetAntiFighterDamage  Missiles  1.0  External
+SetLaunchRate  PartClass = Missiles  Value = 1.0  SlotType = External
+SetLaunchRate  PartClass = Missiles  Value = 1.0  External
+SetLaunchRate  PartClass = Missiles  1.0  SlotType = External
+SetLaunchRate  PartClass = Missiles  1.0  External
+SetLaunchRate  Missiles  Value = 1.0  SlotType = External
+SetLaunchRate  Missiles  Value = 1.0  External
+SetLaunchRate  Missiles  1.0  SlotType = External
+SetLaunchRate  Missiles  1.0  External
+SetLaunchRate  PartClass = Missiles  Value = 1.0  External
+SetLaunchRate  PartClass = Missiles  1.0  External
+SetLaunchRate  Missiles  Value = 1.0  External
+SetLaunchRate  Missiles  1.0  External
+SetLaunchRate  PartClass = Missiles  1.0  SlotType = External
+SetLaunchRate  PartClass = Missiles  1.0  External
+SetLaunchRate  Missiles  1.0  SlotType = External
+SetLaunchRate  Missiles  1.0  External
+SetLaunchRate  PartClass = Missiles  1.0  External
+SetLaunchRate  Missiles  1.0  External
+SetLaunchRate  Missiles  Value = 1.0  SlotType = External
+SetLaunchRate  Missiles  Value = 1.0  External
+SetLaunchRate  Missiles  1.0  SlotType = External
+SetLaunchRate  Missiles  1.0  External
+SetLaunchRate  Missiles  Value = 1.0  External
+SetLaunchRate  Missiles  1.0  External
+SetLaunchRate  Missiles  1.0  SlotType = External
+SetLaunchRate  Missiles  1.0  External
+SetLaunchRate  Missiles  1.0  External
+SetFighterWeaponRange  PartClass = Missiles  Value = 1.0  SlotType = External
+SetFighterWeaponRange  PartClass = Missiles  Value = 1.0  External
+SetFighterWeaponRange  PartClass = Missiles  1.0  SlotType = External
+SetFighterWeaponRange  PartClass = Missiles  1.0  External
+SetFighterWeaponRange  Missiles  Value = 1.0  SlotType = External
+SetFighterWeaponRange  Missiles  Value = 1.0  External
+SetFighterWeaponRange  Missiles  1.0  SlotType = External
+SetFighterWeaponRange  Missiles  1.0  External
+SetFighterWeaponRange  PartClass = Missiles  Value = 1.0  External
+SetFighterWeaponRange  PartClass = Missiles  1.0  External
+SetFighterWeaponRange  Missiles  Value = 1.0  External
+SetFighterWeaponRange  Missiles  1.0  External
+SetFighterWeaponRange  PartClass = Missiles  1.0  SlotType = External
+SetFighterWeaponRange  PartClass = Missiles  1.0  External
+SetFighterWeaponRange  Missiles  1.0  SlotType = External
+SetFighterWeaponRange  Missiles  1.0  External
+SetFighterWeaponRange  PartClass = Missiles  1.0  External
+SetFighterWeaponRange  Missiles  1.0  External
+SetFighterWeaponRange  Missiles  Value = 1.0  SlotType = External
+SetFighterWeaponRange  Missiles  Value = 1.0  External
+SetFighterWeaponRange  Missiles  1.0  SlotType = External
+SetFighterWeaponRange  Missiles  1.0  External
+SetFighterWeaponRange  Missiles  Value = 1.0  External
+SetFighterWeaponRange  Missiles  1.0  External
+SetFighterWeaponRange  Missiles  1.0  SlotType = External
+SetFighterWeaponRange  Missiles  1.0  External
+SetFighterWeaponRange  Missiles  1.0  External
+SetStealth  PartClass = Missiles  Value = 1.0  SlotType = External
+SetStealth  PartClass = Missiles  Value = 1.0  External
+SetStealth  PartClass = Missiles  1.0  SlotType = External
+SetStealth  PartClass = Missiles  1.0  External
+SetStealth  Missiles  Value = 1.0  SlotType = External
+SetStealth  Missiles  Value = 1.0  External
+SetStealth  Missiles  1.0  SlotType = External
+SetStealth  Missiles  1.0  External
+SetStealth  PartClass = Missiles  Value = 1.0  External
+SetStealth  PartClass = Missiles  1.0  External
+SetStealth  Missiles  Value = 1.0  External
+SetStealth  Missiles  1.0  External
+SetStealth  PartClass = Missiles  1.0  SlotType = External
+SetStealth  PartClass = Missiles  1.0  External
+SetStealth  Missiles  1.0  SlotType = External
+SetStealth  Missiles  1.0  External
+SetStealth  PartClass = Missiles  1.0  External
+SetStealth  Missiles  1.0  External
+SetStealth  Missiles  Value = 1.0  SlotType = External
+SetStealth  Missiles  Value = 1.0  External
+SetStealth  Missiles  1.0  SlotType = External
+SetStealth  Missiles  1.0  External
+SetStealth  Missiles  Value = 1.0  External
+SetStealth  Missiles  1.0  External
+SetStealth  Missiles  1.0  SlotType = External
+SetStealth  Missiles  1.0  External
+SetStealth  Missiles  1.0  External
+SetStructure  PartClass = Missiles  Value = 1.0  SlotType = External
+SetStructure  PartClass = Missiles  Value = 1.0  External
+SetStructure  PartClass = Missiles  1.0  SlotType = External
+SetStructure  PartClass = Missiles  1.0  External
+SetStructure  Missiles  Value = 1.0  SlotType = External
+SetStructure  Missiles  Value = 1.0  External
+SetStructure  Missiles  1.0  SlotType = External
+SetStructure  Missiles  1.0  External
+SetStructure  PartClass = Missiles  Value = 1.0  External
+SetStructure  PartClass = Missiles  1.0  External
+SetStructure  Missiles  Value = 1.0  External
+SetStructure  Missiles  1.0  External
+SetStructure  PartClass = Missiles  1.0  SlotType = External
+SetStructure  PartClass = Missiles  1.0  External
+SetStructure  Missiles  1.0  SlotType = External
+SetStructure  Missiles  1.0  External
+SetStructure  PartClass = Missiles  1.0  External
+SetStructure  Missiles  1.0  External
+SetStructure  Missiles  Value = 1.0  SlotType = External
+SetStructure  Missiles  Value = 1.0  External
+SetStructure  Missiles  1.0  SlotType = External
+SetStructure  Missiles  1.0  External
+SetStructure  Missiles  Value = 1.0  External
+SetStructure  Missiles  1.0  External
+SetStructure  Missiles  1.0  SlotType = External
+SetStructure  Missiles  1.0  External
+SetStructure  Missiles  1.0  External
+SetDetection  PartClass = Missiles  Value = 1.0  SlotType = External
+SetDetection  PartClass = Missiles  Value = 1.0  External
+SetDetection  PartClass = Missiles  1.0  SlotType = External
+SetDetection  PartClass = Missiles  1.0  External
+SetDetection  Missiles  Value = 1.0  SlotType = External
+SetDetection  Missiles  Value = 1.0  External
+SetDetection  Missiles  1.0  SlotType = External
+SetDetection  Missiles  1.0  External
+SetDetection  PartClass = Missiles  Value = 1.0  External
+SetDetection  PartClass = Missiles  1.0  External
+SetDetection  Missiles  Value = 1.0  External
+SetDetection  Missiles  1.0  External
+SetDetection  PartClass = Missiles  1.0  SlotType = External
+SetDetection  PartClass = Missiles  1.0  External
+SetDetection  Missiles  1.0  SlotType = External
+SetDetection  Missiles  1.0  External
+SetDetection  PartClass = Missiles  1.0  External
+SetDetection  Missiles  1.0  External
+SetDetection  Missiles  Value = 1.0  SlotType = External
+SetDetection  Missiles  Value = 1.0  External
+SetDetection  Missiles  1.0  SlotType = External
+SetDetection  Missiles  1.0  External
+SetDetection  Missiles  Value = 1.0  External
+SetDetection  Missiles  1.0  External
+SetDetection  Missiles  1.0  SlotType = External
+SetDetection  Missiles  1.0  External
+SetDetection  Missiles  1.0  External
+SetDamage  FighterType = Bomber  Value = 1.0  SlotType = External
+SetDamage  FighterType = Bomber  Value = 1.0  External
+SetDamage  FighterType = Bomber  1.0  SlotType = External
+SetDamage  FighterType = Bomber  1.0  External
+SetDamage  Bomber  Value = 1.0  SlotType = External
+SetDamage  Bomber  Value = 1.0  External
+SetDamage  Bomber  1.0  SlotType = External
+SetDamage  Bomber  1.0  External
+SetDamage  FighterType = Bomber  Value = 1.0  External
+SetDamage  FighterType = Bomber  1.0  External
+SetDamage  Bomber  Value = 1.0  External
+SetDamage  Bomber  1.0  External
+SetDamage  FighterType = Bomber  1.0  SlotType = External
+SetDamage  FighterType = Bomber  1.0  External
+SetDamage  Bomber  1.0  SlotType = External
+SetDamage  Bomber  1.0  External
+SetDamage  FighterType = Bomber  1.0  External
+SetDamage  Bomber  1.0  External
+SetDamage  Bomber  Value = 1.0  SlotType = External
+SetDamage  Bomber  Value = 1.0  External
+SetDamage  Bomber  1.0  SlotType = External
+SetDamage  Bomber  1.0  External
+SetDamage  Bomber  Value = 1.0  External
+SetDamage  Bomber  1.0  External
+SetDamage  Bomber  1.0  SlotType = External
+SetDamage  Bomber  1.0  External
+SetDamage  Bomber  1.0  External
+SetROF  FighterType = Bomber  Value = 1.0  SlotType = External
+SetROF  FighterType = Bomber  Value = 1.0  External
+SetROF  FighterType = Bomber  1.0  SlotType = External
+SetROF  FighterType = Bomber  1.0  External
+SetROF  Bomber  Value = 1.0  SlotType = External
+SetROF  Bomber  Value = 1.0  External
+SetROF  Bomber  1.0  SlotType = External
+SetROF  Bomber  1.0  External
+SetROF  FighterType = Bomber  Value = 1.0  External
+SetROF  FighterType = Bomber  1.0  External
+SetROF  Bomber  Value = 1.0  External
+SetROF  Bomber  1.0  External
+SetROF  FighterType = Bomber  1.0  SlotType = External
+SetROF  FighterType = Bomber  1.0  External
+SetROF  Bomber  1.0  SlotType = External
+SetROF  Bomber  1.0  External
+SetROF  FighterType = Bomber  1.0  External
+SetROF  Bomber  1.0  External
+SetROF  Bomber  Value = 1.0  SlotType = External
+SetROF  Bomber  Value = 1.0  External
+SetROF  Bomber  1.0  SlotType = External
+SetROF  Bomber  1.0  External
+SetROF  Bomber  Value = 1.0  External
+SetROF  Bomber  1.0  External
+SetROF  Bomber  1.0  SlotType = External
+SetROF  Bomber  1.0  External
+SetROF  Bomber  1.0  External
+SetRange  FighterType = Bomber  Value = 1.0  SlotType = External
+SetRange  FighterType = Bomber  Value = 1.0  External
+SetRange  FighterType = Bomber  1.0  SlotType = External
+SetRange  FighterType = Bomber  1.0  External
+SetRange  Bomber  Value = 1.0  SlotType = External
+SetRange  Bomber  Value = 1.0  External
+SetRange  Bomber  1.0  SlotType = External
+SetRange  Bomber  1.0  External
+SetRange  FighterType = Bomber  Value = 1.0  External
+SetRange  FighterType = Bomber  1.0  External
+SetRange  Bomber  Value = 1.0  External
+SetRange  Bomber  1.0  External
+SetRange  FighterType = Bomber  1.0  SlotType = External
+SetRange  FighterType = Bomber  1.0  External
+SetRange  Bomber  1.0  SlotType = External
+SetRange  Bomber  1.0  External
+SetRange  FighterType = Bomber  1.0  External
+SetRange  Bomber  1.0  External
+SetRange  Bomber  Value = 1.0  SlotType = External
+SetRange  Bomber  Value = 1.0  External
+SetRange  Bomber  1.0  SlotType = External
+SetRange  Bomber  1.0  External
+SetRange  Bomber  Value = 1.0  External
+SetRange  Bomber  1.0  External
+SetRange  Bomber  1.0  SlotType = External
+SetRange  Bomber  1.0  External
+SetRange  Bomber  1.0  External
+SetSpeed  FighterType = Bomber  Value = 1.0  SlotType = External
+SetSpeed  FighterType = Bomber  Value = 1.0  External
+SetSpeed  FighterType = Bomber  1.0  SlotType = External
+SetSpeed  FighterType = Bomber  1.0  External
+SetSpeed  Bomber  Value = 1.0  SlotType = External
+SetSpeed  Bomber  Value = 1.0  External
+SetSpeed  Bomber  1.0  SlotType = External
+SetSpeed  Bomber  1.0  External
+SetSpeed  FighterType = Bomber  Value = 1.0  External
+SetSpeed  FighterType = Bomber  1.0  External
+SetSpeed  Bomber  Value = 1.0  External
+SetSpeed  Bomber  1.0  External
+SetSpeed  FighterType = Bomber  1.0  SlotType = External
+SetSpeed  FighterType = Bomber  1.0  External
+SetSpeed  Bomber  1.0  SlotType = External
+SetSpeed  Bomber  1.0  External
+SetSpeed  FighterType = Bomber  1.0  External
+SetSpeed  Bomber  1.0  External
+SetSpeed  Bomber  Value = 1.0  SlotType = External
+SetSpeed  Bomber  Value = 1.0  External
+SetSpeed  Bomber  1.0  SlotType = External
+SetSpeed  Bomber  1.0  External
+SetSpeed  Bomber  Value = 1.0  External
+SetSpeed  Bomber  1.0  External
+SetSpeed  Bomber  1.0  SlotType = External
+SetSpeed  Bomber  1.0  External
+SetSpeed  Bomber  1.0  External
+SetCapacity  FighterType = Bomber  Value = 1.0  SlotType = External
+SetCapacity  FighterType = Bomber  Value = 1.0  External
+SetCapacity  FighterType = Bomber  1.0  SlotType = External
+SetCapacity  FighterType = Bomber  1.0  External
+SetCapacity  Bomber  Value = 1.0  SlotType = External
+SetCapacity  Bomber  Value = 1.0  External
+SetCapacity  Bomber  1.0  SlotType = External
+SetCapacity  Bomber  1.0  External
+SetCapacity  FighterType = Bomber  Value = 1.0  External
+SetCapacity  FighterType = Bomber  1.0  External
+SetCapacity  Bomber  Value = 1.0  External
+SetCapacity  Bomber  1.0  External
+SetCapacity  FighterType = Bomber  1.0  SlotType = External
+SetCapacity  FighterType = Bomber  1.0  External
+SetCapacity  Bomber  1.0  SlotType = External
+SetCapacity  Bomber  1.0  External
+SetCapacity  FighterType = Bomber  1.0  External
+SetCapacity  Bomber  1.0  External
+SetCapacity  Bomber  Value = 1.0  SlotType = External
+SetCapacity  Bomber  Value = 1.0  External
+SetCapacity  Bomber  1.0  SlotType = External
+SetCapacity  Bomber  1.0  External
+SetCapacity  Bomber  Value = 1.0  External
+SetCapacity  Bomber  1.0  External
+SetCapacity  Bomber  1.0  SlotType = External
+SetCapacity  Bomber  1.0  External
+SetCapacity  Bomber  1.0  External
+SetAntiShipDamage  FighterType = Bomber  Value = 1.0  SlotType = External
+SetAntiShipDamage  FighterType = Bomber  Value = 1.0  External
+SetAntiShipDamage  FighterType = Bomber  1.0  SlotType = External
+SetAntiShipDamage  FighterType = Bomber  1.0  External
+SetAntiShipDamage  Bomber  Value = 1.0  SlotType = External
+SetAntiShipDamage  Bomber  Value = 1.0  External
+SetAntiShipDamage  Bomber  1.0  SlotType = External
+SetAntiShipDamage  Bomber  1.0  External
+SetAntiShipDamage  FighterType = Bomber  Value = 1.0  External
+SetAntiShipDamage  FighterType = Bomber  1.0  External
+SetAntiShipDamage  Bomber  Value = 1.0  External
+SetAntiShipDamage  Bomber  1.0  External
+SetAntiShipDamage  FighterType = Bomber  1.0  SlotType = External
+SetAntiShipDamage  FighterType = Bomber  1.0  External
+SetAntiShipDamage  Bomber  1.0  SlotType = External
+SetAntiShipDamage  Bomber  1.0  External
+SetAntiShipDamage  FighterType = Bomber  1.0  External
+SetAntiShipDamage  Bomber  1.0  External
+SetAntiShipDamage  Bomber  Value = 1.0  SlotType = External
+SetAntiShipDamage  Bomber  Value = 1.0  External
+SetAntiShipDamage  Bomber  1.0  SlotType = External
+SetAntiShipDamage  Bomber  1.0  External
+SetAntiShipDamage  Bomber  Value = 1.0  External
+SetAntiShipDamage  Bomber  1.0  External
+SetAntiShipDamage  Bomber  1.0  SlotType = External
+SetAntiShipDamage  Bomber  1.0  External
+SetAntiShipDamage  Bomber  1.0  External
+SetAntiFighterDamage  FighterType = Bomber  Value = 1.0  SlotType = External
+SetAntiFighterDamage  FighterType = Bomber  Value = 1.0  External
+SetAntiFighterDamage  FighterType = Bomber  1.0  SlotType = External
+SetAntiFighterDamage  FighterType = Bomber  1.0  External
+SetAntiFighterDamage  Bomber  Value = 1.0  SlotType = External
+SetAntiFighterDamage  Bomber  Value = 1.0  External
+SetAntiFighterDamage  Bomber  1.0  SlotType = External
+SetAntiFighterDamage  Bomber  1.0  External
+SetAntiFighterDamage  FighterType = Bomber  Value = 1.0  External
+SetAntiFighterDamage  FighterType = Bomber  1.0  External
+SetAntiFighterDamage  Bomber  Value = 1.0  External
+SetAntiFighterDamage  Bomber  1.0  External
+SetAntiFighterDamage  FighterType = Bomber  1.0  SlotType = External
+SetAntiFighterDamage  FighterType = Bomber  1.0  External
+SetAntiFighterDamage  Bomber  1.0  SlotType = External
+SetAntiFighterDamage  Bomber  1.0  External
+SetAntiFighterDamage  FighterType = Bomber  1.0  External
+SetAntiFighterDamage  Bomber  1.0  External
+SetAntiFighterDamage  Bomber  Value = 1.0  SlotType = External
+SetAntiFighterDamage  Bomber  Value = 1.0  External
+SetAntiFighterDamage  Bomber  1.0  SlotType = External
+SetAntiFighterDamage  Bomber  1.0  External
+SetAntiFighterDamage  Bomber  Value = 1.0  External
+SetAntiFighterDamage  Bomber  1.0  External
+SetAntiFighterDamage  Bomber  1.0  SlotType = External
+SetAntiFighterDamage  Bomber  1.0  External
+SetAntiFighterDamage  Bomber  1.0  External
+SetLaunchRate  FighterType = Bomber  Value = 1.0  SlotType = External
+SetLaunchRate  FighterType = Bomber  Value = 1.0  External
+SetLaunchRate  FighterType = Bomber  1.0  SlotType = External
+SetLaunchRate  FighterType = Bomber  1.0  External
+SetLaunchRate  Bomber  Value = 1.0  SlotType = External
+SetLaunchRate  Bomber  Value = 1.0  External
+SetLaunchRate  Bomber  1.0  SlotType = External
+SetLaunchRate  Bomber  1.0  External
+SetLaunchRate  FighterType = Bomber  Value = 1.0  External
+SetLaunchRate  FighterType = Bomber  1.0  External
+SetLaunchRate  Bomber  Value = 1.0  External
+SetLaunchRate  Bomber  1.0  External
+SetLaunchRate  FighterType = Bomber  1.0  SlotType = External
+SetLaunchRate  FighterType = Bomber  1.0  External
+SetLaunchRate  Bomber  1.0  SlotType = External
+SetLaunchRate  Bomber  1.0  External
+SetLaunchRate  FighterType = Bomber  1.0  External
+SetLaunchRate  Bomber  1.0  External
+SetLaunchRate  Bomber  Value = 1.0  SlotType = External
+SetLaunchRate  Bomber  Value = 1.0  External
+SetLaunchRate  Bomber  1.0  SlotType = External
+SetLaunchRate  Bomber  1.0  External
+SetLaunchRate  Bomber  Value = 1.0  External
+SetLaunchRate  Bomber  1.0  External
+SetLaunchRate  Bomber  1.0  SlotType = External
+SetLaunchRate  Bomber  1.0  External
+SetLaunchRate  Bomber  1.0  External
+SetFighterWeaponRange  FighterType = Bomber  Value = 1.0  SlotType = External
+SetFighterWeaponRange  FighterType = Bomber  Value = 1.0  External
+SetFighterWeaponRange  FighterType = Bomber  1.0  SlotType = External
+SetFighterWeaponRange  FighterType = Bomber  1.0  External
+SetFighterWeaponRange  Bomber  Value = 1.0  SlotType = External
+SetFighterWeaponRange  Bomber  Value = 1.0  External
+SetFighterWeaponRange  Bomber  1.0  SlotType = External
+SetFighterWeaponRange  Bomber  1.0  External
+SetFighterWeaponRange  FighterType = Bomber  Value = 1.0  External
+SetFighterWeaponRange  FighterType = Bomber  1.0  External
+SetFighterWeaponRange  Bomber  Value = 1.0  External
+SetFighterWeaponRange  Bomber  1.0  External
+SetFighterWeaponRange  FighterType = Bomber  1.0  SlotType = External
+SetFighterWeaponRange  FighterType = Bomber  1.0  External
+SetFighterWeaponRange  Bomber  1.0  SlotType = External
+SetFighterWeaponRange  Bomber  1.0  External
+SetFighterWeaponRange  FighterType = Bomber  1.0  External
+SetFighterWeaponRange  Bomber  1.0  External
+SetFighterWeaponRange  Bomber  Value = 1.0  SlotType = External
+SetFighterWeaponRange  Bomber  Value = 1.0  External
+SetFighterWeaponRange  Bomber  1.0  SlotType = External
+SetFighterWeaponRange  Bomber  1.0  External
+SetFighterWeaponRange  Bomber  Value = 1.0  External
+SetFighterWeaponRange  Bomber  1.0  External
+SetFighterWeaponRange  Bomber  1.0  SlotType = External
+SetFighterWeaponRange  Bomber  1.0  External
+SetFighterWeaponRange  Bomber  1.0  External
+SetStealth  FighterType = Bomber  Value = 1.0  SlotType = External
+SetStealth  FighterType = Bomber  Value = 1.0  External
+SetStealth  FighterType = Bomber  1.0  SlotType = External
+SetStealth  FighterType = Bomber  1.0  External
+SetStealth  Bomber  Value = 1.0  SlotType = External
+SetStealth  Bomber  Value = 1.0  External
+SetStealth  Bomber  1.0  SlotType = External
+SetStealth  Bomber  1.0  External
+SetStealth  FighterType = Bomber  Value = 1.0  External
+SetStealth  FighterType = Bomber  1.0  External
+SetStealth  Bomber  Value = 1.0  External
+SetStealth  Bomber  1.0  External
+SetStealth  FighterType = Bomber  1.0  SlotType = External
+SetStealth  FighterType = Bomber  1.0  External
+SetStealth  Bomber  1.0  SlotType = External
+SetStealth  Bomber  1.0  External
+SetStealth  FighterType = Bomber  1.0  External
+SetStealth  Bomber  1.0  External
+SetStealth  Bomber  Value = 1.0  SlotType = External
+SetStealth  Bomber  Value = 1.0  External
+SetStealth  Bomber  1.0  SlotType = External
+SetStealth  Bomber  1.0  External
+SetStealth  Bomber  Value = 1.0  External
+SetStealth  Bomber  1.0  External
+SetStealth  Bomber  1.0  SlotType = External
+SetStealth  Bomber  1.0  External
+SetStealth  Bomber  1.0  External
+SetStructure  FighterType = Bomber  Value = 1.0  SlotType = External
+SetStructure  FighterType = Bomber  Value = 1.0  External
+SetStructure  FighterType = Bomber  1.0  SlotType = External
+SetStructure  FighterType = Bomber  1.0  External
+SetStructure  Bomber  Value = 1.0  SlotType = External
+SetStructure  Bomber  Value = 1.0  External
+SetStructure  Bomber  1.0  SlotType = External
+SetStructure  Bomber  1.0  External
+SetStructure  FighterType = Bomber  Value = 1.0  External
+SetStructure  FighterType = Bomber  1.0  External
+SetStructure  Bomber  Value = 1.0  External
+SetStructure  Bomber  1.0  External
+SetStructure  FighterType = Bomber  1.0  SlotType = External
+SetStructure  FighterType = Bomber  1.0  External
+SetStructure  Bomber  1.0  SlotType = External
+SetStructure  Bomber  1.0  External
+SetStructure  FighterType = Bomber  1.0  External
+SetStructure  Bomber  1.0  External
+SetStructure  Bomber  Value = 1.0  SlotType = External
+SetStructure  Bomber  Value = 1.0  External
+SetStructure  Bomber  1.0  SlotType = External
+SetStructure  Bomber  1.0  External
+SetStructure  Bomber  Value = 1.0  External
+SetStructure  Bomber  1.0  External
+SetStructure  Bomber  1.0  SlotType = External
+SetStructure  Bomber  1.0  External
+SetStructure  Bomber  1.0  External
+SetDetection  FighterType = Bomber  Value = 1.0  SlotType = External
+SetDetection  FighterType = Bomber  Value = 1.0  External
+SetDetection  FighterType = Bomber  1.0  SlotType = External
+SetDetection  FighterType = Bomber  1.0  External
+SetDetection  Bomber  Value = 1.0  SlotType = External
+SetDetection  Bomber  Value = 1.0  External
+SetDetection  Bomber  1.0  SlotType = External
+SetDetection  Bomber  1.0  External
+SetDetection  FighterType = Bomber  Value = 1.0  External
+SetDetection  FighterType = Bomber  1.0  External
+SetDetection  Bomber  Value = 1.0  External
+SetDetection  Bomber  1.0  External
+SetDetection  FighterType = Bomber  1.0  SlotType = External
+SetDetection  FighterType = Bomber  1.0  External
+SetDetection  Bomber  1.0  SlotType = External
+SetDetection  Bomber  1.0  External
+SetDetection  FighterType = Bomber  1.0  External
+SetDetection  Bomber  1.0  External
+SetDetection  Bomber  Value = 1.0  SlotType = External
+SetDetection  Bomber  Value = 1.0  External
+SetDetection  Bomber  1.0  SlotType = External
+SetDetection  Bomber  1.0  External
+SetDetection  Bomber  Value = 1.0  External
+SetDetection  Bomber  1.0  External
+SetDetection  Bomber  1.0  SlotType = External
+SetDetection  Bomber  1.0  External
+SetDetection  Bomber  1.0  External
+SetDamage  PartName = "Part Foo"  Value = 1.0  SlotType = External
+SetDamage  PartName = "Part Foo"  Value = 1.0  External
+SetDamage  PartName = "Part Foo"  1.0  SlotType = External
+SetDamage  PartName = "Part Foo"  1.0  External
+SetDamage  "Part Foo"  Value = 1.0  SlotType = External
+SetDamage  "Part Foo"  Value = 1.0  External
+SetDamage  "Part Foo"  1.0  SlotType = External
+SetDamage  "Part Foo"  1.0  External
+SetDamage  PartName = "Part Foo"  Value = 1.0  External
+SetDamage  PartName = "Part Foo"  1.0  External
+SetDamage  "Part Foo"  Value = 1.0  External
+SetDamage  "Part Foo"  1.0  External
+SetDamage  PartName = "Part Foo"  1.0  SlotType = External
+SetDamage  PartName = "Part Foo"  1.0  External
+SetDamage  "Part Foo"  1.0  SlotType = External
+SetDamage  "Part Foo"  1.0  External
+SetDamage  PartName = "Part Foo"  1.0  External
+SetDamage  "Part Foo"  1.0  External
+SetDamage  "Part Foo"  Value = 1.0  SlotType = External
+SetDamage  "Part Foo"  Value = 1.0  External
+SetDamage  "Part Foo"  1.0  SlotType = External
+SetDamage  "Part Foo"  1.0  External
+SetDamage  "Part Foo"  Value = 1.0  External
+SetDamage  "Part Foo"  1.0  External
+SetDamage  "Part Foo"  1.0  SlotType = External
+SetDamage  "Part Foo"  1.0  External
+SetDamage  "Part Foo"  1.0  External
+SetROF  PartName = "Part Foo"  Value = 1.0  SlotType = External
+SetROF  PartName = "Part Foo"  Value = 1.0  External
+SetROF  PartName = "Part Foo"  1.0  SlotType = External
+SetROF  PartName = "Part Foo"  1.0  External
+SetROF  "Part Foo"  Value = 1.0  SlotType = External
+SetROF  "Part Foo"  Value = 1.0  External
+SetROF  "Part Foo"  1.0  SlotType = External
+SetROF  "Part Foo"  1.0  External
+SetROF  PartName = "Part Foo"  Value = 1.0  External
+SetROF  PartName = "Part Foo"  1.0  External
+SetROF  "Part Foo"  Value = 1.0  External
+SetROF  "Part Foo"  1.0  External
+SetROF  PartName = "Part Foo"  1.0  SlotType = External
+SetROF  PartName = "Part Foo"  1.0  External
+SetROF  "Part Foo"  1.0  SlotType = External
+SetROF  "Part Foo"  1.0  External
+SetROF  PartName = "Part Foo"  1.0  External
+SetROF  "Part Foo"  1.0  External
+SetROF  "Part Foo"  Value = 1.0  SlotType = External
+SetROF  "Part Foo"  Value = 1.0  External
+SetROF  "Part Foo"  1.0  SlotType = External
+SetROF  "Part Foo"  1.0  External
+SetROF  "Part Foo"  Value = 1.0  External
+SetROF  "Part Foo"  1.0  External
+SetROF  "Part Foo"  1.0  SlotType = External
+SetROF  "Part Foo"  1.0  External
+SetROF  "Part Foo"  1.0  External
+SetRange  PartName = "Part Foo"  Value = 1.0  SlotType = External
+SetRange  PartName = "Part Foo"  Value = 1.0  External
+SetRange  PartName = "Part Foo"  1.0  SlotType = External
+SetRange  PartName = "Part Foo"  1.0  External
+SetRange  "Part Foo"  Value = 1.0  SlotType = External
+SetRange  "Part Foo"  Value = 1.0  External
+SetRange  "Part Foo"  1.0  SlotType = External
+SetRange  "Part Foo"  1.0  External
+SetRange  PartName = "Part Foo"  Value = 1.0  External
+SetRange  PartName = "Part Foo"  1.0  External
+SetRange  "Part Foo"  Value = 1.0  External
+SetRange  "Part Foo"  1.0  External
+SetRange  PartName = "Part Foo"  1.0  SlotType = External
+SetRange  PartName = "Part Foo"  1.0  External
+SetRange  "Part Foo"  1.0  SlotType = External
+SetRange  "Part Foo"  1.0  External
+SetRange  PartName = "Part Foo"  1.0  External
+SetRange  "Part Foo"  1.0  External
+SetRange  "Part Foo"  Value = 1.0  SlotType = External
+SetRange  "Part Foo"  Value = 1.0  External
+SetRange  "Part Foo"  1.0  SlotType = External
+SetRange  "Part Foo"  1.0  External
+SetRange  "Part Foo"  Value = 1.0  External
+SetRange  "Part Foo"  1.0  External
+SetRange  "Part Foo"  1.0  SlotType = External
+SetRange  "Part Foo"  1.0  External
+SetRange  "Part Foo"  1.0  External
+SetSpeed  PartName = "Part Foo"  Value = 1.0  SlotType = External
+SetSpeed  PartName = "Part Foo"  Value = 1.0  External
+SetSpeed  PartName = "Part Foo"  1.0  SlotType = External
+SetSpeed  PartName = "Part Foo"  1.0  External
+SetSpeed  "Part Foo"  Value = 1.0  SlotType = External
+SetSpeed  "Part Foo"  Value = 1.0  External
+SetSpeed  "Part Foo"  1.0  SlotType = External
+SetSpeed  "Part Foo"  1.0  External
+SetSpeed  PartName = "Part Foo"  Value = 1.0  External
+SetSpeed  PartName = "Part Foo"  1.0  External
+SetSpeed  "Part Foo"  Value = 1.0  External
+SetSpeed  "Part Foo"  1.0  External
+SetSpeed  PartName = "Part Foo"  1.0  SlotType = External
+SetSpeed  PartName = "Part Foo"  1.0  External
+SetSpeed  "Part Foo"  1.0  SlotType = External
+SetSpeed  "Part Foo"  1.0  External
+SetSpeed  PartName = "Part Foo"  1.0  External
+SetSpeed  "Part Foo"  1.0  External
+SetSpeed  "Part Foo"  Value = 1.0  SlotType = External
+SetSpeed  "Part Foo"  Value = 1.0  External
+SetSpeed  "Part Foo"  1.0  SlotType = External
+SetSpeed  "Part Foo"  1.0  External
+SetSpeed  "Part Foo"  Value = 1.0  External
+SetSpeed  "Part Foo"  1.0  External
+SetSpeed  "Part Foo"  1.0  SlotType = External
+SetSpeed  "Part Foo"  1.0  External
+SetSpeed  "Part Foo"  1.0  External
+SetCapacity  PartName = "Part Foo"  Value = 1.0  SlotType = External
+SetCapacity  PartName = "Part Foo"  Value = 1.0  External
+SetCapacity  PartName = "Part Foo"  1.0  SlotType = External
+SetCapacity  PartName = "Part Foo"  1.0  External
+SetCapacity  "Part Foo"  Value = 1.0  SlotType = External
+SetCapacity  "Part Foo"  Value = 1.0  External
+SetCapacity  "Part Foo"  1.0  SlotType = External
+SetCapacity  "Part Foo"  1.0  External
+SetCapacity  PartName = "Part Foo"  Value = 1.0  External
+SetCapacity  PartName = "Part Foo"  1.0  External
+SetCapacity  "Part Foo"  Value = 1.0  External
+SetCapacity  "Part Foo"  1.0  External
+SetCapacity  PartName = "Part Foo"  1.0  SlotType = External
+SetCapacity  PartName = "Part Foo"  1.0  External
+SetCapacity  "Part Foo"  1.0  SlotType = External
+SetCapacity  "Part Foo"  1.0  External
+SetCapacity  PartName = "Part Foo"  1.0  External
+SetCapacity  "Part Foo"  1.0  External
+SetCapacity  "Part Foo"  Value = 1.0  SlotType = External
+SetCapacity  "Part Foo"  Value = 1.0  External
+SetCapacity  "Part Foo"  1.0  SlotType = External
+SetCapacity  "Part Foo"  1.0  External
+SetCapacity  "Part Foo"  Value = 1.0  External
+SetCapacity  "Part Foo"  1.0  External
+SetCapacity  "Part Foo"  1.0  SlotType = External
+SetCapacity  "Part Foo"  1.0  External
+SetCapacity  "Part Foo"  1.0  External
+SetAntiShipDamage  PartName = "Part Foo"  Value = 1.0  SlotType = External
+SetAntiShipDamage  PartName = "Part Foo"  Value = 1.0  External
+SetAntiShipDamage  PartName = "Part Foo"  1.0  SlotType = External
+SetAntiShipDamage  PartName = "Part Foo"  1.0  External
+SetAntiShipDamage  "Part Foo"  Value = 1.0  SlotType = External
+SetAntiShipDamage  "Part Foo"  Value = 1.0  External
+SetAntiShipDamage  "Part Foo"  1.0  SlotType = External
+SetAntiShipDamage  "Part Foo"  1.0  External
+SetAntiShipDamage  PartName = "Part Foo"  Value = 1.0  External
+SetAntiShipDamage  PartName = "Part Foo"  1.0  External
+SetAntiShipDamage  "Part Foo"  Value = 1.0  External
+SetAntiShipDamage  "Part Foo"  1.0  External
+SetAntiShipDamage  PartName = "Part Foo"  1.0  SlotType = External
+SetAntiShipDamage  PartName = "Part Foo"  1.0  External
+SetAntiShipDamage  "Part Foo"  1.0  SlotType = External
+SetAntiShipDamage  "Part Foo"  1.0  External
+SetAntiShipDamage  PartName = "Part Foo"  1.0  External
+SetAntiShipDamage  "Part Foo"  1.0  External
+SetAntiShipDamage  "Part Foo"  Value = 1.0  SlotType = External
+SetAntiShipDamage  "Part Foo"  Value = 1.0  External
+SetAntiShipDamage  "Part Foo"  1.0  SlotType = External
+SetAntiShipDamage  "Part Foo"  1.0  External
+SetAntiShipDamage  "Part Foo"  Value = 1.0  External
+SetAntiShipDamage  "Part Foo"  1.0  External
+SetAntiShipDamage  "Part Foo"  1.0  SlotType = External
+SetAntiShipDamage  "Part Foo"  1.0  External
+SetAntiShipDamage  "Part Foo"  1.0  External
+SetAntiFighterDamage  PartName = "Part Foo"  Value = 1.0  SlotType = External
+SetAntiFighterDamage  PartName = "Part Foo"  Value = 1.0  External
+SetAntiFighterDamage  PartName = "Part Foo"  1.0  SlotType = External
+SetAntiFighterDamage  PartName = "Part Foo"  1.0  External
+SetAntiFighterDamage  "Part Foo"  Value = 1.0  SlotType = External
+SetAntiFighterDamage  "Part Foo"  Value = 1.0  External
+SetAntiFighterDamage  "Part Foo"  1.0  SlotType = External
+SetAntiFighterDamage  "Part Foo"  1.0  External
+SetAntiFighterDamage  PartName = "Part Foo"  Value = 1.0  External
+SetAntiFighterDamage  PartName = "Part Foo"  1.0  External
+SetAntiFighterDamage  "Part Foo"  Value = 1.0  External
+SetAntiFighterDamage  "Part Foo"  1.0  External
+SetAntiFighterDamage  PartName = "Part Foo"  1.0  SlotType = External
+SetAntiFighterDamage  PartName = "Part Foo"  1.0  External
+SetAntiFighterDamage  "Part Foo"  1.0  SlotType = External
+SetAntiFighterDamage  "Part Foo"  1.0  External
+SetAntiFighterDamage  PartName = "Part Foo"  1.0  External
+SetAntiFighterDamage  "Part Foo"  1.0  External
+SetAntiFighterDamage  "Part Foo"  Value = 1.0  SlotType = External
+SetAntiFighterDamage  "Part Foo"  Value = 1.0  External
+SetAntiFighterDamage  "Part Foo"  1.0  SlotType = External
+SetAntiFighterDamage  "Part Foo"  1.0  External
+SetAntiFighterDamage  "Part Foo"  Value = 1.0  External
+SetAntiFighterDamage  "Part Foo"  1.0  External
+SetAntiFighterDamage  "Part Foo"  1.0  SlotType = External
+SetAntiFighterDamage  "Part Foo"  1.0  External
+SetAntiFighterDamage  "Part Foo"  1.0  External
+SetLaunchRate  PartName = "Part Foo"  Value = 1.0  SlotType = External
+SetLaunchRate  PartName = "Part Foo"  Value = 1.0  External
+SetLaunchRate  PartName = "Part Foo"  1.0  SlotType = External
+SetLaunchRate  PartName = "Part Foo"  1.0  External
+SetLaunchRate  "Part Foo"  Value = 1.0  SlotType = External
+SetLaunchRate  "Part Foo"  Value = 1.0  External
+SetLaunchRate  "Part Foo"  1.0  SlotType = External
+SetLaunchRate  "Part Foo"  1.0  External
+SetLaunchRate  PartName = "Part Foo"  Value = 1.0  External
+SetLaunchRate  PartName = "Part Foo"  1.0  External
+SetLaunchRate  "Part Foo"  Value = 1.0  External
+SetLaunchRate  "Part Foo"  1.0  External
+SetLaunchRate  PartName = "Part Foo"  1.0  SlotType = External
+SetLaunchRate  PartName = "Part Foo"  1.0  External
+SetLaunchRate  "Part Foo"  1.0  SlotType = External
+SetLaunchRate  "Part Foo"  1.0  External
+SetLaunchRate  PartName = "Part Foo"  1.0  External
+SetLaunchRate  "Part Foo"  1.0  External
+SetLaunchRate  "Part Foo"  Value = 1.0  SlotType = External
+SetLaunchRate  "Part Foo"  Value = 1.0  External
+SetLaunchRate  "Part Foo"  1.0  SlotType = External
+SetLaunchRate  "Part Foo"  1.0  External
+SetLaunchRate  "Part Foo"  Value = 1.0  External
+SetLaunchRate  "Part Foo"  1.0  External
+SetLaunchRate  "Part Foo"  1.0  SlotType = External
+SetLaunchRate  "Part Foo"  1.0  External
+SetLaunchRate  "Part Foo"  1.0  External
+SetFighterWeaponRange  PartName = "Part Foo"  Value = 1.0  SlotType = External
+SetFighterWeaponRange  PartName = "Part Foo"  Value = 1.0  External
+SetFighterWeaponRange  PartName = "Part Foo"  1.0  SlotType = External
+SetFighterWeaponRange  PartName = "Part Foo"  1.0  External
+SetFighterWeaponRange  "Part Foo"  Value = 1.0  SlotType = External
+SetFighterWeaponRange  "Part Foo"  Value = 1.0  External
+SetFighterWeaponRange  "Part Foo"  1.0  SlotType = External
+SetFighterWeaponRange  "Part Foo"  1.0  External
+SetFighterWeaponRange  PartName = "Part Foo"  Value = 1.0  External
+SetFighterWeaponRange  PartName = "Part Foo"  1.0  External
+SetFighterWeaponRange  "Part Foo"  Value = 1.0  External
+SetFighterWeaponRange  "Part Foo"  1.0  External
+SetFighterWeaponRange  PartName = "Part Foo"  1.0  SlotType = External
+SetFighterWeaponRange  PartName = "Part Foo"  1.0  External
+SetFighterWeaponRange  "Part Foo"  1.0  SlotType = External
+SetFighterWeaponRange  "Part Foo"  1.0  External
+SetFighterWeaponRange  PartName = "Part Foo"  1.0  External
+SetFighterWeaponRange  "Part Foo"  1.0  External
+SetFighterWeaponRange  "Part Foo"  Value = 1.0  SlotType = External
+SetFighterWeaponRange  "Part Foo"  Value = 1.0  External
+SetFighterWeaponRange  "Part Foo"  1.0  SlotType = External
+SetFighterWeaponRange  "Part Foo"  1.0  External
+SetFighterWeaponRange  "Part Foo"  Value = 1.0  External
+SetFighterWeaponRange  "Part Foo"  1.0  External
+SetFighterWeaponRange  "Part Foo"  1.0  SlotType = External
+SetFighterWeaponRange  "Part Foo"  1.0  External
+SetFighterWeaponRange  "Part Foo"  1.0  External
+SetStealth  PartName = "Part Foo"  Value = 1.0  SlotType = External
+SetStealth  PartName = "Part Foo"  Value = 1.0  External
+SetStealth  PartName = "Part Foo"  1.0  SlotType = External
+SetStealth  PartName = "Part Foo"  1.0  External
+SetStealth  "Part Foo"  Value = 1.0  SlotType = External
+SetStealth  "Part Foo"  Value = 1.0  External
+SetStealth  "Part Foo"  1.0  SlotType = External
+SetStealth  "Part Foo"  1.0  External
+SetStealth  PartName = "Part Foo"  Value = 1.0  External
+SetStealth  PartName = "Part Foo"  1.0  External
+SetStealth  "Part Foo"  Value = 1.0  External
+SetStealth  "Part Foo"  1.0  External
+SetStealth  PartName = "Part Foo"  1.0  SlotType = External
+SetStealth  PartName = "Part Foo"  1.0  External
+SetStealth  "Part Foo"  1.0  SlotType = External
+SetStealth  "Part Foo"  1.0  External
+SetStealth  PartName = "Part Foo"  1.0  External
+SetStealth  "Part Foo"  1.0  External
+SetStealth  "Part Foo"  Value = 1.0  SlotType = External
+SetStealth  "Part Foo"  Value = 1.0  External
+SetStealth  "Part Foo"  1.0  SlotType = External
+SetStealth  "Part Foo"  1.0  External
+SetStealth  "Part Foo"  Value = 1.0  External
+SetStealth  "Part Foo"  1.0  External
+SetStealth  "Part Foo"  1.0  SlotType = External
+SetStealth  "Part Foo"  1.0  External
+SetStealth  "Part Foo"  1.0  External
+SetStructure  PartName = "Part Foo"  Value = 1.0  SlotType = External
+SetStructure  PartName = "Part Foo"  Value = 1.0  External
+SetStructure  PartName = "Part Foo"  1.0  SlotType = External
+SetStructure  PartName = "Part Foo"  1.0  External
+SetStructure  "Part Foo"  Value = 1.0  SlotType = External
+SetStructure  "Part Foo"  Value = 1.0  External
+SetStructure  "Part Foo"  1.0  SlotType = External
+SetStructure  "Part Foo"  1.0  External
+SetStructure  PartName = "Part Foo"  Value = 1.0  External
+SetStructure  PartName = "Part Foo"  1.0  External
+SetStructure  "Part Foo"  Value = 1.0  External
+SetStructure  "Part Foo"  1.0  External
+SetStructure  PartName = "Part Foo"  1.0  SlotType = External
+SetStructure  PartName = "Part Foo"  1.0  External
+SetStructure  "Part Foo"  1.0  SlotType = External
+SetStructure  "Part Foo"  1.0  External
+SetStructure  PartName = "Part Foo"  1.0  External
+SetStructure  "Part Foo"  1.0  External
+SetStructure  "Part Foo"  Value = 1.0  SlotType = External
+SetStructure  "Part Foo"  Value = 1.0  External
+SetStructure  "Part Foo"  1.0  SlotType = External
+SetStructure  "Part Foo"  1.0  External
+SetStructure  "Part Foo"  Value = 1.0  External
+SetStructure  "Part Foo"  1.0  External
+SetStructure  "Part Foo"  1.0  SlotType = External
+SetStructure  "Part Foo"  1.0  External
+SetStructure  "Part Foo"  1.0  External
+SetDetection  PartName = "Part Foo"  Value = 1.0  SlotType = External
+SetDetection  PartName = "Part Foo"  Value = 1.0  External
+SetDetection  PartName = "Part Foo"  1.0  SlotType = External
+SetDetection  PartName = "Part Foo"  1.0  External
+SetDetection  "Part Foo"  Value = 1.0  SlotType = External
+SetDetection  "Part Foo"  Value = 1.0  External
+SetDetection  "Part Foo"  1.0  SlotType = External
+SetDetection  "Part Foo"  1.0  External
+SetDetection  PartName = "Part Foo"  Value = 1.0  External
+SetDetection  PartName = "Part Foo"  1.0  External
+SetDetection  "Part Foo"  Value = 1.0  External
+SetDetection  "Part Foo"  1.0  External
+SetDetection  PartName = "Part Foo"  1.0  SlotType = External
+SetDetection  PartName = "Part Foo"  1.0  External
+SetDetection  "Part Foo"  1.0  SlotType = External
+SetDetection  "Part Foo"  1.0  External
+SetDetection  PartName = "Part Foo"  1.0  External
+SetDetection  "Part Foo"  1.0  External
+SetDetection  "Part Foo"  Value = 1.0  SlotType = External
+SetDetection  "Part Foo"  Value = 1.0  External
+SetDetection  "Part Foo"  1.0  SlotType = External
+SetDetection  "Part Foo"  1.0  External
+SetDetection  "Part Foo"  Value = 1.0  External
+SetDetection  "Part Foo"  1.0  External
+SetDetection  "Part Foo"  1.0  SlotType = External
+SetDetection  "Part Foo"  1.0  External
+SetDetection  "Part Foo"  1.0  External
 SetEmpireMeter  Empire = 1  Meter = "Foo"  Value = 1.0
 SetEmpireMeter  Empire = 1  Meter = "Foo"  1.0
 SetEmpireMeter  Empire = 1  "Foo"  Value = 1.0

@@ -61,14 +61,12 @@ namespace {
                     parse::value_ref_parser<StarType>();
 
                 set_meter
-                    =    tok.Set_
-                    >>   parse::non_ship_part_meter_type_enum() [ _a = _1 ]
+                    =    parse::set_non_ship_part_meter_type_enum() [ _a = _1 ]
                     >>   parse::label(Value_name) >> double_value_ref [ _val = new_<Effect::SetMeter>(_a, _1) ]
                     ;
 
                 set_ship_part_meter
-                    =    tok.Set_
-                    >    parse::ship_part_meter_type_enum() [ _a = _1 ]
+                    =    parse::set_ship_part_meter_type_enum() [ _a = _1 ]
                     >>   (
                               set_ship_part_meter_suffix_1(_a) [ _val = _1 ]
                           |   set_ship_part_meter_suffix_2(_a) [ _val = _1 ]

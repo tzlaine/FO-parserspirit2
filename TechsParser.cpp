@@ -1,7 +1,8 @@
 #define FUSION_MAX_VECTOR_SIZE 20
 
-#include "ParseImpl.h"
+#include "Double.h"
 #include "Label.h"
+#include "ParseImpl.h"
 #include "../universe/Species.h"
 
 
@@ -97,7 +98,7 @@ namespace {
                          )
                     >    parse::label(Category_name)          > tok.string [ _e = _1 ]
                     >>   (
-                              parse::label(ResearchCost_name) >> tok.double_ [ _f = _1 ]
+                              parse::label(ResearchCost_name) >> parse::double_ [ _f = _1 ]
                           |   eps [ _f = 1.0 ]
                          )
                     >>   (

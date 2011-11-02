@@ -113,24 +113,6 @@ namespace parse {
     }
 
     template <>
-    enum_parser_rule<MeterType>::type& enum_parser<MeterType>()
-    {
-        static enum_parser_rule<MeterType>::type retval
-            =    non_ship_part_meter_type_enum() [ _val = _1 ]
-            |    ship_part_meter_type_enum() [ _val = _1 ]
-            ;
-        static bool once = true;
-        if (once) {
-            retval.name("MeterType");
-#if DEBUG_PARSERS
-            debug(retval);
-#endif
-            once = false;
-        }
-        return retval;
-    }
-
-    template <>
     enum_parser_rule<EmpireAffiliationType>::type& enum_parser<EmpireAffiliationType>()
     {
         const parse::lexer& tok = parse::lexer::instance();
@@ -338,22 +320,74 @@ namespace parse {
         return retval;
     }
 
-    enum_parser_rule<MeterType>::type& ship_part_meter_type_enum()
+    enum_parser_rule<MeterType>::type& set_non_ship_part_meter_type_enum()
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<MeterType>::type retval
-            =    tok.Damage_ [ _val = METER_DAMAGE ]
-            |    tok.ROF_ [ _val = METER_ROF ]
-            |    tok.Range_ [ _val = METER_RANGE ]
-            |    tok.Speed_ [ _val = METER_SPEED ]
-            |    tok.Capacity_ [ _val = METER_CAPACITY ]
-            |    tok.AntiShipDamage_ [ _val = METER_ANTI_SHIP_DAMAGE ]
-            |    tok.AntiFighterDamage_ [ _val = METER_ANTI_FIGHTER_DAMAGE ]
-            |    tok.LaunchRate_ [ _val = METER_LAUNCH_RATE ]
-            |    tok.FighterWeaponRange_ [ _val = METER_FIGHTER_WEAPON_RANGE ]
-            |    tok.Stealth_ [ _val = METER_STEALTH ]
-            |    tok.Detection_ [ _val = METER_DETECTION ]
-            |    tok.Structure_ [ _val = METER_STRUCTURE ]
+            =    tok.SetTargetConstruction_ [ _val = METER_TARGET_CONSTRUCTION ]
+            |    tok.SetTargetFarming_ [ _val = METER_TARGET_FARMING ]
+            |    tok.SetTargetHealth_ [ _val = METER_TARGET_HEALTH ]
+            |    tok.SetTargetIndustry_ [ _val = METER_TARGET_INDUSTRY ]
+            |    tok.SetTargetMining_ [ _val = METER_TARGET_MINING ]
+            |    tok.SetTargetPopulation_ [ _val = METER_TARGET_POPULATION ]
+            |    tok.SetTargetResearch_ [ _val = METER_TARGET_RESEARCH ]
+            |    tok.SetTargetTrade_ [ _val = METER_TARGET_TRADE ]
+
+            |    tok.SetMaxDefense_ [ _val = METER_MAX_DEFENSE ]
+            |    tok.SetMaxFuel_ [ _val = METER_MAX_FUEL ]
+            |    tok.SetMaxShield_ [ _val = METER_MAX_SHIELD ]
+            |    tok.SetMaxStructure_ [ _val = METER_MAX_STRUCTURE ]
+            |    tok.SetMaxTroops_ [ _val = METER_MAX_TROOPS ]
+
+            |    tok.SetConstruction_ [ _val = METER_CONSTRUCTION ]
+            |    tok.SetFarming_ [ _val = METER_FARMING ]
+            |    tok.SetHealth_ [ _val = METER_HEALTH ]
+            |    tok.SetIndustry_ [ _val = METER_INDUSTRY ]
+            |    tok.SetMining_ [ _val = METER_MINING ]
+            |    tok.SetPopulation_ [ _val = METER_POPULATION ]
+            |    tok.SetResearch_ [ _val = METER_RESEARCH ]
+            |    tok.SetTrade_ [ _val = METER_TRADE ]
+
+            |    tok.SetDefense_ [ _val = METER_DEFENSE ]
+            |    tok.SetFuel_ [ _val = METER_FUEL ]
+            |    tok.SetShield_ [ _val = METER_SHIELD ]
+            |    tok.SetStructure_ [ _val = METER_STRUCTURE ]
+            |    tok.SetTroops_ [ _val = METER_TROOPS ]
+
+            |    tok.SetFoodConsumption_ [ _val = METER_FOOD_CONSUMPTION ]
+            |    tok.SetSupply_ [ _val = METER_SUPPLY ]
+            |    tok.SetStealth_ [ _val = METER_STEALTH ]
+            |    tok.SetDetection_ [ _val = METER_DETECTION ]
+            |    tok.SetBattleSpeed_ [ _val = METER_BATTLE_SPEED ]
+            |    tok.SetStarlaneSpeed_ [ _val = METER_STARLANE_SPEED ]
+            ;
+        static bool once = true;
+        if (once) {
+            retval.name("non-ship-part MeterType");
+#if DEBUG_PARSERS
+            debug(retval);
+#endif
+            once = false;
+        }
+        return retval;
+    }
+
+    enum_parser_rule<MeterType>::type& set_ship_part_meter_type_enum()
+    {
+        const parse::lexer& tok = parse::lexer::instance();
+        static enum_parser_rule<MeterType>::type retval
+            =    tok.SetDamage_ [ _val = METER_DAMAGE ]
+            |    tok.SetROF_ [ _val = METER_ROF ]
+            |    tok.SetRange_ [ _val = METER_RANGE ]
+            |    tok.SetSpeed_ [ _val = METER_SPEED ]
+            |    tok.SetCapacity_ [ _val = METER_CAPACITY ]
+            |    tok.SetAntiShipDamage_ [ _val = METER_ANTI_SHIP_DAMAGE ]
+            |    tok.SetAntiFighterDamage_ [ _val = METER_ANTI_FIGHTER_DAMAGE ]
+            |    tok.SetLaunchRate_ [ _val = METER_LAUNCH_RATE ]
+            |    tok.SetFighterWeaponRange_ [ _val = METER_FIGHTER_WEAPON_RANGE ]
+            |    tok.SetStealth_ [ _val = METER_STEALTH ]
+            |    tok.SetDetection_ [ _val = METER_DETECTION ]
+            |    tok.SetStructure_ [ _val = METER_STRUCTURE ]
             ;
         static bool once = true;
         if (once) {

@@ -1,5 +1,7 @@
 #include "ValueRefParserImpl.h"
 
+#include "Double.h"
+
 #include <GG/ReportParseError.h>
 
 
@@ -60,8 +62,7 @@ namespace {
                     ;
 
                 constant
-                    =    tok.double_ [ _val = new_<ValueRef::Constant<double> >(_1) ]
-                    |    tok.int_ [ _val = new_<ValueRef::Constant<double> >(static_cast_<double>(_1)) ]
+                    =    parse::double_ [ _val = new_<ValueRef::Constant<double> >(_1) ]
                     ;
 
                 variable

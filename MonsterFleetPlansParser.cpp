@@ -1,5 +1,6 @@
 #include "ParseImpl.h"
 
+#include "Double.h"
 #include "Label.h"
 
 
@@ -43,7 +44,7 @@ namespace {
                           |   tok.string [ push_back(_b, _1) ]
                          )
                     >    (
-                              parse::label(SpawnRate_name) >> tok.double_ [ _c = _1 ]
+                              parse::label(SpawnRate_name) >> parse::double_ [ _c = _1 ]
                           |   eps [ _c = 1.0 ]
                          )
                     >    (

@@ -1,9 +1,10 @@
 #define FUSION_MAX_VECTOR_SIZE 20
 #define PHOENIX_LIMIT 11
 
-#include "ParseImpl.h"
+#include "Double.h"
 #include "EnumParser.h"
 #include "Label.h"
+#include "ParseImpl.h"
 
 
 #define DEBUG_PARSERS 0
@@ -66,29 +67,29 @@ namespace {
                 part_stats
                     =    (
                               parse::label(Type_name)               >> parse::enum_parser<CombatFighterType>() [ _a = _1 ]
-                          >   parse::label(AntiShipDamage_name)     >  tok.double_ [ _b = _1 ]
-                          >   parse::label(AntiFighterDamage_name)  >  tok.double_ [ _c = _1 ]
-                          >   parse::label(LaunchRate_name)         >  tok.double_ [ _d = _1 ]
-                          >   parse::label(FighterWeaponRange_name) >  tok.double_ [ _e = _1 ]
-                          >   parse::label(Speed_name)              >  tok.double_ [ _f = _1 ]
-                          >   parse::label(Stealth_name)            >  tok.double_ [ _g = _1 ]
-                          >   parse::label(Structure_name)          >  tok.double_ [ _h = _1 ]
-                          >   parse::label(Detection_name)          >  tok.double_ [ _i = _1 ]
+                          >   parse::label(AntiShipDamage_name)     >  parse::double_ [ _b = _1 ]
+                          >   parse::label(AntiFighterDamage_name)  >  parse::double_ [ _c = _1 ]
+                          >   parse::label(LaunchRate_name)         >  parse::double_ [ _d = _1 ]
+                          >   parse::label(FighterWeaponRange_name) >  parse::double_ [ _e = _1 ]
+                          >   parse::label(Speed_name)              >  parse::double_ [ _f = _1 ]
+                          >   parse::label(Stealth_name)            >  parse::double_ [ _g = _1 ]
+                          >   parse::label(Structure_name)          >  parse::double_ [ _h = _1 ]
+                          >   parse::label(Detection_name)          >  parse::double_ [ _i = _1 ]
                           >   parse::label(Capacity_name)           >  tok.int_ [ _val = construct<FighterStats>(_a, _b, _c, _d, _e, _f, _g, _h, _i, _1) ]
                          )
                     |    (
-                              parse::label(Damage_name) >> tok.double_ [ _b = _1 ]
-                          >   parse::label(ROF_name)    >  tok.double_ [ _c = _1 ]
-                          >   parse::label(Range_name)  >  tok.double_ [ _d = _1 ]
+                              parse::label(Damage_name) >> parse::double_ [ _b = _1 ]
+                          >   parse::label(ROF_name)    >  parse::double_ [ _c = _1 ]
+                          >   parse::label(Range_name)  >  parse::double_ [ _d = _1 ]
                           >>  (
-                                   parse::label(Speed_name)     >> tok.double_ [ _e = _1 ]
-                               >   parse::label(Stealth_name)   >  tok.double_ [ _f = _1 ]
-                               >   parse::label(Structure_name) >  tok.double_ [ _g = _1 ]
+                                   parse::label(Speed_name)     >> parse::double_ [ _e = _1 ]
+                               >   parse::label(Stealth_name)   >  parse::double_ [ _f = _1 ]
+                               >   parse::label(Structure_name) >  parse::double_ [ _g = _1 ]
                                >   parse::label(Capacity_name)  >  tok.int_ [ _val = construct<LRStats>(_b, _c, _d, _e, _f, _g, _1) ]
                                |   eps [ _val = construct<DirectFireStats>(_b, _c, _d) ]
                               )
                          )
-                    |    parse::label(Capacity_name) > tok.double_ [ _val = _1 ]
+                    |    parse::label(Capacity_name) > parse::double_ [ _val = _1 ]
                     ;
 
                 part_type
@@ -97,7 +98,7 @@ namespace {
                     >    parse::label(Description_name) > tok.string [ _b = _1 ]
                     >    parse::label(PartClass_name)   > parse::enum_parser<ShipPartClass>() [ _c = _1 ]
                     >>   part_stats [ _d = _1 ]
-                    >    parse::label(BuildCost_name)   > tok.double_ [ _e = _1 ]
+                    >    parse::label(BuildCost_name)   > parse::double_ [ _e = _1 ]
                     >    parse::label(BuildTime_name)   > tok.int_ [ _f = _1 ]
                     >>   (
                               tok.Unproducible_ [ _g = false ]

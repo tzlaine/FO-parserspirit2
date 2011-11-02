@@ -60,6 +60,7 @@ namespace {
                 qi::_4_type _4;
                 qi::_a_type _a;
                 qi::_b_type _b;
+                qi::_c_type _c;
                 qi::_val_type _val;
                 qi::eps_type eps;
                 qi::lit_type lit;
@@ -181,8 +182,13 @@ namespace {
 
                 meter_value
                     =    parse::non_ship_part_meter_type_enum() [ _a = _1 ]
-                    >    parse::label(Low_name)  > double_value_ref [ _b = _1 ]
-                    >    parse::label(High_name) > double_value_ref [ _val = new_<Condition::MeterValue>(_a, _b, _1) ]
+                    >>  -(
+                              parse::label(Low_name) >> double_value_ref [ _b = _1 ]
+                         )
+                    >>  -(
+                              parse::label(High_name) >> double_value_ref [ _c = _1 ]
+                         )
+                         [ _val = new_<Condition::MeterValue>(_a, _b, _c) ]
                     ;
 
                 and_
@@ -293,6 +299,7 @@ namespace {
             Condition::ConditionBase* (),
             qi::locals<
                 MeterType,
+                ValueRef::ValueRefBase<double>*,
                 ValueRef::ValueRefBase<double>*
             >,
             parse::skipper_type

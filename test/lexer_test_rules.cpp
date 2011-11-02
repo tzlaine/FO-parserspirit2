@@ -48,7 +48,8 @@ lexer_test_rules::lexer_test_rules()
                 |  as_string[ tok.statistic_type_enum ] [ std::cout << _1 << "\n" ]
 
 #define NAME_TOKEN(r, _, name) | tok.BOOST_PP_CAT(name, _) [ std::cout << _1 << "\n" ]
-                   BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ)
+                   BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ_1)
+                   BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ_2)
 #undef NAME_TOKEN
 
                 |  char_('=') [ std::cout << _1 << "\n" ]

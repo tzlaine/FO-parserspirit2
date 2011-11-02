@@ -105,6 +105,7 @@ set(THIS_EXE_SOURCES
 
     ../Lexer.cpp
     ../ReportParseError.cpp
+    ../Double.cpp
     ../Label.cpp
     ../EnumParser.cpp
     ../IntValueRefParser.cpp
@@ -188,13 +189,11 @@ add_test_and_data_files(parser_test lexer -f lexer_tokens)
 add_test_and_data_files(parser_test capture_result_enum_parser -f capture_result_enumerators)
 add_test_and_data_files(parser_test combat_fighter_type_enum_parser -f combat_fighter_type_enumerators)
 add_test_and_data_files(parser_test empire_affiliation_type_enum_parser -f empire_affiliation_type_enumerators)
-add_test_and_data_files(parser_test meter_type_enum_parser -f meter_type_enumerators)
 add_test_and_data_files(parser_test non_ship_part_meter_type_enum_parser -f non_ship_part_meter_type_enumerators)
 add_test_and_data_files(parser_test planet_environment_enum_parser -f planet_environment_enumerators)
 add_test_and_data_files(parser_test planet_size_enum_parser -f planet_size_enumerators)
 add_test_and_data_files(parser_test planet_type_enum_parser -f planet_type_enumerators)
 add_test_and_data_files(parser_test ship_part_class_enum_parser -f ship_part_class_enumerators)
-add_test_and_data_files(parser_test ship_part_meter_type_enum_parser -f ship_part_meter_type_enumerators)
 add_test_and_data_files(parser_test ship_slot_type_enum_parser -f ship_slot_type_enumerators)
 add_test_and_data_files(parser_test star_type_enum_parser -f star_type_enumerators)
 add_test_and_data_files(parser_test value_ref_statistic_type_enum_parser -f statistic_type_enumerators)

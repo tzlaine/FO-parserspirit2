@@ -1,9 +1,10 @@
 #define FUSION_MAX_VECTOR_SIZE 20
 #define PHOENIX_LIMIT 11
 
-#include "ParseImpl.h"
+#include "Double.h"
 #include "EnumParser.h"
 #include "Label.h"
+#include "ParseImpl.h"
 #include "../universe/Condition.h"
 
 
@@ -70,18 +71,18 @@ namespace {
                     >    parse::label(Type_name) > parse::enum_parser<ShipSlotType>() [ _a = _1 ]
                     >    parse::label(Position_name)
                     >    '('
-                    >    tok.double_ [ _b = _1 ]
+                    >    parse::double_ [ _b = _1 ]
                     >    ','
-                    >    tok.double_ [ _c = _1 ]
+                    >    parse::double_ [ _c = _1 ]
                     >    lit(')') [ _val = construct<HullType::Slot>(_a, _b, _c) ]
                     ;
 
                 hull_stats
-                    =    parse::label(Speed_name)         > tok.double_ [ _a = _1 ]
-                    >    parse::label(StarlaneSpeed_name) > tok.double_ [ _b = _1 ]
-                    >    parse::label(Fuel_name)          > tok.double_ [ _c = _1 ]
-                    >    parse::label(Stealth_name)       > tok.double_ [ _d = _1 ]
-                    >    parse::label(Structure_name)     > tok.double_ [ _val = construct<HullTypeStats>(_a, _b, _c, _d, _1) ]
+                    =    parse::label(Speed_name)         > parse::double_ [ _a = _1 ]
+                    >    parse::label(StarlaneSpeed_name) > parse::double_ [ _b = _1 ]
+                    >    parse::label(Fuel_name)          > parse::double_ [ _c = _1 ]
+                    >    parse::label(Stealth_name)       > parse::double_ [ _d = _1 ]
+                    >    parse::label(Structure_name)     > parse::double_ [ _val = construct<HullTypeStats>(_a, _b, _c, _d, _1) ]
                     ;
 
                 hull
@@ -89,7 +90,7 @@ namespace {
                     >    parse::label(Name_name)        > tok.string [ _a = _1 ]
                     >    parse::label(Description_name) > tok.string [ _b = _1 ]
                     >    hull_stats [ _c = _1 ]
-                    >    parse::label(BuildCost_name)   > tok.double_ [ _d = _1 ]
+                    >    parse::label(BuildCost_name)   > parse::double_ [ _d = _1 ]
                     >    parse::label(BuildTime_name)   > tok.int_ [ _e = _1 ]
                     >    (
                               tok.Unproducible_ [ _f = false ]

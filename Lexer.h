@@ -88,7 +88,8 @@ struct lexer :
         sorted order, so that finding, adding, and removing tokens is a bit
         easier.  See the note above the Enum tokens section. */ ///@{
 #define NAME_TOKEN(r, _, name) boost::spirit::lex::token_def<adobe::name_t> BOOST_PP_CAT(name, _);
-    BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ)
+    BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ_1)
+    BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ_2)
 #undef NAME_TOKEN
     //@}
 

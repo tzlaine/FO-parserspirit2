@@ -1,5 +1,6 @@
 #include "ParseImpl.h"
 
+#include "Double.h"
 #include "EffectParser.h"
 #include "Label.h"
 #include "ValueRefParser.h"
@@ -166,6 +167,14 @@ namespace parse {
 
     void init()
     {
+        const lexer& tok = lexer::instance();
+        qi::_1_type _1;
+        qi::_val_type _val;
+        using phoenix::static_cast_;
+        double_
+            =    tok.int_ [ _val = static_cast_<double>(_1) ]
+            |    tok.double_ [ _val = _1 ]
+            ;
         value_ref_parser<int>();
         condition_parser();
     }

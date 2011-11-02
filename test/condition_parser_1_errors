@@ -79,292 +79,196 @@ Planet [ Adequate Good
 ObjectType
 ObjectType Type
 ObjectType Type =
-TargetPopulation
 TargetPopulation Low
 TargetPopulation Low =
-TargetPopulation Low = 1
 TargetPopulation Low = 1 High
 TargetPopulation Low = 1 High =
-TargetPopulation 1
 TargetPopulation 1 High
 TargetPopulation 1 High =
-TargetHealth
 TargetHealth Low
 TargetHealth Low =
-TargetHealth Low = 1
 TargetHealth Low = 1 High
 TargetHealth Low = 1 High =
-TargetHealth 1
 TargetHealth 1 High
 TargetHealth 1 High =
-TargetFarming
 TargetFarming Low
 TargetFarming Low =
-TargetFarming Low = 1
 TargetFarming Low = 1 High
 TargetFarming Low = 1 High =
-TargetFarming 1
 TargetFarming 1 High
 TargetFarming 1 High =
-TargetIndustry
 TargetIndustry Low
 TargetIndustry Low =
-TargetIndustry Low = 1
 TargetIndustry Low = 1 High
 TargetIndustry Low = 1 High =
-TargetIndustry 1
 TargetIndustry 1 High
 TargetIndustry 1 High =
-TargetResearch
 TargetResearch Low
 TargetResearch Low =
-TargetResearch Low = 1
 TargetResearch Low = 1 High
 TargetResearch Low = 1 High =
-TargetResearch 1
 TargetResearch 1 High
 TargetResearch 1 High =
-TargetTrade
 TargetTrade Low
 TargetTrade Low =
-TargetTrade Low = 1
 TargetTrade Low = 1 High
 TargetTrade Low = 1 High =
-TargetTrade 1
 TargetTrade 1 High
 TargetTrade 1 High =
-TargetMining
 TargetMining Low
 TargetMining Low =
-TargetMining Low = 1
 TargetMining Low = 1 High
 TargetMining Low = 1 High =
-TargetMining 1
 TargetMining 1 High
 TargetMining 1 High =
-TargetConstruction
 TargetConstruction Low
 TargetConstruction Low =
-TargetConstruction Low = 1
 TargetConstruction Low = 1 High
 TargetConstruction Low = 1 High =
-TargetConstruction 1
 TargetConstruction 1 High
 TargetConstruction 1 High =
-MaxFuel
 MaxFuel Low
 MaxFuel Low =
-MaxFuel Low = 1
 MaxFuel Low = 1 High
 MaxFuel Low = 1 High =
-MaxFuel 1
 MaxFuel 1 High
 MaxFuel 1 High =
-MaxShield
 MaxShield Low
 MaxShield Low =
-MaxShield Low = 1
 MaxShield Low = 1 High
 MaxShield Low = 1 High =
-MaxShield 1
 MaxShield 1 High
 MaxShield 1 High =
-MaxStructure
 MaxStructure Low
 MaxStructure Low =
-MaxStructure Low = 1
 MaxStructure Low = 1 High
 MaxStructure Low = 1 High =
-MaxStructure 1
 MaxStructure 1 High
 MaxStructure 1 High =
-MaxDefense
 MaxDefense Low
 MaxDefense Low =
-MaxDefense Low = 1
 MaxDefense Low = 1 High
 MaxDefense Low = 1 High =
-MaxDefense 1
 MaxDefense 1 High
 MaxDefense 1 High =
-MaxTroops
 MaxTroops Low
 MaxTroops Low =
-MaxTroops Low = 1
 MaxTroops Low = 1 High
 MaxTroops Low = 1 High =
-MaxTroops 1
 MaxTroops 1 High
 MaxTroops 1 High =
-Population
 Population Low
 Population Low =
-Population Low = 1
 Population Low = 1 High
 Population Low = 1 High =
-Population 1
 Population 1 High
 Population 1 High =
-Health
 Health Low
 Health Low =
-Health Low = 1
 Health Low = 1 High
 Health Low = 1 High =
-Health 1
 Health 1 High
 Health 1 High =
-Farming
 Farming Low
 Farming Low =
-Farming Low = 1
 Farming Low = 1 High
 Farming Low = 1 High =
-Farming 1
 Farming 1 High
 Farming 1 High =
-Industry
 Industry Low
 Industry Low =
-Industry Low = 1
 Industry Low = 1 High
 Industry Low = 1 High =
-Industry 1
 Industry 1 High
 Industry 1 High =
-Research
 Research Low
 Research Low =
-Research Low = 1
 Research Low = 1 High
 Research Low = 1 High =
-Research 1
 Research 1 High
 Research 1 High =
-Trade
 Trade Low
 Trade Low =
-Trade Low = 1
 Trade Low = 1 High
 Trade Low = 1 High =
-Trade 1
 Trade 1 High
 Trade 1 High =
-Mining
 Mining Low
 Mining Low =
-Mining Low = 1
 Mining Low = 1 High
 Mining Low = 1 High =
-Mining 1
 Mining 1 High
 Mining 1 High =
-Construction
 Construction Low
 Construction Low =
-Construction Low = 1
 Construction Low = 1 High
 Construction Low = 1 High =
-Construction 1
 Construction 1 High
 Construction 1 High =
-Fuel
 Fuel Low
 Fuel Low =
-Fuel Low = 1
 Fuel Low = 1 High
 Fuel Low = 1 High =
-Fuel 1
 Fuel 1 High
 Fuel 1 High =
-Shield
 Shield Low
 Shield Low =
-Shield Low = 1
 Shield Low = 1 High
 Shield Low = 1 High =
-Shield 1
 Shield 1 High
 Shield 1 High =
-Structure
 Structure Low
 Structure Low =
-Structure Low = 1
 Structure Low = 1 High
 Structure Low = 1 High =
-Structure 1
 Structure 1 High
 Structure 1 High =
-Defense
 Defense Low
 Defense Low =
-Defense Low = 1
 Defense Low = 1 High
 Defense Low = 1 High =
-Defense 1
 Defense 1 High
 Defense 1 High =
-Troops
 Troops Low
 Troops Low =
-Troops Low = 1
 Troops Low = 1 High
 Troops Low = 1 High =
-Troops 1
 Troops 1 High
 Troops 1 High =
-FoodConsumption
 FoodConsumption Low
 FoodConsumption Low =
-FoodConsumption Low = 1
 FoodConsumption Low = 1 High
 FoodConsumption Low = 1 High =
-FoodConsumption 1
 FoodConsumption 1 High
 FoodConsumption 1 High =
-Supply
 Supply Low
 Supply Low =
-Supply Low = 1
 Supply Low = 1 High
 Supply Low = 1 High =
-Supply 1
 Supply 1 High
 Supply 1 High =
-Stealth
 Stealth Low
 Stealth Low =
-Stealth Low = 1
 Stealth Low = 1 High
 Stealth Low = 1 High =
-Stealth 1
 Stealth 1 High
 Stealth 1 High =
-Detection
 Detection Low
 Detection Low =
-Detection Low = 1
 Detection Low = 1 High
 Detection Low = 1 High =
-Detection 1
 Detection 1 High
 Detection 1 High =
-BattleSpeed
 BattleSpeed Low
 BattleSpeed Low =
-BattleSpeed Low = 1
 BattleSpeed Low = 1 High
 BattleSpeed Low = 1 High =
-BattleSpeed 1
 BattleSpeed 1 High
 BattleSpeed 1 High =
-StarlaneSpeed
 StarlaneSpeed Low
 StarlaneSpeed Low =
-StarlaneSpeed Low = 1
 StarlaneSpeed Low = 1 High
 StarlaneSpeed Low = 1 High =
-StarlaneSpeed 1
 StarlaneSpeed 1 High
 StarlaneSpeed 1 High =
 And

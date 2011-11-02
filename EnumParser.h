@@ -39,9 +39,6 @@ namespace parse {
     enum_parser_rule<StarType>::type& enum_parser<StarType>();
 
     template <>
-    enum_parser_rule<MeterType>::type& enum_parser<MeterType>();
-
-    template <>
     enum_parser_rule<EmpireAffiliationType>::type& enum_parser<EmpireAffiliationType>();
 
     template <>
@@ -67,7 +64,9 @@ namespace parse {
 
     enum_parser_rule<MeterType>::type& non_ship_part_meter_type_enum();
 
-    enum_parser_rule<MeterType>::type& ship_part_meter_type_enum();
+    enum_parser_rule<MeterType>::type& set_non_ship_part_meter_type_enum();
+
+    enum_parser_rule<MeterType>::type& set_ship_part_meter_type_enum();
 
 }
 

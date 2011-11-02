@@ -109,7 +109,8 @@ lexer::lexer() :
     statistic_type_enum(statistic_type_str.c_str()),
 
 #define NAME_TOKEN(r, _, name) BOOST_PP_CAT(name, _)("(?i:" BOOST_PP_STRINGIZE(name) ")"),
-    BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ)
+    BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ_1)
+    BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ_2)
 #undef NAME_TOKEN
 
     error_token("\\S+?")
@@ -174,7 +175,8 @@ lexer::lexer() :
         self += BOOST_PP_CAT(name, _) [ _val = n ];                     \
         m_name_tokens[n] = &BOOST_PP_CAT(name, _);                      \
     }
-    BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ)
+    BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ_1)
+    BOOST_PP_SEQ_FOR_EACH(NAME_TOKEN, _, NAMES_SEQ_2)
 #undef NAME_TOKEN
 
     self

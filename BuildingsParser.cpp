@@ -1,7 +1,8 @@
 #define FUSION_MAX_VECTOR_SIZE 20
 
-#include "ParseImpl.h"
+#include "Double.h"
 #include "Label.h"
+#include "ParseImpl.h"
 #include "../universe/Building.h"
 
 
@@ -60,7 +61,7 @@ namespace {
                     =    tok.BuildingType_
                     >    parse::label(Name_name)        > tok.string [ _a = _1 ]
                     >    parse::label(Description_name) > tok.string [ _b = _1 ]
-                    >    parse::label(BuildCost_name)   > tok.double_ [ _c = _1 ]
+                    >    parse::label(BuildCost_name)   > parse::double_ [ _c = _1 ]
                     >    parse::label(BuildTime_name)   > tok.int_ [ _d = _1 ]
                     >    (
                              tok.Unproducible_ [ _e = false ]
