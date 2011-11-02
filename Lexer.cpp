@@ -82,7 +82,7 @@ using namespace parse;
 
 const char* lexer::bool_regex = "(?i:true|false)";
 const char* lexer::int_regex = "\\d+";
-const char* lexer::double_regex = "\\d+\\.\\d*";
+const char* lexer::double_regex = "\\d+\\.\\d*|\\d*\\.\\d+";
 const char* lexer::string_regex = "\\\"[^\\\"]*\\\"";
 
 lexer::lexer() :
