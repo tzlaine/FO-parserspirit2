@@ -130,19 +130,19 @@ namespace {
                     ;
 
                 species
-                    =    (
-                              tok.Species_
-                          >>  parse::label(Name_name) >> string_ref_vec [ _val = new_<Condition::Species>(_1) ]
+                    =    tok.Species_
+                    >>   (
+                              parse::label(Name_name) >> string_ref_vec [ _val = new_<Condition::Species>(_1) ]
+                          |   eps [ _val = new_<Condition::Species>() ]
                          )
-                    |    tok.Species_ [ _val = new_<Condition::Species>() ]
                     ;
 
                 focus_type
-                    =    (
-                              tok.FocusType_
-                          >>  parse::label(Type_name) >> string_ref_vec [ _val = new_<Condition::FocusType>(_1) ]
+                    =    tok.Focus_
+                    >>   (
+                              parse::label(Type_name) >> string_ref_vec [ _val = new_<Condition::FocusType>(_1) ]
+                          |   eps [ _val = new_<Condition::FocusType>(std::vector<const ValueRef::ValueRefBase<std::string>*>()) ]
                          )
-                    |    tok.FocusType_ [ _val = new_<Condition::FocusType>(std::vector<const ValueRef::ValueRefBase<std::string>*>()) ]
                     ;
 
                 planet_type
@@ -248,7 +248,7 @@ namespace {
                 homeworld.name("Homeworld");
                 building.name("Building");
                 species.name("Species");
-                focus_type.name("FocusType");
+                focus_type.name("Focus");
                 planet_type.name("PlanetType");
                 planet_size.name("PlanetSize");
                 planet_environment.name("PlanetEnvironment");

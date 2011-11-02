@@ -26,11 +26,11 @@ Species  "Species Foo"
 Species Name = [ "Species Foo" "Species Bar" ]
 Species  [ "Species Foo" "Species Bar" ]
 Species
-FocusType  Type = "Focus Foo"
-FocusType  "Focus Foo"
-FocusType  Type = [ "Focus Foo" "Focus Bar" ]
-FocusType  [ "Focus Foo" "Focus Bar" ]
-FocusType
+Focus  Type = "Focus Foo"
+Focus  "Focus Foo"
+Focus  Type = [ "Focus Foo" "Focus Bar" ]
+Focus  [ "Focus Foo" "Focus Bar" ]
+Focus
 Planet  Type = Swamp
 Planet  Swamp
 Planet  Type = [ Swamp Toxic ]
