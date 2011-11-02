@@ -1,3 +1,4 @@
+// -*- C++ -*-
 #ifndef _ReportParseError_h_
 #define _ReportParseError_h_
 
@@ -9,121 +10,40 @@
 
 namespace parse {
 
-    template <typename Stream>
-    struct info_visitor
-    {
-        typedef void result_type;
-        typedef info_visitor<Stream> this_type;
-        typedef boost::spirit::utf8_string string;
-
-        enum indented_or_flat {
-            indented,
-            flat
-        };
-
-        info_visitor(Stream& os, const string& tag, std::size_t indent, indented_or_flat indented_or_flat_ = indented) :
-            m_os(os),
-            m_tag(tag),
-            m_indent(indent),
-            m_indented_or_flat(indented_or_flat_)
-            {}
-
-        void indent() const
-            {
-                if (m_indent)
-                    m_os << std::string(m_indent, ' ');
-            }
-
-        std::string prepare(const string& s) const
-            {
-                std::string str = s;
-                if (str == parse::lexer::bool_regex)
-                    str = "boolean (true or false)";
-                else if (str == parse::lexer::string_regex)
-                    str = "string";
-                else if (str == parse::lexer::int_regex)
-                    str = "integer";
-                else if (str == parse::lexer::double_regex)
-                    str = "real number";
-                else if (str.find("(?i:") == 0)
-                    str = str.substr(4, str.size() - 5);
-                return str;
-            }
-
-        void print(const string& str) const
-            { m_os << prepare(str); }
-
-        void operator()(boost::spirit::info::nil) const
-        {
-            indent();
-            print(m_tag);
-        }
-
-        void operator()(const string& str) const
-        {
-            indent();
-            print(str);
-        }
-
-        void operator()(const boost::spirit::info& what) const
-        { boost::apply_visitor(this_type(m_os, what.tag, m_indent, m_indented_or_flat), what.value); }
-
-        void operator()(const std::pair<boost::spirit::info, boost::spirit::info>& pair) const
-        {
-            const boost::spirit::info* infos = &pair.first;
-            multi_info(infos, infos + 2);
-        }
-
-        void operator()(const std::list<boost::spirit::info>& l) const
-        { multi_info(l.begin(), l.end()); }
-
-        template <typename Iter>
-        void multi_info(Iter first, const Iter last) const
-        {
-            if (m_tag == "sequence" || m_tag == "expect") {
-                if (first->tag.find(" =") == first->tag.size() - 2)
-                    ++first;
-                const string* value = boost::get<string>(&first->value);
-                if (value && *value == "[") {
-                    for (; first != last; ++first) {
-                        boost::apply_visitor(this_type(m_os, first->tag, 1, flat), first->value);
-                    }
-                } else {
-                    boost::apply_visitor(this_type(m_os, first->tag, 1, flat), first->value);
-                }
-            } else if (m_tag == "alternative") {
-                std::size_t indent_ = m_indented_or_flat == flat ? 1 : m_indent + 4;
-                boost::apply_visitor(this_type(m_os, first->tag, indent_, m_indented_or_flat), first->value);
-                indent();
-                ++first;
-                for (; first != last; ++first) {
-                    m_os << "-OR-";
-                    boost::apply_visitor(this_type(m_os, first->tag, indent_, m_indented_or_flat), first->value);
-                }
-            }
-        }
-
-        Stream& m_os;
-        const string& m_tag;
-        int m_indent;
-        indented_or_flat m_indented_or_flat;
-    };
-
-    template <typename Stream>
-    void pretty_print(Stream& os, boost::spirit::info const& what)
-    {
-        info_visitor<Stream> v(os, what.tag, 1);
-        boost::apply_visitor(v, what.value);
-        if (what.tag == "alternative")
-            os << '\n';
-        else
-            os << ' ';
-    }
-
     namespace detail {
 
-        inline void default_send_error_string(const std::string& str)
-        { std::cerr << str; }
+        struct info_visitor
+        {
+            typedef void result_type;
+            typedef boost::spirit::utf8_string string;
+
+            enum indented_or_flat {
+                indented,
+                flat
+            };
+
+            info_visitor(std::ostream& os, const string& tag, std::size_t indent, indented_or_flat indented_or_flat_ = indented);
+
+            void indent() const;
+            std::string prepare(const string& s) const;
+            void print(const string& str) const;
+            void operator()(boost::spirit::info::nil) const;
+            void operator()(const string& str) const;
+            void operator()(const boost::spirit::info& what) const;
+            void operator()(const std::pair<boost::spirit::info, boost::spirit::info>& pair) const;
+            void operator()(const std::list<boost::spirit::info>& l) const;
+            template <typename Iter>
+            void multi_info(Iter first, const Iter last) const;
+
+            std::ostream& m_os;
+            const string& m_tag;
+            int m_indent;
+            indented_or_flat m_indented_or_flat;
+        };
+
+        void pretty_print(std::ostream& os, boost::spirit::info const& what);
+
+        void default_send_error_string(const std::string& str);
 
         extern const char* s_filename;
         extern GG::text_iterator* s_text_it;
@@ -206,16 +126,16 @@ namespace parse {
 
                 {
                     std::stringstream os;
-                    pretty_print(os, rule_name);
+                    detail::pretty_print(os, rule_name);
                     using namespace boost::xpressive;
                     sregex regex = sregex::compile("(?<=\\[ ).+(?= \\])");
                     is << regex_replace(os.str(), regex, "$&, ...");
                 }
 
                 if (text_it == detail::s_end) {
-                    is << "before end of input.\n";
+                    is << " before end of input.\n";
                 } else {
-                    is << "here:\n"
+                    is << " here:\n"
                        << "  " << get_line(line_start) << "\n"
                        << "  " << std::string(column_number, ' ') << '^' << std::endl;
                 }
