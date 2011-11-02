@@ -2,7 +2,7 @@ Index: universe/Names.h
 ===================================================================
 --- universe/Names.h	(revision 0)
 +++ universe/Names.h	(revision 0)
-@@ -0,0 +1,251 @@
+@@ -0,0 +1,294 @@
 +// -*- C++ -*-
 +#ifndef _Names_h_
 +#define _Names_h_
@@ -13,7 +13,7 @@ Index: universe/Names.h
 +#include <boost/preprocessor/seq/for_each.hpp>
 +
 +
-+#define NAMES_SEQ                               \
++#define NAMES_SEQ_1                             \
 +    (Activation)                                \
 +    (AddedBefore)                               \
 +    (AddedSince)                                \
@@ -150,7 +150,9 @@ Index: universe/Names.h
 +    (OwnerTradeStockpile)                       \
 +    (Parameters)                                \
 +    (Part)                                      \
-+    (PartClass)                                 \
++    (PartClass)
++
++#define NAMES_SEQ_2                             \
 +    (PartName)                                  \
 +    (Parts)                                     \
 +    (Planet)                                    \
@@ -183,18 +185,58 @@ Index: universe/Names.h
 +    (ROF)                                       \
 +    (RootCandidate)                             \
 +    (Scope)                                     \
-+    (Set)                                       \
++    (SetAntiFighterDamage)                      \
++    (SetAntiShipDamage)                         \
++    (SetBattleSpeed)                            \
++    (SetCapacity)                               \
++    (SetConstruction)                           \
++    (SetDamage)                                 \
++    (SetDefense)                                \
 +    (SetDestination)                            \
++    (SetDetection)                              \
 +    (SetEmpireCapital)                          \
 +    (SetEmpireFoodStockpile)                    \
 +    (SetEmpireMeter)                            \
 +    (SetEmpireMineralStockpile)                 \
 +    (SetEmpireTradeStockpile)                   \
++    (SetFarming)                                \
++    (SetFighterWeaponRange)                     \
++    (SetFoodConsumption)                        \
++    (SetFuel)                                   \
++    (SetHealth)                                 \
++    (SetIndustry)                               \
++    (SetLaunchRate)                             \
++    (SetMaxDefense)                             \
++    (SetMaxFuel)                                \
++    (SetMaxShield)                              \
++    (SetMaxStructure)                           \
++    (SetMaxTroops)                              \
++    (SetMining)                                 \
 +    (SetOwner)                                  \
 +    (SetPlanetSize)                             \
 +    (SetPlanetType)                             \
++    (SetPopulation)                             \
++    (SetRange)                                  \
++    (SetResearch)                               \
++    (SetROF)                                    \
++    (SetShield)                                 \
 +    (SetSpecies)                                \
++    (SetSpeed)                                  \
++    (SetStarlaneSpeed)                          \
 +    (SetStarType)                               \
++    (SetStealth)                                \
++    (SetStructure)                              \
++    (SetSupply)                                 \
++    (SetTargetConstruction)                     \
++    (SetTargetFarming)                          \
++    (SetTargetHealth)                           \
++    (SetTargetIndustry)                         \
++    (SetTargetMining)                           \
++    (SetTargetPopulation)                       \
++    (SetTargetResearch)                         \
++    (SetTargetTrade)                            \
++    (SetTrade)                                  \
++    (SetTroops)                                 \
 +    (Shield)                                    \
 +    (ShipDesign)                                \
 +    (Ships)                                     \
@@ -250,7 +292,8 @@ Index: universe/Names.h
 +    (WithinStarlaneJumps)
 +
 +#define DECLARE_NAME(r, _, elem) extern adobe::aggregate_name_t BOOST_PP_CAT(elem, _name);
-+BOOST_PP_SEQ_FOR_EACH(DECLARE_NAME, _, NAMES_SEQ)
++BOOST_PP_SEQ_FOR_EACH(DECLARE_NAME, _, NAMES_SEQ_1)
++BOOST_PP_SEQ_FOR_EACH(DECLARE_NAME, _, NAMES_SEQ_2)
 +#undef DECLARE_NAME
 +
 +#endif
@@ -801,14 +844,15 @@ Index: universe/Names.cpp
 ===================================================================
 --- universe/Names.cpp	(revision 0)
 +++ universe/Names.cpp	(revision 0)
-@@ -0,0 +1,8 @@
+@@ -0,0 +1,9 @@
 +#include "Names.h"
 +
 +#include <boost/preprocessor/stringize.hpp>
 +
 +
 +#define DEFINE_NAME(r, _, name) adobe::aggregate_name_t BOOST_PP_CAT(name, _name) = { BOOST_PP_STRINGIZE(name) };
-+BOOST_PP_SEQ_FOR_EACH(DEFINE_NAME, _, NAMES_SEQ)
++BOOST_PP_SEQ_FOR_EACH(DEFINE_NAME, _, NAMES_SEQ_1)
++BOOST_PP_SEQ_FOR_EACH(DEFINE_NAME, _, NAMES_SEQ_2)
 +#undef DEFINE_NAME
 Index: universe/ValueRef.h
 ===================================================================
