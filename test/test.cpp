@@ -4,6 +4,7 @@
 #include "../EffectParser.h"
 #include "../EnumParser.h"
 #include "../Parse.h"
+#include "../ReportParseError.h"
 #include "../Empire/Empire.h"
 #include "../universe/ValueRef.h"
 

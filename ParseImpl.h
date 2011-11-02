@@ -5,6 +5,7 @@
 #include "ConditionParserImpl.h"
 #include "EnumParser.h"
 #include "Parse.h"
+#include "ReportParseError.h"
 #include "../util/MultiplayerCommon.h"
 
 #include <boost/filesystem/fstream.hpp>

@@ -17,12 +17,7 @@ namespace parse {
             typedef void result_type;
             typedef boost::spirit::utf8_string string;
 
-            enum indented_or_flat {
-                indented,
-                flat
-            };
-
-            info_visitor(std::ostream& os, const string& tag, std::size_t indent, indented_or_flat indented_or_flat_ = indented);
+            info_visitor(std::ostream& os, const string& tag, std::size_t indent);
 
             void indent() const;
             std::string prepare(const string& s) const;
@@ -38,7 +33,6 @@ namespace parse {
             std::ostream& m_os;
             const string& m_tag;
             int m_indent;
-            indented_or_flat m_indented_or_flat;
         };
 
         void pretty_print(std::ostream& os, boost::spirit::info const& what);

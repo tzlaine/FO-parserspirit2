@@ -160,6 +160,4 @@ namespace boost { namespace spirit { namespace traits {
 
 } } }
 
-#include "ReportParseError.h"
-
 #endif

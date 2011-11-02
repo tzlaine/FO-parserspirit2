@@ -1,11 +1,10 @@
 #include "ReportParseError.h"
 
 
-parse::detail::info_visitor::info_visitor(std::ostream& os, const string& tag, std::size_t indent, indented_or_flat indented_or_flat_/* = indented*/) :
+parse::detail::info_visitor::info_visitor(std::ostream& os, const string& tag, std::size_t indent) :
     m_os(os),
     m_tag(tag),
-    m_indent(indent),
-    m_indented_or_flat(indented_or_flat_)
+    m_indent(indent)
 {}
 
 void parse::detail::info_visitor::indent() const
@@ -46,7 +45,7 @@ void parse::detail::info_visitor::operator()(const string& str) const
 }
 
 void parse::detail::info_visitor::operator()(const boost::spirit::info& what) const
-{ boost::apply_visitor(info_visitor(m_os, what.tag, m_indent, m_indented_or_flat), what.value); }
+{ boost::apply_visitor(info_visitor(m_os, what.tag, m_indent), what.value); }
 
 void parse::detail::info_visitor::operator()(const std::pair<boost::spirit::info, boost::spirit::info>& pair) const
 {
@@ -66,19 +65,18 @@ void parse::detail::info_visitor::multi_info(Iter first, const Iter last) const
         const string* value = boost::get<string>(&first->value);
         if (value && *value == "[") {
             for (; first != last; ++first) {
-                boost::apply_visitor(info_visitor(m_os, first->tag, 1, flat), first->value);
+                boost::apply_visitor(info_visitor(m_os, first->tag, 1), first->value);
             }
         } else {
-            boost::apply_visitor(info_visitor(m_os, first->tag, 1, flat), first->value);
+            boost::apply_visitor(info_visitor(m_os, first->tag, 1), first->value);
         }
     } else if (m_tag == "alternative") {
-        std::size_t indent_ = m_indented_or_flat == flat ? 1 : m_indent + 4;
-        boost::apply_visitor(info_visitor(m_os, first->tag, indent_, m_indented_or_flat), first->value);
+        boost::apply_visitor(info_visitor(m_os, first->tag, 1), first->value);
         indent();
         ++first;
         for (; first != last; ++first) {
             m_os << "-OR-";
-            boost::apply_visitor(info_visitor(m_os, first->tag, indent_, m_indented_or_flat), first->value);
+            boost::apply_visitor(info_visitor(m_os, first->tag, 1), first->value);
         }
     }
 }
