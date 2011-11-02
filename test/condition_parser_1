@@ -35,9 +35,9 @@ Planet  Type = Swamp
 Planet  Swamp
 Planet  Type = [ Swamp Toxic ]
 Planet  [ Swamp Toxic ]
-Planet  PlanetSize = Small
+Planet  Size = Small
 Planet  Small
-Planet  PlanetSize = [ Small Medium ]
+Planet  Size = [ Small Medium ]
 Planet  [ Small Medium ]
 Planet  Environment = Adequate
 Planet  Adequate

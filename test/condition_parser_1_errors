@@ -61,11 +61,11 @@ Planet Type = [ Swamp Toxic
 Planet [
 Planet [ Swamp
 Planet [ Swamp Toxic
-Planet PlanetSize
-Planet PlanetSize =
-Planet PlanetSize = [
-Planet PlanetSize = [ Small
-Planet PlanetSize = [ Small Medium
+Planet Size
+Planet Size =
+Planet Size = [
+Planet Size = [ Small
+Planet Size = [ Small Medium
 Planet [ Small
 Planet [ Small Medium
 Planet Environment
