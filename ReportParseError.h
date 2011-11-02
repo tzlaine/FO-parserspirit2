@@ -202,7 +202,7 @@ namespace parse {
                 std::size_t column_number = std::distance(line_start, text_it);
 
                 is << detail::s_filename << ":" << line_number << ":" << column_number << ": "
-                   << "Parse error.  Expected ";
+                   << "Parse error.  Expected";
 
                 {
                     std::stringstream os;
@@ -215,7 +215,7 @@ namespace parse {
                 if (text_it == detail::s_end) {
                     is << "before end of input.\n";
                 } else {
-                    is << " here:\n"
+                    is << "here:\n"
                        << "  " << get_line(line_start) << "\n"
                        << "  " << std::string(column_number, ' ') << '^' << std::endl;
                 }
