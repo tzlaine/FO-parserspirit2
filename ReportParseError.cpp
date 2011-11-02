@@ -95,4 +95,79 @@ GG::text_iterator* parse::detail::s_text_it = 0;
 GG::text_iterator parse::detail::s_begin;
 GG::text_iterator parse::detail::s_end;
 
-const boost::phoenix::function<parse::report_error_<GG::token_type> > parse::report_error;
+boost::function<void (const std::string&)> parse::report_error_::send_error_string =
+    &detail::default_send_error_string;
+
+std::pair<GG::text_iterator, unsigned int> parse::report_error_::line_start_and_line_number(GG::text_iterator error_position) const
+{
+    unsigned int line = 1;
+    GG::text_iterator it = detail::s_begin;
+    GG::text_iterator line_start = detail::s_begin;
+    while (it != error_position) {
+        bool eol = false;
+        if (it != error_position && *it == '\r') {
+            eol = true;
+            line_start = ++it;
+        }
+        if (it != error_position && *it == '\n') {
+            eol = true;
+            line_start = ++it;
+        }
+        if (eol)
+            ++line;
+        else
+            ++it;
+    }
+    return std::pair<GG::text_iterator, unsigned int>(line_start, line);
+}
+
+std::string parse::report_error_::get_line(GG::text_iterator line_start) const
+{
+    GG::text_iterator line_end = line_start;
+    while (line_end != detail::s_end && *line_end != '\r' && *line_end != '\n') {
+        ++line_end;
+    }
+    return std::string(line_start, line_end);
+}
+
+void parse::report_error_::generate_error_string(const token_iterator& first,
+                                                 const token_iterator& it,
+                                                 const boost::spirit::info& rule_name,
+                                                 std::string& str) const
+{
+    std::stringstream is;
+
+    GG::text_iterator line_start;
+    unsigned int line_number;
+    GG::text_iterator text_it = it->matched().begin();
+    if (it->matched().begin() == it->matched().end()) {
+        text_it = *detail::s_text_it;
+        if (text_it != detail::s_end)
+            ++text_it;
+    }
+    boost::tie(line_start, line_number) = line_start_and_line_number(text_it);
+    std::size_t column_number = std::distance(line_start, text_it);
+
+    is << detail::s_filename << ":" << line_number << ":" << column_number << ": "
+       << "Parse error.  Expected";
+
+    {
+        std::stringstream os;
+        detail::pretty_print(os, rule_name);
+        using namespace boost::xpressive;
+        sregex regex = sregex::compile("(?<=\\[ ).+(?= \\])");
+        is << regex_replace(os.str(), regex, "$&, ...");
+    }
+
+    if (text_it == detail::s_end) {
+        is << " before end of input.\n";
+    } else {
+        is << " here:\n"
+           << "  " << get_line(line_start) << "\n"
+           << "  " << std::string(column_number, ' ') << '^' << std::endl;
+    }
+
+    str = is.str();
+}
+
+const boost::phoenix::function<parse::report_error_> parse::report_error;

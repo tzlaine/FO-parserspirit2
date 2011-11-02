@@ -46,7 +46,6 @@ namespace parse {
 
     }
 
-    template <typename TokenType>
     struct report_error_
     {
         template <typename Arg1, typename Arg2, typename Arg3, typename Arg4>
@@ -64,85 +63,15 @@ namespace parse {
         static boost::function<void (const std::string&)> send_error_string;
 
     private:
-        std::pair<GG::text_iterator, unsigned int> line_start_and_line_number(GG::text_iterator error_position) const
-            {
-                unsigned int line = 1;
-                GG::text_iterator it = detail::s_begin;
-                GG::text_iterator line_start = detail::s_begin;
-                while (it != error_position) {
-                    bool eol = false;
-                    if (it != error_position && *it == '\r') {
-                        eol = true;
-                        line_start = ++it;
-                    }
-                    if (it != error_position && *it == '\n') {
-                        eol = true;
-                        line_start = ++it;
-                    }
-                    if (eol)
-                        ++line;
-                    else
-                        ++it;
-                }
-                return std::pair<GG::text_iterator, unsigned int>(line_start, line);
-            }
-
-        std::string get_line(GG::text_iterator line_start) const
-            {
-                GG::text_iterator line_end = line_start;
-                while (line_end != detail::s_end && *line_end != '\r' && *line_end != '\n') {
-                    ++line_end;
-                }
-                return std::string(line_start, line_end);
-            }
-
-        template <typename TokenIter>
-        void generate_error_string(const TokenIter& first,
-                                   const TokenIter& it,
+        std::pair<GG::text_iterator, unsigned int> line_start_and_line_number(GG::text_iterator error_position) const;
+        std::string get_line(GG::text_iterator line_start) const;
+        void generate_error_string(const token_iterator& first,
+                                   const token_iterator& it,
                                    const boost::spirit::info& rule_name,
-                                   std::string& str) const
-            {
-                std::stringstream is;
-
-                GG::text_iterator line_start;
-                unsigned int line_number;
-                GG::text_iterator text_it = it->matched().begin();
-                if (it->matched().begin() == it->matched().end()) {
-                    text_it = *detail::s_text_it;
-                    if (text_it != detail::s_end)
-                        ++text_it;
-                }
-                boost::tie(line_start, line_number) = line_start_and_line_number(text_it);
-                std::size_t column_number = std::distance(line_start, text_it);
-
-                is << detail::s_filename << ":" << line_number << ":" << column_number << ": "
-                   << "Parse error.  Expected";
-
-                {
-                    std::stringstream os;
-                    detail::pretty_print(os, rule_name);
-                    using namespace boost::xpressive;
-                    sregex regex = sregex::compile("(?<=\\[ ).+(?= \\])");
-                    is << regex_replace(os.str(), regex, "$&, ...");
-                }
-
-                if (text_it == detail::s_end) {
-                    is << " before end of input.\n";
-                } else {
-                    is << " here:\n"
-                       << "  " << get_line(line_start) << "\n"
-                       << "  " << std::string(column_number, ' ') << '^' << std::endl;
-                }
-
-                str = is.str();
-            }
+                                   std::string& str) const;
     };
 
-    template <typename TokenType>
-    boost::function<void (const std::string&)> report_error_<TokenType>::send_error_string =
-        &detail::default_send_error_string;
-
-    extern const boost::phoenix::function<report_error_<GG::token_type> > report_error;
+    extern const boost::phoenix::function<report_error_> report_error;
 
 }
 
