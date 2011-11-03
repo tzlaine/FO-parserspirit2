@@ -26,7 +26,6 @@ namespace {
 
                 constant
                     =    parse::enum_parser<StarType>() [ _val = new_<ValueRef::Constant<StarType> >(_1) ]
-                    |    tok.int_ [ _val = new_<ValueRef::Constant<StarType> >(static_cast_<StarType>(_1)) ]
                     ;
 
                 variable
