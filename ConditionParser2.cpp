@@ -31,6 +31,7 @@ namespace {
                 qi::_4_type _4;
                 qi::_a_type _a;
                 qi::_b_type _b;
+                qi::_c_type _c;
                 qi::_val_type _val;
                 using phoenix::new_;
 
@@ -42,8 +43,13 @@ namespace {
                 has_special_since_turn
                     =    tok.HasSpecialSinceTurn_
                     >    parse::label(Name_name) > tok.string [ _a = _1 ]
-                    >    parse::label(Low_name)  > int_value_ref [ _b = _1 ]
-                    >    parse::label(High_name) > int_value_ref [ _val = new_<Condition::HasSpecial>(_a, _b, _1) ]
+                    >>  -(
+                              parse::label(Low_name) >> int_value_ref [ _b = _1 ]
+                         )
+                    >>  -(
+                              parse::label(High_name) >> int_value_ref [ _c = _1 ]
+                         )
+                         [ _val = new_<Condition::HasSpecial>(_a, _b, _c) ]
                     ;
 
                 owner_has_tech
@@ -178,13 +184,14 @@ namespace {
             Condition::ConditionBase* (),
             qi::locals<
                 std::string,
+                ValueRef::ValueRefBase<int>*,
                 ValueRef::ValueRefBase<int>*
             >,
             parse::skipper_type
-        > string_int_ref_rule;
+        > has_special_since_turn_rule;
 
         parse::condition_parser_rule has_special;
-        string_int_ref_rule has_special_since_turn;
+        has_special_since_turn_rule has_special_since_turn;
         parse::condition_parser_rule owner_has_tech;
         parse::condition_parser_rule design_has_hull;
         value_ref_ints_rule design_has_part;
