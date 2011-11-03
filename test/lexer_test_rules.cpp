@@ -25,10 +25,7 @@ lexer_test_rules::lexer_test_rules()
 
     lexer
         =   * (
-                   tok.inline_comment [ std::cout << val("<INLINE COMMENT>\n") ]
-                |  tok.end_of_line_comment [ std::cout << val("<END OF LINE COMMENT>\n") ]
-
-                |  as_string[ tok.bool_ ] [ std::cout << _1 << "\n" ]
+                   as_string[ tok.bool_ ] [ std::cout << _1 << "\n" ]
                 |  as_string[ tok.int_ ] [ std::cout << _1 << "\n" ]
                 |  as_string[ tok.double_ ] [ std::cout << _1 << "\n" ]
                 |  tok.string [ std::cout << quote(_1) << "\n" ]

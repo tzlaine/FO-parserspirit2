@@ -131,8 +131,10 @@ lexer::lexer() :
     using boost::phoenix::construct;
 
     self
-        =     inline_comment
-        |     end_of_line_comment
+        +=    bool_
+        |     int_
+        |     double_
+        |     string [ _val = strip_quotes(_start, _end) ]
         |     '='
         |     '+'
         |     '-'
@@ -144,13 +146,6 @@ lexer::lexer() :
         |     ')'
         |     '['
         |     ']'
-        ;
-
-    self
-        +=    bool_
-        |     int_
-        |     double_
-        |     string [ _val = strip_quotes(_start, _end) ]
         ;
 
     self
@@ -183,7 +178,11 @@ lexer::lexer() :
         +=    error_token
         ;
 
-    self("WS") = lex::token_def<>("\\s+");
+    self("WS")
+        =    lex::token_def<>("\\s+")
+        |    inline_comment
+        |    end_of_line_comment
+        ;
 }
 
 const lexer& lexer::instance()
