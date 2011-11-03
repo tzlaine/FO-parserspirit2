@@ -96,7 +96,7 @@ namespace {
                     =    tok.Part_
                     >    parse::label(Name_name)        > tok.string [ _a = _1 ]
                     >    parse::label(Description_name) > tok.string [ _b = _1 ]
-                    >    parse::label(PartClass_name)   > parse::enum_parser<ShipPartClass>() [ _c = _1 ]
+                    >    parse::label(Class_name)       > parse::enum_parser<ShipPartClass>() [ _c = _1 ]
                     >>   part_stats [ _d = _1 ]
                     >    parse::label(BuildCost_name)   > parse::double_ [ _e = _1 ]
                     >    parse::label(BuildTime_name)   > tok.int_ [ _f = _1 ]
