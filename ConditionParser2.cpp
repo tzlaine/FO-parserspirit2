@@ -102,7 +102,10 @@ namespace {
 
                 in_system
                     =    tok.InSystem_
-                    >    parse::label(ID_name) > int_value_ref [ _val = new_<Condition::InSystem>(_1) ]
+                    >>  -(
+                              parse::label(ID_name) >> int_value_ref
+                         )
+                         [ _val = new_<Condition::InSystem>(_1) ]
                     ;
 
                 object_id
