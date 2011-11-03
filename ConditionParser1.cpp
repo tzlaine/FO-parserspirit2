@@ -126,14 +126,17 @@ namespace {
 
                 building
                     =    tok.Building_
-                    >    parse::label(Name_name) > string_ref_vec [ _val = new_<Condition::Building>(_1) ]
+                    >>  -(
+                              parse::label(Name_name) >> string_ref_vec [ _a = _1 ]
+                         )
+                         [ _val = new_<Condition::Building>(_a) ]
                     ;
 
                 species
                     =    tok.Species_
                     >>   (
                               parse::label(Name_name) >> string_ref_vec [ _val = new_<Condition::Species>(_1) ]
-                          |   eps [ _val = new_<Condition::Species>() ]
+                          |   eps [ _val = new_<Condition::Species>() ] // TODO: Is this as useless as it looks?
                          )
                     ;
 
@@ -311,6 +314,13 @@ namespace {
         typedef boost::spirit::qi::rule<
             parse::token_iterator,
             Condition::ConditionBase* (),
+            qi::locals<std::vector<const ValueRef::ValueRefBase<std::string>*> >,
+            parse::skipper_type
+        > building_rule;
+
+        typedef boost::spirit::qi::rule<
+            parse::token_iterator,
+            Condition::ConditionBase* (),
             qi::locals<std::vector<const ValueRef::ValueRefBase<PlanetType>*> >,
             parse::skipper_type
         > planet_type_rule;
@@ -347,7 +357,7 @@ namespace {
         parse::condition_parser_rule armed;
         owned_by_rule owned_by;
         parse::condition_parser_rule homeworld;
-        parse::condition_parser_rule building;
+        building_rule building;
         parse::condition_parser_rule species;
         parse::condition_parser_rule focus_type;
         planet_type_rule planet_type;

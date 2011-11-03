@@ -28,7 +28,6 @@ Homeworld Name = [ "Homeworld Foo" "Homeworld Bar"
 Homeworld [
 Homeworld [ "Homeworld Foo"
 Homeworld [ "Homeworld Foo" "Homeworld Bar"
-Building
 Building Name
 Building Name =
 Building Name = [
