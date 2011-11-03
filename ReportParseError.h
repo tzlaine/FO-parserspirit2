@@ -40,9 +40,9 @@ namespace parse {
         void default_send_error_string(const std::string& str);
 
         extern const char* s_filename;
-        extern GG::text_iterator* s_text_it;
-        extern GG::text_iterator s_begin;
-        extern GG::text_iterator s_end;
+        extern text_iterator* s_text_it;
+        extern text_iterator s_begin;
+        extern text_iterator s_end;
 
     }
 
@@ -63,8 +63,8 @@ namespace parse {
         static boost::function<void (const std::string&)> send_error_string;
 
     private:
-        std::pair<GG::text_iterator, unsigned int> line_start_and_line_number(GG::text_iterator error_position) const;
-        std::string get_line(GG::text_iterator line_start) const;
+        std::pair<text_iterator, unsigned int> line_start_and_line_number(text_iterator error_position) const;
+        std::string get_line(text_iterator line_start) const;
         void generate_error_string(const token_iterator& first,
                                    const token_iterator& it,
                                    const boost::spirit::info& rule_name,

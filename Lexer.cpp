@@ -70,8 +70,8 @@ namespace {
 
         std::string operator()(const parse::text_iterator& start, const parse::text_iterator& end) const
             {
-                std::string::const_iterator start_ = start.base();
-                std::string::const_iterator end_ = end.base();
+                std::string::const_iterator start_ = start;
+                std::string::const_iterator end_ = end;
                 return std::string(++start_, --end_);
             }
     };
