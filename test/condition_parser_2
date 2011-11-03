@@ -38,8 +38,8 @@ VisibleToEmpire  Empire = 1
 VisibleToEmpire  1
 ExploredByEmpire  Empire = 1
 ExploredByEmpire  1
-FleetSupplyableByEmpire  Empire = 1
-FleetSupplyableByEmpire  1
+ResupplyableBy  Empire = 1
+ResupplyableBy  1
 InSystem  ID = 1
 InSystem  1
 Object  ID = 1

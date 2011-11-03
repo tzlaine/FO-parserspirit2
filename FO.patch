@@ -50,6 +50,13 @@ Index: default/techs.txt
      unlock = [
          Item type = ShipPart name = "SR_WEAPON_1"
          Item type = ShipPart name = "GT_TROOP_POD"
+@@ -3725,4 +3719,4 @@
+     researchturns = 2
+     prerequisites = "SHP_MAX_DISRUPT"
+     unlock = Item type = ShipPart name = "LR_SPECTRAL_MISSILE"
+-*/
+\ No newline at end of file
++*/
 Index: default/buildings.txt
 ===================================================================
 --- default/buildings.txt	(revision 4463)
@@ -238,7 +245,6 @@ Index: universe/Names.h
 +    (LocalCandidate)                            \
 +    (Location)                                  \
 +    (LockTechItemsForOwner)                     \
-+    (Lookup_Strings)                            \
 +    (Low)                                       \
 +    (MaxDefense)                                \
 +    (MaxFuel)                                   \
@@ -308,6 +314,7 @@ Index: universe/Names.h
 +    (ResearchCost)                              \
 +    (ResearchTurns)                             \
 +    (ResourceSupplyConnected)                   \
++    (ResupplyableBy)                            \
 +    (RevokeTechFromOwner)                       \
 +    (ROF)                                       \
 +    (RootCandidate)                             \

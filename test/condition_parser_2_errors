@@ -78,9 +78,9 @@ VisibleToEmpire Empire =
 ExploredByEmpire
 ExploredByEmpire Empire
 ExploredByEmpire Empire =
-FleetSupplyableByEmpire
-FleetSupplyableByEmpire Empire
-FleetSupplyableByEmpire Empire =
+ResupplyableBy
+ResupplyableBy Empire
+ResupplyableBy Empire =
 InSystem ID
 InSystem ID =
 Object

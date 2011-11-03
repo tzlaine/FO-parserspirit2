@@ -101,8 +101,8 @@ namespace {
                     >    parse::label(Empire_name) > int_value_ref [ _val = new_<Condition::ExploredByEmpire>(_1) ]
                     ;
 
-                fleet_supplyable_by_empire // TODO: Lose "empire" part.
-                    =    tok.FleetSupplyableByEmpire_
+                resupplyable_by
+                    =    tok.ResupplyableBy_
                     >    parse::label(Empire_name) > int_value_ref [ _val = new_<Condition::FleetSupplyableByEmpire>(_1) ]
                     ;
 
@@ -131,7 +131,7 @@ namespace {
                     |    produced_by_empire
                     |    visible_to_empire
                     |    explored_by_empire
-                    |    fleet_supplyable_by_empire
+                    |    resupplyable_by
                     |    in_system
                     |    object_id
                     ;
@@ -147,7 +147,7 @@ namespace {
                 produced_by_empire.name("ProducedByEmpire");
                 visible_to_empire.name("VisibleToEmpire");
                 explored_by_empire.name("ExploredByEmpire");
-                fleet_supplyable_by_empire.name("FleetSupplyableByEmpire");
+                resupplyable_by.name("ResupplyableBy");
                 in_system.name("InSystem");
                 object_id.name("ID");
 
@@ -163,7 +163,7 @@ namespace {
                 debug(produced_by_empire);
                 debug(visible_to_empire);
                 debug(explored_by_empire);
-                debug(fleet_supplyable_by_empire);
+                debug(resupplyable_by);
                 debug(in_system);
                 debug(object_id);
 #endif
@@ -201,7 +201,7 @@ namespace {
         parse::condition_parser_rule produced_by_empire;
         parse::condition_parser_rule visible_to_empire;
         parse::condition_parser_rule explored_by_empire;
-        parse::condition_parser_rule fleet_supplyable_by_empire;
+        parse::condition_parser_rule resupplyable_by;
         parse::condition_parser_rule in_system;
         parse::condition_parser_rule object_id;
         parse::condition_parser_rule start;
