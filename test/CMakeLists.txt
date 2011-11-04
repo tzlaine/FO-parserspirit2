@@ -14,16 +14,9 @@ set(THIS_EXE_SOURCES
     ../../universe/Universe.cpp
     ../../util/AppInterface.cpp
     ../../util/VarText.cpp
-
     test.cpp
     lexer_test_rules.cpp
 )
-
-if (WIN32)
-    list(APPEND THIS_EXE_SOURCES ../../log4cpp/src/MSThreads.cpp)
-else ()
-    list(APPEND THIS_EXE_SOURCES ../../log4cpp/src/PThreads.cpp)
-endif ()
 
 add_definitions(-DFREEORION_BUILD_SERVER)
 
