@@ -1,3 +1,79 @@
+Index: Empire/Empire.cpp
+===================================================================
+--- Empire/Empire.cpp	(revision 4463)
++++ Empire/Empire.cpp	(working copy)
+@@ -1,5 +1,6 @@
+ #include "Empire.h"
+ 
++#include "../parse/Parse.h"
+ #include "../util/Directories.h"
+ #include "../util/MultiplayerCommon.h"
+ #include "../util/Random.h"
+@@ -15,8 +16,6 @@
+ #include "../universe/Universe.h"
+ #include "../universe/Enums.h"
+ #include "../universe/UniverseObject.h"
+-#include "../universe/Parser.h"
+-#include "../universe/ParserUtil.h"
+ #include "ResourcePool.h"
+ #include "EmpireManager.h"
+ 
+@@ -911,21 +910,6 @@
+ 
+ 
+ namespace {
+-    ParamLabel effectsgroups_label("effectsgroups");
+-
+-    struct store_alignment_impl
+-    {
+-        template <class T1, class T2>
+-        struct result {typedef void type;};
+-        template <class T>
+-        void operator()(std::vector<Alignment>& alignments, const T& alignment) const
+-        {
+-            alignments.push_back(alignment);
+-        }
+-    };
+-
+-    const phoenix::function<store_alignment_impl> store_alignment_;
+-
+     class AlignmentManager {
+     public:
+         /** \name Accessors */ //@{
+@@ -964,32 +948,8 @@
+ 
+         Logger().debugStream() << "Initializing AlignmentManager";
+ 
+-        std::string file_name = "alignments.txt";
+-        std::string input;
++        parse::alignments(GetResourceDir() / "alignments.txt", m_alignments, m_effects_groups);
+ 
+-        boost::filesystem::ifstream ifs(GetResourceDir() / file_name);
+-        if (ifs) {
+-            std::getline(ifs, input, '\0');
+-            ifs.close();
+-        } else {
+-            Logger().errorStream() << "Unable to open data file " << file_name;
+-            return;
+-        }
+-
+-        using namespace boost::spirit::classic;
+-        using namespace phoenix;
+-        parse_info<const char*> result =
+-            parse(input.c_str(),
+-                  as_lower_d[*alignment_p[store_alignment_(var(m_alignments), arg1)]
+-                             >> !(str_p("alignmenteffects")
+-                                  >> effectsgroups_label >> *effects_group_vec_p[var(m_effects_groups) = arg1]
+-                                 )
+-                  ]
+-                  >> end_p,
+-                  skip_p);
+-        if (!result.full)
+-            ReportError(input.c_str(), result);
+-
+         if (GetOptionsDB().Get<bool>("verbose-logging")) {
+             Logger().debugStream() << "Alignments:";
+             for (std::vector<Alignment>::const_iterator it = m_alignments.begin(); it != m_alignments.end(); ++it) {
 Index: default/techs.txt
 ===================================================================
 --- default/techs.txt	(revision 4463)
@@ -132,6 +208,122 @@ Index: default/buildings.txt
      name = "BLD_TRANSFORMER"
      description = "BLD_TRANSFORMER_DESC"
      buildcost = 1000
+Index: universe/ParserUtil.h
+===================================================================
+--- universe/ParserUtil.h	(revision 4463)
++++ universe/ParserUtil.h	(working copy)
+@@ -1,111 +0,0 @@
+-// -*- C++ -*-
+-#ifndef _ParserUtil_h_
+-#define _ParserUtil_h_
+-
+-#include "Parser.h"
+-
+-struct ParamLabel : public boost::spirit::classic::grammar<ParamLabel>
+-{
+-    ParamLabel(const std::string& param_name) : m_param_name(param_name) {}
+-    template <typename ScannerT>
+-    struct definition
+-    {
+-        definition(ParamLabel const& self) {
+-            r = !(boost::spirit::classic::str_p(self.m_param_name.c_str()) >> '=');
+-        }
+-        boost::spirit::classic::rule<ScannerT> r;
+-        boost::spirit::classic::rule<ScannerT> const& start() const {return r;}
+-    };
+-    const std::string m_param_name;
+-};
+-
+-struct push_back_impl
+-{
+-    template <class Container, class Item>
+-    struct result
+-    {
+-        typedef void type;
+-    };
+-
+-    template <class Container, class Item>
+-    void operator()(Container& c, const Item& item) const
+-    {
+-        c.push_back(item);
+-    }
+-};
+-extern const phoenix::function<push_back_impl> push_back_;
+-
+-struct insert_impl
+-{
+-    template <class Container, class Item>
+-    struct result
+-    {
+-        typedef std::pair<typename Container::iterator, bool> type;
+-    };
+-
+-    template <class Container, class Item>
+-    std::pair<typename Container::iterator, bool>
+-    operator()(Container& c, const Item& item) const
+-    {
+-        return c.insert(item);
+-    };
+-};
+-extern const phoenix::function<insert_impl> insert_;
+-
+-struct make_pair_impl
+-{
+-    template <class Key, class Value>
+-    struct result
+-    {
+-        typedef std::pair<Key, Value> type;
+-    };
+-
+-    template <class Key, class Value>
+-    std::pair<Key, Value>
+-    operator()(const Key& k, const Value& v) const
+-    {
+-        return std::pair<Key, Value>(k, v);
+-    }
+-};
+-extern const phoenix::function<make_pair_impl> make_pair_;
+-
+-struct enum_to_string_impl
+-{
+-    template <typename EnumType>
+-    struct result
+-    {
+-        typedef const std::string& type;
+-    };
+-
+-    template <typename EnumType>
+-    const std::string&
+-    operator()(EnumType e) const
+-    {
+-        return GG::GetEnumMap<EnumType>().FromEnum(e);
+-    };
+-};
+-extern const phoenix::function<enum_to_string_impl> enum_to_string_;
+-
+-
+-extern boost::spirit::classic::rule<Scanner, NameClosure::context_t>    name_p;
+-extern boost::spirit::classic::rule<Scanner, NameClosure::context_t>    file_name_p;
+-extern boost::spirit::classic::rule<Scanner, ColourClosure::context_t>  colour_p;
+-
+-extern boost::spirit::classic::symbols<bool>                    true_false_p;
+-
+-extern boost::spirit::classic::symbols<PlanetSize>              planet_size_p;
+-extern boost::spirit::classic::symbols<PlanetType>              planet_type_p;
+-extern boost::spirit::classic::symbols<PlanetEnvironment>       planet_environment_type_p;
+-extern boost::spirit::classic::symbols<UniverseObjectType>      universe_object_type_p;
+-extern boost::spirit::classic::symbols<StarType>                star_type_p;
+-extern boost::spirit::classic::symbols<EmpireAffiliationType>   affiliation_type_p;
+-extern boost::spirit::classic::symbols<UnlockableItemType>      unlockable_item_type_p;
+-extern boost::spirit::classic::symbols<TechType>                tech_type_p;
+-extern boost::spirit::classic::symbols<CombatFighterType>       combat_fighter_type_p;
+-extern boost::spirit::classic::symbols<ShipPartClass>           part_class_p;
+-extern boost::spirit::classic::symbols<ShipSlotType>            slot_type_p;
+-extern boost::spirit::classic::symbols<CaptureResult>           capture_result_p;
+-
+-void ReportError(const char* input, const boost::spirit::classic::parse_info<const char*>& result);
+-
+-#endif // _ParserUtil_h_
 Index: universe/Universe.cpp
 ===================================================================
 --- universe/Universe.cpp	(revision 4463)
@@ -696,6 +888,571 @@ Index: universe/Names.h
 +#undef DECLARE_NAME
 +
 +#endif
+Index: universe/EffectParser.cpp
+===================================================================
+--- universe/EffectParser.cpp	(revision 4463)
++++ universe/EffectParser.cpp	(working copy)
+@@ -1,560 +0,0 @@
+-#include "Parser.h"
+-
+-#include "ParserUtil.h"
+-#include "ValueRefParser.h"
+-#include "ValueRef.h"
+-#include "Effect.h"
+-#include "Condition.h"
+-
+-using namespace boost::spirit::classic;
+-using namespace phoenix;
+-
+-rule<Scanner, EffectClosure::context_t> effect_p;
+-
+-namespace {
+-    class EffectParserDefinition
+-    {
+-    public:
+-        typedef rule<Scanner, EffectClosure::context_t> Rule;
+-
+-        EffectParserDefinition();
+-
+-    private:
+-        struct SetMeterClosure : boost::spirit::classic::closure<SetMeterClosure, Effect::EffectBase*,
+-                                                                 MeterType,
+-                                                                 ValueRef::ValueRefBase<double>*>
+-        {
+-            member1 this_;
+-            member2 meter;
+-            member3 value;
+-        };
+-
+-        struct SetShipPartMeterClosure : boost::spirit::classic::closure<SetShipPartMeterClosure, Effect::EffectBase*,
+-                                                                         MeterType,
+-                                                                         ShipPartClass,
+-                                                                         CombatFighterType,
+-                                                                         std::string,
+-                                                                         ValueRef::ValueRefBase<double>*,
+-                                                                         ShipSlotType>
+-        {
+-            member1 this_;
+-            member2 meter;
+-            member3 part_class;
+-            member4 fighter_type;
+-            member5 part_name;
+-            member6 value;
+-            member7 slot_type;
+-        };
+-
+-        struct SetEmpireMeterClosure : boost::spirit::classic::closure<SetEmpireMeterClosure, Effect::EffectBase*,
+-                                                                       ValueRef::ValueRefBase<int>*,
+-                                                                       std::string,
+-                                                                       ValueRef::ValueRefBase<double>*>
+-        {
+-            member1 this_;
+-            member2 empire;
+-            member3 meter;
+-            member4 value;
+-        };
+-
+-        struct SetEmpireStockpileClosure : boost::spirit::classic::closure<SetEmpireStockpileClosure, Effect::EffectBase*,
+-                                                                           ResourceType,
+-                                                                           ValueRef::ValueRefBase<int>*,
+-                                                                           ValueRef::ValueRefBase<double>*>
+-        {
+-            member1 this_;
+-            member2 stockpile_type;
+-            member3 empire;
+-            member4 value;
+-        };
+-
+-        struct SetPlanetTypeClosure : boost::spirit::classic::closure<SetPlanetTypeClosure, Effect::EffectBase*,
+-                                                                      ValueRef::ValueRefBase< ::PlanetType>*>
+-        {
+-            member1 this_;
+-            member2 type;
+-        };
+-
+-        struct SetPlanetSizeClosure : boost::spirit::classic::closure<SetPlanetSizeClosure, Effect::EffectBase*,
+-                                                                      ValueRef::ValueRefBase< ::PlanetSize>*>
+-        {
+-            member1 this_;
+-            member2 size;
+-        };
+-
+-        struct EmpireParamClosure : boost::spirit::classic::closure<EmpireParamClosure, Effect::EffectBase*,
+-                                                                    ValueRef::ValueRefBase<int>*>
+-        {
+-            member1 this_;
+-            member2 empire;
+-        };
+-
+-        struct StringClosure : boost::spirit::classic::closure<StringClosure, Effect::EffectBase*,
+-                                                                  std::string>
+-        {
+-            member1 this_;
+-            member2 name;
+-        };
+-
+-        struct StringRefVecClosure : boost::spirit::classic::closure<StringRefVecClosure, Effect::EffectBase*,
+-                                                                     ValueRef::ValueRefBase<std::string>*>
+-        {
+-            member1 this_;
+-            member2 name;
+-        };
+-
+-        struct ConditionParamClosure : boost::spirit::classic::closure<ConditionParamClosure, Effect::EffectBase*,
+-                                                                       Condition::ConditionBase*>
+-        {
+-            member1 this_;
+-            member2 condition;
+-        };
+-
+-        struct SetStarTypeClosure : boost::spirit::classic::closure<SetStarTypeClosure, Effect::EffectBase*,
+-                                                                    ValueRef::ValueRefBase< ::StarType>*>
+-        {
+-            member1 this_;
+-            member2 type;
+-        };
+-
+-        struct CreatePlanetClosure : boost::spirit::classic::closure<CreatePlanetClosure, Effect::EffectBase*,
+-                                                                     ValueRef::ValueRefBase< ::PlanetType>*,
+-                                                                     ValueRef::ValueRefBase< ::PlanetSize>*>
+-        {
+-            member1 this_;
+-            member2 type;
+-            member3 size;
+-        };
+-
+-        struct CreateBuildingClosure : boost::spirit::classic::closure<CreateBuildingClosure, Effect::EffectBase*,
+-                                                                       ValueRef::ValueRefBase<std::string>*>
+-        {
+-            member1 this_;
+-            member2 type;
+-        };
+-
+-        struct CreateShipClosure : boost::spirit::classic::closure<CreateShipClosure, Effect::EffectBase*,
+-                                                                   std::string,
+-                                                                   ValueRef::ValueRefBase<int>*,
+-                                                                   ValueRef::ValueRefBase<int>*,
+-                                                                   ValueRef::ValueRefBase<std::string>*>
+-        {
+-            member1 this_;
+-            member2 predefined_design_name;
+-            member3 design_id;
+-            member4 empire;
+-            member5 species;
+-        };
+-
+-        struct SetTechAvailabilityClosure : boost::spirit::classic::closure<SetTechAvailabilityClosure, Effect::EffectBase*,
+-                                                                            std::string, bool, bool>
+-        {
+-            member1 this_;
+-            member2 name;
+-            member3 available;
+-            member4 include_tech;
+-        };
+-
+-        struct GenerateSitRepMessageClosure : boost::spirit::classic::closure<GenerateSitRepMessageClosure, Effect::EffectBase*,
+-                                                                              std::string,
+-                                                                              std::vector<std::pair<std::string, const ValueRef::ValueRefBase<std::string>*> >,
+-                                                                              ValueRef::ValueRefBase<int>*,
+-                                                                              EmpireAffiliationType>
+-        {
+-            member1 this_;
+-            member2 template_string;
+-            member3 parameters;
+-            member4 recipient_empire;
+-            member5 affiliation;
+-        };
+-
+-        struct StringAndStringRefVectorClosure : boost::spirit::classic::closure<StringAndStringRefVectorClosure,
+-            std::vector<std::pair<std::string, const ValueRef::ValueRefBase<std::string>*> >,
+-            std::string,
+-            const ValueRef::ValueRefBase<std::string>*>
+-        {
+-            member1 this_;
+-            member2 tag;
+-            member3 data;
+-        };
+-
+-        typedef rule<Scanner, SetMeterClosure::context_t>                   SetMeterRule;
+-        typedef rule<Scanner, SetShipPartMeterClosure::context_t>           SetShipPartMeterRule;
+-        typedef rule<Scanner, SetEmpireMeterClosure::context_t>             SetEmpireMeterRule;
+-        typedef rule<Scanner, SetEmpireStockpileClosure::context_t>         SetEmpireStockpileRule;
+-        typedef rule<Scanner, SetPlanetTypeClosure::context_t>              SetPlanetTypeRule;
+-        typedef rule<Scanner, SetPlanetSizeClosure::context_t>              SetPlanetSizeRule;
+-        typedef rule<Scanner, EmpireParamClosure::context_t>                EmpireParamRule;
+-        typedef rule<Scanner, StringClosure::context_t>                     StringRule;
+-        typedef rule<Scanner, StringRefVecClosure::context_t>               StringRefVecRule;
+-        typedef rule<Scanner, ConditionParamClosure::context_t>             ConditionParamRule;
+-        typedef rule<Scanner, SetStarTypeClosure::context_t>                SetStarTypeRule;
+-        typedef rule<Scanner, CreatePlanetClosure::context_t>               CreatePlanetRule;
+-        typedef rule<Scanner, CreateBuildingClosure::context_t>             CreateBuildingRule;
+-        typedef rule<Scanner, CreateShipClosure::context_t>                 CreateShipRule;
+-        typedef rule<Scanner, SetTechAvailabilityClosure::context_t>        SetTechAvailabilityRule;
+-        typedef rule<Scanner, GenerateSitRepMessageClosure::context_t>      GenerateSitRepMessageRule;
+-        typedef rule<Scanner, StringAndStringRefVectorClosure::context_t>   StringAndStringRefVectorRule;
+-
+-        SetMeterRule                    set_meter;
+-        SetShipPartMeterRule            set_ship_part_meter;
+-        SetEmpireMeterRule              set_empire_meter;
+-        SetEmpireStockpileRule          set_empire_stockpile;
+-        EmpireParamRule                 set_empire_capital;
+-        SetPlanetTypeRule               set_planet_type;
+-        SetPlanetSizeRule               set_planet_size;
+-        StringRefVecRule                set_species;
+-        EmpireParamRule                 set_owner;
+-        CreatePlanetRule                create_planet;
+-        CreateBuildingRule              create_building;
+-        CreateShipRule                  create_ship;
+-        ConditionParamRule              move_to;
+-        ConditionParamRule              set_destination;
+-        Rule                            destroy;
+-        StringRule                      victory;
+-        StringRule                      add_special;
+-        StringRule                      remove_special;
+-        ConditionParamRule              add_starlanes;
+-        ConditionParamRule              remove_starlanes;
+-        SetStarTypeRule                 set_star_type;
+-        SetTechAvailabilityRule         set_tech_availability;
+-        GenerateSitRepMessageRule       generate_sitrep_message;
+-        StringAndStringRefVectorRule    string_and_string_ref_vector;
+-
+-        ParamLabel  value_label;
+-        ParamLabel  type_label;
+-        ParamLabel  planetsize_label;
+-        ParamLabel  empire_label;
+-        ParamLabel  affiliation_label;
+-        ParamLabel  name_label;
+-        ParamLabel  species_label;
+-        ParamLabel  design_name_label;
+-        ParamLabel  part_name_label;
+-        ParamLabel  destination_label;
+-        ParamLabel  endpoint_label;
+-        ParamLabel  reason_label;
+-        ParamLabel  fighter_type_label;
+-        ParamLabel  slot_type_label;
+-        ParamLabel  part_class_label;
+-        ParamLabel  message_label;
+-        ParamLabel  parameters_label;
+-        ParamLabel  tag_label;
+-        ParamLabel  data_label;
+-        ParamLabel  meter_label;
+-    };
+-
+-    EffectParserDefinition::EffectParserDefinition() :
+-        value_label("value"),
+-        type_label("type"),
+-        planetsize_label("size"),
+-        empire_label("empire"),
+-        affiliation_label("affiliation"),
+-        name_label("name"),
+-        species_label("species"),
+-        design_name_label("designname"),
+-        part_name_label("partname"),
+-        destination_label("destination"),
+-        endpoint_label("endpoints"),
+-        reason_label("reason"),
+-        fighter_type_label("fightertype"),
+-        slot_type_label("slottype"),
+-        part_class_label("partclass"),
+-        message_label("message"),
+-        parameters_label("parameters"),
+-        tag_label("tag"),
+-        data_label("data"),
+-        meter_label("meter")
+-    {
+-        set_meter =
+-            (str_p("set")
+-             >> (str_p("targetpopulation")[set_meter.meter =    val(METER_TARGET_POPULATION)]
+-                 | str_p("targethealth")[set_meter.meter =      val(METER_TARGET_HEALTH)]
+-                 | str_p("targetfarming")[set_meter.meter =     val(METER_TARGET_FARMING)]
+-                 | str_p("targethealth")[set_meter.meter =      val(METER_TARGET_FARMING)]
+-                 | str_p("targetindustry")[set_meter.meter =    val(METER_TARGET_INDUSTRY)]
+-                 | str_p("targetresearch")[set_meter.meter =    val(METER_TARGET_RESEARCH)]
+-                 | str_p("targettrade")[set_meter.meter =       val(METER_TARGET_TRADE)]
+-                 | str_p("targetmining")[set_meter.meter =      val(METER_TARGET_MINING)]
+-                 | str_p("targetconstruction")[set_meter.meter =val(METER_TARGET_CONSTRUCTION)]
+-
+-                 | str_p("maxfuel")[set_meter.meter =           val(METER_MAX_FUEL)]
+-                 | str_p("maxshield")[set_meter.meter =         val(METER_MAX_SHIELD)]
+-                 | str_p("maxstructure")[set_meter.meter =      val(METER_MAX_STRUCTURE)]
+-                 | str_p("maxdefense")[set_meter.meter =        val(METER_MAX_DEFENSE)]
+-                 | str_p("maxtroops")[set_meter.meter =         val(METER_MAX_TROOPS)]
+-
+-                 | str_p("population")[set_meter.meter =        val(METER_POPULATION)]
+-                 | str_p("health")[set_meter.meter =            val(METER_HEALTH)]
+-                 | str_p("farming")[set_meter.meter =           val(METER_FARMING)]
+-                 | str_p("industry")[set_meter.meter =          val(METER_INDUSTRY)]
+-                 | str_p("research")[set_meter.meter =          val(METER_RESEARCH)]
+-                 | str_p("trade")[set_meter.meter =             val(METER_TRADE)]
+-                 | str_p("mining")[set_meter.meter =            val(METER_MINING)]
+-                 | str_p("construction")[set_meter.meter =      val(METER_CONSTRUCTION)]
+-
+-                 | str_p("fuel")[set_meter.meter =              val(METER_FUEL)]
+-                 | str_p("shield")[set_meter.meter =            val(METER_SHIELD)]
+-                 | str_p("structure")[set_meter.meter =         val(METER_STRUCTURE)]
+-                 | str_p("defense")[set_meter.meter =           val(METER_DEFENSE)]
+-                 | str_p("troops")[set_meter.meter =            val(METER_TROOPS)]
+-
+-                 | str_p("foodconsumption")[set_meter.meter =   val(METER_FOOD_CONSUMPTION)]
+-                 | str_p("supply")[set_meter.meter =            val(METER_SUPPLY)]
+-                 | str_p("stealth")[set_meter.meter =           val(METER_STEALTH)]
+-                 | str_p("detection")[set_meter.meter =         val(METER_DETECTION)]
+-                 | str_p("battlespeed")[set_meter.meter =       val(METER_BATTLE_SPEED)]
+-                 | str_p("starlanespeed")[set_meter.meter =     val(METER_STARLANE_SPEED)])
+-             >> value_label >> double_expr_p[set_meter.value = arg1])
+-            [set_meter.this_ = new_<Effect::SetMeter>(set_meter.meter, set_meter.value)];
+-
+-        set_ship_part_meter =
+-            str_p("set")[set_ship_part_meter.slot_type =                    val(INVALID_SHIP_SLOT_TYPE)]
+-            >> (str_p("damage")[set_ship_part_meter.meter =                 val(METER_DAMAGE)]
+-                | str_p("rof")[set_ship_part_meter.meter =                  val(METER_ROF)]
+-                | str_p("range")[set_ship_part_meter.meter =                val(METER_RANGE)]
+-                | str_p("speed")[set_ship_part_meter.meter =                val(METER_SPEED)]
+-                | str_p("capacity")[set_ship_part_meter.meter =             val(METER_CAPACITY)]
+-                | str_p("antishipdamage")[set_ship_part_meter.meter =       val(METER_ANTI_SHIP_DAMAGE)]
+-                | str_p("antifighterdamage")[set_ship_part_meter.meter =    val(METER_ANTI_FIGHTER_DAMAGE)]
+-                | str_p("launchrate")[set_ship_part_meter.meter =           val(METER_LAUNCH_RATE)]
+-                | str_p("fighterweaponrange")[set_ship_part_meter.meter =   val(METER_FIGHTER_WEAPON_RANGE)]
+-                | str_p("stealth")[set_ship_part_meter.meter =              val(METER_STEALTH)]
+-                | str_p("structure")[set_ship_part_meter.meter =            val(METER_STRUCTURE)]
+-                | str_p("detection")[set_ship_part_meter.meter =            val(METER_DETECTION)])
+-            >> (((part_class_label >> part_class_p[set_ship_part_meter.part_class = arg1]
+-                  >> value_label >> double_expr_p[set_ship_part_meter.value = arg1]
+-                  >> slot_type_label >> slot_type_p[set_ship_part_meter.slot_type = arg1])
+-                 [set_ship_part_meter.this_ =
+-                  new_<Effect::SetShipPartMeter>(set_ship_part_meter.meter,
+-                                                 set_ship_part_meter.part_class,
+-                                                 set_ship_part_meter.value,
+-                                                 set_ship_part_meter.slot_type)])
+-                | ((fighter_type_label >> combat_fighter_type_p[set_ship_part_meter.fighter_type = arg1]
+-                    >> value_label >> double_expr_p[set_ship_part_meter.value = arg1]
+-                    >> slot_type_label >> slot_type_p[set_ship_part_meter.slot_type = arg1])
+-                   [set_ship_part_meter.this_ =
+-                    new_<Effect::SetShipPartMeter>(set_ship_part_meter.meter,
+-                                                   set_ship_part_meter.fighter_type,
+-                                                   set_ship_part_meter.value,
+-                                                   set_ship_part_meter.slot_type)])
+-                | ((part_name_label >> name_p[set_ship_part_meter.part_name = arg1]
+-                    >> value_label >> double_expr_p[set_ship_part_meter.value = arg1]
+-                    >> slot_type_label >> slot_type_p[set_ship_part_meter.slot_type = arg1])
+-                   [set_ship_part_meter.this_ =
+-                    new_<Effect::SetShipPartMeter>(set_ship_part_meter.meter,
+-                                                   set_ship_part_meter.part_name,
+-                                                   set_ship_part_meter.value,
+-                                                   set_ship_part_meter.slot_type)]));
+-
+-        set_empire_meter =
+-             ( ((str_p("setempiremeter")
+-                 >> empire_label >>             int_expr_p[set_empire_meter.empire = arg1]
+-                 >> meter_label >>              name_p[set_empire_meter.meter = arg1]
+-                 >> value_label >>              double_expr_p[set_empire_meter.value = arg1])
+-                [set_empire_meter.this_ = new_<Effect::SetEmpireMeter>(set_empire_meter.empire, set_empire_meter.meter, set_empire_meter.value)])
+-             | ((str_p("setempiremeter")
+-                 >> meter_label >>              name_p[set_empire_meter.meter = arg1]
+-                 >> value_label >>              double_expr_p[set_empire_meter.value = arg1])
+-                [set_empire_meter.this_ = new_<Effect::SetEmpireMeter>(set_empire_meter.meter, set_empire_meter.value)])
+-             );
+-
+-        set_empire_stockpile =
+-            ( ((str_p("setempirefoodstockpile")[set_empire_stockpile.stockpile_type =       val(RE_FOOD)]
+-               | str_p("setempiremineralstockpile")[set_empire_stockpile.stockpile_type =   val(RE_MINERALS)]
+-               | str_p("setempiretradestockpile")[set_empire_stockpile.stockpile_type =     val(RE_TRADE)]
+-               >> value_label >>                double_expr_p[set_empire_stockpile.value = arg1])
+-               [set_empire_stockpile.this_ = new_<Effect::SetEmpireStockpile>(set_empire_stockpile.stockpile_type, set_empire_stockpile.value)])
+-            | ((str_p("setempirefoodstockpile")[set_empire_stockpile.stockpile_type =       val(RE_FOOD)]
+-               | str_p("setempiremineralstockpile")[set_empire_stockpile.stockpile_type =   val(RE_MINERALS)]
+-               | str_p("setempiretradestockpile")[set_empire_stockpile.stockpile_type =     val(RE_TRADE)]
+-               >> empire_label >>               int_expr_p[set_empire_stockpile.empire = arg1]
+-               >> value_label >>                double_expr_p[set_empire_stockpile.value = arg1])
+-               [set_empire_stockpile.this_ = new_<Effect::SetEmpireStockpile>(set_empire_stockpile.empire, set_empire_stockpile.stockpile_type, set_empire_stockpile.value)])
+-            );
+-
+-        set_empire_capital =
+-            ( (str_p("setempirecapital")
+-              [set_empire_capital.this_ = new_<Effect::SetEmpireCapital>()])
+-            | (str_p("setempirecapital")
+-               >> empire_label >>               int_expr_p[set_empire_capital.empire = arg1]
+-              [set_empire_capital.this_ = new_<Effect::SetEmpireCapital>(set_empire_capital.empire)])
+-            );
+-
+-        set_planet_type =
+-            (str_p("setplanettype")
+-             >> type_label >> planettype_expr_p[set_planet_type.type = arg1])
+-            [set_planet_type.this_ = new_<Effect::SetPlanetType>(set_planet_type.type)];
+-
+-        set_planet_size =
+-            (str_p("setplanetsize")
+-             >> planetsize_label >>             planetsize_expr_p[set_planet_size.size = arg1])
+-            [set_planet_size.this_ = new_<Effect::SetPlanetSize>(set_planet_size.size)];
+-
+-        set_species =
+-            (str_p("setspecies")
+-             >> name_label >>                   string_expr_p[set_species.name = arg1])
+-            [set_species.this_ = new_<Effect::SetSpecies>(set_species.name)];
+-
+-        set_owner =
+-            (str_p("setowner")
+-             >> empire_label >>                 int_expr_p[set_owner.empire = arg1])
+-            [set_owner.this_ = new_<Effect::SetOwner>(set_owner.empire)];
+-
+-        create_planet =
+-            (str_p("createplanet")
+-             >> type_label >>                   planettype_expr_p[create_planet.type = arg1]
+-             >> endpoint_label >>               planetsize_expr_p[create_planet.size = arg1])
+-            [create_planet.this_ = new_<Effect::CreatePlanet>(create_planet.type, create_planet.size)];
+-
+-        create_building =
+-            (str_p("createbuilding")
+-             >> name_label >> string_expr_p[create_building.type = arg1])
+-            [create_building.this_ = new_<Effect::CreateBuilding>(create_building.type)];
+-
+-        create_ship =
+-            ( ((str_p("createship")
+-                >> design_name_label >>         name_p[create_ship.predefined_design_name = arg1]
+-                >> empire_label >>              int_expr_p[create_ship.empire = arg1]
+-                >> species_label >>             string_expr_p[create_ship.species = arg1])
+-               [create_ship.this_ = new_<Effect::CreateShip>(create_ship.predefined_design_name,
+-                                                             create_ship.empire,
+-                                                             create_ship.species)])
+-            | ((str_p("createship")
+-                >> design_name_label >>         int_expr_p[create_ship.design_id = arg1]
+-                >> empire_label >>              int_expr_p[create_ship.empire = arg1]
+-                >> species_label >>             string_expr_p[create_ship.species = arg1])
+-               [create_ship.this_ = new_<Effect::CreateShip>(create_ship.design_id,
+-                                                             create_ship.empire,
+-                                                             create_ship.species)])
+-            | ((str_p("createship")
+-                >> design_name_label >>         name_p[create_ship.predefined_design_name = arg1]
+-                >> empire_label >>              int_expr_p[create_ship.empire = arg1])
+-               [create_ship.this_ = new_<Effect::CreateShip>(create_ship.predefined_design_name,
+-                                                             create_ship.empire)])
+-            | ((str_p("createship")
+-                >> design_name_label >>         name_p[create_ship.predefined_design_name = arg1])
+-               [create_ship.this_ = new_<Effect::CreateShip>(create_ship.predefined_design_name)])
+-            );
+-
+-        move_to =
+-            (str_p("moveto")
+-             >> destination_label >>            condition_p[move_to.condition = arg1])
+-            [move_to.this_ = new_<Effect::MoveTo>(move_to.condition)];
+-
+-        set_destination =
+-            (str_p("setdestination")
+-             >> destination_label >>            condition_p[set_destination.condition = arg1])
+-            [set_destination.this_ = new_<Effect::SetDestination>(set_destination.condition)];
+-
+-        destroy =
+-            str_p("destroy")
+-            [destroy.this_ = new_<Effect::Destroy>()];
+-
+-        victory =
+-            (str_p("victory")
+-             >> reason_label >>                 name_p[victory.name = arg1])
+-            [victory.this_ = new_<Effect::Victory>(victory.name)];
+-
+-        add_special =
+-            (str_p("addspecial")
+-             >> name_label >>                   name_p[add_special.name = arg1])
+-            [add_special.this_ = new_<Effect::AddSpecial>(add_special.name)];
+-
+-        remove_special =
+-            (str_p("removespecial")
+-             >> name_label >>                   name_p[remove_special.name = arg1])
+-            [remove_special.this_ = new_<Effect::RemoveSpecial>(remove_special.name)];
+-
+-        add_starlanes =
+-            (str_p("addstarlanes")
+-             >> endpoint_label >>               condition_p[add_starlanes.condition = arg1])
+-            [add_starlanes.this_ = new_<Effect::AddStarlanes>(add_starlanes.condition)];
+-
+-        remove_starlanes =
+-            (str_p("removestarlanes")
+-             >> endpoint_label >>               condition_p[remove_starlanes.condition = arg1])
+-            [remove_starlanes.this_ = new_<Effect::RemoveStarlanes>(remove_starlanes.condition)];
+-
+-        set_star_type =
+-            (str_p("setstartype")
+-             >> type_label >>                   startype_expr_p[set_star_type.type = arg1])
+-            [set_star_type.this_ = new_<Effect::SetStarType>(set_star_type.type)];
+-
+-        set_tech_availability =
+-            ((str_p("givetechtoowner")[set_tech_availability.available =                val(true),
+-                                       set_tech_availability.include_tech =             val(true)]
+-              | str_p("revoketechfromowner")[set_tech_availability.available =          val(false),
+-                                             set_tech_availability.include_tech =       val(true)]
+-              | str_p("unlocktechitemsforowner")[set_tech_availability.available =      val(true),
+-                                                 set_tech_availability.include_tech =   val(false)]
+-              | str_p("locktechitemsforowner")[set_tech_availability.available =        val(false),
+-                                               set_tech_availability.include_tech =     val(false)])
+-             >> name_label >>                   name_p[set_tech_availability.name = arg1])
+-            [set_tech_availability.this_ = new_<Effect::SetTechAvailability>(
+-                set_tech_availability.name,
+-                new_<ValueRef::Variable<int> >(ValueRef::EFFECT_TARGET_REFERENCE, "Owner"),
+-                set_tech_availability.available,
+-                set_tech_availability.include_tech)
+-            ];
+-
+-        // not an effect parser, but a utility function for parsing a list of string-ValueRef<string> pairs
+-        string_and_string_ref_vector =
+-            (tag_label >>                       name_p[string_and_string_ref_vector.tag = arg1]
+-             >> data_label >>                   string_expr_p[string_and_string_ref_vector.data = arg1])
+-            [push_back_(string_and_string_ref_vector.this_,
+-                        make_pair_(string_and_string_ref_vector.tag,
+-                                   string_and_string_ref_vector.data))]
+-            | ('[' >> +((tag_label >>           name_p[string_and_string_ref_vector.tag = arg1]
+-                         >> data_label >>       string_expr_p[string_and_string_ref_vector.data = arg1])
+-                        [push_back_(string_and_string_ref_vector.this_,
+-                                    make_pair_(string_and_string_ref_vector.tag,
+-                                               string_and_string_ref_vector.data))])
+-               >> ']');
+-
+-        generate_sitrep_message =
+-            (str_p("generatesitrepmessage")
+-             >> message_label >>                name_p[generate_sitrep_message.template_string = arg1]
+-             >> !(parameters_label >>           string_and_string_ref_vector[generate_sitrep_message.parameters = arg1])
+-             >> (affiliation_label >>           affiliation_type_p[generate_sitrep_message.affiliation = arg1]
+-                 |                              eps_p[generate_sitrep_message.affiliation = val(AFFIL_SELF)]
+-             >> empire_label >>                 int_expr_p[generate_sitrep_message.recipient_empire = arg1])
+-             [generate_sitrep_message.this_ = new_<Effect::GenerateSitRepMessage>(generate_sitrep_message.template_string,
+-                                                                                  generate_sitrep_message.parameters,
+-                                                                                  generate_sitrep_message.recipient_empire,
+-                                                                                  generate_sitrep_message.affiliation)])
+-            | (str_p("generatesitrepmessage")
+-               >> message_label >>              name_p[generate_sitrep_message.template_string = arg1]
+-               >> !(parameters_label >>         string_and_string_ref_vector[generate_sitrep_message.parameters = arg1])
+-               >> (affiliation_label >>         affiliation_type_p[generate_sitrep_message.affiliation = arg1]
+-                   |                            eps_p[generate_sitrep_message.affiliation = val(AFFIL_ANY)])
+-               [generate_sitrep_message.this_ = new_<Effect::GenerateSitRepMessage>(generate_sitrep_message.template_string,
+-                                                                                    generate_sitrep_message.parameters,
+-                                                                                    generate_sitrep_message.affiliation)]);
+-
+-        effect_p =
+-            set_meter[effect_p.this_ = arg1]
+-            | set_ship_part_meter[effect_p.this_ = arg1]
+-            | set_empire_meter[effect_p.this_ = arg1]
+-            | set_empire_stockpile[effect_p.this_ = arg1]
+-            | set_empire_capital[effect_p.this_ = arg1]
+-            | set_planet_type[effect_p.this_ = arg1]
+-            | set_planet_size[effect_p.this_ = arg1]
+-            | set_species[effect_p.this_ = arg1]
+-            | set_owner[effect_p.this_ = arg1]
+-            | create_planet[effect_p.this_ = arg1]
+-            | create_building[effect_p.this_ = arg1]
+-            | create_ship[effect_p.this_ = arg1]
+-            | move_to[effect_p.this_ = arg1]
+-            | set_destination[effect_p.this_ = arg1]
+-            | destroy[effect_p.this_ = arg1]
+-            | victory[effect_p.this_ = arg1]
+-            | add_special[effect_p.this_ = arg1]
+-            | remove_special[effect_p.this_ = arg1]
+-            | add_starlanes[effect_p.this_ = arg1]
+-            | remove_starlanes[effect_p.this_ = arg1]
+-            | set_star_type[effect_p.this_ = arg1]
+-            | set_tech_availability[effect_p.this_ = arg1]
+-            | generate_sitrep_message[effect_p.this_ = arg1];
+-    }
+-    EffectParserDefinition effect_parser_def;
+-}
 Index: universe/ValueRef.cpp
 ===================================================================
 --- universe/ValueRef.cpp	(revision 4463)
@@ -1310,6 +2067,1856 @@ Index: universe/Tech.cpp
  
      std::set<std::string> empty_defined_categories;
      for (std::map<std::string, TechCategory*>::iterator map_it = m_categories.begin(); map_it != m_categories.end(); ++map_it) {
+Index: universe/ConditionParser1.cpp
+===================================================================
+--- universe/ConditionParser1.cpp	(revision 4463)
++++ universe/ConditionParser1.cpp	(working copy)
+@@ -1,334 +0,0 @@
+-#include "Parser.h"
+-
+-#include "ParserUtil.h"
+-#include "ValueRefParser.h"
+-#include "Condition.h"
+-#include "ValueRef.h"
+-
+-using namespace boost::spirit::classic;
+-using namespace phoenix;
+-
+-ParamLabel low_label("low");
+-ParamLabel high_label("high");
+-ParamLabel number_label("number");
+-ParamLabel condition_label("condition");
+-ParamLabel empire_label("empire");
+-ParamLabel affiliation_label("affiliation");
+-ParamLabel name_label("name");
+-ParamLabel type_label("type");
+-ParamLabel class_label("class");
+-ParamLabel planetsize_label("size");
+-ParamLabel environment_label("environment");
+-ParamLabel probability_label("probability");
+-ParamLabel distance_label("distance");
+-ParamLabel jumps_label("jumps");
+-ParamLabel sort_key_label("sortby");
+-ParamLabel design_label("design");
+-
+-ValueRef::ValueRefBase<double>* const NULL_DOUBLE_REF = 0;
+-
+-rule<Scanner, ConditionClosure::context_t> condition1_p;
+-
+-namespace Condition {
+-    struct ConditionBase;
+-}
+-
+-namespace {
+-    class ConditionParser1Definition
+-    {
+-    public:
+-        typedef rule<Scanner, ConditionClosure::context_t> Rule;
+-
+-        ConditionParser1Definition();
+-
+-    private:
+-        struct OwnedByClosure : boost::spirit::classic::closure<OwnedByClosure, Condition::ConditionBase*,
+-                                                                ValueRef::ValueRefBase<int>*, EmpireAffiliationType>
+-        {
+-            member1 this_;
+-            member2 empire;
+-            member3 affiliation;
+-        };
+-
+-        struct StringRefVecClosure : boost::spirit::classic::closure<StringRefVecClosure, Condition::ConditionBase*,
+-                                                                     std::vector<const ValueRef::ValueRefBase<std::string>*> >
+-        {
+-            member1 this_;
+-            member2 names;
+-        };
+-
+-        struct PlanetTypeClosure : boost::spirit::classic::closure<PlanetTypeClosure, Condition::ConditionBase*,
+-                                                                   std::vector<const ValueRef::ValueRefBase< ::PlanetType>*> >
+-        {
+-            member1 this_;
+-            member2 types;
+-        };
+-
+-        struct PlanetSizeClosure : boost::spirit::classic::closure<PlanetSizeClosure, Condition::ConditionBase*,
+-                                                                   std::vector<const ValueRef::ValueRefBase< ::PlanetSize>*> >
+-        {
+-            member1 this_;
+-            member2 sizes;
+-        };
+-
+-        struct PlanetEnvironmentClosure : boost::spirit::classic::closure<PlanetEnvironmentClosure,
+-                                                                          Condition::ConditionBase*,
+-                                                                          std::vector<const ValueRef::ValueRefBase< ::PlanetEnvironment>*> >
+-        {
+-            member1 this_;
+-            member2 environments;
+-        };
+-
+-        struct ObjectTypeClosure : boost::spirit::classic::closure<ObjectTypeClosure, Condition::ConditionBase*,
+-                                                                   ValueRef::ValueRefBase< ::UniverseObjectType>*>
+-        {
+-            member1 this_;
+-            member2 type;
+-        };
+-
+-        struct MeterValueClosure : boost::spirit::classic::closure<MeterValueClosure, Condition::ConditionBase*,
+-                                                                   MeterType, ValueRef::ValueRefBase<double>*,
+-                                                                   ValueRef::ValueRefBase<double>*>
+-        {
+-            member1 this_;
+-            member2 meter;
+-            member3 low;
+-            member4 high;
+-        };
+-
+-        struct AndOrClosure : boost::spirit::classic::closure<AndOrClosure, Condition::ConditionBase*,
+-                                                              std::vector<const Condition::ConditionBase*> >
+-        {
+-            member1 this_;
+-            member2 conditions;
+-        };
+-
+-        struct NotClosure : boost::spirit::classic::closure<NotClosure, Condition::ConditionBase*,
+-                                                            Condition::ConditionBase*>
+-        {
+-            member1 this_;
+-            member2 condition;
+-        };
+-
+-        struct StringRefVectorClosure : boost::spirit::classic::closure<StringRefVectorClosure,
+-                                                                        std::vector<const ValueRef::ValueRefBase<std::string>*> >
+-        {
+-            member1 this_;
+-        };
+-
+-        typedef rule<Scanner, OwnedByClosure::context_t>            OwnedByRule;
+-        typedef rule<Scanner, StringRefVecClosure::context_t>       StringRefVecRule;
+-        typedef rule<Scanner, PlanetTypeClosure::context_t>         PlanetTypeRule;
+-        typedef rule<Scanner, PlanetSizeClosure::context_t>         PlanetSizeRule;
+-        typedef rule<Scanner, PlanetEnvironmentClosure::context_t>  PlanetEnvironmentRule;
+-        typedef rule<Scanner, ObjectTypeClosure::context_t>         ObjectTypeRule;
+-        typedef rule<Scanner, MeterValueClosure::context_t>         MeterValueRule;
+-        typedef rule<Scanner, AndOrClosure::context_t>              AndOrRule;
+-        typedef rule<Scanner, NotClosure::context_t>                NotRule;
+-        typedef rule<Scanner, StringRefVectorClosure::context_t>    StringRefVectorRule;
+-
+-        Rule                    all;
+-        Rule                    source;
+-        Rule                    root_candidate;
+-        Rule                    target;
+-        Rule                    stationary;
+-        Rule                    capital;
+-        Rule                    monster;
+-        Rule                    armed;
+-        OwnedByRule             owned_by;
+-        StringRefVecRule        homeworld;
+-        StringRefVecRule        building;
+-        StringRefVecRule        species;
+-        StringRefVecRule        focus_type;
+-        PlanetTypeRule          planet_type;
+-        PlanetSizeRule          planet_size;
+-        PlanetEnvironmentRule   planet_environment;
+-        ObjectTypeRule          object_type;
+-        MeterValueRule          meter_value;
+-        AndOrRule               and_;
+-        AndOrRule               or_;
+-        NotRule                 not_;
+-        StringRefVectorRule     string_ref_vector;
+-    };
+-
+-    ConditionParser1Definition::ConditionParser1Definition()
+-    {
+-        // not a condition parser, but a utility function for parsing a list of ValueRef
+-        string_ref_vector =
+-            (string_expr_p[push_back_(string_ref_vector.this_, arg1)])
+-            | ('[' >> +(string_expr_p[push_back_(string_ref_vector.this_, arg1)]) >> ']');
+-
+-        all =
+-            str_p("all")
+-            [all.this_ = new_<Condition::All>()];
+-
+-        owned_by =
+-            (str_p("ownedby")
+-             >> (affiliation_label >> affiliation_type_p[owned_by.affiliation = arg1]
+-                 |                    eps_p[owned_by.affiliation = val(AFFIL_SELF)])
+-             >> empire_label >> int_expr_p[owned_by.empire = arg1]
+-             [owned_by.this_ = new_<Condition::EmpireAffiliation>(owned_by.empire, owned_by.affiliation)])
+-            | (str_p("ownedby")
+-               >> (affiliation_label >> affiliation_type_p[owned_by.affiliation = arg1]
+-                   |                    eps_p[owned_by.affiliation = val(AFFIL_SELF)])
+-              [owned_by.this_ = new_<Condition::EmpireAffiliation>(owned_by.affiliation)]);
+-
+-        source =
+-            str_p("source")
+-            [source.this_ = new_<Condition::Source>()];
+-
+-        root_candidate =
+-            str_p("rootcandidate")
+-            [root_candidate.this_ = new_<Condition::RootCandidate>()];
+-
+-        target =
+-            str_p("target")
+-            [target.this_ = new_<Condition::Target>()];
+-
+-        stationary =
+-            str_p("stationary")
+-            [stationary.this_ = new_<Condition::Stationary>()];
+-
+-        homeworld =
+-            (str_p("homeworld")
+-             >> name_label >> string_ref_vector[homeworld.names = arg1]
+-             [homeworld.this_ = new_<Condition::Homeworld>(homeworld.names)])
+-            | (str_p("homeworld")
+-               [homeworld.this_ = new_<Condition::Homeworld>()]);
+-
+-        capital =
+-            str_p("capital")
+-            [capital.this_ = new_<Condition::Capital>()];
+-
+-        monster =
+-            str_p("monster")
+-            [monster.this_ = new_<Condition::Monster>()];
+-
+-        armed =
+-            str_p("armed")
+-            [armed.this_ = new_<Condition::Armed>()];
+-
+-        building =
+-            str_p("building")
+-            >> (name_label >> string_ref_vector[building.names = arg1])
+-            [building.this_ = new_<Condition::Building>(building.names)];
+-
+-        species =
+-            str_p("species")
+-            >> !(name_label >> string_ref_vector[species.names = arg1])
+-            [species.this_ = new_<Condition::Species>(species.names)];
+-
+-        planet_type =
+-            (str_p("planet")
+-             >> type_label
+-             >> (planettype_expr_p[push_back_(planet_type.types, arg1)]
+-                 | ('[' >> +(planettype_expr_p[push_back_(planet_type.types, arg1)]) >> ']')))
+-            [planet_type.this_ = new_<Condition::PlanetType>(planet_type.types)];
+-
+-        planet_size =
+-            (str_p("planet")
+-             >> planetsize_label
+-             >> (planetsize_expr_p[push_back_(planet_size.sizes, arg1)]
+-                 | ('[' >> +(planetsize_expr_p[push_back_(planet_size.sizes, arg1)]) >> ']')))
+-            [planet_size.this_ = new_<Condition::PlanetSize>(planet_size.sizes)];
+-
+-        planet_environment =
+-            (str_p("planet")
+-             >> environment_label
+-             >> (planetenvironment_expr_p[push_back_(planet_environment.environments, arg1)]
+-                 | ('[' >> +(planetenvironment_expr_p[push_back_(planet_environment.environments, arg1)]) >> ']')))
+-            [planet_environment.this_ = new_<Condition::PlanetEnvironment>(planet_environment.environments)];
+-
+-        object_type =
+-            universe_object_type_p[object_type.this_ = new_<Condition::Type>(new_<ValueRef::Constant<UniverseObjectType> >(arg1))]
+-            | (str_p("objecttype")
+-               >> type_label >> universeobjecttype_expr_p[object_type.type = arg1])
+-            [object_type.this_ = new_<Condition::Type>(object_type.type)];
+-
+-        focus_type =
+-            str_p("focus")
+-            >> !(type_label >> string_ref_vector[focus_type.names = arg1])
+-            [focus_type.this_ = new_<Condition::FocusType>(focus_type.names)];
+-
+-        // non-vectorized string valueref version of focus_type
+-        //focus_type =
+-        //    str_p("focus")
+-        //    >> !(type_label >> string_expr_p[push_back_(focus_type.names, arg1)])
+-        //    [focus_type.this_ = new_<Condition::FocusType>(focus_type.names)];
+-
+-        meter_value =
+-           ((str_p("targetpopulation")[meter_value.meter =  val(METER_TARGET_POPULATION)]
+-           | str_p("targethealth")[meter_value.meter =      val(METER_TARGET_HEALTH)]
+-           | str_p("targetfarming")[meter_value.meter =     val(METER_TARGET_FARMING)]
+-           | str_p("targetindustry")[meter_value.meter =    val(METER_TARGET_INDUSTRY)]
+-           | str_p("targetresearch")[meter_value.meter =    val(METER_TARGET_RESEARCH)]
+-           | str_p("targettrade")[meter_value.meter =       val(METER_TARGET_TRADE)]
+-           | str_p("targetmining")[meter_value.meter =      val(METER_TARGET_MINING)]
+-           | str_p("targetconstruction")[meter_value.meter =val(METER_TARGET_CONSTRUCTION)]
+-           | str_p("maxfuel")[meter_value.meter =           val(METER_MAX_FUEL)]
+-           | str_p("maxshield")[meter_value.meter =         val(METER_MAX_SHIELD)]
+-           | str_p("maxstructure")[meter_value.meter =      val(METER_MAX_STRUCTURE)]
+-           | str_p("maxdefense")[meter_value.meter =        val(METER_MAX_DEFENSE)]
+-           | str_p("maxtroops")[meter_value.meter =         val(METER_MAX_TROOPS)]
+-           | str_p("population")[meter_value.meter =        val(METER_POPULATION)]
+-           | str_p("health")[meter_value.meter =            val(METER_HEALTH)]
+-           | str_p("farming")[meter_value.meter =           val(METER_FARMING)]
+-           | str_p("industry")[meter_value.meter =          val(METER_INDUSTRY)]
+-           | str_p("research")[meter_value.meter =          val(METER_RESEARCH)]
+-           | str_p("trade")[meter_value.meter =             val(METER_TRADE)]
+-           | str_p("mining")[meter_value.meter =            val(METER_MINING)]
+-           | str_p("construction")[meter_value.meter =      val(METER_CONSTRUCTION)]
+-           | str_p("fuel")[meter_value.meter =              val(METER_FUEL)]
+-           | str_p("shield")[meter_value.meter =            val(METER_SHIELD)]
+-           | str_p("structure")[meter_value.meter =         val(METER_STRUCTURE)]
+-           | str_p("defense")[meter_value.meter =           val(METER_DEFENSE)]
+-           | str_p("troops")[meter_value.meter =            val(METER_TROOPS)]
+-           | str_p("foodconsumption")[meter_value.meter =   val(METER_FOOD_CONSUMPTION)]
+-           | str_p("supply")[meter_value.meter =            val(METER_SUPPLY)]
+-           | str_p("stealth")[meter_value.meter =           val(METER_STEALTH)]
+-           | str_p("detection")[meter_value.meter =         val(METER_DETECTION)]
+-           | str_p("battlespeed")[meter_value.meter =       val(METER_BATTLE_SPEED)]
+-           | str_p("starlanespeed")[meter_value.meter =     val(METER_STARLANE_SPEED)])
+-             >> (low_label >>       double_expr_p[  meter_value.low = arg1]
+-                 |                  eps_p[          meter_value.low = val(NULL_DOUBLE_REF)])
+-             >> (high_label >>      double_expr_p[  meter_value.high = arg1]
+-                 |                  eps_p[          meter_value.high = val(NULL_DOUBLE_REF)]))
+-            [meter_value.this_ = new_<Condition::MeterValue>(meter_value.meter, meter_value.low, meter_value.high)];
+-
+-        and_ =
+-            (str_p("and") >> '[' >> +(condition_p[push_back_(and_.conditions, arg1)]) >> ']')
+-            [and_.this_ = new_<Condition::And>(and_.conditions)];
+-
+-        or_ =
+-            (str_p("or") >> '[' >> +(condition_p[push_back_(or_.conditions, arg1)]) >> ']')
+-            [or_.this_ = new_<Condition::Or>(or_.conditions)];
+-
+-        not_ =
+-            (str_p("not") >> condition_p[not_.condition = arg1])
+-            [not_.this_ = new_<Condition::Not>(not_.condition)];
+-
+-        condition1_p =
+-            all[condition1_p.this_ = arg1]
+-            | source[condition1_p.this_ = arg1]
+-            | focus_type[condition1_p.this_ = arg1]
+-            | stationary[condition1_p.this_ = arg1]
+-            | homeworld[condition1_p.this_ = arg1]
+-            | capital[condition1_p.this_ = arg1]
+-            | monster[condition1_p.this_ = arg1]
+-            | armed[condition1_p.this_ = arg1]
+-            | building[condition1_p.this_ = arg1]
+-            | species[condition1_p.this_ = arg1]
+-            | planet_type[condition1_p.this_ = arg1]
+-            | planet_size[condition1_p.this_ = arg1]
+-            | planet_environment[condition1_p.this_ = arg1]
+-            | object_type[condition1_p.this_ = arg1]
+-            | meter_value[condition1_p.this_ = arg1]
+-            | owned_by[condition1_p.this_ = arg1]
+-            | target[condition1_p.this_ = arg1]
+-            | root_candidate[condition1_p.this_ = arg1]
+-            | and_[condition1_p.this_ = arg1]
+-            | or_[condition1_p.this_ = arg1]
+-            | not_[condition1_p.this_ = arg1];
+-    }
+-    ConditionParser1Definition condition1_def;
+-}
+Index: universe/ConditionParser2.cpp
+===================================================================
+--- universe/ConditionParser2.cpp	(revision 4463)
++++ universe/ConditionParser2.cpp	(working copy)
+@@ -1,190 +0,0 @@
+-#include "Parser.h"
+-
+-#include "ParserUtil.h"
+-#include "ValueRefParser.h"
+-#include "Condition.h"
+-
+-using namespace boost::spirit::classic;
+-using namespace phoenix;
+-
+-extern ParamLabel name_label;
+-extern ParamLabel low_label;
+-extern ParamLabel high_label;
+-extern ParamLabel class_label;
+-extern ParamLabel empire_label;
+-extern ParamLabel design_label;
+-ParamLabel id_label("id");
+-
+-ValueRef::ValueRefBase<int>* const NULL_INT_REF = 0;
+-
+-rule<Scanner, ConditionClosure::context_t> condition2_p;
+-
+-namespace {
+-    class ConditionParser2Definition
+-    {
+-    public:
+-        typedef rule<Scanner, ConditionClosure::context_t> Rule;
+-
+-        ConditionParser2Definition();
+-
+-    private:
+-        struct StringClosure : boost::spirit::classic::closure<StringClosure, Condition::ConditionBase*,
+-                                                               std::string>
+-        {
+-            member1 this_;
+-            member2 name;
+-        };
+-
+-        struct DesignHasPartClassClosure : boost::spirit::classic::closure<DesignHasPartClassClosure,
+-                                                                           Condition::ConditionBase*,
+-                                                                           ValueRef::ValueRefBase<int>*,
+-                                                                           ValueRef::ValueRefBase<int>*,
+-                                                                           ShipPartClass>
+-        {
+-            member1 this_;
+-            member2 int_ref_1;
+-            member3 int_ref_2;
+-            member4 part_class;
+-        };
+-
+-        struct IntRefClosure : boost::spirit::classic::closure<IntRefClosure, Condition::ConditionBase*,
+-                                                               const ValueRef::ValueRefBase<int>*>
+-        {
+-            member1 this_;
+-            member2 int_ref;
+-        };
+-
+-        struct StringIntRefIntRefClosure : boost::spirit::classic::closure<StringIntRefIntRefClosure,
+-                                                                           Condition::ConditionBase*,
+-                                                                           std::string,
+-                                                                           ValueRef::ValueRefBase<int>*,
+-                                                                           ValueRef::ValueRefBase<int>*>
+-        {
+-            member1 this_;
+-            member2 name;
+-            member3 int_ref_1;
+-            member4 int_ref_2;
+-        };
+-
+-        typedef rule<Scanner, StringClosure::context_t>                 StringRule;
+-        typedef rule<Scanner, DesignHasPartClassClosure::context_t>     DesignHasPartClassRule;
+-        typedef rule<Scanner, IntRefClosure::context_t>                 IntRefRule;
+-        typedef rule<Scanner, StringIntRefIntRefClosure::context_t>     StringIntRefIntRefRule;
+-
+-        StringIntRefIntRefRule      has_special;
+-        StringRule                  owner_has_tech;
+-        StringRule                  design_has_hull;
+-        StringIntRefIntRefRule      design_has_part;
+-        DesignHasPartClassRule      design_has_part_class;
+-        StringRule                  predefined_design;
+-        IntRefRule                  design_number;
+-        IntRefRule                  produced_by_empire;
+-        IntRefRule                  visible_to_empire;
+-        IntRefRule                  explored_by_empire;
+-        IntRefRule                  fleet_supplyable;
+-        IntRefRule                  in_system;
+-        IntRefRule                  object_id;
+-    };
+-
+-    ConditionParser2Definition::ConditionParser2Definition()
+-    {
+-        owner_has_tech =
+-            str_p("ownerhastech")
+-             >> name_label >> name_p[owner_has_tech.name = arg1]
+-            [owner_has_tech.this_ = new_<Condition::OwnerHasTech>(owner_has_tech.name)];
+-
+-        has_special =
+-            (str_p("hasspecialsinceturn")
+-             >> name_label >>      name_p[     has_special.name = arg1]
+-             >> (low_label >>      int_expr_p[ has_special.int_ref_1 = arg1]
+-                 |                 eps_p[      has_special.int_ref_1 = val(NULL_INT_REF)])
+-             >> (high_label >>     int_expr_p[ has_special.int_ref_2 = arg1]
+-                 |                 eps_p[      has_special.int_ref_2 = val(NULL_INT_REF)])
+-             [has_special.this_ = new_<Condition::HasSpecial>(has_special.name,
+-                                                              has_special.int_ref_1,
+-                                                              has_special.int_ref_2)])
+-            | (str_p("hasspecial")
+-               >> name_label >> name_p[has_special.name = arg1]
+-               [has_special.this_ = new_<Condition::HasSpecial>(has_special.name)]);
+-
+-        design_has_hull =
+-            str_p("designhashull")
+-            >> name_label >> name_p[design_has_hull.name = arg1]
+-            [design_has_hull.this_ = new_<Condition::DesignHasHull>(design_has_hull.name)];
+-
+-        design_has_part =
+-            str_p("designhaspart")
+-            >> low_label >>    int_expr_p[ design_has_part.int_ref_1 = arg1]
+-            >> high_label >>   int_expr_p[ design_has_part.int_ref_2 = arg1]
+-            >> name_label >>   name_p[     design_has_part.name = arg1]
+-            [design_has_part.this_ = new_<Condition::DesignHasPart>(design_has_part.int_ref_1,
+-                                                                    design_has_part.int_ref_2,
+-                                                                    design_has_part.name)];
+-
+-        design_has_part_class =
+-            str_p("designhaspartclass")
+-            >> low_label >>    int_expr_p[     design_has_part_class.int_ref_1 = arg1]
+-            >> high_label >>   int_expr_p[     design_has_part_class.int_ref_2 = arg1]
+-            >> class_label >>  part_class_p[   design_has_part_class.part_class = arg1]
+-            [design_has_part_class.this_ = new_<Condition::DesignHasPartClass>(design_has_part_class.int_ref_1,
+-                                                                               design_has_part_class.int_ref_2,
+-                                                                               design_has_part_class.part_class)];
+-
+-        predefined_design =
+-            str_p("design")
+-            >> name_label >>    name_p[predefined_design.name = arg1]
+-            [predefined_design.this_ = new_<Condition::PredefinedShipDesign>(predefined_design.name)];
+-
+-        design_number =
+-            str_p("design")
+-            >> design_label >> int_expr_p[design_number.int_ref = arg1]
+-            [design_number.this_ = new_<Condition::NumberedShipDesign>(design_number.int_ref)];
+-
+-        produced_by_empire =
+-            str_p("producedbyempire")
+-            >> empire_label >> int_expr_p[produced_by_empire.int_ref = arg1]
+-            [produced_by_empire.this_ = new_<Condition::ProducedByEmpire>(produced_by_empire.int_ref)];
+-
+-        visible_to_empire =
+-            str_p("visibletoempire")
+-            >> empire_label >> int_expr_p[visible_to_empire.int_ref = arg1]
+-            [visible_to_empire.this_ = new_<Condition::VisibleToEmpire>(visible_to_empire.int_ref)];
+-
+-        explored_by_empire =
+-            str_p("exploredbyempire")
+-            >> empire_label >>  int_expr_p[explored_by_empire.int_ref = arg1]
+-            [explored_by_empire.this_ = new_<Condition::ExploredByEmpire>(explored_by_empire.int_ref)];
+-
+-        fleet_supplyable =
+-            str_p("resupplyableby")
+-            >> empire_label >>  int_expr_p[fleet_supplyable.int_ref = arg1]
+-            [fleet_supplyable.this_ = new_<Condition::FleetSupplyableByEmpire>(fleet_supplyable.int_ref)];
+-
+-        in_system =
+-            str_p("insystem")
+-            >> (id_label >>     int_expr_p[in_system.int_ref = arg1]
+-                |               eps_p[in_system.int_ref = val(NULL_INT_REF)])
+-            [in_system.this_ = new_<Condition::InSystem>(in_system.int_ref)];
+-
+-        object_id =
+-            str_p("object")
+-            >> id_label >>      int_expr_p[object_id.int_ref = arg1]
+-            [object_id.this_ = new_<Condition::ObjectID>(object_id.int_ref)];
+-
+-        condition2_p =
+-            owner_has_tech[condition2_p.this_ = arg1]
+-            | has_special[condition2_p.this_ = arg1]
+-            | design_has_hull[condition2_p.this_ = arg1]
+-            | design_has_part[condition2_p.this_ = arg1]
+-            | design_has_part_class[condition2_p.this_ = arg1]
+-            | predefined_design[condition2_p.this_ = arg1]
+-            | design_number[condition2_p.this_ = arg1]
+-            | produced_by_empire[condition2_p.this_ = arg1]
+-            | explored_by_empire[condition2_p.this_ = arg1]
+-            | visible_to_empire[condition2_p.this_ = arg1]
+-            | fleet_supplyable[condition2_p.this_ = arg1]
+-            | in_system[condition2_p.this_ = arg1]
+-            | object_id[condition2_p.this_ = arg1];
+-    }
+-    ConditionParser2Definition condition2_def;
+-}
+Index: universe/ValueRefParser.cpp
+===================================================================
+--- universe/ValueRefParser.cpp	(revision 4463)
++++ universe/ValueRefParser.cpp	(working copy)
+@@ -1,418 +0,0 @@
+-#include "Parser.h"
+-
+-#include "ParserUtil.h"
+-#include "ValueRefParser.h"
+-#include "ValueRef.h"
+-#include "Condition.h"
+-
+-using namespace boost::spirit::classic;
+-using namespace phoenix;
+-
+-// final variable tokens: object property names that have the appropriate type
+-// for the ValueRef return type.
+-SimpleRule int_variable_final =
+-    str_p("owner") | "id" | "creationturn" | "age" | "producedbyempireid"
+-    | "designid" | "fleetid" | "planetid" | "systemid" | "finaldestinationid"
+-    | "nextsystemid" | "previoussystemid" | "numships" | "lastturnbattlehere";
+-
+-SimpleRule double_variable_final =
+-    str_p("farming") | "targetfarming" | "industry" | "targetindustry"
+-    | "research" | "targetresearch" | "trade" | "targettrade"
+-    | "mining" | "targetmining" | "construction" | "targetconstruction"
+-    | "population" | "targetpopulation" | "health" | "targethealth"
+-    | "maxfuel" | "fuel" | "maxshield" | "shield"
+-    | "maxdefense" | "defense" | "maxtroops" | "troops"
+-    | "maxstructure" | "structure"
+-    | "supply" | "stealth" | "detection" | "foodconsumption"
+-    | "battlespeed" | "starlanespeed"
+-    | "tradestockpile" | "mineralstockpile" | "foodstockpile"
+-    | "allocatedfood" | "foodallocationformaxgrowth"
+-    | "distancetosource";
+-
+-SimpleRule string_variable_final =
+-    str_p("name") | "species" | "buildingtype" | "focus";
+-
+-SimpleRule variable_container =
+-    str_p("planet") | "system" | "fleet";
+-
+-// complete rule for all possible ValueRef return types
+-StringValueRefRule              string_expr_p;
+-IntValueRefRule                 int_expr_p;
+-DoubleValueRefRule              double_expr_p;
+-PlanetSizeValueRefRule          planetsize_expr_p;
+-PlanetTypeValueRefRule          planettype_expr_p;
+-PlanetEnvironmentValueRefRule   planetenvironment_expr_p;
+-UniverseObjectTypeValueRefRule  universeobjecttype_expr_p;
+-StarTypeValueRefRule            startype_expr_p;
+-
+-// statistic parsers: require more complex parser than single-property valueref
+-template <class T>
+-struct ValueRefStatisticRule
+-{
+-    typedef ValueRef::ValueRefBase<T> RefBase;
+-    struct ValueRefStatisticClosure : boost::spirit::classic::closure<ValueRefStatisticClosure, RefBase*,
+-                                                                      ValueRef::StatisticType, std::string,
+-                                                                      const Condition::ConditionBase*>
+-    {
+-        typedef boost::spirit::classic::closure<
+-            ValueRefStatisticClosure,
+-            RefBase*,
+-            ValueRef::StatisticType,
+-            std::string,
+-            const Condition::ConditionBase*
+-        > BaseType;
+-
+-        typename BaseType::member1 this_;
+-        typename BaseType::member2 stat_type;
+-        typename BaseType::member3 property_name;
+-        typename BaseType::member4 sampling_condition;
+-    };
+-    typedef boost::spirit::classic::rule<Scanner, typename ValueRefStatisticClosure::context_t> type;
+-};
+-
+-namespace {
+-    template <class T>
+-    class ValueRefParserDefinition
+-    {
+-    public:
+-        typedef ValueRef::Constant<T>       RefConst;
+-        typedef ValueRef::Variable<T>       RefVar;
+-        typedef ValueRef::Variable<int>     IntRefVar;
+-        typedef ValueRef::Variable<double>  DoubleRefVar;
+-        typedef ValueRef::Statistic<T>      RefStat;
+-        typedef ValueRef::Operation<T>      RefOp;
+-
+-        typedef typename ValueRefRule<T>::type  Rule;
+-        ValueRefParserDefinition(Rule& expr);
+-
+-    private:
+-        void SpecializedConstantAndVariableFinalDefinition();
+-        void SpecializedVariableDefinition();
+-        void SpecializedVariableStatisticDefinition();
+-
+-        typedef typename ValueRefStatisticRule<T>::type StatisticRule;
+-        StatisticRule   statistic;
+-
+-        SimpleRule      variable_final;
+-        Rule            constant;
+-        Rule            variable;
+-
+-        Rule            primary_expr;
+-        Rule            negative_expr;
+-        Rule            times_expr;
+-        Rule            divides_expr;
+-        Rule            plus_expr;
+-        Rule            minus_expr;
+-
+-        ParamLabel      property_label;
+-        ParamLabel      condition_label;
+-    };
+-
+-    ValueRefParserDefinition<std::string>           string_value_ref_def(string_expr_p);
+-    ValueRefParserDefinition<int>                   int_value_ref_def(int_expr_p);
+-    ValueRefParserDefinition<double>                double_value_ref_def(double_expr_p);
+-    ValueRefParserDefinition<PlanetSize>            planetsize_value_ref_def(planetsize_expr_p);
+-    ValueRefParserDefinition<PlanetType>            planettype_value_ref_def(planettype_expr_p);
+-    ValueRefParserDefinition<PlanetEnvironment>     planetenvironment_value_ref_def(planetenvironment_expr_p);
+-    ValueRefParserDefinition<UniverseObjectType>    universeobjecttype_value_ref_def(universeobjecttype_expr_p);
+-    ValueRefParserDefinition<StarType>              startype_value_ref_def(startype_expr_p);
+-
+-    template <class T>
+-    ValueRefParserDefinition<T>::ValueRefParserDefinition(Rule& expr) :
+-        property_label("property"),
+-        condition_label("condition")
+-    {
+-        SpecializedConstantAndVariableFinalDefinition();
+-        SpecializedVariableDefinition();
+-        SpecializedVariableStatisticDefinition();
+-
+-        // basic expression: constant, variable or statistical variable; input to further calculations
+-        primary_expr =
+-            constant[primary_expr.this_ = arg1]
+-            | variable[primary_expr.this_ = arg1]
+-            | statistic[primary_expr.this_ = arg1]
+-            | '(' >> expr[primary_expr.this_ = arg1] >> ')';
+-
+-        // compound expressions, comprising one or more primary expressions and mathematical operations.
+-        // defined recursively according to order of operations when evaluating.
+-        negative_expr =
+-            primary_expr[negative_expr.this_ = arg1]
+-            | (ch_p('-') >> primary_expr[negative_expr.operand1 = arg1])[negative_expr.this_ = new_<RefOp>(val(ValueRef::NEGATE), negative_expr.operand1)];
+-
+-        times_expr =
+-            (negative_expr[times_expr.operand1 = arg1] >> ch_p('*') >> times_expr[times_expr.operand2 = arg1])[times_expr.this_ = new_<RefOp>(val(ValueRef::TIMES), times_expr.operand1, times_expr.operand2)]
+-            | negative_expr[times_expr.this_ = arg1];
+-
+-        divides_expr =
+-            (times_expr[divides_expr.operand1 = arg1] >> ch_p('/') >> divides_expr[divides_expr.operand2 = arg1])[divides_expr.this_ = new_<RefOp>(val(ValueRef::DIVIDES), divides_expr.operand1, divides_expr.operand2)]
+-            | times_expr[divides_expr.this_ = arg1];
+-
+-        plus_expr =
+-            (divides_expr[plus_expr.operand1 = arg1] >> ch_p('+') >> plus_expr[plus_expr.operand2 = arg1])[plus_expr.this_ = new_<RefOp>(val(ValueRef::PLUS), plus_expr.operand1, plus_expr.operand2)]
+-            | divides_expr[plus_expr.this_ = arg1];
+-
+-        minus_expr =
+-            (plus_expr[minus_expr.operand1 = arg1] >> ch_p('-') >> minus_expr[minus_expr.operand2 = arg1])[minus_expr.this_ = new_<RefOp>(val(ValueRef::MINUS), minus_expr.operand1, minus_expr.operand2)]
+-            | plus_expr[minus_expr.this_ = arg1];
+-
+-        expr = minus_expr[expr.this_ = arg1];
+-    }
+-
+-    template <>
+-    void ValueRefParserDefinition<std::string>::SpecializedConstantAndVariableFinalDefinition()
+-    {
+-        constant =
+-            // quote-enclosed string
+-            name_p[constant.this_ = new_<RefConst>(arg1)]
+-
+-            // parser enum names, not in quotes, like Swamp, Terran, Asteroids,
+-            // which are converted to enum values, and then converted to text
+-            // representations of the enums, like PT_SWAMP, PT_TERRAN,
+-            // PT_ASTEROIDS, which can be looked up in the stringtable
+-            | planet_size_p[constant.this_ =                new_<RefConst>(enum_to_string_(static_cast_<PlanetSize>(arg1)))]
+-            | planet_type_p[constant.this_ =                new_<RefConst>(enum_to_string_(static_cast_<PlanetType>(arg1)))]
+-            | planet_environment_type_p[constant.this_ =    new_<RefConst>(enum_to_string_(static_cast_<PlanetEnvironment>(arg1)))]
+-            | universe_object_type_p[constant.this_ =       new_<RefConst>(enum_to_string_(static_cast_<UniverseObjectType>(arg1)))]
+-            | star_type_p[constant.this_ =                  new_<RefConst>(enum_to_string_(static_cast_<StarType>(arg1)))]
+-
+-            // raw constant number, not in quotes, which are left as the raw
+-            // text (due to the eps_p), just as if they had been written
+-            // enclosed in quotes.  this is done to maintain the requirement
+-            // that an int is always a valid ValueRef value in the parser
+-            | (real_p >> eps_p) [constant.this_ =           new_<RefConst>(construct_<std::string>(arg1, arg2))]
+-            | (int_p >> eps_p)[constant.this_ =             new_<RefConst>(construct_<std::string>(arg1, arg2))];
+-
+-        variable_final = string_variable_final;
+-    }
+-
+-    template <>
+-    void ValueRefParserDefinition<int>::SpecializedConstantAndVariableFinalDefinition()
+-    {
+-        constant =
+-            real_p[constant.this_ = new_<RefConst>(static_cast_<int>(arg1))]
+-            | int_p[constant.this_ = new_<RefConst>(arg1)];
+-
+-        variable_final = int_variable_final;
+-    }
+-
+-    template <>
+-    void ValueRefParserDefinition<double>::SpecializedConstantAndVariableFinalDefinition()
+-    {
+-        constant =
+-            real_p[constant.this_ = new_<RefConst>(arg1)]
+-            | int_p[constant.this_ = new_<RefConst>(static_cast_<double>(arg1))];
+-
+-        variable_final = double_variable_final;
+-    }
+-
+-    template <>
+-    void ValueRefParserDefinition<PlanetSize>::SpecializedConstantAndVariableFinalDefinition()
+-    {
+-        constant =
+-            planet_size_p[constant.this_ = new_<RefConst>(arg1)]
+-            | int_p[constant.this_ = new_<RefConst>(static_cast_<PlanetSize>(arg1))];
+-
+-        variable_final = str_p("planetsize");
+-    }
+-
+-    template <>
+-    void ValueRefParserDefinition<PlanetType>::SpecializedConstantAndVariableFinalDefinition()
+-    {
+-        constant =
+-            planet_type_p[constant.this_ = new_<RefConst>(arg1)]
+-            | int_p[constant.this_ = new_<RefConst>(static_cast_<PlanetType>(arg1))];
+-
+-        variable_final = str_p("planettype") | str_p("nextbetterplanettype");
+-    }
+-
+-    template <>
+-    void ValueRefParserDefinition<PlanetEnvironment>::SpecializedConstantAndVariableFinalDefinition()
+-    {
+-        constant =
+-            planet_environment_type_p[constant.this_ = new_<RefConst>(arg1)]
+-            | int_p[constant.this_ = new_<RefConst>(static_cast_<PlanetEnvironment>(arg1))];
+-
+-        variable_final = str_p("planetenvironment");
+-    }
+-
+-    template <>
+-    void ValueRefParserDefinition<UniverseObjectType>::SpecializedConstantAndVariableFinalDefinition()
+-    {
+-        constant =
+-            universe_object_type_p[constant.this_ = new_<RefConst>(arg1)]
+-            | int_p[constant.this_ = new_<RefConst>(static_cast_<UniverseObjectType>(arg1))];
+-
+-        variable_final = str_p("objecttype");
+-    }
+-
+-    template <>
+-    void ValueRefParserDefinition<StarType>::SpecializedConstantAndVariableFinalDefinition()
+-    {
+-        constant =
+-            star_type_p[constant.this_ = new_<RefConst>(arg1)]
+-            | int_p[constant.this_ = new_<RefConst>(static_cast_<StarType>(arg1))];
+-
+-        variable_final = str_p("startype");
+-    }
+-
+-    template <class T>
+-    void ValueRefParserDefinition<T>::SpecializedVariableDefinition()
+-    {
+-        variable =
+-            str_p("source") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::SOURCE_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("target") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::EFFECT_TARGET_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("localcandidate") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::CONDITION_LOCAL_CANDIDATE_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("rootcandidate") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::CONDITION_ROOT_CANDIDATE_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("value")
+-            [variable.this_ = new_<RefVar>(val(ValueRef::EFFECT_TARGET_REFERENCE), construct_<std::string>(arg1, arg2))];
+-    }
+-
+-    template <>
+-    void ValueRefParserDefinition<std::string>::SpecializedVariableDefinition()
+-    {
+-        typedef ValueRef::StringCast<int>       CastIntRefVar;
+-        typedef ValueRef::StringCast<double>    CastDoubleRefVar;
+-
+-        variable =
+-            str_p("source") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::SOURCE_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("source") >> '.' >> (!(variable_container >> ".") >> int_variable_final)
+-            [variable.this_ = new_<CastIntRefVar>(new_<IntRefVar>(val(ValueRef::SOURCE_REFERENCE), construct_<std::string>(arg1, arg2)))]
+-            | str_p("source") >> '.' >> (!(variable_container >> ".") >> double_variable_final)
+-            [variable.this_ = new_<CastDoubleRefVar>(new_<DoubleRefVar>(val(ValueRef::SOURCE_REFERENCE), construct_<std::string>(arg1, arg2)))]
+-
+-            | str_p("target") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::EFFECT_TARGET_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("target") >> '.' >> (!(variable_container >> ".") >> int_variable_final)
+-            [variable.this_ = new_<CastIntRefVar>(new_<IntRefVar>(val(ValueRef::EFFECT_TARGET_REFERENCE), construct_<std::string>(arg1, arg2)))]
+-            | str_p("target") >> '.' >> (!(variable_container >> ".") >> double_variable_final)
+-            [variable.this_ = new_<CastDoubleRefVar>(new_<DoubleRefVar>(val(ValueRef::EFFECT_TARGET_REFERENCE), construct_<std::string>(arg1, arg2)))]
+-
+-            | str_p("localcandidate") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::CONDITION_LOCAL_CANDIDATE_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("localcandidate") >> '.' >> (!(variable_container >> ".") >> int_variable_final)
+-            [variable.this_ = new_<CastIntRefVar>(new_<IntRefVar>(val(ValueRef::CONDITION_LOCAL_CANDIDATE_REFERENCE), construct_<std::string>(arg1, arg2)))]
+-            | str_p("localcandidate") >> '.' >> (!(variable_container >> ".") >> double_variable_final)
+-            [variable.this_ = new_<CastDoubleRefVar>(new_<DoubleRefVar>(val(ValueRef::CONDITION_LOCAL_CANDIDATE_REFERENCE), construct_<std::string>(arg1, arg2)))]
+-
+-            | str_p("rootcandidate") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::CONDITION_ROOT_CANDIDATE_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("rootcandidate") >> '.' >> (!(variable_container >> ".") >> int_variable_final)
+-            [variable.this_ = new_<CastIntRefVar>(new_<IntRefVar>(val(ValueRef::CONDITION_ROOT_CANDIDATE_REFERENCE), construct_<std::string>(arg1, arg2)))]
+-            | str_p("rootcandidate") >> '.' >> (!(variable_container >> ".") >> double_variable_final)
+-            [variable.this_ = new_<CastDoubleRefVar>(new_<DoubleRefVar>(val(ValueRef::CONDITION_ROOT_CANDIDATE_REFERENCE), construct_<std::string>(arg1, arg2)))]
+-
+-            | str_p("currentturn")
+-            [variable.this_ = new_<CastIntRefVar>(new_<IntRefVar>(val(ValueRef::NON_OBJECT_REFERENCE), construct_<std::string>(arg1, arg2)))]
+-            | str_p("value")
+-            [variable.this_ = new_<RefVar>(val(ValueRef::EFFECT_TARGET_REFERENCE), construct_<std::string>(arg1, arg2))];
+-    }
+-
+-    template <>
+-    void ValueRefParserDefinition<int>::SpecializedVariableDefinition()
+-    {
+-        variable =
+-            str_p("source") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::SOURCE_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("target") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::EFFECT_TARGET_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("localcandidate") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::CONDITION_LOCAL_CANDIDATE_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("rootcandidate") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::CONDITION_ROOT_CANDIDATE_REFERENCE), construct_<std::string>(arg1, arg2))]
+-
+-            | str_p("currentturn")
+-            [variable.this_ = new_<RefVar>(val(ValueRef::NON_OBJECT_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("value")
+-            [variable.this_ = new_<RefVar>(val(ValueRef::EFFECT_TARGET_REFERENCE), construct_<std::string>(arg1, arg2))];
+-    }
+-
+-    template <>
+-    void ValueRefParserDefinition<double>::SpecializedVariableDefinition()
+-    {
+-        typedef ValueRef::StaticCast<int, double> CastRefVar;
+-        variable =
+-            str_p("source") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::SOURCE_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("source") >> '.' >> (!(variable_container >> ".") >> int_variable_final)
+-            [variable.this_ = new_<CastRefVar>(new_<IntRefVar>(val(ValueRef::SOURCE_REFERENCE), construct_<std::string>(arg1, arg2)))]
+-
+-            | str_p("target") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::EFFECT_TARGET_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("target") >> '.' >> (!(variable_container >> ".") >> int_variable_final)
+-            [variable.this_ = new_<CastRefVar>(new_<IntRefVar>(val(ValueRef::EFFECT_TARGET_REFERENCE), construct_<std::string>(arg1, arg2)))]
+-
+-            | str_p("localcandidate") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::CONDITION_LOCAL_CANDIDATE_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("localcandidate") >> '.' >> (!(variable_container >> ".") >> int_variable_final)
+-            [variable.this_ = new_<CastRefVar>(new_<IntRefVar>(val(ValueRef::CONDITION_LOCAL_CANDIDATE_REFERENCE), construct_<std::string>(arg1, arg2)))]
+-
+-            | str_p("rootcandidate") >> '.' >> (!(variable_container >> ".") >> variable_final)
+-            [variable.this_ = new_<RefVar>(val(ValueRef::CONDITION_ROOT_CANDIDATE_REFERENCE), construct_<std::string>(arg1, arg2))]
+-            | str_p("rootcandidate") >> '.' >> (!(variable_container >> ".") >> int_variable_final)
+-            [variable.this_ = new_<CastRefVar>(new_<IntRefVar>(val(ValueRef::CONDITION_ROOT_CANDIDATE_REFERENCE), construct_<std::string>(arg1, arg2)))]
+-
+-            | str_p("currentturn")
+-            [variable.this_ = new_<CastRefVar>(new_<IntRefVar>(val(ValueRef::NON_OBJECT_REFERENCE), construct_<std::string>(arg1, arg2)))]
+-            | str_p("value")
+-            [variable.this_ = new_<RefVar>(val(ValueRef::EFFECT_TARGET_REFERENCE), construct_<std::string>(arg1, arg2))];
+-    }
+-
+-    template <class T>
+-    void ValueRefParserDefinition<T>::SpecializedVariableStatisticDefinition()
+-    {
+-        // enumerated types only support the MODE StatisticType
+-        statistic =
+-            (str_p("mode")
+-             >> property_label >> (!(variable_container >> ".") >> variable_final)
+-                                  [statistic.property_name = construct_<std::string>(arg1, arg2)]
+-             >> condition_label >> condition_p[statistic.sampling_condition = arg1])
+-            [statistic.this_ = new_<RefStat>(statistic.property_name, val(ValueRef::MODE), statistic.sampling_condition)];
+-    }
+-
+-    template <>
+-    void ValueRefParserDefinition<int>::SpecializedVariableStatisticDefinition()
+-    {
+-        statistic =
+-            ((str_p("number") >> condition_label >> condition_p[statistic.sampling_condition = arg1])
+-             [statistic.this_ = new_<RefStat>(val(""), val(ValueRef::COUNT), statistic.sampling_condition)])
+-             | (((str_p("sum")[statistic.stat_type = val(ValueRef::SUM)]
+-                  | str_p("mean")[statistic.stat_type = val(ValueRef::MEAN)]
+-                  | str_p("rms")[statistic.stat_type = val(ValueRef::RMS)]
+-                  | str_p("mode")[statistic.stat_type = val(ValueRef::MODE)]
+-                  | str_p("max")[statistic.stat_type = val(ValueRef::MAX)]
+-                  | str_p("min")[statistic.stat_type = val(ValueRef::MIN)]
+-                  | str_p("spread")[statistic.stat_type = val(ValueRef::SPREAD)]
+-                  | str_p("stdev")[statistic.stat_type = val(ValueRef::STDEV)]
+-                  | str_p("product")[statistic.stat_type = val(ValueRef::PRODUCT)])
+-                 >> property_label >> (!(variable_container >> ".") >> variable_final)
+-                                      [statistic.property_name = construct_<std::string>(arg1, arg2)]
+-                 >> condition_label >> condition_p[statistic.sampling_condition = arg1])
+-                [statistic.this_ = new_<RefStat>(statistic.property_name, statistic.stat_type, statistic.sampling_condition)]);
+-    }
+-
+-    template <>
+-    void ValueRefParserDefinition<double>::SpecializedVariableStatisticDefinition()
+-    {
+-        statistic =
+-            ((str_p("number") >> condition_label >> condition_p[statistic.sampling_condition = arg1])
+-             [statistic.this_ = new_<RefStat>(val("dummy"), val(ValueRef::COUNT), statistic.sampling_condition)])
+-             | (((str_p("sum")[statistic.stat_type = val(ValueRef::SUM)]
+-                  | str_p("mean")[statistic.stat_type = val(ValueRef::MEAN)]
+-                  | str_p("rms")[statistic.stat_type = val(ValueRef::RMS)]
+-                  | str_p("mode")[statistic.stat_type = val(ValueRef::MODE)]
+-                  | str_p("max")[statistic.stat_type = val(ValueRef::MAX)]
+-                  | str_p("min")[statistic.stat_type = val(ValueRef::MIN)]
+-                  | str_p("spread")[statistic.stat_type = val(ValueRef::SPREAD)]
+-                  | str_p("stdev")[statistic.stat_type = val(ValueRef::STDEV)]
+-                  | str_p("product")[statistic.stat_type = val(ValueRef::PRODUCT)])
+-                 >> property_label >> (!(variable_container >> ".") >> variable_final)
+-                                      [statistic.property_name = construct_<std::string>(arg1, arg2)]
+-                 >> condition_label >> condition_p[statistic.sampling_condition = arg1])
+-                [statistic.this_ = new_<RefStat>(statistic.property_name, statistic.stat_type, statistic.sampling_condition)]);
+-    }
+-}
+Index: universe/ConditionParser3.cpp
+===================================================================
+--- universe/ConditionParser3.cpp	(revision 4463)
++++ universe/ConditionParser3.cpp	(working copy)
+@@ -1,231 +0,0 @@
+-#include "Parser.h"
+-
+-#include "ParserUtil.h"
+-#include "ValueRefParser.h"
+-#include "Condition.h"
+-
+-using namespace boost::spirit::classic;
+-using namespace phoenix;
+-
+-extern ParamLabel distance_label;
+-extern ParamLabel condition_label;
+-extern ParamLabel jumps_label;
+-extern ParamLabel low_label;
+-extern ParamLabel high_label;
+-extern ParamLabel number_label;
+-extern ParamLabel sort_key_label;
+-extern ParamLabel type_label;
+-extern ParamLabel probability_label;
+-extern ParamLabel empire_label;
+-
+-ValueRef::ValueRefBase<int>* const NULL_INT_REF = 0;
+-
+-rule<Scanner, ConditionClosure::context_t> condition3_p;
+-
+-namespace {
+-    class ConditionParser3Definition
+-    {
+-    public:
+-        typedef rule<Scanner, ConditionClosure::context_t> Rule;
+-
+-        ConditionParser3Definition();
+-
+-    private:
+-        struct DoubleRefConditionClosure : boost::spirit::classic::closure<DoubleRefConditionClosure, Condition::ConditionBase*, ValueRef::ValueRefBase<double>*, Condition::ConditionBase*>
+-        {
+-            member1 this_;
+-            member2 double_ref_vec;
+-            member3 condition;
+-        };
+-
+-        struct IntRefConditionClosure : boost::spirit::classic::closure<IntRefConditionClosure, Condition::ConditionBase*, ValueRef::ValueRefBase<int>*, Condition::ConditionBase*>
+-        {
+-            member1 this_;
+-            member2 int_ref;
+-            member3 condition;
+-        };
+-
+-        struct IntRefIntRefConditionClosure : boost::spirit::classic::closure<IntRefIntRefConditionClosure, Condition::ConditionBase*, ValueRef::ValueRefBase<int>*, ValueRef::ValueRefBase<int>*, Condition::ConditionBase*>
+-        {
+-            member1 this_;
+-            member2 int_ref_1;
+-            member3 int_ref_2;
+-            member4 condition;
+-        };
+-
+-        struct IntRefIntRefClosure : boost::spirit::classic::closure<IntRefIntRefClosure, Condition::ConditionBase*, ValueRef::ValueRefBase<int>*, ValueRef::ValueRefBase<int>*>
+-        {
+-            member1 this_;
+-            member2 int_ref_1;
+-            member3 int_ref_2;
+-        };
+-
+-        struct SortedNumberOfClosure : boost::spirit::classic::closure<SortedNumberOfClosure, Condition::ConditionBase*,
+-                                                                       ValueRef::ValueRefBase<int>*, ValueRef::ValueRefBase<double>*,
+-                                                                       Condition::SortingMethod, Condition::ConditionBase*>
+-        {
+-            member1 this_;
+-            member2 number;
+-            member3 sort_key;
+-            member4 sorting_method;
+-            member5 condition;
+-        };
+-
+-        struct ConditionParamClosure : boost::spirit::classic::closure<ConditionParamClosure, Condition::ConditionBase*, Condition::ConditionBase*>
+-        {
+-            member1 this_;
+-            member2 condition;
+-        };
+-
+-        struct StarTypeClosure : boost::spirit::classic::closure<StarTypeClosure, Condition::ConditionBase*, std::vector<const ValueRef::ValueRefBase< ::StarType>*> >
+-        {
+-            member1 this_;
+-            member2 types;
+-        };
+-
+-        struct DoubleRefClosure : boost::spirit::classic::closure<DoubleRefClosure, Condition::ConditionBase*, ValueRef::ValueRefBase<double>*>
+-        {
+-            member1 this_;
+-            member2 double_ref;
+-        };
+-
+-        struct StockpileClosure : boost::spirit::classic::closure<StockpileClosure, Condition::ConditionBase*, ResourceType, ValueRef::ValueRefBase<double>*, ValueRef::ValueRefBase<double>*>
+-        {
+-            member1 this_;
+-            member2 stockpile_type;
+-            member3 int_ref_2;
+-            member4 int_ref_1;
+-        };
+-
+-        typedef rule<Scanner, DoubleRefConditionClosure::context_t>     DoubleRefConditionRule;
+-        typedef rule<Scanner, IntRefConditionClosure::context_t>        IntRefConditionRule;
+-        typedef rule<Scanner, IntRefIntRefConditionClosure::context_t>  IntRefIntRefConditionRule;
+-        typedef rule<Scanner, IntRefIntRefClosure::context_t>           IntRefIntRefRule;
+-        typedef rule<Scanner, SortedNumberOfClosure::context_t>         SortedNumberOfRule;
+-        typedef rule<Scanner, ConditionParamClosure::context_t>         ConditionParamRule;
+-        typedef rule<Scanner, StarTypeClosure::context_t>               StarTypeRule;
+-        typedef rule<Scanner, DoubleRefClosure::context_t>              DoubleRefRule;
+-        typedef rule<Scanner, StockpileClosure::context_t>              StockpileRule;
+-
+-        DoubleRefConditionRule      within_distance;
+-        IntRefConditionRule         within_starlane_jumps;
+-        IntRefIntRefConditionRule   number;
+-        IntRefIntRefRule            turn;
+-        IntRefIntRefRule            created_on_turn;
+-        SortedNumberOfRule          number_of;
+-        ConditionParamRule          contains;
+-        ConditionParamRule          contained_by;
+-        StarTypeRule                star_type;
+-        DoubleRefRule               random;
+-        StockpileRule               owner_stockpile;
+-        IntRefConditionRule         resource_supply_connected;
+-    };
+-
+-    ConditionParser3Definition::ConditionParser3Definition()
+-    {
+-        within_distance =
+-            (str_p("withindistance")
+-             >> distance_label >> double_expr_p[within_distance.double_ref_vec = arg1]
+-             >> condition_label >> condition_p[within_distance.condition = arg1])
+-            [within_distance.this_ = new_<Condition::WithinDistance>(within_distance.double_ref_vec, within_distance.condition)];
+-
+-        within_starlane_jumps =
+-            (str_p("withinstarlanejumps")
+-             >> jumps_label >>      int_expr_p[ within_starlane_jumps.int_ref = arg1]
+-             >> condition_label >>  condition_p[within_starlane_jumps.condition = arg1])
+-            [within_starlane_jumps.this_ = new_<Condition::WithinStarlaneJumps>(within_starlane_jumps.int_ref, within_starlane_jumps.condition)];
+-
+-        number =
+-            (str_p("number")
+-             >> (low_label >>       int_expr_p[ number.int_ref_1 = arg1]
+-                 |                  eps_p[      number.int_ref_1 = val(NULL_INT_REF)])
+-             >> (high_label >>      int_expr_p[ number.int_ref_2 = arg1]
+-                 |                  eps_p[      number.int_ref_2 = val(NULL_INT_REF)])
+-             >> condition_label >>  condition_p[number.condition = arg1])
+-            [number.this_ = new_<Condition::Number>(number.int_ref_1, number.int_ref_2, number.condition)];
+-
+-        turn =
+-            (str_p("turn")
+-             >> (low_label >>       int_expr_p[ turn.int_ref_1 = arg1]
+-                 |                  eps_p[      turn.int_ref_1 = val(NULL_INT_REF)])
+-             >> (high_label >>      int_expr_p[ turn.int_ref_2 = arg1]
+-                 |                  eps_p[      turn.int_ref_2 = val(NULL_INT_REF)]))
+-            [turn.this_ = new_<Condition::Turn>(turn.int_ref_1, turn.int_ref_2)];
+-
+-        created_on_turn =
+-            (str_p("createdonturn")
+-             >> (low_label >>       int_expr_p[ created_on_turn.int_ref_1 = arg1]
+-                 |                  eps_p[      created_on_turn.int_ref_1 = val(NULL_INT_REF)])
+-             >> (high_label >>      int_expr_p[ created_on_turn.int_ref_2 = arg1]
+-                 |                  eps_p[      created_on_turn.int_ref_2 = val(NULL_INT_REF)]))
+-            [created_on_turn.this_ = new_<Condition::CreatedOnTurn>(created_on_turn.int_ref_1, created_on_turn.int_ref_2)];
+-
+-        number_of =
+-            ((str_p("numberof")
+-              >> number_label >>    int_expr_p[ number_of.number = arg1]
+-              >> condition_label >> condition_p[number_of.condition = arg1])
+-             [number_of.this_ = new_<Condition::SortedNumberOf>(number_of.number, number_of.condition)])
+-
+-            | ( ((str_p("maximumnumberof")[number_of.sorting_method =   val(Condition::SORT_MAX)]
+-                 | str_p("minimumnumberof")[number_of.sorting_method =  val(Condition::SORT_MIN)]
+-                 | str_p("modenumberof")[number_of.sorting_method =     val(Condition::SORT_MODE)])
+-                 >> number_label >>     int_expr_p[number_of.number = arg1]
+-                 >> sort_key_label >>   double_expr_p[number_of.sort_key = arg1]
+-                 >> condition_label >>  condition_p[number_of.condition = arg1])
+-                [number_of.this_ = new_<Condition::SortedNumberOf>(number_of.number, number_of.sort_key,
+-                                                                   number_of.sorting_method, number_of.condition)]);
+-
+-        contains =
+-            (str_p("contains")
+-             >> condition_label >> condition_p[contains.condition = arg1])
+-            [contains.this_ = new_<Condition::Contains>(contains.condition)];
+-
+-        contained_by =
+-            (str_p("containedby")
+-             >> condition_label >> condition_p[contained_by.condition = arg1])
+-            [contained_by.this_ = new_<Condition::ContainedBy>(contained_by.condition)];
+-
+-        star_type =
+-            (str_p("star")
+-             >> type_label
+-             >> (startype_expr_p[push_back_(star_type.types, arg1)]
+-                 | ('[' >> +(startype_expr_p[push_back_(star_type.types, arg1)]) >> ']')))
+-            [star_type.this_ = new_<Condition::StarType>(star_type.types)];
+-
+-        random =
+-            (str_p("random")
+-             >> probability_label
+-             >> double_expr_p[random.double_ref = arg1])
+-            [random.this_ = new_<Condition::Chance>(random.double_ref)];
+-
+-        owner_stockpile =
+-            ((str_p("ownerfoodstockpile")[owner_stockpile.stockpile_type = val(RE_FOOD)]
+-              | str_p("ownermineralstockpile")[owner_stockpile.stockpile_type = val(RE_MINERALS)]
+-              | str_p("ownertradestockpile")[owner_stockpile.stockpile_type = val(RE_TRADE)])
+-             >> low_label >> double_expr_p[owner_stockpile.int_ref_2 = arg1]
+-             >> high_label >> double_expr_p[owner_stockpile.int_ref_1 = arg1])
+-            [owner_stockpile.this_ = new_<Condition::EmpireStockpileValue>(owner_stockpile.stockpile_type, owner_stockpile.int_ref_2, owner_stockpile.int_ref_1)];
+-
+-        resource_supply_connected =
+-            (str_p("resourcesupplyconnectedby")
+-             >> empire_label >> int_expr_p[resource_supply_connected.int_ref = arg1]
+-             >> condition_label >> condition_p[resource_supply_connected.condition = arg1])
+-            [resource_supply_connected.this_ = new_<Condition::ResourceSupplyConnectedByEmpire>(resource_supply_connected.int_ref,
+-                                                                                                resource_supply_connected.condition)];
+-
+-        condition3_p =
+-            within_distance[condition3_p.this_ = arg1]
+-            | within_starlane_jumps[condition3_p.this_ = arg1]
+-            | number[condition3_p.this_ = arg1]
+-            | turn[condition3_p.this_ = arg1]
+-            | created_on_turn[condition3_p.this_ = arg1]
+-            | number_of[condition3_p.this_ = arg1]
+-            | contains[condition3_p.this_ = arg1]
+-            | contained_by[condition3_p.this_ = arg1]
+-            | star_type[condition3_p.this_ = arg1]
+-            | random[condition3_p.this_ = arg1]
+-            | owner_stockpile[condition3_p.this_ = arg1]
+-            | resource_supply_connected[condition3_p.this_ = arg1];
+-    }
+-    ConditionParser3Definition condition3_def;
+-}
+Index: universe/ParserUtil.cpp
+===================================================================
+--- universe/ParserUtil.cpp	(revision 4463)
++++ universe/ParserUtil.cpp	(working copy)
+@@ -1,184 +0,0 @@
+-#include "Parser.h"
+-
+-#include "ParserUtil.h"
+-#include "ValueRefParser.h"
+-#include "../util/AppInterface.h"
+-
+-#include <cstring>
+-
+-
+-using namespace boost::spirit::classic;
+-using namespace phoenix;
+-
+-const Skip skip_p = Skip();
+-
+-const function<push_back_impl> push_back_ =             push_back_impl();
+-const function<insert_impl> insert_ =                   insert_impl();
+-const function<make_pair_impl> make_pair_ =             make_pair_impl();
+-const function<enum_to_string_impl> enum_to_string_ =   enum_to_string_impl();
+-
+-rule<Scanner, NameClosure::context_t>   name_p;
+-rule<Scanner, NameClosure::context_t>   file_name_p;
+-rule<Scanner, ColourClosure::context_t> colour_p;
+-
+-symbols<bool>                   true_false_p;
+-symbols<PlanetSize>             planet_size_p;
+-symbols<PlanetType>             planet_type_p;
+-symbols<PlanetEnvironment>      planet_environment_type_p;
+-symbols<UniverseObjectType>     universe_object_type_p;
+-symbols<StarType>               star_type_p;
+-symbols<EmpireAffiliationType>  affiliation_type_p;
+-symbols<UnlockableItemType>     unlockable_item_type_p;
+-symbols<TechType>               tech_type_p;
+-symbols<CombatFighterType>      combat_fighter_type_p;
+-symbols<ShipPartClass>          part_class_p;
+-symbols<ShipSlotType>           slot_type_p;
+-symbols<CaptureResult>          capture_result_p;
+-
+-namespace {
+-    bool Init()
+-    {
+-        name_p =
+-            lexeme_d['"' >> (*(alnum_p | '_'))[name_p.this_ = construct_<std::string>(arg1, arg2)] >> '"'];
+-
+-        file_name_p =
+-            lexeme_d['"' >> (*(alnum_p | '_' | '-' | '/' | '.'))[file_name_p.this_ = construct_<std::string>(arg1, arg2)] >> '"'];
+-
+-        colour_p =
+-            ('(' >> limit_d(0u, 255u)[uint_p[colour_p.r = arg1]] >> ','     // matches three comma-delminted colour components
+-                 >> limit_d(0u, 255u)[uint_p[colour_p.g = arg1]] >> ','
+-                 >> limit_d(0u, 255u)[uint_p[colour_p.b = arg1]]
+-                 >> ((',' >> limit_d(0u, 255u)[uint_p[colour_p.a = arg1]])  // matches a fourth (alpha) component and preceeding comma
+-                      | epsilon_p[colour_p.a = 255]) >>                     // or matches nothing, and defaults to alpha = 255
+-             ')')
+-            [colour_p.this_ = construct_<GG::Clr>(colour_p.r, colour_p.g, colour_p.b, colour_p.a)];
+-
+-        true_false_p.add
+-            ("true",        true)
+-            ("false",       false);
+-
+-        planet_size_p.add
+-            ("tiny",        SZ_TINY)
+-            ("small",       SZ_SMALL)
+-            ("medium",      SZ_MEDIUM)
+-            ("large",       SZ_LARGE)
+-            ("huge",        SZ_HUGE)
+-            ("asteroids",   SZ_ASTEROIDS)
+-            ("gasgiant",    SZ_GASGIANT);
+-
+-        planet_type_p.add
+-            ("swamp",       PT_SWAMP)
+-            ("toxic",       PT_TOXIC)
+-            ("inferno",     PT_INFERNO)
+-            ("radiated",    PT_RADIATED)
+-            ("barren",      PT_BARREN)
+-            ("tundra",      PT_TUNDRA)
+-            ("desert",      PT_DESERT)
+-            ("terran",      PT_TERRAN)
+-            ("ocean",       PT_OCEAN)
+-            ("asteroids",   PT_ASTEROIDS)
+-            ("gasgiant",    PT_GASGIANT);
+-
+-        planet_environment_type_p.add
+-            ("uninhabitable",       PE_UNINHABITABLE)
+-            ("hostile",             PE_HOSTILE)
+-            ("poor",                PE_POOR)
+-            ("adequate",            PE_ADEQUATE)
+-            ("good",                PE_GOOD);
+-
+-        universe_object_type_p.add
+-            ("building",            OBJ_BUILDING)
+-            ("ship",                OBJ_SHIP)
+-            ("fleet",               OBJ_FLEET) 
+-            ("planet",              OBJ_PLANET)
+-            ("populationcenter",    OBJ_POP_CENTER)
+-            ("productioncenter",    OBJ_PROD_CENTER)
+-            ("system",              OBJ_SYSTEM);
+-
+-        star_type_p.add
+-            ("blue",        STAR_BLUE)
+-            ("white",       STAR_WHITE)
+-            ("yellow",      STAR_YELLOW)
+-            ("orange",      STAR_ORANGE)
+-            ("red",         STAR_RED)
+-            ("neutron",     STAR_NEUTRON)
+-            ("blackhole",   STAR_BLACK)
+-            ("nostar",      STAR_NONE);
+-
+-        affiliation_type_p.add
+-            ("theempire",   AFFIL_SELF)
+-            ("enemyof",     AFFIL_ENEMY)
+-            ("allyof",      AFFIL_ALLY)
+-            ("anyempire",   AFFIL_ANY);
+-
+-        unlockable_item_type_p.add
+-            ("building",    UIT_BUILDING)
+-            ("shippart",    UIT_SHIP_PART)
+-            ("shiphull",    UIT_SHIP_HULL)
+-            ("shipdesign",  UIT_SHIP_DESIGN)
+-            ("tech",        UIT_TECH);
+-
+-        tech_type_p.add
+-            ("theory",      TT_THEORY)
+-            ("application", TT_APPLICATION)
+-            ("refinement",  TT_REFINEMENT);
+-
+-        combat_fighter_type_p.add
+-            ("interceptor", INTERCEPTOR)
+-            ("bomber",      BOMBER);
+-
+-        part_class_p.add
+-            ("shortrange",      PC_SHORT_RANGE)
+-            ("missiles",        PC_MISSILES)
+-            ("fighters",        PC_FIGHTERS)
+-            ("pointdefense",    PC_POINT_DEFENSE)
+-            ("shield",          PC_SHIELD)
+-            ("armour",          PC_ARMOUR)
+-            ("troops",          PC_TROOPS)
+-            ("detection",       PC_DETECTION)
+-            ("stealth",         PC_STEALTH)
+-            ("fuel",            PC_FUEL)
+-            ("colony",          PC_COLONY)
+-            ("battlespeed",     PC_BATTLE_SPEED)
+-            ("starlanespeed",   PC_STARLANE_SPEED);
+-
+-        slot_type_p.add
+-            ("external",    SL_EXTERNAL)
+-            ("internal",    SL_INTERNAL);
+-
+-        capture_result_p.add
+-            ("capture",     CR_CAPTURE)
+-            ("destroy",     CR_DESTROY)
+-            ("retain",      CR_RETAIN);
+-
+-        return true;
+-    }
+-    bool dummy = Init();
+-}
+-
+-void ReportError(const char* input, const parse_info<const char*>& result)
+-{
+-    int line = 1;
+-    const char* line_first = result.stop;
+-    const char* line_last = input;
+-    while (input < line_first && *(line_first - 1) != '\n') {
+-        --line_first;
+-    }
+-    while (line_last < result.stop) {
+-        if (*line_last == '\n')
+-            ++line;
+-        ++line_last;
+-    }
+-    int input_length = std::strlen(input);
+-    while (line_last < input + input_length && *line_last != '\n') {
+-        ++line_last;
+-    }
+-    std::cerr              << "error at or after the indicated point on line " << line << ":" << std::endl;
+-    std::cerr              << std::string(line_first, line_last) << "" << std::endl;
+-    std::cerr              << std::string(result.stop - line_first, ' ') << "^" << std::endl << std::endl;
+-
+-    Logger().errorStream() << "error at or after the indicated point on line " << line << ":";
+-    Logger().errorStream() << std::string(line_first, line_last) << "";
+-    Logger().errorStream() << std::string(result.stop - line_first, ' ') << "^";
+-    Logger().errorStream() << " ";
+-}
+Index: universe/TopLevelParsers.cpp
+===================================================================
+--- universe/TopLevelParsers.cpp	(revision 4463)
++++ universe/TopLevelParsers.cpp	(working copy)
+@@ -1,463 +0,0 @@
+-#include "Parser.h"
+-
+-#include "ParserUtil.h"
+-#include "ValueRefParser.h"
+-#include "Effect.h"     // for Effect::EffectsGroup
+-#include "Building.h"   // for Building
+-#include "Special.h"    // for Special
+-#include "Species.h"    // for Species
+-#include "Condition.h"
+-#include "ShipDesign.h"
+-
+-#include <boost/spirit/include/classic_insert_at_actor.hpp>
+-
+-using namespace boost::spirit::classic;
+-using namespace phoenix;
+-
+-rule<Scanner, BuildingTypeClosure::context_t>       building_type_p;
+-rule<Scanner, SpecialClosure::context_t>            special_p;
+-rule<Scanner, SpeciesClosure::context_t>            species_p;
+-rule<Scanner, TechClosure::context_t>               tech_p;
+-rule<Scanner, ItemSpecClosure::context_t>           item_spec_p;
+-rule<Scanner, CategoryClosure::context_t>           category_p;
+-rule<Scanner, PartStatsClosure::context_t>          part_stats_p;
+-rule<Scanner, PartClosure::context_t>               part_p;
+-rule<Scanner, HullStatsClosure::context_t>          hull_stats_p;
+-rule<Scanner, HullClosure::context_t>               hull_p;
+-rule<Scanner, ShipDesignClosure::context_t>         ship_design_p;
+-rule<Scanner, FleetPlanClosure::context_t>          fleet_plan_p;
+-rule<Scanner, MonsterFleetPlanClosure::context_t>   monster_fleet_plan_p;
+-rule<Scanner, AlignmentClosure::context_t>          alignment_p;
+-rule<Scanner, EffectsGroupVecClosure::context_t>    effects_group_vec_p;
+-
+-struct EffectsGroupClosure : boost::spirit::classic::closure<EffectsGroupClosure, Effect::EffectsGroup*,
+-                                                             Condition::ConditionBase*, Condition::ConditionBase*,
+-                                                             std::string, std::vector<Effect::EffectBase*> >
+-{
+-    member1 this_;
+-    member2 scope;
+-    member3 activation;
+-    member4 stacking_group;
+-    member5 effects;
+-};
+-
+-struct SlotClosure : boost::spirit::classic::closure<SlotClosure, HullType::Slot, ShipSlotType, double, double>
+-{
+-    member1 this_;
+-    member2 slot_type;
+-    member3 x;
+-    member4 y;
+-};
+-
+-struct SlotVecClosure : boost::spirit::classic::closure<SlotVecClosure, std::vector<HullType::Slot> >
+-{
+-    member1 this_;
+-};
+-
+-struct ShipSlotTypeVecClosure : boost::spirit::classic::closure<ShipSlotTypeVecClosure, std::vector<ShipSlotType> >
+-{
+-    member1 this_;
+-};
+-
+-struct FocusTypeClosure : boost::spirit::classic::closure<FocusTypeClosure, FocusType, std::string, std::string,
+-                                                          Condition::ConditionBase*, std::string>
+-{
+-    member1 this_;
+-    member2 name;
+-    member3 description;
+-    member4 location;
+-    member5 graphic;
+-};
+-
+-struct FocusTypeVecClosure : boost::spirit::classic::closure<FocusTypeVecClosure, std::vector<FocusType> >
+-{
+-    member1 this_;
+-};
+-
+-struct PlanetTypeEnvironmentMapClosure : boost::spirit::classic::closure<PlanetTypeEnvironmentMapClosure, std::map<PlanetType, PlanetEnvironment>,
+-                                                                         PlanetType, PlanetEnvironment>
+-{
+-    member1 this_;
+-    member2 type;
+-    member3 env;
+-};
+-
+-struct TechInfoClosure : boost::spirit::classic::closure<TechInfoClosure, Tech::TechInfo, std::string, std::string, std::string,
+-                                                         std::string, TechType, double, int, bool>
+-{
+-    member1 this_;
+-    member2 name;
+-    member3 description;
+-    member4 short_description;
+-    member5 category;
+-    member6 tech_type;
+-    member7 research_cost;
+-    member8 research_turns;
+-    member9 researchable;
+-};
+-
+-namespace {
+-    rule<Scanner, EffectsGroupClosure::context_t>               effects_group_p;
+-    rule<Scanner, SlotClosure::context_t>                       slot_p;
+-    rule<Scanner, SlotVecClosure::context_t>                    slot_vec_p;
+-    rule<Scanner, ShipSlotTypeVecClosure::context_t>            ship_slot_type_vec_p;
+-    rule<Scanner, FocusTypeClosure::context_t>                  focus_type_p;
+-    rule<Scanner, FocusTypeVecClosure::context_t>               focus_type_vec_p;
+-    rule<Scanner, PlanetTypeEnvironmentMapClosure::context_t>   planet_type_environment_map_p;
+-    rule<Scanner, TechInfoClosure::context_t>                   tech_info_p;
+-
+-    ParamLabel scope_label("scope");
+-    ParamLabel activation_label("activation");
+-    ParamLabel stackinggroup_label("stackinggroup");
+-    ParamLabel effects_label("effects");
+-    ParamLabel name_label("name");
+-    ParamLabel description_label("description");
+-    ParamLabel shortdescription_label("short_description");
+-    ParamLabel buildcost_label("buildcost");
+-    ParamLabel buildtime_label("buildtime");
+-    ParamLabel captureresult_label("captureresult");
+-    ParamLabel effectsgroups_label("effectsgroups");
+-    ParamLabel graphic_label("graphic");
+-    ParamLabel techtype_label("techtype");
+-    ParamLabel category_label("category");
+-    ParamLabel researchcost_label("researchcost");
+-    ParamLabel researchturns_label("researchturns");
+-    ParamLabel prerequisites_label("prerequisites");
+-    ParamLabel unlock_label("unlock");
+-    ParamLabel type_label("type");
+-    ParamLabel environment_label("environment");
+-    ParamLabel environments_label("environments");
+-    ParamLabel foci_label("foci");
+-    ParamLabel location_label("location");
+-    ParamLabel partclass_label("class");
+-    ParamLabel speed_label("speed");
+-    ParamLabel starlane_speed_label("starlanespeed");
+-    ParamLabel slots_label("slots");
+-    ParamLabel mountableslottypes_label("mountableslottypes");
+-    ParamLabel colour_label("colour");
+-    ParamLabel position_label("position");
+-    ParamLabel damage_label("damage");
+-    ParamLabel anti_ship_damage_label("antishipdamage");
+-    ParamLabel anti_fighter_damage_label("antifighterdamage");
+-    ParamLabel ROF_label("rof");
+-    ParamLabel range_label("range");
+-    ParamLabel fighter_weapon_range_label("fighterweaponrange");
+-    ParamLabel stealth_label("stealth");
+-    ParamLabel health_label("health");
+-    ParamLabel structure_label("structure");
+-    ParamLabel fighter_type_label("fightertype");
+-    ParamLabel launch_rate_label("launchrate");
+-    ParamLabel detection_label("detection");
+-    ParamLabel capacity_label("capacity");
+-    ParamLabel fuel_label("fuel");
+-    ParamLabel hull_label("hull");
+-    ParamLabel parts_label("parts");
+-    ParamLabel ships_label("ships");
+-    ParamLabel model_label("model");
+-    ParamLabel spawn_rate_label("spawnrate");
+-    ParamLabel spawn_limit_label("spawnlimit");
+-
+-    Effect::EffectsGroup* const NULL_EFF = 0;
+-    Condition::ConditionBase* const NULL_COND = 0;
+-
+-    bool Init()
+-    {
+-        effects_group_p =
+-            (str_p("effectsgroup")
+-             >> scope_label >>              condition_p[effects_group_p.scope = arg1]
+-             >> !(activation_label >>       condition_p[effects_group_p.activation = arg1])
+-             >> !(stackinggroup_label >>    name_p[effects_group_p.stacking_group = arg1])
+-             >> effects_label
+-             >> (effect_p[push_back_(effects_group_p.effects, arg1)]
+-                 | ('[' >> +(effect_p[push_back_(effects_group_p.effects, arg1)]) >> ']')))
+-            [effects_group_p.this_ = new_<Effect::EffectsGroup>(effects_group_p.scope, effects_group_p.activation,
+-                                                                effects_group_p.effects, effects_group_p.stacking_group)];
+-
+-        effects_group_vec_p =
+-            effects_group_p(NULL_EFF, NULL_COND, NULL_COND)[push_back_(effects_group_vec_p.this_, construct_<boost::shared_ptr<const Effect::EffectsGroup> >(arg1))]
+-            | ('[' >> +(effects_group_p(NULL_EFF, NULL_COND, NULL_COND)[push_back_(effects_group_vec_p.this_, construct_<boost::shared_ptr<const Effect::EffectsGroup> >(arg1))]) >> ']');
+-
+-        building_type_p =
+-            (str_p("buildingtype")
+-             >> name_label >>               name_p[building_type_p.name = arg1]
+-             >> description_label >>        name_p[building_type_p.description = arg1]
+-             >> buildcost_label >>          real_p[building_type_p.production_cost = arg1]
+-             >> buildtime_label >>          int_p[building_type_p.production_time = arg1]
+-             >> (str_p("unproducible")[             building_type_p.producible = val(false)]
+-                 | (str_p("producible") | eps_p)[   building_type_p.producible = val(true)])
+-             >> location_label >>           condition_p[building_type_p.location = arg1]
+-             >> (captureresult_label >>     capture_result_p[building_type_p.capture_result = arg1]
+-                 |                          eps_p[building_type_p.capture_result = val(CR_CAPTURE)])
+-             >> !(effectsgroups_label >>    effects_group_vec_p[building_type_p.effects_groups = arg1])
+-             >> graphic_label >>            file_name_p[building_type_p.graphic = arg1])
+-            [building_type_p.this_ = new_<BuildingType>(building_type_p.name, building_type_p.description,
+-                                                        building_type_p.production_cost, building_type_p.production_time,
+-                                                        building_type_p.producible,
+-                                                        building_type_p.capture_result, building_type_p.location,
+-                                                        building_type_p.effects_groups, building_type_p.graphic)];
+-
+-        special_p =
+-            (str_p("special")
+-             >> name_label >>               name_p[special_p.name = arg1]
+-             >> description_label >>        name_p[special_p.description = arg1]
+-             >> ((spawn_rate_label >>       real_p[special_p.spawn_rate = arg1]) |
+-                                            eps_p[special_p.spawn_rate = val(1.0)])
+-             >> ((spawn_limit_label >>      int_p[special_p.spawn_limit = arg1]) |
+-                                            eps_p[special_p.spawn_limit = val(9999)])
+-             >> (location_label >>          condition_p[special_p.location = arg1]
+-                 |                          eps_p[special_p.location = val(NULL_COND)])
+-             >> !(effectsgroups_label >>    effects_group_vec_p[special_p.effects_groups = arg1])
+-             >> graphic_label >>            file_name_p[special_p.graphic = arg1])
+-            [special_p.this_ = new_<Special>(special_p.name, special_p.description, special_p.effects_groups,
+-                                             special_p.spawn_rate, special_p.spawn_limit,
+-                                             special_p.location, special_p.graphic)];
+-
+-        focus_type_p =
+-            (str_p("focus")
+-             >> name_label >>               name_p[focus_type_p.name = arg1]
+-             >> description_label >>        name_p[focus_type_p.description = arg1]
+-             >> location_label >>           condition_p[focus_type_p.location = arg1]
+-             >> graphic_label >>            file_name_p[focus_type_p.graphic = arg1])
+-            [focus_type_p.this_ = construct_<FocusType>(focus_type_p.name, focus_type_p.description, focus_type_p.location,
+-                                                        focus_type_p.graphic)];
+-
+-        focus_type_vec_p =
+-            focus_type_p[push_back_(focus_type_vec_p.this_, arg1)]
+-            | ('[' >> +(focus_type_p[push_back_(focus_type_vec_p.this_, arg1)]) >> ']');
+-
+-        planet_type_environment_map_p =
+-            (type_label >>                  planet_type_p[planet_type_environment_map_p.type = arg1]
+-             >> environment_label >>        planet_environment_type_p[planet_type_environment_map_p.env = arg1])
+-            [insert_(planet_type_environment_map_p.this_,
+-                     make_pair_(planet_type_environment_map_p.type,
+-                                planet_type_environment_map_p.env))]
+-            | ('[' >> +((type_label >>                  planet_type_p[planet_type_environment_map_p.type = arg1]
+-                         >> environment_label >>        planet_environment_type_p[planet_type_environment_map_p.env = arg1])
+-                        [insert_(planet_type_environment_map_p.this_,
+-                                 make_pair_(planet_type_environment_map_p.type,
+-                                            planet_type_environment_map_p.env))])
+-               >> ']');
+-
+-        species_p =
+-            (str_p("species")
+-             >> name_label >>               name_p[species_p.name = arg1]
+-             >> description_label >>        name_p[species_p.description = arg1]
+-             >> (str_p("playable")[species_p.playable = val(true)]
+-               | eps_p            [species_p.playable = val(false)])
+-             >> (str_p("canproduceships")[species_p.can_produce_ships = val(true)]
+-               | eps_p                   [species_p.can_produce_ships = val(false)])
+-             >> (str_p("cancolonize")[species_p.can_colonize = val(true)]
+-               | eps_p               [species_p.can_colonize = val(false)])
+-             >> !(foci_label >>             focus_type_vec_p[species_p.foci = arg1])
+-             >> !(effectsgroups_label >>    effects_group_vec_p[species_p.effects_groups = arg1])
+-             >> !(environments_label >>     planet_type_environment_map_p[species_p.environments = arg1])
+-             >> graphic_label >>            file_name_p[species_p.graphic = arg1])
+-            [species_p.this_ = new_<Species>(species_p.name, species_p.description, species_p.foci,
+-                                             species_p.environments, species_p.effects_groups,
+-                                             species_p.playable, species_p.can_colonize, species_p.can_produce_ships,
+-                                             species_p.graphic)];
+-
+-        item_spec_p =
+-            (str_p("item")
+-             >> type_label >>   unlockable_item_type_p[item_spec_p.type = arg1]
+-             >> name_label >>   name_p[item_spec_p.name = arg1])
+-            [item_spec_p.this_ = construct_<ItemSpec>(item_spec_p.type, item_spec_p.name)];
+-
+-        category_p =
+-            (str_p("category")
+-             >> name_label >>       name_p[category_p.name = arg1]
+-             >> graphic_label >>    file_name_p[category_p.graphic = arg1]
+-             >> colour_label >>     colour_p[category_p.colour = arg1])
+-            [category_p.this_ = new_<TechCategory>(category_p.name, category_p.graphic, category_p.colour)];
+-
+-        tech_info_p = (
+-                name_label >>               name_p[tech_info_p.name = arg1]
+-             >> description_label >>        name_p[tech_info_p.description = arg1]
+-             >> shortdescription_label >>   name_p[tech_info_p.short_description = arg1]
+-             >> ((techtype_label >>         tech_type_p[tech_info_p.tech_type = arg1])
+-                 |                          eps_p[tech_info_p.tech_type = val(TT_THEORY)])
+-             >> category_label >>           name_p[tech_info_p.category = arg1]
+-             >> ((researchcost_label >>     real_p[tech_info_p.research_cost = arg1])
+-                 |                          eps_p[tech_info_p.research_cost = val(1.0)])
+-             >> ((researchturns_label >>    int_p[tech_info_p.research_turns = arg1])
+-                 |                          eps_p[tech_info_p.research_turns = val(1)])
+-             >> (str_p("unresearchable")[           tech_info_p.researchable = val(false)]
+-                 | (str_p("researchable") | eps_p)[ tech_info_p.researchable = val(true)]))
+-            [tech_info_p.this_ = construct_<Tech::TechInfo>(tech_info_p.name, tech_info_p.description, tech_info_p.short_description,
+-                                                            tech_info_p.category, tech_info_p.tech_type, tech_info_p.research_cost,
+-                                                            tech_info_p.research_turns, tech_info_p.researchable)];
+-
+-        tech_p =
+-            (str_p("tech")
+-             >> tech_info_p[tech_p.tech_info = arg1]
+-             >> !(prerequisites_label
+-             >> (name_p[insert_(tech_p.prerequisites, arg1)] |
+-                 ('[' >> *(name_p[insert_(tech_p.prerequisites, arg1)]) >> ']')))
+-             >> !(unlock_label
+-             >> (item_spec_p[push_back_(tech_p.unlocked_items, arg1)]
+-                 | ('[' >> *(item_spec_p[push_back_(tech_p.unlocked_items, arg1)]) >> ']')))
+-             >> !(effectsgroups_label >>    effects_group_vec_p[tech_p.effects_groups = arg1])
+-             >> !(graphic_label >> file_name_p[tech_p.graphic = arg1]))
+-            [tech_p.this_ = new_<Tech>(tech_p.tech_info,
+-                                       tech_p.effects_groups, tech_p.prerequisites, tech_p.unlocked_items,
+-                                       tech_p.graphic)];
+-
+-        ship_slot_type_vec_p =
+-            slot_type_p[push_back_(ship_slot_type_vec_p.this_, arg1)]
+-            | ('[' >> +(slot_type_p[push_back_(ship_slot_type_vec_p.this_, arg1)]) >> ']');
+-
+-        part_stats_p =
+-            // FighterStats
+-            (type_label >>                      combat_fighter_type_p[part_stats_p.fighter_type = arg1]
+-             >> anti_ship_damage_label >>       real_p[part_stats_p.anti_ship_damage = arg1]
+-             >> anti_fighter_damage_label >>    real_p[part_stats_p.anti_fighter_damage = arg1]
+-             >> launch_rate_label >>            real_p[part_stats_p.rate = arg1]
+-             >> fighter_weapon_range_label >>   real_p[part_stats_p.range = arg1]
+-             >> speed_label >>                  real_p[part_stats_p.speed = arg1]
+-             >> stealth_label >>                real_p[part_stats_p.stealth = arg1]
+-             >> structure_label >>              real_p[part_stats_p.structure = arg1]
+-             >> detection_label >>              real_p[part_stats_p.detection = arg1]
+-             >> capacity_label >>               int_p[part_stats_p.capacity = arg1])
+-            [part_stats_p.this_ =
+-             construct_<FighterStats>(part_stats_p.fighter_type, part_stats_p.anti_ship_damage,
+-                                      part_stats_p.anti_fighter_damage, part_stats_p.rate,
+-                                      part_stats_p.range, part_stats_p.speed,
+-                                      part_stats_p.stealth, part_stats_p.structure,
+-                                      part_stats_p.detection, part_stats_p.capacity)]
+-
+-            // a single double stat
+-            | (capacity_label >> real_p[part_stats_p.this_ = arg1])
+-
+-            // LRStats
+-            | (damage_label >>      real_p[part_stats_p.damage = arg1]
+-               >> ROF_label >>      real_p[part_stats_p.rate = arg1]
+-               >> range_label >>    real_p[part_stats_p.range = arg1]
+-               >> speed_label >>    real_p[part_stats_p.speed = arg1]
+-               >> stealth_label >>  real_p[part_stats_p.stealth = arg1]
+-               >> structure_label >>real_p[part_stats_p.structure = arg1]
+-               >> capacity_label >> int_p[part_stats_p.capacity = arg1])
+-            [part_stats_p.this_ =
+-             construct_<LRStats>(part_stats_p.damage, part_stats_p.rate, part_stats_p.range,
+-                                 part_stats_p.speed, part_stats_p.stealth, part_stats_p.structure,
+-                                 part_stats_p.capacity)]
+-
+-            // DirectFireStats
+-            | (damage_label >>      real_p[part_stats_p.damage = arg1]
+-               >> ROF_label >>      real_p[part_stats_p.rate = arg1]
+-               >> range_label >>    real_p[part_stats_p.range = arg1])
+-            [part_stats_p.this_ =
+-             construct_<DirectFireStats>(part_stats_p.damage, part_stats_p.rate, part_stats_p.range)];
+-
+-        part_p =
+-            (str_p("part")
+-             >> name_label >>               name_p[part_p.name = arg1]
+-             >> description_label >>        name_p[part_p.description = arg1]
+-             >> partclass_label >>          part_class_p[part_p.part_class = arg1]
+-             >> part_stats_p[part_p.stats = arg1]
+-             >> buildcost_label >>          real_p[part_p.cost = arg1]
+-             >> buildtime_label >>          int_p[part_p.production_time = arg1]
+-             >> (str_p("unproducible")[             part_p.producible = val(false)]
+-                 | (str_p("producible") | eps_p)[   part_p.producible = val(true)])
+-             >> mountableslottypes_label >> ship_slot_type_vec_p[part_p.mountable_slot_types = arg1]
+-             >> location_label >>           condition_p[part_p.location = arg1]
+-             >> !(effectsgroups_label >>    effects_group_vec_p[part_p.effects_groups = arg1])
+-             >> graphic_label >>            file_name_p[part_p.graphic = arg1])
+-            [part_p.this_ = new_<PartType>(part_p.name, part_p.description, part_p.part_class,
+-                                           part_p.stats, part_p.cost, part_p.production_time, part_p.producible,
+-                                           part_p.mountable_slot_types, part_p.location,
+-                                           part_p.effects_groups, part_p.graphic)];
+-
+-        slot_p =
+-            (str_p("slot")
+-             >> type_label >>               slot_type_p[slot_p.slot_type = arg1]
+-             >> position_label >> '(' >>    real_p[slot_p.x = arg1]
+-             >> ',' >>                      real_p[slot_p.y = arg1] >> ')')
+-            [slot_p.this_ = construct_<HullType::Slot>(slot_p.slot_type, slot_p.x, slot_p.y)];
+-
+-        slot_vec_p =
+-            slot_p[push_back_(slot_vec_p.this_, arg1)]
+-            | ('[' >> +(slot_p[push_back_(slot_vec_p.this_, arg1)]) >> ']');
+-
+-        hull_stats_p =
+-            (speed_label >>             real_p[hull_stats_p.battle_speed = arg1]
+-            >> starlane_speed_label >>  real_p[hull_stats_p.starlane_speed = arg1]
+-            >> fuel_label >>            real_p[hull_stats_p.fuel = arg1]
+-            >> stealth_label >>         real_p[hull_stats_p.stealth = arg1]
+-            >> structure_label >>       real_p[hull_stats_p.structure = arg1])
+-            [hull_stats_p.this_ =
+-             construct_<HullTypeStats>(hull_stats_p.fuel, hull_stats_p.battle_speed, hull_stats_p.starlane_speed,
+-                                       hull_stats_p.stealth, hull_stats_p.structure)];
+-
+-        hull_p =
+-            (str_p("hull")
+-             >> name_label >>               name_p[hull_p.name = arg1]
+-             >> description_label >>        name_p[hull_p.description = arg1]
+-             >> hull_stats_p[hull_p.stats = arg1]
+-             >> buildcost_label >>          real_p[hull_p.cost = arg1]
+-             >> buildtime_label >>          int_p[hull_p.production_time = arg1]
+-             >> (str_p("unproducible")[             hull_p.producible = val(false)]
+-                 | (str_p("producible") | eps_p)[   hull_p.producible = val(true)])
+-             >> !(slots_label >>            slot_vec_p[hull_p.slots = arg1])
+-             >> ((location_label >>         condition_p[hull_p.location = arg1]) |
+-                                            eps_p[hull_p.location = new_<Condition::All>()])
+-             >> !(effectsgroups_label >>    effects_group_vec_p[hull_p.effects_groups = arg1])
+-             >> graphic_label >>            file_name_p[hull_p.graphic = arg1])
+-            [hull_p.this_ = new_<HullType>(hull_p.name, hull_p.description,
+-                                           hull_p.stats, hull_p.cost, hull_p.production_time, hull_p.producible,
+-                                           hull_p.slots, hull_p.location,
+-                                           hull_p.effects_groups, hull_p.graphic)];
+-
+-        ship_design_p =
+-            (str_p("shipdesign")
+-             >> name_label >>           name_p[ship_design_p.name = arg1]
+-             >> description_label >>    name_p[ship_design_p.description = arg1]
+-             >> hull_label >>           name_p[ship_design_p.hull = arg1]
+-             >> parts_label
+-             >> (name_p[push_back_(ship_design_p.parts, arg1)] |
+-                 ('[' >> *(name_p[push_back_(ship_design_p.parts, arg1)]) >> ']'))
+-             >> graphic_label >>        file_name_p[ship_design_p.graphic = arg1]
+-             >> model_label >>          file_name_p[ship_design_p.model = arg1])
+-            [ship_design_p.this_ = new_<ShipDesign>(ship_design_p.name, ship_design_p.description,
+-                                                    val(ALL_EMPIRES),   // created by empire id - to be reset later
+-                                                    val(0),             // creation turn
+-                                                    ship_design_p.hull, ship_design_p.parts,
+-                                                    ship_design_p.graphic, ship_design_p.model,
+-                                                    val(true))];
+-
+-        fleet_plan_p =
+-            (str_p("fleet")
+-             >> name_label >>           name_p[fleet_plan_p.name = arg1]
+-             >> ships_label
+-             >> (name_p[push_back_(fleet_plan_p.ship_designs, arg1)] |
+-                 ('[' >> *(name_p[push_back_(fleet_plan_p.ship_designs, arg1)]) >> ']'))
+-            [fleet_plan_p.this_ = new_<FleetPlan>(fleet_plan_p.name, fleet_plan_p.ship_designs, val(true))]);
+-
+-        monster_fleet_plan_p =
+-            (str_p("monsterfleet")
+-             >> name_label >>           name_p[monster_fleet_plan_p.name = arg1]
+-             >> ships_label
+-             >> (name_p[push_back_(monster_fleet_plan_p.ship_designs, arg1)] |
+-                 ('[' >> *(name_p[push_back_(monster_fleet_plan_p.ship_designs, arg1)]) >> ']'))
+-             >> ((spawn_rate_label >>   real_p[monster_fleet_plan_p.spawn_rate = arg1]) |
+-                                        eps_p[monster_fleet_plan_p.spawn_rate = val(1.0)])
+-             >> ((spawn_limit_label >>  int_p[monster_fleet_plan_p.spawn_limit = arg1]) |
+-                                        eps_p[monster_fleet_plan_p.spawn_limit = val(9999)])
+-             >> ((location_label >>     condition_p[monster_fleet_plan_p.location = arg1]) |
+-                                        eps_p[monster_fleet_plan_p.location = val(NULL_COND)])
+-            [monster_fleet_plan_p.this_ = new_<MonsterFleetPlan>(monster_fleet_plan_p.name,
+-                                                                 monster_fleet_plan_p.ship_designs,
+-                                                                 monster_fleet_plan_p.spawn_rate,
+-                                                                 monster_fleet_plan_p.spawn_limit,
+-                                                                 monster_fleet_plan_p.location)]);
+-
+-        alignment_p =
+-            (str_p("alignment")
+-             >> name_label >>           name_p[alignment_p.name = arg1]
+-             >> description_label >>    name_p[alignment_p.description = arg1]
+-             >> graphic_label >>        file_name_p[alignment_p.graphic = arg1])
+-            [alignment_p.this_ = construct_<Alignment>(alignment_p.name, alignment_p.description, alignment_p.graphic)];
+-
+-        return true;
+-    }
+-    bool dummy = Init();
+-}
 Index: universe/ShipDesign.cpp
 ===================================================================
 --- universe/ShipDesign.cpp	(revision 4463)
@@ -1499,6 +4106,348 @@ Index: universe/ShipDesign.cpp
      if (GetOptionsDB().Get<bool>("verbose-logging")) {
          Logger().debugStream() << "Predefined Ship Designs:";
          for (iterator it = begin(); it != end(); ++it) {
+Index: universe/Parser.h
+===================================================================
+--- universe/Parser.h	(revision 4463)
++++ universe/Parser.h	(working copy)
+@@ -1,310 +0,0 @@
+-// -*- C++ -*-
+-#ifndef _Parser_h_
+-#define _Parser_h_
+-
+-#define PHOENIX_LIMIT 12
+-#define BOOST_SPIRIT_CLOSURE_LIMIT PHOENIX_LIMIT
+-
+-#include "Enums.h"
+-#include "ShipDesign.h"
+-#include "Tech.h"
+-#include "Universe.h"
+-#include "../Empire/Empire.h"
+-
+-#include <boost/spirit/include/classic.hpp>
+-#include <boost/spirit/include/classic_attribute.hpp>
+-#include <boost/spirit/include/phoenix1.hpp>
+-#include <boost/tuple/tuple.hpp>
+-
+-#include <stdexcept>
+-#include <set>
+-#include <string>
+-
+-#include <GG/Clr.h>
+-
+-////////////////////////////////////////////////////////////
+-// Forward Declarations                                   //
+-////////////////////////////////////////////////////////////
+-namespace Condition {
+-    struct ConditionBase;
+-}
+-namespace Effect {
+-    class EffectsGroup;
+-    class EffectBase;
+-}
+-class Special;
+-class Species;
+-class FocusType;
+-class BuildingType;
+-struct TechCategory;
+-struct FleetPlan;
+-
+-////////////////////////////////////////////////////////////
+-// Scanner                                                //
+-////////////////////////////////////////////////////////////
+-struct Skip : boost::spirit::classic::grammar<Skip>
+-{
+-    template <class ScannerT>
+-    struct definition
+-    {
+-        definition(const Skip&)
+-        {
+-            using namespace boost::spirit::classic;
+-            skip = space_p | comment_p("//") | comment_p("/*", "*/");
+-        }
+-        boost::spirit::classic::rule<ScannerT> skip;
+-        const boost::spirit::classic::rule<ScannerT>& start() const {return skip;}
+-    };
+-};
+-extern const Skip skip_p;
+-
+-typedef boost::spirit::classic::scanner<const char*, boost::spirit::classic::scanner_policies<boost::spirit::classic::skip_parser_iteration_policy<Skip> > > ScannerBase;
+-typedef boost::spirit::classic::as_lower_scanner<ScannerBase>::type Scanner;
+-
+-struct NameClosure : boost::spirit::classic::closure<NameClosure, std::string>
+-{
+-    member1 this_;
+-};
+-
+-struct ColourClosure : boost::spirit::classic::closure<ColourClosure, GG::Clr, unsigned int, unsigned int, unsigned int, unsigned int>
+-{
+-    member1 this_;
+-    member2 r;
+-    member3 g;
+-    member4 b;
+-    member5 a;
+-};
+-
+-////////////////////////////////////////////////////////////
+-// Condition Parser                                       //
+-////////////////////////////////////////////////////////////
+-struct ConditionClosure : boost::spirit::classic::closure<ConditionClosure, Condition::ConditionBase*>
+-{
+-    member1 this_;
+-};
+-
+-extern boost::spirit::classic::rule<Scanner, ConditionClosure::context_t> condition_p;
+-
+-
+-////////////////////////////////////////////////////////////
+-// Effect Parser                                          //
+-////////////////////////////////////////////////////////////
+-struct EffectClosure : boost::spirit::classic::closure<EffectClosure, Effect::EffectBase*>
+-{
+-    member1 this_;
+-};
+-
+-extern boost::spirit::classic::rule<Scanner, EffectClosure::context_t> effect_p;
+-
+-
+-////////////////////////////////////////////////////////////
+-// Top Level Parsers                                      //
+-////////////////////////////////////////////////////////////
+-struct BuildingTypeClosure : boost::spirit::classic::closure<BuildingTypeClosure, BuildingType*, std::string,
+-                                                             std::string, double, int, bool, CaptureResult,
+-                                                             Condition::ConditionBase*,
+-                                                             std::vector<boost::shared_ptr<const Effect::EffectsGroup> >,
+-                                                             std::string>
+-{
+-    member1 this_;
+-    member2 name;
+-    member3 description;
+-    member4 production_cost;
+-    member5 production_time;
+-    member6 producible;
+-    member7 capture_result;
+-    member8 location;
+-    member9 effects_groups;
+-    member10 graphic;
+-};
+-
+-struct SpecialClosure : boost::spirit::classic::closure<SpecialClosure, Special*, std::string, std::string,
+-                                                        double, int, Condition::ConditionBase*,
+-                                                        std::vector<boost::shared_ptr<const Effect::EffectsGroup> >,
+-                                                        std::string>
+-{
+-    member1 this_;
+-    member2 name;
+-    member3 description;
+-    member4 spawn_rate;
+-    member5 spawn_limit;
+-    member6 location;
+-    member7 effects_groups;
+-    member8 graphic;
+-};
+-
+-struct SpeciesClosure : boost::spirit::classic::closure<SpeciesClosure, Species*, std::string, std::string,
+-                                                        std::vector<FocusType>, std::map<PlanetType, PlanetEnvironment>,
+-                                                        std::vector<boost::shared_ptr<const Effect::EffectsGroup> >,
+-                                                        bool, bool, bool, std::string>
+-{
+-    member1 this_;
+-    member2 name;
+-    member3 description;
+-    member4 foci;
+-    member5 environments;
+-    member6 effects_groups;
+-    member7 playable;
+-    member8 can_colonize;
+-    member9 can_produce_ships;
+-    member10 graphic;
+-};
+-
+-struct CategoryClosure : boost::spirit::classic::closure<CategoryClosure, TechCategory*, std::string, std::string, GG::Clr>
+-{
+-    member1 this_;
+-    member2 name;
+-    member3 graphic;
+-    member4 colour;
+-};
+-
+-struct TechClosure : boost::spirit::classic::closure<TechClosure, Tech*, Tech::TechInfo,
+-                                                     std::vector<boost::shared_ptr<const Effect::EffectsGroup> >,
+-                                                     std::set<std::string>, std::vector<ItemSpec>, std::string>
+-{
+-    member1 this_;
+-    member2 tech_info;
+-    member3 effects_groups;
+-    member4 prerequisites;
+-    member5 unlocked_items;
+-    member6 graphic;
+-};
+-
+-struct ItemSpecClosure : boost::spirit::classic::closure<ItemSpecClosure, ItemSpec, UnlockableItemType, std::string>
+-{
+-    member1 this_;
+-    member2 type;
+-    member3 name;
+-};
+-
+-struct PartStatsClosure : boost::spirit::classic::closure<PartStatsClosure, PartTypeStats, double, double,
+-                                                          double, double, double, double, CombatFighterType,
+-                                                          double, double, double, int>
+-{
+-    member1 this_;
+-    member2 damage;
+-    member3 rate;
+-    member4 range;
+-    member5 speed;
+-    member6 stealth;
+-    member7 structure;
+-    member8 fighter_type;
+-    member9 anti_ship_damage;
+-    member10 anti_fighter_damage;
+-    member11 detection;
+-    member12 capacity;
+-};
+-
+-struct PartClosure : boost::spirit::classic::closure<PartClosure, PartType*, std::string, std::string, ShipPartClass,
+-                                                     PartTypeStats, double, int, bool, std::vector<ShipSlotType>,
+-                                                     Condition::ConditionBase*,
+-                                                     std::vector<boost::shared_ptr<const Effect::EffectsGroup> >,
+-                                                     std::string>
+-{
+-    member1 this_;
+-    member2 name;
+-    member3 description;
+-    member4 part_class;
+-    member5 stats;
+-    member6 cost;
+-    member7 production_time;
+-    member8 producible;
+-    member9 mountable_slot_types;
+-    member10 location;
+-    member11 effects_groups;
+-    member12 graphic;
+-};
+-
+-struct HullStatsClosure : boost::spirit::classic::closure<HullStatsClosure, HullTypeStats, double,
+-                                                          double, double, double, double>
+-{
+-    member1 this_;
+-    member2 battle_speed;
+-    member3 starlane_speed;
+-    member4 fuel;
+-    member5 stealth;
+-    member6 structure;
+-};
+-
+-struct HullClosure : boost::spirit::classic::closure<HullClosure, HullType*, std::string, std::string,
+-                                                     HullTypeStats, double, int, bool, std::vector<HullType::Slot>,
+-                                                     Condition::ConditionBase*,
+-                                                     std::vector<boost::shared_ptr<const Effect::EffectsGroup> >,
+-                                                     std::string>
+-{
+-    member1 this_;
+-    member2 name;
+-    member3 description;
+-    member4 stats;
+-    member5 cost;
+-    member6 production_time;
+-    member7 producible;
+-    member8 slots;
+-    member9 location;
+-    member10 effects_groups;
+-    member11 graphic;
+-};
+-
+-struct ShipDesignClosure : boost::spirit::classic::closure<ShipDesignClosure, ShipDesign*, std::string, std::string,
+-                                                           std::string, std::vector<std::string>,
+-                                                           std::string, std::string>
+-{
+-    member1 this_;
+-    member2 name;
+-    member3 description;
+-    member4 hull;
+-    member5 parts;
+-    member6 graphic;
+-    member7 model;
+-};
+-
+-struct FleetPlanClosure : boost::spirit::classic::closure<FleetPlanClosure, FleetPlan*, std::string,
+-                                                          std::vector<std::string> >
+-{
+-    member1 this_;
+-    member2 name;
+-    member3 ship_designs;
+-};
+-
+-struct MonsterFleetPlanClosure : boost::spirit::classic::closure<MonsterFleetPlanClosure, MonsterFleetPlan*,
+-                                                                 std::string, std::vector<std::string>,
+-                                                                 double, int, Condition::ConditionBase*>
+-{
+-    member1 this_;
+-    member2 name;
+-    member3 ship_designs;
+-    member4 spawn_rate;
+-    member5 spawn_limit;
+-    member6 location;
+-};
+-
+-struct AlignmentClosure : boost::spirit::classic::closure<AlignmentClosure, Alignment,
+-                                                          std::string, std::string, std::string>
+-{
+-    member1 this_;
+-    member2 name;
+-    member3 description;
+-    member4 graphic;
+-};
+-
+-struct EffectsGroupVecClosure : boost::spirit::classic::closure<EffectsGroupVecClosure, std::vector<boost::shared_ptr<const Effect::EffectsGroup> > >
+-{
+-    member1 this_;
+-};
+-
+-extern boost::spirit::classic::rule<Scanner, BuildingTypeClosure::context_t>    building_type_p;
+-extern boost::spirit::classic::rule<Scanner, SpecialClosure::context_t>         special_p;
+-extern boost::spirit::classic::rule<Scanner, SpeciesClosure::context_t>         species_p;
+-extern boost::spirit::classic::rule<Scanner, CategoryClosure::context_t>        category_p;
+-extern boost::spirit::classic::rule<Scanner, TechClosure::context_t>            tech_p;
+-extern boost::spirit::classic::rule<Scanner, ItemSpecClosure::context_t>        item_spec_p;
+-extern boost::spirit::classic::rule<Scanner, PartStatsClosure::context_t>       part_stats_p;
+-extern boost::spirit::classic::rule<Scanner, PartClosure::context_t>            part_p;
+-extern boost::spirit::classic::rule<Scanner, HullClosure::context_t>            hull_p;
+-extern boost::spirit::classic::rule<Scanner, ShipDesignClosure::context_t>      ship_design_p;
+-extern boost::spirit::classic::rule<Scanner, FleetPlanClosure::context_t>       fleet_plan_p;
+-extern boost::spirit::classic::rule<Scanner, MonsterFleetPlanClosure::context_t>monster_fleet_plan_p;
+-extern boost::spirit::classic::rule<Scanner, AlignmentClosure::context_t>       alignment_p;
+-extern boost::spirit::classic::rule<Scanner, EffectsGroupVecClosure::context_t> effects_group_vec_p;
+-
+-#endif // _Parser_h_
+Index: universe/ConditionParser.cpp
+===================================================================
+--- universe/ConditionParser.cpp	(revision 4463)
++++ universe/ConditionParser.cpp	(working copy)
+@@ -1,22 +0,0 @@
+-#include "Parser.h"
+-
+-using namespace boost::spirit::classic;
+-using namespace phoenix;
+-
+-extern rule<Scanner, ConditionClosure::context_t> condition1_p;
+-extern rule<Scanner, ConditionClosure::context_t> condition2_p;
+-extern rule<Scanner, ConditionClosure::context_t> condition3_p;
+-
+-rule<Scanner, ConditionClosure::context_t> condition_p;
+-
+-namespace {
+-    bool Init()
+-    {
+-        condition_p =
+-            condition1_p[condition_p.this_ = arg1] |
+-            condition2_p[condition_p.this_ = arg1] |
+-            condition3_p[condition_p.this_ = arg1];
+-        return true;
+-    }
+-    bool dummy = Init();
+-}
 Index: universe/Names.cpp
 ===================================================================
 --- universe/Names.cpp	(revision 0)
@@ -1823,6 +4772,59 @@ Index: universe/Tech.h
      /** iterator that runs over techs within a category */
      typedef TechContainer::index<CategoryIndex>::type::const_iterator category_iterator;
  
+Index: universe/ValueRefParser.h
+===================================================================
+--- universe/ValueRefParser.h	(revision 4463)
++++ universe/ValueRefParser.h	(working copy)
+@@ -1,48 +0,0 @@
+-// -*- C++ -*-
+-#ifndef _ValueRefParser_h_
+-#define _ValueRefParser_h_
+-
+-namespace ValueRef {
+-    template <class T>
+-    struct ValueRefBase;
+-}
+-
+-typedef boost::spirit::classic::rule<Scanner> SimpleRule;
+-extern SimpleRule int_variable_final;
+-extern SimpleRule double_variable_final;
+-extern SimpleRule string_variable_final;
+-extern SimpleRule variable_container;
+-
+-template <class T>
+-struct ValueRefRule
+-{
+-    typedef ValueRef::ValueRefBase<T> RefBase;
+-    struct Closure : boost::spirit::classic::closure<Closure, RefBase*, RefBase*, RefBase*>
+-    {
+-        typedef boost::spirit::classic::closure<Closure, RefBase*, RefBase*, RefBase*> BaseClass;
+-        typename BaseClass::member1 this_;
+-        typename BaseClass::member2 operand1;
+-        typename BaseClass::member3 operand2;
+-    };
+-    typedef boost::spirit::classic::rule<Scanner, typename Closure::context_t> type;
+-};
+-
+-typedef ValueRefRule<std::string>::type         StringValueRefRule;
+-typedef ValueRefRule<int>::type                 IntValueRefRule;
+-typedef ValueRefRule<double>::type              DoubleValueRefRule;
+-typedef ValueRefRule<PlanetSize>::type          PlanetSizeValueRefRule;
+-typedef ValueRefRule<PlanetType>::type          PlanetTypeValueRefRule;
+-typedef ValueRefRule<PlanetEnvironment>::type   PlanetEnvironmentValueRefRule;
+-typedef ValueRefRule<UniverseObjectType>::type  UniverseObjectTypeValueRefRule;
+-typedef ValueRefRule<StarType>::type            StarTypeValueRefRule;
+-
+-extern StringValueRefRule               string_expr_p;
+-extern IntValueRefRule                  int_expr_p;
+-extern DoubleValueRefRule               double_expr_p;
+-extern PlanetSizeValueRefRule           planetsize_expr_p;
+-extern PlanetTypeValueRefRule           planettype_expr_p;
+-extern PlanetEnvironmentValueRefRule    planetenvironment_expr_p;
+-extern UniverseObjectTypeValueRefRule   universeobjecttype_expr_p;
+-extern StarTypeValueRefRule             startype_expr_p;
+-
+-#endif // _ValueRefParser_h_
 Index: universe/Species.cpp
 ===================================================================
 --- universe/Species.cpp	(revision 4463)
@@ -2077,9 +5079,16 @@ Index: CMakeLists.txt
  set(MINIMUM_BOOST_COMPONENTS date_time filesystem serialization signals system thread)
  
  set(BOOST_SIGNALS_NAMESPACE "signals" CACHE STRING
-@@ -333,6 +333,13 @@
- add_subdirectory(client/AI)
- add_subdirectory(client/human)
+@@ -329,10 +329,17 @@
+ ########################################
+ # Recurse Into Sources                 #
+ ########################################
+-add_subdirectory(server)
+-add_subdirectory(client/AI)
+-add_subdirectory(client/human)
++#add_subdirectory(server)
++#add_subdirectory(client/AI)
++#add_subdirectory(client/human)
  
 +option(BUILD_PARSER_TESTS "Controls generation of parser unit tests." OFF)
 +

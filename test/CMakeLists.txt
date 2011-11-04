@@ -26,18 +26,12 @@ set(THIS_EXE_SOURCES
     ../../UI/StringTable.cpp
     ../../universe/Building.cpp
     ../../universe/Condition.cpp
-    ../../universe/ConditionParser1.cpp
-    ../../universe/ConditionParser2.cpp
-    ../../universe/ConditionParser3.cpp
-    ../../universe/ConditionParser.cpp
     ../../universe/Effect.cpp
     ../../universe/EffectAccounting.cpp
-    ../../universe/EffectParser.cpp
     ../../universe/Enums.cpp
     ../../universe/Fleet.cpp
     ../../universe/Meter.cpp
     ../../universe/ObjectMap.cpp
-    ../../universe/ParserUtil.cpp
     ../../universe/Planet.cpp
     ../../universe/PopCenter.cpp
     ../../universe/Predicates.cpp
@@ -48,10 +42,8 @@ set(THIS_EXE_SOURCES
     ../../universe/Species.cpp
     ../../universe/System.cpp
     ../../universe/Tech.cpp
-    ../../universe/TopLevelParsers.cpp
     ../../universe/UniverseObject.cpp
     ../../universe/ValueRef.cpp
-    ../../universe/ValueRefParser.cpp
     ../../util/DataTable.cpp
     ../../util/GZStream.cpp
     ../../util/Math.cpp
