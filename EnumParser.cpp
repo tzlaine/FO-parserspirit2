@@ -19,7 +19,11 @@ namespace parse {
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<PlanetSize>::type retval
-            =    tok.planet_size_enum [ _val = _1 ]
+            =    tok.Tiny_ [ _val = SZ_TINY ]
+            |    tok.Small_ [ _val = SZ_SMALL ]
+            |    tok.Medium_ [ _val = SZ_MEDIUM ]
+            |    tok.Large_ [ _val = SZ_LARGE ]
+            |    tok.Huge_ [ _val = SZ_HUGE ]
             |    tok.Asteroids_ [ _val = SZ_ASTEROIDS ]
             |    tok.GasGiant_ [ _val = SZ_GASGIANT ]
             ;
@@ -39,7 +43,15 @@ namespace parse {
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<PlanetType>::type retval
-            =    tok.planet_type_enum [ _val = _1 ]
+            =    tok.Swamp_ [ _val = PT_SWAMP ]
+            |    tok.Toxic_ [ _val = PT_TOXIC ]
+            |    tok.Inferno_ [ _val = PT_INFERNO ]
+            |    tok.Radiated_ [ _val = PT_RADIATED ]
+            |    tok.Barren_ [ _val = PT_BARREN ]
+            |    tok.Tundra_ [ _val = PT_TUNDRA ]
+            |    tok.Desert_ [ _val = PT_DESERT ]
+            |    tok.Terran_ [ _val = PT_TERRAN ]
+            |    tok.Ocean_ [ _val = PT_OCEAN ]
             |    tok.Asteroids_ [ _val = PT_ASTEROIDS ]
             |    tok.GasGiant_ [ _val = PT_GASGIANT ]
             ;
@@ -59,7 +71,11 @@ namespace parse {
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<PlanetEnvironment>::type retval
-            =    tok.planet_environment_enum [ _val = _1 ]
+            =    tok.Uninhabitable_ [ _val = PE_UNINHABITABLE ]
+            |    tok.Hostile_ [ _val = PE_HOSTILE ]
+            |    tok.Poor_ [ _val = PE_POOR ]
+            |    tok.Adequate_ [ _val = PE_ADEQUATE ]
+            |    tok.Good_ [ _val = PE_GOOD ]
             ;
         static bool once = true;
         if (once) {
@@ -77,10 +93,12 @@ namespace parse {
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<UniverseObjectType>::type retval
-            =    tok.universe_object_type_enum [ _val = _1 ]
-            |    tok.Building_ [ _val = OBJ_BUILDING ]
+            =    tok.Building_ [ _val = OBJ_BUILDING ]
+            |    tok.Ship_ [ _val = OBJ_SHIP ]
             |    tok.Fleet_ [ _val = OBJ_FLEET ]
             |    tok.Planet_ [ _val = OBJ_PLANET ]
+            |    tok.PopulationCenter_ [ _val = OBJ_POP_CENTER ]
+            |    tok.ProductionCenter_ [ _val = OBJ_PROD_CENTER ]
             |    tok.System_ [ _val = OBJ_SYSTEM ]
             ;
         static bool once = true;
@@ -99,7 +117,14 @@ namespace parse {
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<StarType>::type retval
-            =    tok.star_type_enum [ _val = _1 ]
+            =    tok.Blue_ [ _val = STAR_BLUE ]
+            |    tok.White_ [ _val = STAR_WHITE ]
+            |    tok.Yellow_ [ _val = STAR_YELLOW ]
+            |    tok.Orange_ [ _val = STAR_ORANGE ]
+            |    tok.Red_ [ _val = STAR_RED ]
+            |    tok.Neutron_ [ _val = STAR_NEUTRON ]
+            |    tok.BlackHole_ [ _val = STAR_BLACK ]
+            |    tok.NoStar_ [ _val = STAR_NONE ]
             ;
         static bool once = true;
         if (once) {
@@ -117,7 +142,10 @@ namespace parse {
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<EmpireAffiliationType>::type retval
-            =    tok.empire_affiliation_type_enum [ _val = _1 ]
+            =    tok.TheEmpire_ [ _val = AFFIL_SELF ]
+            |    tok.EnemyOf_ [ _val = AFFIL_ENEMY ]
+            |    tok.AllyOf_ [ _val = AFFIL_ALLY ]
+            |    tok.AnyEmpire_ [ _val = AFFIL_ANY ]
             ;
         static bool once = true;
         if (once) {
@@ -135,8 +163,9 @@ namespace parse {
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<UnlockableItemType>::type retval
-            =    tok.unlockable_item_type_enum [ _val = _1 ]
-            |    tok.Building_ [ _val = UIT_BUILDING ]
+            =    tok.Building_ [ _val = UIT_BUILDING ]
+            |    tok.ShipPart_ [ _val = UIT_SHIP_PART ]
+            |    tok.ShipHull_ [ _val = UIT_SHIP_HULL ]
             |    tok.ShipDesign_ [ _val = UIT_SHIP_DESIGN ]
             |    tok.Tech_ [ _val = UIT_TECH ]
             ;
@@ -156,7 +185,9 @@ namespace parse {
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<TechType>::type retval
-            =    tok.tech_type_enum [ _val = _1 ]
+            =    tok.Theory_ [ _val = TT_THEORY ]
+            |    tok.Application_ [ _val = TT_APPLICATION ]
+            |    tok.Refinement_ [ _val = TT_REFINEMENT ]
             ;
         static bool once = true;
         if (once) {
@@ -174,7 +205,8 @@ namespace parse {
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<ShipSlotType>::type retval
-            =    tok.ship_slot_type_enum [ _val = _1 ]
+            =    tok.External_ [ _val = SL_EXTERNAL ]
+            |    tok.Internal_ [ _val = SL_INTERNAL ]
             ;
         static bool once = true;
         if (once) {
@@ -192,12 +224,17 @@ namespace parse {
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<ShipPartClass>::type retval
-            =    tok.ship_part_class_enum [ _val = _1 ]
+            =    tok.ShortRange_ [ _val = PC_SHORT_RANGE ]
+            |    tok.Missiles_ [ _val = PC_MISSILES ]
+            |    tok.Fighters_ [ _val = PC_FIGHTERS ]
+            |    tok.PointDefense_ [ _val = PC_POINT_DEFENSE ]
             |    tok.Shield_ [ _val = PC_SHIELD ]
+            |    tok.Armour_ [ _val = PC_ARMOUR ]
             |    tok.Troops_ [ _val = PC_TROOPS ]
             |    tok.Detection_ [ _val = PC_DETECTION ]
             |    tok.Stealth_ [ _val = PC_STEALTH ]
             |    tok.Fuel_ [ _val = PC_FUEL ]
+            |    tok.Colony_ [ _val = PC_COLONY ]
             |    tok.BattleSpeed_ [ _val = PC_BATTLE_SPEED ]
             |    tok.StarlaneSpeed_ [ _val = PC_STARLANE_SPEED ]
             ;
@@ -217,7 +254,8 @@ namespace parse {
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<CombatFighterType>::type retval
-            =    tok.combat_fighter_type_enum [ _val = _1 ]
+            =    tok.Interceptor_ [ _val = INTERCEPTOR ]
+            |    tok.Bomber_ [ _val = BOMBER ]
             ;
         static bool once = true;
         if (once) {
@@ -235,7 +273,8 @@ namespace parse {
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<CaptureResult>::type retval
-            =    tok.capture_result_enum [ _val = _1 ]
+            =    tok.Capture_ [ _val = CR_CAPTURE ]
+            |    tok.Retain_ [ _val = CR_RETAIN ]
             |    tok.Destroy_ [ _val = CR_DESTROY ]
             ;
         static bool once = true;
@@ -254,8 +293,16 @@ namespace parse {
     {
         const parse::lexer& tok = parse::lexer::instance();
         static enum_parser_rule<ValueRef::StatisticType>::type retval
-            =    tok.statistic_type_enum [ _val = _1 ]
+            =    tok.Count_ [ _val = ValueRef::COUNT ]
+            |    tok.Sum_ [ _val = ValueRef::SUM ]
+            |    tok.Mean_ [ _val = ValueRef::MEAN ]
+            |    tok.RMS_ [ _val = ValueRef::RMS ]
             |    tok.Mode_ [ _val = ValueRef::MODE ]
+            |    tok.Max_ [ _val = ValueRef::MAX ]
+            |    tok.Min_ [ _val = ValueRef::MIN ]
+            |    tok.Spread_ [ _val = ValueRef::SPREAD ]
+            |    tok.StDev_ [ _val = ValueRef::STDEV ]
+            |    tok.Product_ [ _val = ValueRef::PRODUCT ]
             ;
         static bool once = true;
         if (once) {

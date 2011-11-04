@@ -25,19 +25,6 @@ typedef boost::spirit::lex::lexertl::position_token<
         bool,
         int,
         double,
-        PlanetSize,
-        PlanetType,
-        PlanetEnvironment,
-        UniverseObjectType,
-        StarType,
-        EmpireAffiliationType,
-        UnlockableItemType,
-        TechType,
-        CombatFighterType,
-        ShipPartClass,
-        ShipSlotType,
-        CaptureResult,
-        ValueRef::StatisticType,
         adobe::name_t,
         std::string
     >
@@ -63,27 +50,6 @@ struct lexer :
     boost::spirit::lex::token_def<std::string> string;
     //@}
 
-    /** \name Enum tokens.  Note that some values are left out of some
-        enumerations, because they are also used elsewhere.  This implies that
-        1) parsers for these types should use the tokens below, plus any
-        keyword tokens that belong with that enumeration; and that 2) when you
-        add a new enumerator to an enumeration, you need to check that it is
-        not also a keyword as well. */ ///@{
-    boost::spirit::lex::token_def<PlanetSize> planet_size_enum;
-    boost::spirit::lex::token_def<PlanetType> planet_type_enum;
-    boost::spirit::lex::token_def<PlanetEnvironment> planet_environment_enum;
-    boost::spirit::lex::token_def<UniverseObjectType> universe_object_type_enum;
-    boost::spirit::lex::token_def<StarType> star_type_enum;
-    boost::spirit::lex::token_def<EmpireAffiliationType> empire_affiliation_type_enum;
-    boost::spirit::lex::token_def<UnlockableItemType> unlockable_item_type_enum;
-    boost::spirit::lex::token_def<TechType> tech_type_enum;
-    boost::spirit::lex::token_def<CombatFighterType> combat_fighter_type_enum;
-    boost::spirit::lex::token_def<ShipPartClass> ship_part_class_enum;
-    boost::spirit::lex::token_def<ShipSlotType> ship_slot_type_enum;
-    boost::spirit::lex::token_def<CaptureResult> capture_result_enum;
-    boost::spirit::lex::token_def<ValueRef::StatisticType> statistic_type_enum;
-    //@}
-
     /** \name Keyword tokens.  These should be kept in lexicographically
         sorted order, so that finding, adding, and removing tokens is a bit
         easier.  See the note above the Enum tokens section. */ ///@{
@@ -104,7 +70,6 @@ struct lexer :
     static const char* int_regex;
     static const char* double_regex;
     static const char* string_regex;
-
 
 private:
     /** Ctor. */
@@ -127,37 +92,20 @@ typedef boost::spirit::qi::in_state_skipper<lexer_def> skipper_type;
 
 namespace boost { namespace spirit { namespace traits {
 
-    // If you want to create a token with a custom value type, you musr
+    // If you want to create a token with a custom value type, you must
     // declare the conversion handler here, and define it in the .cpp file.
-
-#define ASSIGN_TO_ATTRIBUTE_DECL(T)                                          \
-    template <>                                                              \
-    struct assign_to_attribute_from_iterators<T, parse::text_iterator, void> \
-    { static void call(const parse::text_iterator& first, const parse::text_iterator& last, T& attr); }
 
     // These template specializations are required by Spirit.Lex to automatically
     // convert an iterator pair to an adobe::name_t in the lexer.
-    ASSIGN_TO_ATTRIBUTE_DECL(adobe::name_t);
+    template <>
+    struct assign_to_attribute_from_iterators<adobe::name_t, parse::text_iterator, void>
+    { static void call(const parse::text_iterator& first, const parse::text_iterator& last, adobe::name_t& attr); };
 
     // HACK! This is only necessary because of a bug in Spirit in Boost
     // versions <= 1.45.
-    ASSIGN_TO_ATTRIBUTE_DECL(bool);
-
-    ASSIGN_TO_ATTRIBUTE_DECL(PlanetSize);
-    ASSIGN_TO_ATTRIBUTE_DECL(PlanetType);
-    ASSIGN_TO_ATTRIBUTE_DECL(PlanetEnvironment);
-    ASSIGN_TO_ATTRIBUTE_DECL(UniverseObjectType);
-    ASSIGN_TO_ATTRIBUTE_DECL(StarType);
-    ASSIGN_TO_ATTRIBUTE_DECL(EmpireAffiliationType);
-    ASSIGN_TO_ATTRIBUTE_DECL(UnlockableItemType);
-    ASSIGN_TO_ATTRIBUTE_DECL(TechType);
-    ASSIGN_TO_ATTRIBUTE_DECL(CombatFighterType);
-    ASSIGN_TO_ATTRIBUTE_DECL(ShipPartClass);
-    ASSIGN_TO_ATTRIBUTE_DECL(ShipSlotType);
-    ASSIGN_TO_ATTRIBUTE_DECL(CaptureResult);
-    ASSIGN_TO_ATTRIBUTE_DECL(ValueRef::StatisticType);
-
-#undef ASSIGN_TO_ATTRIBUTE_DECL
+    template <>
+    struct assign_to_attribute_from_iterators<bool, parse::text_iterator, void>
+    { static void call(const parse::text_iterator& first, const parse::text_iterator& last, bool& attr); };
 
 } } }
 

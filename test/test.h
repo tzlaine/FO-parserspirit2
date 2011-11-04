@@ -16,6 +16,9 @@ struct lexer_test_rules
     > test_rule;
 
     test_rule lexer;
+    test_rule lexer_1;
+    test_rule lexer_2;
+    test_rule lexer_3;
 };
 
 enum test_type {
