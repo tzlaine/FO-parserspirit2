@@ -2035,6 +2035,15 @@ Index: server/CMakeLists.txt
      ../universe/ObjectMap.cpp
      ../universe/ParserUtil.cpp
      ../universe/Planet.cpp
+@@ -112,7 +144,7 @@
+     link_directories(${BOOST_LIBRARYDIR})
+     set(THIS_EXE_LINK_LIBS ${GIGI_GIGI_LIBRARY} ${ZLIB_LIBRARY})
+ else ()
+-    set(THIS_EXE_LINK_LIBS ${Boost_LIBRARIES} ${ZLIB_LIBRARY})
++    set(THIS_EXE_LINK_LIBS ${GIGI_GIGI_LIBRARY} ${Boost_LIBRARIES} ${ZLIB_LIBRARY})
+ endif ()
+ 
+ executable_all_variants(freeoriond)
 Index: CMakeLists.txt
 ===================================================================
 --- CMakeLists.txt	(revision 4463)
@@ -2162,3 +2171,12 @@ Index: client/AI/CMakeLists.txt
      ../../universe/Meter.cpp
      ../../universe/ObjectMap.cpp
      ../../universe/ParserUtil.cpp
+@@ -134,7 +166,7 @@
+     link_directories(${BOOST_LIBRARYDIR})
+     set(THIS_EXE_LINK_LIBS ${THIS_EXE_LINK_LIBS} ${GIGI_GIGI_LIBRARY} ${ZLIB_LIBRARY})
+ else ()
+-    set(THIS_EXE_LINK_LIBS ${THIS_EXE_LINK_LIBS} ${Boost_LIBRARIES} ${ZLIB_LIBRARY})
++    set(THIS_EXE_LINK_LIBS ${THIS_EXE_LINK_LIBS} ${GIGI_GIGI_LIBRARY} ${Boost_LIBRARIES} ${ZLIB_LIBRARY})
+ endif ()
+ 
+ executable_all_variants(freeorionca)
