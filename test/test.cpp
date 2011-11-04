@@ -128,7 +128,8 @@ int main(int argc, char* argv[])
             case techs_parser: {
                 TechManager::TechContainer techs;
                 std::map<std::string, TechCategory*> tech_categories;
-                success = parse::techs(boost::filesystem::path(argv[3]), techs, tech_categories);
+                std::set<std::string> categories_seen_in_techs;
+                success = parse::techs(boost::filesystem::path(argv[3]), techs, tech_categories, categories_seen_in_techs);
                 break;
             }
             case items_parser: {
@@ -414,7 +415,8 @@ int main(int argc, char* argv[])
                 case techs_parser: {
                     TechManager::TechContainer techs;
                     std::map<std::string, TechCategory*> tech_categories;
-                    success = parse::techs(file_parser_path, techs, tech_categories);
+                    std::set<std::string> categories_seen_in_techs;
+                    success = parse::techs(file_parser_path, techs, tech_categories, categories_seen_in_techs);
                     break;
                 }
                 case items_parser: {

@@ -27,7 +27,10 @@ namespace parse {
 
     bool species(const boost::filesystem::path& path, std::map<std::string, Species*>& species_);
 
-    bool techs(const boost::filesystem::path& path, TechManager::TechContainer& techs_, std::map<std::string, TechCategory*>& tech_categories);
+    bool techs(const boost::filesystem::path& path,
+               TechManager::TechContainer& techs_,
+               std::map<std::string, TechCategory*>& tech_categories,
+               std::set<std::string>& categories_seen);
 
     bool items(const boost::filesystem::path& path, std::vector<ItemSpec>& items_);
 

@@ -21,7 +21,7 @@ namespace std {
 
 namespace {
 
-    std::set<std::string> g_categories_seen;
+    std::set<std::string>* g_categories_seen = 0;
     std::map<std::string, TechCategory*>* g_categories = 0;
 
     struct insert_tech_
@@ -32,7 +32,7 @@ namespace {
 
         void operator()(TechManager::TechContainer& techs, Tech* tech) const
             {
-                g_categories_seen.insert(tech->Category());
+                g_categories_seen->insert(tech->Category());
                 if (techs.get<TechManager::NameIndex>().find(tech->Name()) != techs.get<TechManager::NameIndex>().end()) {
                     std::string error_str = "ERROR: More than one tech in techs.txt has the name " + tech->Name();
                     throw std::runtime_error(error_str.c_str());
@@ -224,9 +224,12 @@ namespace {
 
 namespace parse {
 
-    bool techs(const boost::filesystem::path& path, TechManager::TechContainer& techs_, std::map<std::string, TechCategory*>& categories)
+    bool techs(const boost::filesystem::path& path,
+               TechManager::TechContainer& techs_,
+               std::map<std::string, TechCategory*>& categories,
+               std::set<std::string>& categories_seen)
     {
-        g_categories_seen.clear();
+        g_categories_seen = &categories_seen;
         g_categories = &categories;
         return detail::parse_file<rules, TechManager::TechContainer>(path, techs_);
     }
