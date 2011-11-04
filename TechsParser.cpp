@@ -115,27 +115,29 @@ namespace {
                     ;
 
                 tech
-                    =    tok.Tech_
-                    >    tech_info [ _a = _1 ]
-                    >   -(
-                              parse::label(Prerequisites_name)
-                          >>  (
-                                   '[' > +tok.string [ insert(_b, _1) ] > ']'
-                               |   tok.string [ insert(_b, _1) ]
+                    =    (
+                              tok.Tech_
+                         >    tech_info [ _a = _1 ]
+                         >   -(
+                                   parse::label(Prerequisites_name)
+                               >>  (
+                                        '[' > +tok.string [ insert(_b, _1) ] > ']'
+                                    |   tok.string [ insert(_b, _1) ]
+                                   )
                               )
-                         )
-                    >   -(
-                              parse::label(Unlock_name)
-                          >>  (
-                                   '[' > +parse::detail::item_spec_parser() [ push_back(_c, _1) ] > ']'
-                               |   parse::detail::item_spec_parser() [ push_back(_c, _1) ]
+                         >   -(
+                                   parse::label(Unlock_name)
+                               >>  (
+                                        '[' > +parse::detail::item_spec_parser() [ push_back(_c, _1) ] > ']'
+                                    |   parse::detail::item_spec_parser() [ push_back(_c, _1) ]
+                                   )
                               )
-                         )
-                    >   -(
-                              parse::label(EffectsGroups_name) >> parse::detail::effects_group_parser() [ _d = _1 ]
-                         )
-                    >   -(
-                              parse::label(Graphic_name) >> tok.string [ _e = _1 ]
+                         >   -(
+                                   parse::label(EffectsGroups_name) >> parse::detail::effects_group_parser() [ _d = _1 ]
+                              )
+                         >   -(
+                                   parse::label(Graphic_name) >> tok.string [ _e = _1 ]
+                              )
                          )
                          [ insert_tech(_r1, new_<Tech>(_a, _d, _b, _c, _e)) ]
                     ;
