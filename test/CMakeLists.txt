@@ -105,6 +105,7 @@ set(THIS_EXE_SOURCES
 
     ../Lexer.cpp
     ../ReportParseError.cpp
+    ../Int.cpp
     ../Double.cpp
     ../Label.cpp
     ../EnumParser.cpp

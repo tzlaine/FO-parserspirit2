@@ -75,7 +75,7 @@ namespace {
                     ;
 
                 set_ship_part_meter_suffix_1
-                    =    parse::label(PartClass_name) >> parse::enum_parser<ShipPartClass>() [ _a = _1 ]
+                    =    parse::label(PartClass_name) >> parse::enum_parser<ShipPartClass>() [ _a = _1 ] // TODO: PartClass should match "Class" from ShipPartsParser.cpp.
                     >    parse::label(Value_name)     >  double_value_ref [ _d = _1 ]
                     >    parse::label(SlotType_name)  >  parse::enum_parser<ShipSlotType>() [ _val = new_<Effect::SetShipPartMeter>(_r1, _a, _d, _1) ]
                     ;

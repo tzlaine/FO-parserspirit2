@@ -1,6 +1,7 @@
 #define FUSION_MAX_VECTOR_SIZE 20
 
 #include "Double.h"
+#include "Int.h"
 #include "Label.h"
 #include "ParseImpl.h"
 #include "../universe/Special.h"
@@ -65,7 +66,7 @@ namespace {
                           |   eps [ _c = 1.0 ]
                          )
                     >    (
-                              parse::label(SpawnLimit_name) >> tok.int_ [ _d = _1 ]
+                              parse::label(SpawnLimit_name) >> parse::int_ [ _d = _1 ]
                           |   eps [ _d = 9999 ]
                          )
                     >   -(

@@ -1,6 +1,7 @@
 #include "ParseImpl.h"
 
 #include "Double.h"
+#include "Int.h"
 #include "Label.h"
 
 
@@ -48,7 +49,7 @@ namespace {
                           |   eps [ _c = 1.0 ]
                          )
                     >    (
-                              parse::label(SpawnLimit_name) >> tok.int_ [ _d = _1 ]
+                              parse::label(SpawnLimit_name) >> parse::int_ [ _d = _1 ]
                           |   eps [ _d = 9999 ]
                          )
                     >   -(

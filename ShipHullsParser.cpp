@@ -3,6 +3,7 @@
 
 #include "Double.h"
 #include "EnumParser.h"
+#include "Int.h"
 #include "Label.h"
 #include "ParseImpl.h"
 #include "../universe/Condition.h"
@@ -91,7 +92,7 @@ namespace {
                     >    parse::label(Description_name) > tok.string [ _b = _1 ]
                     >    hull_stats [ _c = _1 ]
                     >    parse::label(BuildCost_name)   > parse::double_ [ _d = _1 ]
-                    >    parse::label(BuildTime_name)   > tok.int_ [ _e = _1 ]
+                    >    parse::label(BuildTime_name)   > parse::int_ [ _e = _1 ]
                     >    (
                               tok.Unproducible_ [ _f = false ]
                           |   tok.Producible_ [ _f = true ]

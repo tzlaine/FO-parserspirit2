@@ -3,6 +3,7 @@
 
 #include "Double.h"
 #include "EnumParser.h"
+#include "Int.h"
 #include "Label.h"
 #include "ParseImpl.h"
 
@@ -75,7 +76,7 @@ namespace {
                           >   parse::label(Stealth_name)            >  parse::double_ [ _g = _1 ]
                           >   parse::label(Structure_name)          >  parse::double_ [ _h = _1 ]
                           >   parse::label(Detection_name)          >  parse::double_ [ _i = _1 ]
-                          >   parse::label(Capacity_name)           >  tok.int_ [ _val = construct<FighterStats>(_a, _b, _c, _d, _e, _f, _g, _h, _i, _1) ]
+                          >   parse::label(Capacity_name)           >  parse::int_ [ _val = construct<FighterStats>(_a, _b, _c, _d, _e, _f, _g, _h, _i, _1) ]
                          )
                     |    (
                               parse::label(Damage_name) >> parse::double_ [ _b = _1 ]
@@ -85,7 +86,7 @@ namespace {
                                    parse::label(Speed_name)     >> parse::double_ [ _e = _1 ]
                                >   parse::label(Stealth_name)   >  parse::double_ [ _f = _1 ]
                                >   parse::label(Structure_name) >  parse::double_ [ _g = _1 ]
-                               >   parse::label(Capacity_name)  >  tok.int_ [ _val = construct<LRStats>(_b, _c, _d, _e, _f, _g, _1) ]
+                               >   parse::label(Capacity_name)  >  parse::int_ [ _val = construct<LRStats>(_b, _c, _d, _e, _f, _g, _1) ]
                                |   eps [ _val = construct<DirectFireStats>(_b, _c, _d) ]
                               )
                          )
@@ -99,7 +100,7 @@ namespace {
                     >    parse::label(Class_name)       > parse::enum_parser<ShipPartClass>() [ _c = _1 ]
                     >>   part_stats [ _d = _1 ]
                     >    parse::label(BuildCost_name)   > parse::double_ [ _e = _1 ]
-                    >    parse::label(BuildTime_name)   > tok.int_ [ _f = _1 ]
+                    >    parse::label(BuildTime_name)   > parse::int_ [ _f = _1 ]
                     >>   (
                               tok.Unproducible_ [ _g = false ]
                           |   tok.Producible_ [ _g = true ]

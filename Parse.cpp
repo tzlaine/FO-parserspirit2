@@ -2,6 +2,7 @@
 
 #include "Double.h"
 #include "EffectParser.h"
+#include "Int.h"
 #include "Label.h"
 #include "ValueRefParser.h"
 #include "../universe/Effect.h"
@@ -171,11 +172,21 @@ namespace parse {
         qi::_1_type _1;
         qi::_val_type _val;
         using phoenix::static_cast_;
+
         double_
-            =    tok.int_ [ _val = static_cast_<double>(_1) ]
+            =    '-' > tok.int_ [ _val = -static_cast_<double>(_1) ]
+            |    tok.int_ [ _val = static_cast_<double>(_1) ]
+            |    '-' > tok.double_ [ _val = -_1 ]
             |    tok.double_ [ _val = _1 ]
             ;
+
+        int_
+            =    '-' > tok.int_ [ _val = -_1 ]
+            |    tok.int_ [ _val = _1 ]
+            ;
+
         value_ref_parser<int>();
+
         condition_parser();
     }
 
