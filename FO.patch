@@ -1985,6 +1985,26 @@ Index: universe/Building.cpp
  }
  
  BuildingTypeManager::~BuildingTypeManager()
+Index: server/dmain.cpp
+===================================================================
+--- server/dmain.cpp	(revision 4463)
++++ server/dmain.cpp	(working copy)
+@@ -1,5 +1,6 @@
+ #include "ServerApp.h"
+ 
++#include "../parse/Parse.h"
+ #include "../util/OptionsDB.h"
+ #include "../util/Directories.h"
+ #include "../util/XMLDoc.h"
+@@ -30,6 +31,8 @@
+             return 0;
+         }
+ 
++        parse::init();
++
+         ServerApp g_app;
+         g_app(); // Calls ServerApp::Run() to run app (intialization and main process loop)
+ 
 Index: server/CMakeLists.txt
 ===================================================================
 --- server/CMakeLists.txt	(revision 4463)
@@ -2071,6 +2091,27 @@ Index: CMakeLists.txt
  ########################################
  # Win32 SDK-only steps                 #
  ########################################
+Index: client/human/chmain.cpp
+===================================================================
+--- client/human/chmain.cpp	(revision 4463)
++++ client/human/chmain.cpp	(working copy)
+@@ -8,6 +8,7 @@
+ #endif
+ 
+ #include "HumanClientApp.h"
++#include "../../parse/Parse.h"
+ #include "../../util/OptionsDB.h"
+ #include "../../util/Directories.h"
+ #include "../../util/Version.h"
+@@ -241,6 +242,8 @@
+ 
+         //EntityRenderer entity_renderer(scene_manager);
+ 
++        parse::init();
++
+         HumanClientApp app(root, window, scene_manager, camera, viewport, (GetRootDataDir() / "OISInput.cfg").string());
+ 
+ #ifdef FREEORION_MACOSX
 Index: client/human/CMakeLists.txt
 ===================================================================
 --- client/human/CMakeLists.txt	(revision 4463)
@@ -2121,6 +2162,26 @@ Index: client/human/CMakeLists.txt
      ../../universe/ObjectMap.cpp
      ../../universe/ParserUtil.cpp
      ../../universe/Planet.cpp
+Index: client/AI/camain.cpp
+===================================================================
+--- client/AI/camain.cpp	(revision 4463)
++++ client/AI/camain.cpp	(working copy)
+@@ -1,5 +1,6 @@
+ #include "AIClientApp.h"
+ 
++#include "../../parse/Parse.h"
+ #include "../../util/OptionsDB.h"
+ #include "../../util/Directories.h"
+ 
+@@ -10,6 +11,8 @@
+     try {
+         GetOptionsDB().SetFromCommandLine(argc, argv);
+ 
++        parse::init();
++
+         AIClientApp g_app(argc, argv);
+ 
+         Logger().debugStream() << "AIClientApp and logging initialized.  Running app.";
 Index: client/AI/CMakeLists.txt
 ===================================================================
 --- client/AI/CMakeLists.txt	(revision 4463)
