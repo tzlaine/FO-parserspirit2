@@ -1985,20 +1985,72 @@ Index: universe/Building.cpp
  }
  
  BuildingTypeManager::~BuildingTypeManager()
+Index: server/CMakeLists.txt
+===================================================================
+--- server/CMakeLists.txt	(revision 4463)
++++ server/CMakeLists.txt	(working copy)
+@@ -23,6 +23,37 @@
+     ../network/Message.cpp
+     ../network/MessageQueue.cpp
+     ../network/Networking.cpp
++    ../parse/AlignmentsParser.cpp
++    ../parse/BuildingsParser.cpp
++    ../parse/ConditionParser1.cpp
++    ../parse/ConditionParser2.cpp
++    ../parse/ConditionParser3.cpp
++    ../parse/ConditionParser.cpp
++    ../parse/Double.cpp
++    ../parse/DoubleValueRefParser.cpp
++    ../parse/EffectParser.cpp
++    ../parse/EnumParser.cpp
++    ../parse/FleetPlansParser.cpp
++    ../parse/Int.cpp
++    ../parse/IntValueRefParser.cpp
++    ../parse/ItemsParser.cpp
++    ../parse/Label.cpp
++    ../parse/Lexer.cpp
++    ../parse/MonsterFleetPlansParser.cpp
++    ../parse/Parse.cpp
++    ../parse/PlanetEnvironmentValueRefParser.cpp
++    ../parse/PlanetSizeValueRefParser.cpp
++    ../parse/PlanetTypeValueRefParser.cpp
++    ../parse/ReportParseError.cpp
++    ../parse/ShipDesignsParser.cpp
++    ../parse/ShipHullsParser.cpp
++    ../parse/ShipPartsParser.cpp
++    ../parse/SpecialsParser.cpp
++    ../parse/SpeciesParser.cpp
++    ../parse/StarTypeValueRefParser.cpp
++    ../parse/StringValueRefParser.cpp
++    ../parse/TechsParser.cpp
++    ../parse/UniverseObjectTypeValueRefParser.cpp
+     ../UI/StringTable.cpp
+     ../universe/Building.cpp
+     ../universe/Condition.cpp
+@@ -36,6 +67,7 @@
+     ../universe/Enums.cpp
+     ../universe/Fleet.cpp
+     ../universe/Meter.cpp
++    ../universe/Names.cpp
+     ../universe/ObjectMap.cpp
+     ../universe/ParserUtil.cpp
+     ../universe/Planet.cpp
 Index: CMakeLists.txt
 ===================================================================
 --- CMakeLists.txt	(revision 4463)
 +++ CMakeLists.txt	(working copy)
-@@ -329,10 +329,17 @@
- ########################################
- # Recurse Into Sources                 #
- ########################################
--add_subdirectory(server)
--add_subdirectory(client/AI)
--add_subdirectory(client/human)
-+#add_subdirectory(server)
-+#add_subdirectory(client/AI)
-+#add_subdirectory(client/human)
+@@ -15,7 +15,7 @@
+ include(Config)
+ include(Util)
+ 
+-set(MINIMUM_BOOST_VERSION 1.44.0)
++set(MINIMUM_BOOST_VERSION 1.47.0)
+ set(MINIMUM_BOOST_COMPONENTS date_time filesystem serialization signals system thread)
+ 
+ set(BOOST_SIGNALS_NAMESPACE "signals" CACHE STRING
+@@ -333,6 +333,13 @@
+ add_subdirectory(client/AI)
+ add_subdirectory(client/human)
  
 +option(BUILD_PARSER_TESTS "Controls generation of parser unit tests." OFF)
 +
@@ -2010,3 +2062,103 @@ Index: CMakeLists.txt
  ########################################
  # Win32 SDK-only steps                 #
  ########################################
+Index: client/human/CMakeLists.txt
+===================================================================
+--- client/human/CMakeLists.txt	(revision 4463)
++++ client/human/CMakeLists.txt	(working copy)
+@@ -85,6 +85,37 @@
+     ../../network/Message.cpp
+     ../../network/MessageQueue.cpp
+     ../../network/Networking.cpp
++    ../../parse/AlignmentsParser.cpp
++    ../../parse/BuildingsParser.cpp
++    ../../parse/ConditionParser1.cpp
++    ../../parse/ConditionParser2.cpp
++    ../../parse/ConditionParser3.cpp
++    ../../parse/ConditionParser.cpp
++    ../../parse/Double.cpp
++    ../../parse/DoubleValueRefParser.cpp
++    ../../parse/EffectParser.cpp
++    ../../parse/EnumParser.cpp
++    ../../parse/FleetPlansParser.cpp
++    ../../parse/Int.cpp
++    ../../parse/IntValueRefParser.cpp
++    ../../parse/ItemsParser.cpp
++    ../../parse/Label.cpp
++    ../../parse/Lexer.cpp
++    ../../parse/MonsterFleetPlansParser.cpp
++    ../../parse/Parse.cpp
++    ../../parse/PlanetEnvironmentValueRefParser.cpp
++    ../../parse/PlanetSizeValueRefParser.cpp
++    ../../parse/PlanetTypeValueRefParser.cpp
++    ../../parse/ReportParseError.cpp
++    ../../parse/ShipDesignsParser.cpp
++    ../../parse/ShipHullsParser.cpp
++    ../../parse/ShipPartsParser.cpp
++    ../../parse/SpecialsParser.cpp
++    ../../parse/SpeciesParser.cpp
++    ../../parse/StarTypeValueRefParser.cpp
++    ../../parse/StringValueRefParser.cpp
++    ../../parse/TechsParser.cpp
++    ../../parse/UniverseObjectTypeValueRefParser.cpp
+     ../../universe/Building.cpp
+     ../../universe/Condition.cpp
+     ../../universe/ConditionParser1.cpp
+@@ -97,6 +128,7 @@
+     ../../universe/Enums.cpp
+     ../../universe/Fleet.cpp
+     ../../universe/Meter.cpp
++    ../../universe/Names.cpp
+     ../../universe/ObjectMap.cpp
+     ../../universe/ParserUtil.cpp
+     ../../universe/Planet.cpp
+Index: client/AI/CMakeLists.txt
+===================================================================
+--- client/AI/CMakeLists.txt	(revision 4463)
++++ client/AI/CMakeLists.txt	(working copy)
+@@ -23,6 +23,37 @@
+     ../../network/Message.cpp
+     ../../network/MessageQueue.cpp
+     ../../network/Networking.cpp
++    ../../parse/AlignmentsParser.cpp
++    ../../parse/BuildingsParser.cpp
++    ../../parse/ConditionParser1.cpp
++    ../../parse/ConditionParser2.cpp
++    ../../parse/ConditionParser3.cpp
++    ../../parse/ConditionParser.cpp
++    ../../parse/Double.cpp
++    ../../parse/DoubleValueRefParser.cpp
++    ../../parse/EffectParser.cpp
++    ../../parse/EnumParser.cpp
++    ../../parse/FleetPlansParser.cpp
++    ../../parse/Int.cpp
++    ../../parse/IntValueRefParser.cpp
++    ../../parse/ItemsParser.cpp
++    ../../parse/Label.cpp
++    ../../parse/Lexer.cpp
++    ../../parse/MonsterFleetPlansParser.cpp
++    ../../parse/Parse.cpp
++    ../../parse/PlanetEnvironmentValueRefParser.cpp
++    ../../parse/PlanetSizeValueRefParser.cpp
++    ../../parse/PlanetTypeValueRefParser.cpp
++    ../../parse/ReportParseError.cpp
++    ../../parse/ShipDesignsParser.cpp
++    ../../parse/ShipHullsParser.cpp
++    ../../parse/ShipPartsParser.cpp
++    ../../parse/SpecialsParser.cpp
++    ../../parse/SpeciesParser.cpp
++    ../../parse/StarTypeValueRefParser.cpp
++    ../../parse/StringValueRefParser.cpp
++    ../../parse/TechsParser.cpp
++    ../../parse/UniverseObjectTypeValueRefParser.cpp
+     ../../UI/StringTable.cpp
+     ../../universe/Building.cpp
+     ../../universe/Condition.cpp
+@@ -35,6 +66,7 @@
+     ../../universe/EffectParser.cpp
+     ../../universe/Enums.cpp
+     ../../universe/Fleet.cpp
++    ../../universe/Names.cpp
+     ../../universe/Meter.cpp
+     ../../universe/ObjectMap.cpp
+     ../../universe/ParserUtil.cpp
