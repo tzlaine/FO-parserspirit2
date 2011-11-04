@@ -132,6 +132,211 @@ Index: default/buildings.txt
      name = "BLD_TRANSFORMER"
      description = "BLD_TRANSFORMER_DESC"
      buildcost = 1000
+Index: universe/Universe.cpp
+===================================================================
+--- universe/Universe.cpp	(revision 4463)
++++ universe/Universe.cpp	(working copy)
+@@ -6,6 +6,7 @@
+ #include "../util/OptionsDB.h"
+ #include "../util/Directories.h"
+ #include "../util/Random.h"
++#include "../parse/Parse.h"
+ #include "../Empire/Empire.h"
+ #include "../Empire/EmpireManager.h"
+ #include "Building.h"
+@@ -19,12 +20,11 @@
+ #include "Predicates.h"
+ #include "Special.h"
+ #include "Species.h"
+-#include "Parser.h"
+-#include "ParserUtil.h"
+ #include "Condition.h"
+ #include "ValueRef.h"
+ 
+-
++#include <boost/algorithm/string/classification.hpp>
++#include <boost/algorithm/string/split.hpp>
+ #include <boost/filesystem/fstream.hpp>
+ #include <boost/graph/adjacency_list.hpp>
+ #include <boost/graph/breadth_first_search.hpp>
+@@ -2939,15 +2939,6 @@
+ // FleetPlanManager //
+ //////////////////////
+ namespace {
+-    struct store_fleet_plan_impl {
+-        template <class T1, class T2>
+-        struct result {typedef void type;};
+-        template <class T>
+-        void operator()(std::vector<FleetPlan*>& fleet_plans, const T& fleet_plan) const
+-        { fleet_plans.push_back(fleet_plan); }
+-    };
+-    const phoenix::function<store_fleet_plan_impl> store_fleet_plan_;
+-
+     class FleetPlanManager {
+     public:
+         typedef std::vector<FleetPlan*>::const_iterator iterator;
+@@ -2979,28 +2970,8 @@
+ 
+         Logger().debugStream() << "Initializing FleetPlanManager";
+ 
+-        std::string file_name = "starting_fleets.txt";
+-        std::string input;
++        parse::fleet_plans(GetResourceDir() / "starting_fleets.txt", m_plans);
+ 
+-        boost::filesystem::ifstream ifs(GetResourceDir() / file_name);
+-        if (ifs) {
+-            std::getline(ifs, input, '\0');
+-            ifs.close();
+-        } else {
+-            Logger().errorStream() << "Unable to open data file " << file_name;
+-            return;
+-        }
+-
+-        using namespace boost::spirit::classic;
+-        using namespace phoenix;
+-        parse_info<const char*> result =
+-            parse(input.c_str(),
+-                  as_lower_d[*fleet_plan_p[store_fleet_plan_(var(m_plans), arg1)]]
+-                  >> end_p,
+-                  skip_p);
+-        if (!result.full)
+-            ReportError(input.c_str(), result);
+-
+ #ifdef OUTPUT_PLANS_LIST
+         Logger().debugStream() << "Starting Fleet Plans:";
+         for (iterator it = begin(); it != end(); ++it)
+@@ -3024,15 +2995,6 @@
+ // MonsterFleetPlanManager //
+ /////////////////////////////
+ namespace {
+-    struct store_monster_fleet_plan_impl {
+-        template <class T1, class T2>
+-        struct result {typedef void type;};
+-        template <class T>
+-        void operator()(std::vector<MonsterFleetPlan*>& fleet_plans, const T& fleet_plan) const
+-        { fleet_plans.push_back(fleet_plan); }
+-    };
+-    const phoenix::function<store_monster_fleet_plan_impl> store_monster_fleet_plan_;
+-
+     class MonsterFleetPlanManager {
+     public:
+         typedef std::vector<MonsterFleetPlan*>::const_iterator iterator;
+@@ -3066,28 +3028,8 @@
+ 
+         Logger().debugStream() << "Initializing MonsterFleetPlanManager";
+ 
+-        std::string file_name = "space_monster_spawn_fleets.txt";
+-        std::string input;
++        parse::monster_fleet_plans(GetResourceDir() / "space_monster_spawn_fleets.txt", m_plans);
+ 
+-        boost::filesystem::ifstream ifs(GetResourceDir() / file_name);
+-        if (ifs) {
+-            std::getline(ifs, input, '\0');
+-            ifs.close();
+-        } else {
+-            Logger().errorStream() << "Unable to open data file " << file_name;
+-            return;
+-        }
+-
+-        using namespace boost::spirit::classic;
+-        using namespace phoenix;
+-        parse_info<const char*> result =
+-            parse(input.c_str(),
+-                  as_lower_d[*monster_fleet_plan_p[store_monster_fleet_plan_(var(m_plans), arg1)]]
+-                  >> end_p,
+-                  skip_p);
+-        if (!result.full)
+-            ReportError(input.c_str(), result);
+-
+ //#ifdef OUTPUT_PLANS_LIST
+         Logger().debugStream() << "Starting Monster Fleet Plans:";
+         for (iterator it = begin(); it != end(); ++it)
+@@ -3111,15 +3053,6 @@
+ // ItemSpecManager         //
+ /////////////////////////////
+ namespace {
+-    struct store_item_spec_impl {
+-        template <class T1, class T2>
+-        struct result {typedef void type;};
+-        template <class T>
+-        void operator()(std::vector<ItemSpec>& item_specs, const T& item_spec) const
+-        { item_specs.push_back(item_spec); }
+-    };
+-    const phoenix::function<store_item_spec_impl> store_item_spec_;
+-
+     class ItemSpecManager {
+     public:
+         typedef std::vector<ItemSpec>::const_iterator iterator;
+@@ -3154,28 +3087,8 @@
+ 
+         Logger().debugStream() << "Initializing ItemSpecManager";
+ 
+-        std::string file_name = "preunlocked_items.txt";
+-        std::string input;
++        parse::items(GetResourceDir() / "preunlocked_items.txt", m_items);
+ 
+-        boost::filesystem::ifstream ifs(GetResourceDir() / file_name);
+-        if (ifs) {
+-            std::getline(ifs, input, '\0');
+-            ifs.close();
+-        } else {
+-            Logger().errorStream() << "Unable to open data file " << file_name;
+-            return;
+-        }
+-
+-        using namespace boost::spirit::classic;
+-        using namespace phoenix;
+-        parse_info<const char*> result =
+-            parse(input.c_str(),
+-                  as_lower_d[*item_spec_p[store_item_spec_(var(m_items), arg1)]]
+-                  >> end_p,
+-                  skip_p);
+-        if (!result.full)
+-            ReportError(input.c_str(), result);
+-
+ #ifdef OUTPUT_ITEM_SPECS_LIST
+         Logger().debugStream() << "Starting Unlocked Item Specs:";
+         for (iterator it = begin(); it != end(); ++it) {
+@@ -4509,15 +4422,6 @@
+ }
+ 
+ namespace {
+-    struct store_name_impl {
+-        template <class T1, class T2>
+-        struct result {typedef void type;};
+-        template <class T>
+-        void operator()(std::vector<std::string>& names, const T& name) const
+-        { names.push_back(name); }
+-    };
+-    const phoenix::function<store_name_impl> store_name_;
+-
+     /** Reads list of strings from file, surrounded by enclosing quotes. */
+     void LoadNames(std::vector<std::string>& names, const std::string& file_name) {
+         names.clear();
+@@ -4529,15 +4433,14 @@
+         } else {
+             Logger().errorStream() << "Unable to open data file " << file_name;
+         }
+-        using namespace boost::spirit::classic;
+-        using namespace phoenix;
+-        parse_info<const char*> result =
+-            parse(input.c_str(),
+-                  *name_p[store_name_(var(names), arg1)]
+-                  >> end_p,
+-                  skip_p);
+-        if (!result.full)
+-            ReportError(input.c_str(), result);
++        using namespace boost::algorithm;
++        split(names, input, is_any_of("\"\n"), token_compress_on);
++        for (std::size_t i = 0; i < names.size(); ) {
++            if (names[i].empty())
++                names.erase(names.begin() + i);
++            else
++                ++i;
++        }
+     }
+ };
+ 
 Index: universe/Names.h
 ===================================================================
 --- universe/Names.h	(revision 0)
@@ -441,7 +646,7 @@ Index: universe/Names.h
 +    (StarlaneSpeed)                             \
 +    (StarType)                                  \
 +    (Stationary)                                \
-+    (StdDev)                                    \
++    (StDev)                                     \
 +    (Stealth)                                   \
 +    (Structure)                                 \
 +    (Sum)                                       \
@@ -483,7 +688,7 @@ Index: universe/Names.h
 +    (White)                                     \
 +    (WithinDistance)                            \
 +    (WithinStarlaneJumps)                       \
-+    (Yello)
++    (Yellow)
 +
 +#define DECLARE_NAME(r, _, elem) extern adobe::aggregate_name_t BOOST_PP_CAT(elem, _name);
 +BOOST_PP_SEQ_FOR_EACH(DECLARE_NAME, _, NAMES_SEQ_1)
@@ -495,14 +700,19 @@ Index: universe/ValueRef.cpp
 ===================================================================
 --- universe/ValueRef.cpp	(revision 4463)
 +++ universe/ValueRef.cpp	(working copy)
-@@ -11,6 +11,8 @@
+@@ -11,9 +11,11 @@
  #include "../Empire/Empire.h"
  #include "../util/MultiplayerCommon.h"
  
+-#include <boost/spirit/include/classic.hpp>
+-#include <boost/algorithm/string.hpp>
 +#include <GG/adobe/closed_hash.hpp>
+ 
++#include <boost/algorithm/string/classification.hpp>
++#include <boost/algorithm/string/split.hpp>
 +
- #include <boost/spirit/include/classic.hpp>
- #include <boost/algorithm/string.hpp>
+ int g_indent = 0;
+ 
  
 @@ -41,7 +43,6 @@
      condition_local_candidate(0)
@@ -512,8 +722,15 @@ Index: universe/ValueRef.cpp
  ScriptingContext::ScriptingContext(const UniverseObject* source_, UniverseObject* target_,
                                     const boost::any& current_value_) :
      source(source_),
-@@ -91,11 +92,18 @@
-         parse(str.c_str(), tokenizer);
+@@ -85,17 +86,22 @@
+ namespace detail {
+     std::vector<std::string> TokenizeDottedReference(const std::string& str)
+     {
+-        using namespace boost::spirit::classic;
+         std::vector<std::string> retval;
+-        rule<> tokenizer = *((+(anychar_p - '.'))[append(retval)] >> !ch_p('.'));
+-        parse(str.c_str(), tokenizer);
++        boost::algorithm::split(retval, str, boost::algorithm::is_any_of("."));
          return retval;
      }
 +
@@ -533,7 +750,7 @@ Index: universe/ValueRef.cpp
                                            ValueRef::ReferenceType ref_type,
                                            ScriptingContext context)
      {
-@@ -116,16 +124,16 @@
+@@ -116,16 +122,16 @@
  
          const ObjectMap& objects = GetMainObjectMap();
          while (first != last) {
@@ -554,7 +771,7 @@ Index: universe/ValueRef.cpp
                  if (const Ship* s = universe_object_cast<const Ship*>(obj))
                      obj = objects.Object<Fleet>(s->FleetID());
                  else
-@@ -135,9 +143,84 @@
+@@ -135,9 +141,84 @@
          }
          return obj;
      }
@@ -640,7 +857,7 @@ Index: universe/ValueRef.cpp
                                        ValueRef::ReferenceType ref_type)
  {
      std::string retval;
-@@ -148,7 +231,7 @@
+@@ -148,7 +229,7 @@
          // don't want to output "Target.Value", so if "Value" is the
          // property name, skip prepending "Target".  Otherwise, prepend
          // target as with other direct object references.
@@ -649,7 +866,7 @@ Index: universe/ValueRef.cpp
              retval = "Target";
          break;
      }
-@@ -158,10 +241,10 @@
+@@ -158,10 +239,10 @@
      default:                                            retval = "?????";           break;
      }
  
@@ -662,7 +879,7 @@ Index: universe/ValueRef.cpp
      }
      return retval;
  }
-@@ -282,14 +365,14 @@
+@@ -282,14 +363,14 @@
  ///////////////////////////////////////////////////////////
  namespace ValueRef {
  
@@ -681,7 +898,7 @@ Index: universe/ValueRef.cpp
          } catch (const boost::bad_any_cast&) {                             \
              throw std::runtime_error(                                      \
                  "Variable<" #T ">::Eval(): Value could not be evaluated, " \
-@@ -300,11 +383,11 @@
+@@ -300,11 +381,11 @@
      template <>
      PlanetSize Variable<PlanetSize>::Eval(const ScriptingContext& context) const
      {
@@ -695,7 +912,7 @@ Index: universe/ValueRef.cpp
              const UniverseObject* object = FollowReference(m_property_name.begin(), m_property_name.end(), m_ref_type, context);
              if (!object) {
                  Logger().errorStream() << "Variable<PlanetSize>::Eval unable to follow reference: " << ReconstructName(m_property_name, m_ref_type);
-@@ -321,7 +404,7 @@
+@@ -321,7 +402,7 @@
      template <>
      PlanetType Variable<PlanetType>::Eval(const ScriptingContext& context) const
      {
@@ -704,7 +921,7 @@ Index: universe/ValueRef.cpp
  
          IF_CURRENT_VALUE(PlanetType)
  
-@@ -331,10 +414,10 @@
+@@ -331,10 +412,10 @@
              return INVALID_PLANET_TYPE;
          }
  
@@ -717,7 +934,7 @@ Index: universe/ValueRef.cpp
              if (const Planet* p = universe_object_cast<const Planet*>(object))
                  return p->NextBetterPlanetTypeForSpecies();
          } else {
-@@ -346,11 +429,11 @@
+@@ -346,11 +427,11 @@
      template <>
      PlanetEnvironment Variable<PlanetEnvironment>::Eval(const ScriptingContext& context) const
      {
@@ -731,7 +948,7 @@ Index: universe/ValueRef.cpp
              const UniverseObject* object = FollowReference(m_property_name.begin(), m_property_name.end(), m_ref_type, context);
              if (!object) {
                  Logger().errorStream() << "Variable<PlanetEnvironment>::Eval unable to follow reference: " << ReconstructName(m_property_name, m_ref_type);
-@@ -367,31 +450,23 @@
+@@ -367,31 +448,23 @@
      template <>
      UniverseObjectType Variable<UniverseObjectType>::Eval(const ScriptingContext& context) const
      {
@@ -770,7 +987,7 @@ Index: universe/ValueRef.cpp
          } else {
              throw std::runtime_error("Attempted to read a non-ObjectType value \"" + ReconstructName(m_property_name, m_ref_type) + "\" using a ValueRef of type ObjectType.");
          }
-@@ -401,11 +476,11 @@
+@@ -401,11 +474,11 @@
      template <>
      StarType Variable<StarType>::Eval(const ScriptingContext& context) const
      {
@@ -784,7 +1001,7 @@ Index: universe/ValueRef.cpp
              const UniverseObject* object = FollowReference(m_property_name.begin(), m_property_name.end(), m_ref_type, context);
              if (!object) {
                  Logger().errorStream() << "Variable<StarType>::Eval unable to follow reference: " << ReconstructName(m_property_name, m_ref_type);
-@@ -422,7 +497,7 @@
+@@ -422,7 +495,7 @@
      template <>
      double Variable<double>::Eval(const ScriptingContext& context) const
      {
@@ -793,7 +1010,7 @@ Index: universe/ValueRef.cpp
  
          IF_CURRENT_VALUE(double)
  
-@@ -433,111 +508,28 @@
+@@ -433,111 +506,28 @@
              return 0.0;
          }
  
@@ -914,7 +1131,7 @@ Index: universe/ValueRef.cpp
              if (!context.source) {
                  Logger().errorStream() << "ValueRef::Variable<double>::Eval can't find distance to source because no source was passed";
                  return 0.0;
-@@ -556,7 +548,7 @@
+@@ -556,7 +546,7 @@
      template <>
      int Variable<int>::Eval(const ScriptingContext& context) const
      {
@@ -923,7 +1140,7 @@ Index: universe/ValueRef.cpp
  
          IF_CURRENT_VALUE(int)
  
-@@ -566,64 +558,64 @@
+@@ -566,64 +556,64 @@
              return 0;
          }
  
@@ -1003,7 +1220,7 @@ Index: universe/ValueRef.cpp
              return CurrentTurn();
          } else {
              throw std::runtime_error("Attempted to read a non-int value \"" + ReconstructName(m_property_name, m_ref_type) + "\" using a ValueRef of type int.");
-@@ -635,7 +627,7 @@
+@@ -635,7 +625,7 @@
      template <>
      std::string Variable<std::string>::Eval(const ScriptingContext& context) const
      {
@@ -1012,7 +1229,7 @@ Index: universe/ValueRef.cpp
  
          IF_CURRENT_VALUE(std::string)
  
-@@ -645,17 +637,17 @@
+@@ -645,17 +635,17 @@
              return "";
          }
  
@@ -1034,6 +1251,254 @@ Index: universe/ValueRef.cpp
              if (const Planet* planet = universe_object_cast<const Planet*>(object))
                  return planet->Focus();
          } else {
+Index: universe/Tech.cpp
+===================================================================
+--- universe/Tech.cpp	(revision 4463)
++++ universe/Tech.cpp	(working copy)
+@@ -1,8 +1,7 @@
+ #include "Tech.h"
+ 
+ #include "Effect.h"
+-#include "../universe/Parser.h"
+-#include "../universe/ParserUtil.h"
++#include "../parse/Parse.h"
+ #include "../util/MultiplayerCommon.h"
+ #include "../util/OptionsDB.h"
+ #include "../util/AppInterface.h"
+@@ -104,9 +103,6 @@
+ 
+         return next_techs[min_index];
+     }
+-
+-    const phoenix::function<store_tech_impl> store_tech_;
+-    const phoenix::function<store_category_impl> store_category_;
+ }
+ 
+ 
+@@ -403,33 +399,9 @@
+ 
+     s_instance = this;
+ 
+-    std::string file_name = "techs.txt";
+-    std::string input;
+-
+-    boost::filesystem::ifstream ifs(GetResourceDir() / file_name);
+-    if (ifs) {
+-        std::getline(ifs, input, '\0');
+-        ifs.close();
+-    } else {
+-        Logger().errorStream() << "Unable to open data file " << file_name;
+-        return;
+-    }
+-
+-    using namespace boost::spirit::classic;
+-    using namespace phoenix;
+-
+     std::set<std::string> categories_seen_in_techs;
+ 
+-    parse_info<const char*> result =
+-        parse(input.c_str(),
+-              as_lower_d[*(
+-                            tech_p[store_tech_(var(m_techs), var(categories_seen_in_techs), arg1)] |
+-                            category_p[store_category_(var(m_categories), arg1)]
+-                          )]
+-              >> end_p,
+-              skip_p);
+-    if (!result.full)
+-        ReportError(input.c_str(), result);
++    parse::techs(GetResourceDir() / "techs.txt", m_techs, m_categories, categories_seen_in_techs);
+ 
+     std::set<std::string> empty_defined_categories;
+     for (std::map<std::string, TechCategory*>::iterator map_it = m_categories.begin(); map_it != m_categories.end(); ++map_it) {
+Index: universe/ShipDesign.cpp
+===================================================================
+--- universe/ShipDesign.cpp	(revision 4463)
++++ universe/ShipDesign.cpp	(working copy)
+@@ -4,9 +4,9 @@
+ #include "../util/MultiplayerCommon.h"
+ #include "../util/OptionsDB.h"
+ #include "../util/Directories.h"
++#include "../parse/Parse.h"
+ #include "../Empire/Empire.h"
+ #include "../Empire/EmpireManager.h"
+-#include "ParserUtil.h"
+ #include "Condition.h"
+ #include "Effect.h"
+ #include "ValueRef.h"
+@@ -24,51 +24,6 @@
+ }
+ 
+ namespace {
+-    struct store_ship_design_impl {
+-        template <class T1, class T2>
+-        struct result {typedef void type;};
+-        template <class T>
+-        void operator()(std::map<std::string, ShipDesign*>& ship_designs, const T& ship_design) const {
+-            if (ship_designs.find(ship_design->Name(false)) != ship_designs.end()) {
+-                std::string error_str = "ERROR: More than one predefined ship design in predefined_ship_designs.txt has the name " + ship_design->Name(false);
+-                throw std::runtime_error(error_str.c_str());
+-            }
+-            ship_designs[ship_design->Name(false)] = ship_design;
+-        }
+-    };
+-
+-    const phoenix::function<store_ship_design_impl> store_ship_design_;
+-
+-    struct store_part_type_impl {
+-        template <class T1, class T2>
+-        struct result {typedef void type;};
+-        template <class T>
+-        void operator()(std::map<std::string, PartType*>& part_types, const T& part_type) const {
+-            if (part_types.find(part_type->Name()) != part_types.end()) {
+-                std::string error_str = "ERROR: More than one ship part in ship_parts.txt has the name " + part_type->Name();
+-                throw std::runtime_error(error_str.c_str());
+-            }
+-            part_types[part_type->Name()] = part_type;
+-        }
+-    };
+-
+-    const phoenix::function<store_part_type_impl> store_part_type_;
+-
+-    struct store_hull_type_impl {
+-        template <class T1, class T2>
+-        struct result {typedef void type;};
+-        template <class T>
+-        void operator()(std::map<std::string, HullType*>& hull_types, const T& hull_type) const {
+-            if (hull_types.find(hull_type->Name()) != hull_types.end()) {
+-                std::string error_str = "ERROR: More than one ship hull in ship_hulls.txt has the name " + hull_type->Name();
+-                throw std::runtime_error(error_str.c_str());
+-            }
+-            hull_types[hull_type->Name()] = hull_type;
+-        }
+-    };
+-
+-    const phoenix::function<store_hull_type_impl> store_hull_type_;
+-
+     struct PartTypeStringVisitor :
+         public boost::static_visitor<>
+     {
+@@ -233,30 +188,11 @@
+ PartTypeManager::PartTypeManager() {
+     if (s_instance)
+         throw std::runtime_error("Attempted to create more than one PartTypeManager.");
++
+     s_instance = this;
+ 
+-    std::string file_name = "ship_parts.txt";
+-    std::string input;
++    parse::ship_parts(GetResourceDir() / "ship_parts.txt", m_parts);
+ 
+-    boost::filesystem::ifstream ifs(GetResourceDir() / file_name);
+-    if (ifs) {
+-        std::getline(ifs, input, '\0');
+-        ifs.close();
+-    } else {
+-        Logger().errorStream() << "Unable to open data file " << file_name;
+-        return;
+-    }
+-
+-    using namespace boost::spirit::classic;
+-    using namespace phoenix;
+-    parse_info<const char*> result =
+-        parse(input.c_str(),
+-              as_lower_d[*part_p[store_part_type_(var(m_parts), arg1)]]
+-              >> end_p,
+-              skip_p);
+-    if (!result.full)
+-        ReportError(input.c_str(), result);
+-
+     if (GetOptionsDB().Get<bool>("verbose-logging")) {
+         Logger().debugStream() << "Part Types:";
+         for (iterator it = begin(); it != end(); ++it) {
+@@ -815,30 +751,11 @@
+ HullTypeManager::HullTypeManager() {
+     if (s_instance)
+         throw std::runtime_error("Attempted to create more than one HullTypeManager.");
++
+     s_instance = this;
+ 
+-    std::string file_name = "ship_hulls.txt";
+-    std::string input;
++    parse::ship_hulls(GetResourceDir() / "ship_hulls.txt", m_hulls);
+ 
+-    boost::filesystem::ifstream ifs(GetResourceDir() / file_name);
+-    if (ifs) {
+-        std::getline(ifs, input, '\0');
+-        ifs.close();
+-    } else {
+-        Logger().errorStream() << "Unable to open data file " << file_name;
+-        return;
+-    }
+-
+-    using namespace boost::spirit::classic;
+-    using namespace phoenix;
+-    parse_info<const char*> result =
+-        parse(input.c_str(),
+-              as_lower_d[*hull_p[store_hull_type_(var(m_hulls), arg1)]]
+-              >> end_p,
+-              skip_p);
+-    if (!result.full)
+-        ReportError(input.c_str(), result);
+-
+     if (GetOptionsDB().Get<bool>("verbose-logging")) {
+         Logger().debugStream() << "Hull Types:";
+         for (iterator it = begin(); it != end(); ++it) {
+@@ -1473,53 +1390,10 @@
+ 
+     Logger().debugStream() << "Initializing PredefinedShipDesignManager";
+ 
+-    using namespace boost::spirit::classic;
+-    using namespace phoenix;
+-    std::string input;
+-    parse_info<const char*> result;
++    parse::ship_designs(GetResourceDir() / "premade_ship_designs.txt", m_ship_designs);
+ 
++    parse::ship_designs(GetResourceDir() / "space_monsters.txt", m_monster_designs);
+ 
+-    // load start of game ship designs
+-    std::string designs_file_name = "premade_ship_designs.txt";
+-
+-    boost::filesystem::ifstream ifs(GetResourceDir() / designs_file_name);
+-    if (ifs) {
+-        std::getline(ifs, input, '\0');
+-        ifs.close();
+-    } else {
+-        Logger().errorStream() << "Unable to open data file " << designs_file_name;
+-        return;
+-    }
+-
+-    result =
+-        parse(input.c_str(),
+-              as_lower_d[*ship_design_p[store_ship_design_(var(m_ship_designs), arg1)]]
+-              >> end_p,
+-              skip_p);
+-    if (!result.full)
+-        ReportError(input.c_str(), result);
+-
+-
+-    // Load space monster ship designs
+-    std::string monsters_file_name = "space_monsters.txt";
+-
+-    boost::filesystem::ifstream ifs2(GetResourceDir() / monsters_file_name);
+-    if (ifs2) {
+-        std::getline(ifs2, input, '\0');
+-        ifs2.close();
+-    } else {
+-        Logger().errorStream() << "Unable to open data file " << monsters_file_name;
+-        return;
+-    }
+-
+-    result =
+-        parse(input.c_str(),
+-              as_lower_d[*ship_design_p[store_ship_design_(var(m_monster_designs), arg1)]]
+-              >> end_p,
+-              skip_p);
+-    if (!result.full)
+-        ReportError(input.c_str(), result);
+-
+     if (GetOptionsDB().Get<bool>("verbose-logging")) {
+         Logger().debugStream() << "Predefined Ship Designs:";
+         for (iterator it = begin(); it != end(); ++it) {
 Index: universe/Names.cpp
 ===================================================================
 --- universe/Names.cpp	(revision 0)
@@ -1273,6 +1738,70 @@ Index: universe/ValueRefFwd.h
          COUNT,  // returns the number of objects matching the condition
          SUM,    // returns the sum of the property values of all objects matching the condition
          MEAN,   // returns the mean of the property values of all objects matching the condition
+Index: universe/Special.cpp
+===================================================================
+--- universe/Special.cpp	(revision 4463)
++++ universe/Special.cpp	(working copy)
+@@ -1,8 +1,8 @@
+ #include "Special.h"
+ 
+-#include "ParserUtil.h"
+ #include "Effect.h"
+ #include "Condition.h"
++#include "../parse/Parse.h"
+ #include "../util/MultiplayerCommon.h"
+ #include "../util/OptionsDB.h"
+ #include "../util/Directories.h"
+@@ -14,48 +14,10 @@
+ extern int g_indent;
+ 
+ namespace {
+-    struct store_special_impl {
+-        template <class T1, class T2>
+-        struct result {typedef void type;};
+-        template <class T>
+-        void operator()(std::map<std::string, Special*>& specials, const T& special) const {
+-            if (specials.find(special->Name()) != specials.end()) {
+-                std::string error_str = "ERROR: More than one special in specials.txt has the name " + special->Name();
+-                throw std::runtime_error(error_str.c_str());
+-            }
+-            specials[special->Name()] = special;
+-        }
+-    };
+-    const phoenix::function<store_special_impl> store_special_;
+-
+     class SpecialManager {
+     public:
+         SpecialManager() {
+-            std::string input, file_name("specials.txt");
+-            boost::filesystem::ifstream ifs(GetResourceDir() / file_name);
+-            if (ifs) {
+-                std::getline(ifs, input, '\0');
+-                ifs.close();
+-            } else {
+-                Logger().errorStream() << "Unable to open data file " << file_name;
+-                return;
+-            }
+-            using namespace boost::spirit::classic;
+-            using namespace phoenix;
+-            parse_info<const char*> result =
+-                parse(input.c_str(),
+-                      as_lower_d[*special_p[store_special_(var(m_specials), arg1)]]
+-                      >> end_p,
+-                      skip_p);
+-            if (!result.full)
+-                ReportError(input.c_str(), result);
+-
+-            //Logger().debugStream() << "Specials:";
+-            //for (std::map<std::string, Special*>::const_iterator it = m_specials.begin(); it != m_specials.end(); ++it)
+-            //    Logger().debugStream() << " ... " << it->second->Name() <<
+-            //                              " spawn rate: " << it->second->SpawnRate() <<
+-            //                              " spawn limit: " << it->second->SpawnLimit() <<
+-            //                              " location: " << (it->second->Location() ? it->second->Location()->Dump() : "none");
++            parse::specials(GetResourceDir() / "specials.txt", m_specials);
+         }
+         ~SpecialManager() {
+             for (std::map<std::string, Special*>::iterator it = m_specials.begin();
 Index: universe/Tech.h
 ===================================================================
 --- universe/Tech.h	(revision 4463)
@@ -1294,6 +1823,76 @@ Index: universe/Tech.h
      /** iterator that runs over techs within a category */
      typedef TechContainer::index<CategoryIndex>::type::const_iterator category_iterator;
  
+Index: universe/Species.cpp
+===================================================================
+--- universe/Species.cpp	(revision 4463)
++++ universe/Species.cpp	(working copy)
+@@ -1,8 +1,8 @@
+ #include "Species.h"
+ 
+-#include "ParserUtil.h"
+ #include "Effect.h"
+ #include "Condition.h"
++#include "../parse/Parse.h"
+ #include "../util/MultiplayerCommon.h"
+ #include "../util/Directories.h"
+ #include "../util/Random.h"
+@@ -13,26 +13,7 @@
+ 
+ extern int g_indent;
+ 
+-namespace {
+-    struct store_species_impl
+-    {
+-        template <class T1, class T2>
+-        struct result {typedef void type;};
+-        template <class T>
+-        void operator()(std::map<std::string, Species*>& species_map, const T& species) const
+-        {
+-            if (species_map.find(species->Name()) != species_map.end()) {
+-                std::string error_str = "ERROR: More than one species in species.txt has the name " + species->Name();
+-                throw std::runtime_error(error_str.c_str());
+-            }
+-            species_map[species->Name()] = species;
+-        }
+-    };
+ 
+-    const phoenix::function<store_species_impl> store_species_;
+-}
+-
+-
+ /////////////////////////////////////////////////
+ // FocusType                                   //
+ /////////////////////////////////////////////////
+@@ -345,27 +326,7 @@
+ 
+     s_instance = this;
+ 
+-    std::string file_name = "species.txt";
+-    std::string input;
+-
+-    boost::filesystem::ifstream ifs(GetResourceDir() / file_name);
+-    if (ifs) {
+-        std::getline(ifs, input, '\0');
+-        ifs.close();
+-    } else {
+-        Logger().errorStream() << "Unable to open data file " << file_name;
+-        return;
+-    }
+-
+-    using namespace boost::spirit::classic;
+-    using namespace phoenix;
+-    parse_info<const char*> result =
+-        parse(input.c_str(),
+-              as_lower_d[*species_p[store_species_(var(m_species), arg1)]]
+-              >> end_p,
+-              skip_p);
+-    if (!result.full)
+-        ReportError(input.c_str(), result);
++    parse::species(GetResourceDir() / "species.txt", m_species);
+ }
+ 
+ SpeciesManager::~SpeciesManager() {
 Index: universe/Effect.cpp
 ===================================================================
 --- universe/Effect.cpp	(revision 4463)
@@ -1316,6 +1915,76 @@ Index: universe/Effect.cpp
                      retval.get<1>() = op->GetOpType();
                      retval.get<2>() = constant->Value();
                      return retval;
+Index: universe/Building.cpp
+===================================================================
+--- universe/Building.cpp	(revision 4463)
++++ universe/Building.cpp	(working copy)
+@@ -6,11 +6,10 @@
+ #include "Predicates.h"
+ #include "Universe.h"
+ #include "Enums.h"
+-#include "Parser.h"
+-#include "ParserUtil.h"
+ #include "ValueRef.h"
+ #include "../Empire/Empire.h"
+ #include "../Empire/EmpireManager.h"
++#include "../parse/Parse.h"
+ #include "../util/MultiplayerCommon.h"
+ #include "../util/OptionsDB.h"
+ #include "../util/AppInterface.h"
+@@ -26,23 +25,6 @@
+     const bool CHEAP_AND_FAST_BUILDING_PRODUCTION = false;    // makes all buildings cost 1 PP and take 1 turn to build
+ }
+ 
+-namespace {
+-    struct store_building_type_impl {
+-        template <class T1, class T2>
+-        struct result {typedef void type;};
+-        template <class T>
+-        void operator()(std::map<std::string, BuildingType*>& building_types, const T& building_type) const {
+-            if (building_types.find(building_type->Name()) != building_types.end()) {
+-                std::string error_str = "ERROR: More than one building type in buildings.txt has the name " + building_type->Name();
+-                throw std::runtime_error(error_str.c_str());
+-            }
+-            building_types[building_type->Name()] = building_type;
+-        }
+-    };
+-
+-    const phoenix::function<store_building_type_impl> store_building_type_;
+-}
+-
+ /////////////////////////////////////////////////
+ // Building                                    //
+ /////////////////////////////////////////////////
+@@ -344,27 +326,7 @@
+ 
+     s_instance = this;
+ 
+-    std::string file_name = "buildings.txt";
+-    std::string input;
+-
+-    boost::filesystem::ifstream ifs(GetResourceDir() / file_name);
+-    if (ifs) {
+-        std::getline(ifs, input, '\0');
+-        ifs.close();
+-    } else {
+-        Logger().errorStream() << "Unable to open data file " << file_name;
+-        return;
+-    }
+-
+-    using namespace boost::spirit::classic;
+-    using namespace phoenix;
+-    parse_info<const char*> result =
+-        parse(input.c_str(),
+-              as_lower_d[*building_type_p[store_building_type_(var(m_building_types), arg1)]]
+-              >> end_p,
+-              skip_p);
+-    if (!result.full)
+-        ReportError(input.c_str(), result);
++    parse::buildings(GetResourceDir() / "buildings.txt", m_building_types);
+ }
+ 
+ BuildingTypeManager::~BuildingTypeManager()
 Index: CMakeLists.txt
 ===================================================================
 --- CMakeLists.txt	(revision 4463)
