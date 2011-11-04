@@ -6,80 +6,6 @@ project(parser_tests)
 message("-- Configuring parser_test")
 
 set(THIS_EXE_SOURCES
-    ../../combat/CombatOrder.cpp
-    ../../combat/OpenSteer/AsteroidBeltObstacle.cpp
-    ../../combat/OpenSteer/CombatFighter.cpp
-    ../../combat/OpenSteer/CombatObject.cpp
-    ../../combat/OpenSteer/CombatShip.cpp
-    ../../combat/OpenSteer/Missile.cpp
-    ../../combat/OpenSteer/Obstacle.cpp
-    ../../combat/OpenSteer/PathingEngine.cpp
-    ../../combat/OpenSteer/SimpleVehicle.cpp
-    ../../combat/OpenSteer/Vec3.cpp
-    ../../combat/OpenSteer/Vec3Utilities.cpp
-    ../../Empire/Empire.cpp
-    ../../Empire/EmpireManager.cpp
-    ../../Empire/ResourcePool.cpp
-    ../../network/Message.cpp
-    ../../network/MessageQueue.cpp
-    ../../network/Networking.cpp
-    ../../UI/StringTable.cpp
-    ../../universe/Building.cpp
-    ../../universe/Condition.cpp
-    ../../universe/Effect.cpp
-    ../../universe/EffectAccounting.cpp
-    ../../universe/Enums.cpp
-    ../../universe/Fleet.cpp
-    ../../universe/Meter.cpp
-    ../../universe/ObjectMap.cpp
-    ../../universe/Planet.cpp
-    ../../universe/PopCenter.cpp
-    ../../universe/Predicates.cpp
-    ../../universe/ResourceCenter.cpp
-    ../../universe/Ship.cpp
-    ../../universe/ShipDesign.cpp
-    ../../universe/Special.cpp
-    ../../universe/Species.cpp
-    ../../universe/System.cpp
-    ../../universe/Tech.cpp
-    ../../universe/UniverseObject.cpp
-    ../../universe/ValueRef.cpp
-    ../../util/DataTable.cpp
-    ../../util/GZStream.cpp
-    ../../util/Math.cpp
-    ../../util/MultiplayerCommon.cpp
-    ../../util/OptionsDB.cpp
-    ../../util/Order.cpp
-    ../../util/OrderSet.cpp
-    ../../util/Process.cpp
-    ../../util/Random.cpp
-    ../../util/SerializeEmpire.cpp
-    ../../util/SerializeMultiplayerCommon.cpp
-    ../../util/SerializeOrderSet.cpp
-    ../../util/SerializePathingEngine.cpp
-    ../../util/SerializeUniverse.cpp
-    ../../util/SitRepEntry.cpp
-    ../../util/VarText.cpp
-    ../../util/binreloc.c
-    ../../util/Directories.cpp
-    ../../util/XMLDoc.cpp
-    ../../log4cpp/src/Appender.cpp
-    ../../log4cpp/src/AppenderSkeleton.cpp
-    ../../log4cpp/src/BasicLayout.cpp
-    ../../log4cpp/src/Category.cpp
-    ../../log4cpp/src/CategoryStream.cpp
-    ../../log4cpp/src/Configurator.cpp
-    ../../log4cpp/src/FactoryParams.cpp
-    ../../log4cpp/src/FileAppender.cpp
-    ../../log4cpp/src/HierarchyMaintainer.cpp
-    ../../log4cpp/src/LayoutAppender.cpp
-    ../../log4cpp/src/Localtime.cpp
-    ../../log4cpp/src/LoggingEvent.cpp
-    ../../log4cpp/src/NDC.cpp
-    ../../log4cpp/src/PatternLayout.cpp
-    ../../log4cpp/src/Priority.cpp
-    ../../log4cpp/src/StringUtil.cpp
-    ../../log4cpp/src/TimeStamp.cpp
     ../../combat/CombatSystem.cpp
     ../../network/ServerNetworking.cpp
     ../../server/SaveLoad.cpp
@@ -87,50 +13,10 @@ set(THIS_EXE_SOURCES
     ../../server/ServerFSM.cpp
     ../../universe/Universe.cpp
     ../../util/AppInterface.cpp
-
-#    ../../universe/ValueRef_2.cpp
-#    ../../universe/Condition_2.cpp
-    ../../universe/Names.cpp
+    ../../util/VarText.cpp
 
     test.cpp
     lexer_test_rules.cpp
-
-    ../Lexer.cpp
-    ../ReportParseError.cpp
-    ../Int.cpp
-    ../Double.cpp
-    ../Label.cpp
-    ../EnumParser.cpp
-    ../IntValueRefParser.cpp
-    ../DoubleValueRefParser.cpp
-    ../StringValueRefParser.cpp
-    ../PlanetSizeValueRefParser.cpp
-    ../PlanetTypeValueRefParser.cpp
-    ../PlanetEnvironmentValueRefParser.cpp
-    ../UniverseObjectTypeValueRefParser.cpp
-    ../StarTypeValueRefParser.cpp
-
-    ../ConditionParser.cpp
-    ../ConditionParser1.cpp
-    ../ConditionParser2.cpp
-    ../ConditionParser3.cpp
-
-    ../EffectParser.cpp
-
-    ../Parse.cpp
-    ../BuildingsParser.cpp
-    ../SpecialsParser.cpp
-    ../SpeciesParser.cpp
-    ../TechsParser.cpp
-    ../ItemsParser.cpp
-    ../ShipPartsParser.cpp
-    ../ShipHullsParser.cpp
-    ../ShipDesignsParser.cpp
-    ../FleetPlansParser.cpp
-    ../MonsterFleetPlansParser.cpp
-    ../AlignmentsParser.cpp
-
-    ${CMAKE_BINARY_DIR}/util/Version.cpp
 )
 
 if (WIN32)
@@ -139,14 +25,9 @@ else ()
     list(APPEND THIS_EXE_SOURCES ../../log4cpp/src/PThreads.cpp)
 endif ()
 
-add_definitions(-DFREEORION_BUILD_SERVER -DADOBE_STD_SERIALIZATION)
+add_definitions(-DFREEORION_BUILD_SERVER)
 
-if (WIN32)
-    link_directories(${BOOST_LIBRARYDIR})
-    set(THIS_EXE_LINK_LIBS ${GIGI_GIGI_LIBRARY} ${ZLIB_LIBRARY})
-else ()
-    set(THIS_EXE_LINK_LIBS ${GIGI_GIGI_LIBRARY} ${Boost_LIBRARIES} ${ZLIB_LIBRARY})
-endif ()
+set(THIS_EXE_LINK_LIBS fo_static)
 
 executable_all_variants(parser_test)
 
