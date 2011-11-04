@@ -173,17 +173,25 @@ namespace parse {
         qi::_val_type _val;
         using phoenix::static_cast_;
 
+        int_
+            =    '-' > tok.int_ [ _val = -_1 ]
+            |    tok.int_ [ _val = _1 ]
+            ;
+
         double_
-            =    '-' > tok.int_ [ _val = -static_cast_<double>(_1) ]
+            =    '-' >> tok.int_ [ _val = -static_cast_<double>(_1) ]
             |    tok.int_ [ _val = static_cast_<double>(_1) ]
             |    '-' > tok.double_ [ _val = -_1 ]
             |    tok.double_ [ _val = _1 ]
             ;
 
-        int_
-            =    '-' > tok.int_ [ _val = -_1 ]
-            |    tok.int_ [ _val = _1 ]
-            ;
+        int_.name("integer");
+        double_.name("real number");
+
+#if DEBUG_PARSERS
+        debug(int_);
+        debug(double_);
+#endif
 
         value_ref_parser<int>();
 
