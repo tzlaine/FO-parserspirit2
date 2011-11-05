@@ -927,26 +927,21 @@ Index: universe/ValueRef.cpp
  ScriptingContext::ScriptingContext(const UniverseObject* source_, UniverseObject* target_,
                                     const boost::any& current_value_) :
      source(source_),
-@@ -85,17 +86,22 @@
- namespace detail {
-     std::vector<std::string> TokenizeDottedReference(const std::string& str)
-     {
+@@ -82,20 +83,9 @@
+     current_value(current_value_)
+ {}
+ 
+-namespace detail {
+-    std::vector<std::string> TokenizeDottedReference(const std::string& str)
+-    {
 -        using namespace boost::spirit::classic;
-         std::vector<std::string> retval;
+-        std::vector<std::string> retval;
 -        rule<> tokenizer = *((+(anychar_p - '.'))[append(retval)] >> !ch_p('.'));
 -        parse(str.c_str(), tokenizer);
-+        boost::algorithm::split(retval, str, boost::algorithm::is_any_of("."));
-         return retval;
-     }
-+
-+    std::vector<adobe::name_t> PrependNonObject(const std::vector<adobe::name_t>& property_name)
-+    {
-+        std::vector<adobe::name_t> retval(1, NonObject_name);
-+        retval.insert(retval.end(), property_name.begin(), property_name.end());
-+        return retval;
-+    }
- }
- 
+-        return retval;
+-    }
+-}
+-
  namespace {
 -    const UniverseObject* FollowReference(std::vector<std::string>::const_iterator first,
 -                                          std::vector<std::string>::const_iterator last,
@@ -955,7 +950,7 @@ Index: universe/ValueRef.cpp
                                            ValueRef::ReferenceType ref_type,
                                            ScriptingContext context)
      {
-@@ -116,16 +122,16 @@
+@@ -116,16 +106,16 @@
  
          const ObjectMap& objects = GetMainObjectMap();
          while (first != last) {
@@ -976,7 +971,7 @@ Index: universe/ValueRef.cpp
                  if (const Ship* s = universe_object_cast<const Ship*>(obj))
                      obj = objects.Object<Fleet>(s->FleetID());
                  else
-@@ -135,9 +141,84 @@
+@@ -135,9 +125,84 @@
          }
          return obj;
      }
@@ -1062,7 +1057,7 @@ Index: universe/ValueRef.cpp
                                        ValueRef::ReferenceType ref_type)
  {
      std::string retval;
-@@ -148,7 +229,7 @@
+@@ -148,7 +213,7 @@
          // don't want to output "Target.Value", so if "Value" is the
          // property name, skip prepending "Target".  Otherwise, prepend
          // target as with other direct object references.
@@ -1071,7 +1066,7 @@ Index: universe/ValueRef.cpp
              retval = "Target";
          break;
      }
-@@ -158,10 +239,10 @@
+@@ -158,10 +223,10 @@
      default:                                            retval = "?????";           break;
      }
  
@@ -1084,7 +1079,7 @@ Index: universe/ValueRef.cpp
      }
      return retval;
  }
-@@ -282,14 +363,14 @@
+@@ -282,14 +347,14 @@
  ///////////////////////////////////////////////////////////
  namespace ValueRef {
  
@@ -1103,7 +1098,7 @@ Index: universe/ValueRef.cpp
          } catch (const boost::bad_any_cast&) {                             \
              throw std::runtime_error(                                      \
                  "Variable<" #T ">::Eval(): Value could not be evaluated, " \
-@@ -300,11 +381,11 @@
+@@ -300,11 +365,11 @@
      template <>
      PlanetSize Variable<PlanetSize>::Eval(const ScriptingContext& context) const
      {
@@ -1117,7 +1112,7 @@ Index: universe/ValueRef.cpp
              const UniverseObject* object = FollowReference(m_property_name.begin(), m_property_name.end(), m_ref_type, context);
              if (!object) {
                  Logger().errorStream() << "Variable<PlanetSize>::Eval unable to follow reference: " << ReconstructName(m_property_name, m_ref_type);
-@@ -321,7 +402,7 @@
+@@ -321,7 +386,7 @@
      template <>
      PlanetType Variable<PlanetType>::Eval(const ScriptingContext& context) const
      {
@@ -1126,7 +1121,7 @@ Index: universe/ValueRef.cpp
  
          IF_CURRENT_VALUE(PlanetType)
  
-@@ -331,10 +412,10 @@
+@@ -331,10 +396,10 @@
              return INVALID_PLANET_TYPE;
          }
  
@@ -1139,7 +1134,7 @@ Index: universe/ValueRef.cpp
              if (const Planet* p = universe_object_cast<const Planet*>(object))
                  return p->NextBetterPlanetTypeForSpecies();
          } else {
-@@ -346,11 +427,11 @@
+@@ -346,11 +411,11 @@
      template <>
      PlanetEnvironment Variable<PlanetEnvironment>::Eval(const ScriptingContext& context) const
      {
@@ -1153,7 +1148,7 @@ Index: universe/ValueRef.cpp
              const UniverseObject* object = FollowReference(m_property_name.begin(), m_property_name.end(), m_ref_type, context);
              if (!object) {
                  Logger().errorStream() << "Variable<PlanetEnvironment>::Eval unable to follow reference: " << ReconstructName(m_property_name, m_ref_type);
-@@ -367,31 +448,23 @@
+@@ -367,31 +432,23 @@
      template <>
      UniverseObjectType Variable<UniverseObjectType>::Eval(const ScriptingContext& context) const
      {
@@ -1192,7 +1187,7 @@ Index: universe/ValueRef.cpp
          } else {
              throw std::runtime_error("Attempted to read a non-ObjectType value \"" + ReconstructName(m_property_name, m_ref_type) + "\" using a ValueRef of type ObjectType.");
          }
-@@ -401,11 +474,11 @@
+@@ -401,11 +458,11 @@
      template <>
      StarType Variable<StarType>::Eval(const ScriptingContext& context) const
      {
@@ -1206,7 +1201,7 @@ Index: universe/ValueRef.cpp
              const UniverseObject* object = FollowReference(m_property_name.begin(), m_property_name.end(), m_ref_type, context);
              if (!object) {
                  Logger().errorStream() << "Variable<StarType>::Eval unable to follow reference: " << ReconstructName(m_property_name, m_ref_type);
-@@ -422,7 +495,7 @@
+@@ -422,7 +479,7 @@
      template <>
      double Variable<double>::Eval(const ScriptingContext& context) const
      {
@@ -1215,7 +1210,7 @@ Index: universe/ValueRef.cpp
  
          IF_CURRENT_VALUE(double)
  
-@@ -433,111 +506,28 @@
+@@ -433,111 +490,28 @@
              return 0.0;
          }
  
@@ -1336,7 +1331,7 @@ Index: universe/ValueRef.cpp
              if (!context.source) {
                  Logger().errorStream() << "ValueRef::Variable<double>::Eval can't find distance to source because no source was passed";
                  return 0.0;
-@@ -556,7 +546,7 @@
+@@ -556,7 +530,7 @@
      template <>
      int Variable<int>::Eval(const ScriptingContext& context) const
      {
@@ -1345,7 +1340,7 @@ Index: universe/ValueRef.cpp
  
          IF_CURRENT_VALUE(int)
  
-@@ -566,64 +556,64 @@
+@@ -566,64 +540,64 @@
              return 0;
          }
  
@@ -1425,7 +1420,7 @@ Index: universe/ValueRef.cpp
              return CurrentTurn();
          } else {
              throw std::runtime_error("Attempted to read a non-int value \"" + ReconstructName(m_property_name, m_ref_type) + "\" using a ValueRef of type int.");
-@@ -635,7 +625,7 @@
+@@ -635,7 +609,7 @@
      template <>
      std::string Variable<std::string>::Eval(const ScriptingContext& context) const
      {
@@ -1434,7 +1429,7 @@ Index: universe/ValueRef.cpp
  
          IF_CURRENT_VALUE(std::string)
  
-@@ -645,17 +635,17 @@
+@@ -645,17 +619,17 @@
              return "";
          }
  
@@ -4583,16 +4578,7 @@ Index: universe/ValueRef.h
                                  ReferenceType ref_type);
  }
  
-@@ -366,17 +358,41 @@
-         & BOOST_SERIALIZATION_NVP(m_value);
- }
- 
-+namespace detail {
-+    std::vector<std::string> TokenizeDottedReference(const std::string& str); // TODO: Remove.
-+    std::vector<adobe::name_t> PrependNonObject(const std::vector<adobe::name_t>& property_name);
-+}
-+
- ///////////////////////////////////////////////////////////
+@@ -370,13 +362,27 @@
  // Variable                                              //
  ///////////////////////////////////////////////////////////
  template <class T>
@@ -4602,21 +4588,16 @@ Index: universe/ValueRef.h
 -{}
 +ValueRef::Variable<T>::Variable(const std::vector<adobe::name_t>& property_name) :
 +    m_ref_type(),
-+    m_property_name(property_name.begin() + 1, property_name.end())
++    m_property_name(property_name.begin(), property_name.end())
 +{
++    assert(!property_name.empty());
 +    adobe::name_t ref_type_name = property_name.front();
-+    if (ref_type_name == NonObject_name) {
++    if (ref_type_name == CurrentTurn_name) {
 +        m_ref_type = NON_OBJECT_REFERENCE;
-+    } else if (ref_type_name == CurrentTurn_name) {
-+        m_ref_type = NON_OBJECT_REFERENCE;
-+        if (property_name.size() == 1u)
-+            m_property_name.push_back(ref_type_name);
 +    } else if (ref_type_name == Source_name) {
 +        m_ref_type = SOURCE_REFERENCE;
-+    } else if (ref_type_name == Target_name) {
++    } else if (ref_type_name == Value_name) {
 +        m_ref_type = EFFECT_TARGET_REFERENCE;
-+        if (property_name.size() == 1u)
-+            m_property_name.push_back(ref_type_name);
 +    } else if (ref_type_name == LocalCandidate_name) {
 +        m_ref_type = CONDITION_LOCAL_CANDIDATE_REFERENCE;
 +    } else if (ref_type_name == RootCandidate_name) {
@@ -4630,7 +4611,7 @@ Index: universe/ValueRef.h
      m_ref_type(ref_type),
      m_property_name(property_name)
  {}
-@@ -386,7 +402,7 @@
+@@ -386,7 +392,7 @@
  { return m_ref_type; }
  
  template <class T>
@@ -4639,7 +4620,7 @@ Index: universe/ValueRef.h
  { return m_property_name; }
  
  template <class T>
-@@ -414,7 +430,7 @@
+@@ -414,7 +420,7 @@
      default:                                    formatter % "???";                                  break;
      }
      for (unsigned int i = 0; i < m_property_name.size(); ++i)
@@ -4648,14 +4629,29 @@ Index: universe/ValueRef.h
      return boost::io::str(formatter);
  }
  
-@@ -450,36 +466,23 @@
+@@ -450,36 +456,38 @@
  void ValueRef::Variable<T>::serialize(Archive& ar, const unsigned int version)
  {
      ar  & BOOST_SERIALIZATION_BASE_OBJECT_NVP(ValueRefBase)
 -        & BOOST_SERIALIZATION_NVP(m_ref_type)
 -        & BOOST_SERIALIZATION_NVP(m_property_name);
-+        & BOOST_SERIALIZATION_NVP(m_ref_type)/* TODO
-+        & BOOST_SERIALIZATION_NVP(m_property_name)*/;
++        & BOOST_SERIALIZATION_NVP(m_ref_type);
++
++    std::vector<std::string> property_name(m_property_name.size());
++
++    if (Archive::is_saving) {
++        for (std::size_t i = 0; i < property_name.size(); ++i) {
++            property_name[i] = m_property_name[i].c_str();
++        }
++    }
++
++    ar  & BOOST_SERIALIZATION_NVP(property_name);
++
++    if (Archive::is_loading) {
++        for (std::size_t i = 0; i < property_name.size(); ++i) {
++            m_property_name[i] = adobe::name_t(property_name[i].c_str());
++        }
++    }
  }
  
  ///////////////////////////////////////////////////////////
@@ -5173,7 +5169,7 @@ Index: server/CMakeLists.txt
 -
  add_definitions(-DFREEORION_BUILD_SERVER)
  
-+set(THIS_EXE_LINK_LIBS fo_static)
++set(THIS_EXE_LINK_LIBS core_static parse_static)
 +
  if (WIN32)
      link_directories(${BOOST_LIBRARYDIR})
@@ -5219,7 +5215,7 @@ Index: CMakeLists.txt
  set(MINIMUM_BOOST_COMPONENTS date_time filesystem serialization signals system thread)
  
  set(BOOST_SIGNALS_NAMESPACE "signals" CACHE STRING
-@@ -112,114 +112,140 @@
+@@ -112,114 +112,156 @@
  ########################################
  # Build common code library            #
  ########################################
@@ -5336,6 +5332,13 @@ Index: CMakeLists.txt
 +    add_definitions(-DFREEORION_RELEASE)
 +endif ()
 +
++set(BUILD_STATIC_TMP ${BUILD_STATIC})
++set(BUILD_SHARED_TMP ${BUILD_SHARED})
++set(BUILD_STATIC ON)
++set(BUILD_SHARED OFF)
++
++set(THIS_LIB_LINK_LIBS ${GIGI_GIGI_LIBRARY} ${Boost_LIBRARIES} ${ZLIB_LIBRARIES})
++
 +set(THIS_LIB_SOURCES
 +    combat/CombatOrder.cpp
 +    combat/OpenSteer/AsteroidBeltObstacle.cpp
@@ -5354,37 +5357,6 @@ Index: CMakeLists.txt
 +    network/Message.cpp
 +    network/MessageQueue.cpp
 +    network/Networking.cpp
-+    parse/Lexer.cpp
-+    parse/ReportParseError.cpp
-+    parse/Int.cpp
-+    parse/Double.cpp
-+    parse/Label.cpp
-+    parse/EnumParser.cpp
-+    parse/IntValueRefParser.cpp
-+    parse/DoubleValueRefParser.cpp
-+    parse/StringValueRefParser.cpp
-+    parse/PlanetSizeValueRefParser.cpp
-+    parse/PlanetTypeValueRefParser.cpp
-+    parse/PlanetEnvironmentValueRefParser.cpp
-+    parse/UniverseObjectTypeValueRefParser.cpp
-+    parse/StarTypeValueRefParser.cpp
-+    parse/ConditionParser.cpp
-+    parse/ConditionParser1.cpp
-+    parse/ConditionParser2.cpp
-+    parse/ConditionParser3.cpp
-+    parse/EffectParser.cpp
-+    parse/Parse.cpp
-+    parse/BuildingsParser.cpp
-+    parse/SpecialsParser.cpp
-+    parse/SpeciesParser.cpp
-+    parse/TechsParser.cpp
-+    parse/ItemsParser.cpp
-+    parse/ShipPartsParser.cpp
-+    parse/ShipHullsParser.cpp
-+    parse/ShipDesignsParser.cpp
-+    parse/FleetPlansParser.cpp
-+    parse/MonsterFleetPlansParser.cpp
-+    parse/AlignmentsParser.cpp
 +    UI/StringTable.cpp
 +    universe/Building.cpp
 +    universe/Condition.cpp
@@ -5451,12 +5423,52 @@ Index: CMakeLists.txt
 +    list(APPEND THIS_LIB_SOURCES log4cpp/src/PThreads.cpp)
 +endif ()
 +
-+set(BUILD_STATIC_TMP ${BUILD_STATIC})
-+set(BUILD_SHARED_TMP ${BUILD_SHARED})
-+set(BUILD_STATIC ON)
-+set(BUILD_SHARED OFF)
-+set(THIS_LIB_LINK_LIBS ${GIGI_GIGI_LIBRARY} ${Boost_LIBRARIES} ${ZLIB_LIBRARIES})
-+library_all_variants(fo)
++library_all_variants(core)
++
++set(BUILD_DEBUG_TMP ${BUILD_DEBUG})
++set(BUILD_RELEASE_TMP ${BUILD_RELEASE})
++set(BUILD_DEBUG OFF)
++set(BUILD_RELEASE ON)
++
++set(THIS_LIB_SOURCES
++    ../parse/Lexer.cpp
++    ../parse/ReportParseError.cpp
++    ../parse/Int.cpp
++    ../parse/Double.cpp
++    ../parse/Label.cpp
++    ../parse/EnumParser.cpp
++    ../parse/IntValueRefParser.cpp
++    ../parse/DoubleValueRefParser.cpp
++    ../parse/StringValueRefParser.cpp
++    ../parse/PlanetSizeValueRefParser.cpp
++    ../parse/PlanetTypeValueRefParser.cpp
++    ../parse/PlanetEnvironmentValueRefParser.cpp
++    ../parse/UniverseObjectTypeValueRefParser.cpp
++    ../parse/StarTypeValueRefParser.cpp
++    ../parse/ConditionParser.cpp
++    ../parse/ConditionParser1.cpp
++    ../parse/ConditionParser2.cpp
++    ../parse/ConditionParser3.cpp
++    ../parse/EffectParser.cpp
++    ../parse/Parse.cpp
++    ../parse/BuildingsParser.cpp
++    ../parse/SpecialsParser.cpp
++    ../parse/SpeciesParser.cpp
++    ../parse/TechsParser.cpp
++    ../parse/ItemsParser.cpp
++    ../parse/ShipPartsParser.cpp
++    ../parse/ShipHullsParser.cpp
++    ../parse/ShipDesignsParser.cpp
++    ../parse/FleetPlansParser.cpp
++    ../parse/MonsterFleetPlansParser.cpp
++    ../parse/AlignmentsParser.cpp
++)
++
++library_all_variants(parse)
++
++set(BUILD_DEBUG ${BUILD_DEBUG_TMP})
++set(BUILD_RELEASE ${BUILD_RELEASE_TMP})
++
 +set(BUILD_STATIC ${BUILD_STATIC_TMP})
 +set(BUILD_SHARED ${BUILD_SHARED_TMP})
 +
@@ -5464,7 +5476,7 @@ Index: CMakeLists.txt
  # This macro is an internal utility macro that builds a particular variant of
  # an executable.
  #
-@@ -333,6 +359,13 @@
+@@ -333,6 +375,13 @@
  add_subdirectory(client/AI)
  add_subdirectory(client/human)
  
@@ -5595,7 +5607,7 @@ Index: client/human/CMakeLists.txt
      ../../UI/About.cpp
      ../../UI/BuildDesignatorWnd.cpp
      ../../UI/ChatWnd.cpp
-@@ -202,19 +120,15 @@
+@@ -202,19 +120,16 @@
      ../../UI/PagedGeometry/TreeLoader3D.cpp
      ../../UI/PagedGeometry/WindBatchedGeometry.cpp
      ../../UI/PagedGeometry/WindBatchPage.cpp
@@ -5615,7 +5627,8 @@ Index: client/human/CMakeLists.txt
  
  set(THIS_EXE_LINK_LIBS
 -#    freeorion_lib
-+    fo_static
++    core_static
++    parse_static
      ${GIGI_GIGI_LIBRARY}
      ${GIGI_GIGIOGRE_LIBRARY}
      ${OPENAL_LIBRARY}
@@ -5766,7 +5779,7 @@ Index: client/AI/CMakeLists.txt
  add_definitions(-DFREEORION_BUILD_AI)
  
 -set(THIS_EXE_LINK_LIBS ${PYTHON_LIBRARIES}) # freeorion_lib
-+set(THIS_EXE_LINK_LIBS fo_static ${PYTHON_LIBRARIES})
++set(THIS_EXE_LINK_LIBS core_static parse_static ${PYTHON_LIBRARIES})
  
  if (WIN32)
      link_directories(${BOOST_LIBRARYDIR})
