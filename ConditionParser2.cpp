@@ -41,13 +41,15 @@ namespace {
                     ;
 
                 has_special_since_turn
-                    =    tok.HasSpecialSinceTurn_
-                    >    parse::label(Name_name) > tok.string [ _a = _1 ]
-                    >>  -(
-                              parse::label(Low_name) >> int_value_ref [ _b = _1 ]
-                         )
-                    >>  -(
-                              parse::label(High_name) >> int_value_ref [ _c = _1 ]
+                    =    (
+                              tok.HasSpecialSinceTurn_
+                          >   parse::label(Name_name) > tok.string [ _a = _1 ]
+                          >> -(
+                                   parse::label(Low_name) >> int_value_ref [ _b = _1 ]
+                              )
+                          >> -(
+                                   parse::label(High_name) >> int_value_ref [ _c = _1 ]
+                              )
                          )
                          [ _val = new_<Condition::HasSpecial>(_a, _b, _c) ]
                     ;
@@ -107,11 +109,13 @@ namespace {
                     ;
 
                 in_system
-                    =    tok.InSystem_
-                    >>  -(
-                              parse::label(ID_name) >> int_value_ref
+                    =    (
+                              tok.InSystem_
+                          >> -(
+                                   parse::label(ID_name) >> int_value_ref [ _a = _1 ]
+                              )
                          )
-                         [ _val = new_<Condition::InSystem>(_1) ]
+                         [ _val = new_<Condition::InSystem>(_a) ]
                     ;
 
                 object_id
@@ -173,6 +177,15 @@ namespace {
             parse::token_iterator,
             Condition::ConditionBase* (),
             qi::locals<
+                ValueRef::ValueRefBase<int>*
+            >,
+            parse::skipper_type
+        > value_ref_int_rule;
+
+        typedef boost::spirit::qi::rule<
+            parse::token_iterator,
+            Condition::ConditionBase* (),
+            qi::locals<
                 ValueRef::ValueRefBase<int>*,
                 ValueRef::ValueRefBase<int>*
             >,
@@ -202,7 +215,7 @@ namespace {
         parse::condition_parser_rule visible_to_empire;
         parse::condition_parser_rule explored_by_empire;
         parse::condition_parser_rule resupplyable_by;
-        parse::condition_parser_rule in_system;
+        value_ref_int_rule in_system;
         parse::condition_parser_rule object_id;
         parse::condition_parser_rule start;
     };

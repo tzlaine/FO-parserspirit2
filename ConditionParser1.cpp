@@ -125,9 +125,11 @@ namespace {
                     ;
 
                 building
-                    =    tok.Building_
-                    >>  -(
-                              parse::label(Name_name) >> string_ref_vec [ _a = _1 ]
+                    =    (
+                              tok.Building_
+                          >> -(
+                                   parse::label(Name_name) >> string_ref_vec [ _a = _1 ]
+                              )
                          )
                          [ _val = new_<Condition::Building>(_a) ]
                     ;
@@ -187,12 +189,14 @@ namespace {
                     ;
 
                 meter_value
-                    =    parse::non_ship_part_meter_type_enum() [ _a = _1 ]
-                    >>  -(
-                              parse::label(Low_name) >> double_value_ref [ _b = _1 ]
-                         )
-                    >>  -(
-                              parse::label(High_name) >> double_value_ref [ _c = _1 ]
+                    =    (
+                              parse::non_ship_part_meter_type_enum() [ _a = _1 ]
+                          >> -(
+                                   parse::label(Low_name) >> double_value_ref [ _b = _1 ]
+                              )
+                          >> -(
+                                   parse::label(High_name) >> double_value_ref [ _c = _1 ]
+                              )
                          )
                          [ _val = new_<Condition::MeterValue>(_a, _b, _c) ]
                     ;

@@ -72,25 +72,29 @@ namespace {
                     ;
 
                 turn
-                    =    tok.Turn_
-                    >>  -(
-                              parse::label(Low_name) >> int_value_ref [ _a = _1 ]
+                    =    (
+                              tok.Turn_
+                          >> -(
+                                   parse::label(Low_name) >> int_value_ref [ _a = _1 ]
+                              )
+                          >> -(
+                                   parse::label(High_name) >> int_value_ref [ _b = _1 ]
+                              )
                          )
-                    >>  -(
-                              parse::label(High_name) >> int_value_ref [ _b = _1 ]
-                         )
-                         [ _val = new_<Condition::Turn>(_a, _1) ]
+                         [ _val = new_<Condition::Turn>(_a, _b) ]
                     ;
 
                 created_on_turn
-                    =    tok.CreatedOnTurn_
-                    >>  -(
-                              parse::label(Low_name) >> int_value_ref [ _a = _1 ]
+                    =    (
+                              tok.CreatedOnTurn_
+                          >> -(
+                                   parse::label(Low_name) >> int_value_ref [ _a = _1 ]
+                              )
+                          >> -(
+                                   parse::label(High_name) >> int_value_ref [ _b = _1 ]
+                              )
                          )
-                    >>  -(
-                              parse::label(High_name) >> int_value_ref [ _b = _1 ]
-                         )
-                         [ _val = new_<Condition::CreatedOnTurn>(_a, _1) ]
+                         [ _val = new_<Condition::CreatedOnTurn>(_a, _b) ]
                     ;
 
                 number_of
