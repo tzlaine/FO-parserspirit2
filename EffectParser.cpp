@@ -240,7 +240,7 @@ namespace {
                           |   tok.LockTechItemsForOwner_ [ _a = false, _b = false ]
                          )
                     >    parse::label(Name_name) > tok.string
-                         [ _val = new_<Effect::SetTechAvailability>(_1, new_<ValueRef::Variable<int> >(ValueRef::EFFECT_TARGET_REFERENCE, "Owner"), _a, _b) ]
+                         [ _val = new_<Effect::SetTechAvailability>(_1, new_<ValueRef::Variable<int> >(std::vector<adobe::name_t>(1, Owner_name)), _a, _b) ]
                     ;
 
                 generate_sitrep_message
