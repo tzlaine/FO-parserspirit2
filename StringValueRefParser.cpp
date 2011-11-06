@@ -54,10 +54,9 @@ namespace {
                            )
                       )
                     | (
-                          tok.CurrentTurn_
-                       |  tok.Value_
+                          tok.CurrentTurn_ [ push_back(_a, _1), _val = new_<ValueRef::StringCast<int> >(new_<ValueRef::Variable<int> >(_a)) ]
+                       |  tok.Value_ [ push_back(_a, _1), _val = new_<ValueRef::Variable<std::string> >(_a) ]
                       )
-                      [ push_back(_a, _1), _val = new_<ValueRef::StringCast<int> >(new_<ValueRef::Variable<int> >(_a)) ]
                     ;
 
                 initialize_nonnumeric_statistic_parser<std::string>(statistic, final_token);

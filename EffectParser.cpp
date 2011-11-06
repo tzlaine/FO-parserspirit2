@@ -232,6 +232,10 @@ namespace {
                     >    parse::label(Type_name) > star_type_value_ref [ _val = new_<Effect::SetStarType>(_1) ]
                     ;
 
+                std::vector<adobe::name_t> target_owner_vec(2);
+                target_owner_vec[0] = Target_name;
+                target_owner_vec[1] = Owner_name;
+
                 set_tech_availability
                     =    (
                               tok.GiveTechToOwner_ [ _a = true, _b = true ]
@@ -240,12 +244,12 @@ namespace {
                           |   tok.LockTechItemsForOwner_ [ _a = false, _b = false ]
                          )
                     >    parse::label(Name_name) > tok.string
-                         [ _val = new_<Effect::SetTechAvailability>(_1, new_<ValueRef::Variable<int> >(std::vector<adobe::name_t>(1, Owner_name)), _a, _b) ]
+                         [ _val = new_<Effect::SetTechAvailability>(_1, new_<ValueRef::Variable<int> >(target_owner_vec), _a, _b) ]
                     ;
 
                 generate_sitrep_message
                     =    tok.GenerateSitrepMessage_
-                    >    parse::label(Message_name)    >  tok.string [ _a = _1 ]
+                    >    parse::label(Message_name) > tok.string [ _a = _1 ]
                     >>  -(
                               parse::label(Parameters_name) >> string_and_string_ref_vector [ _b = _1 ]
                          )

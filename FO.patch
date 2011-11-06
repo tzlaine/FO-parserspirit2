@@ -546,7 +546,7 @@ Index: universe/Names.h
 ===================================================================
 --- universe/Names.h	(revision 0)
 +++ universe/Names.h	(revision 0)
-@@ -0,0 +1,354 @@
+@@ -0,0 +1,353 @@
 +// -*- C++ -*-
 +#ifndef _Names_h_
 +#define _Names_h_
@@ -706,7 +706,6 @@ Index: universe/Names.h
 +    (Neutron)                                   \
 +    (NextBetterPlanetType)                      \
 +    (NextSystemID)                              \
-+    (NonObject)                                 \
 +    (NoStar)                                    \
 +    (Not)                                       \
 +    (Number)                                    \
@@ -927,7 +926,7 @@ Index: universe/ValueRef.cpp
  ScriptingContext::ScriptingContext(const UniverseObject* source_, UniverseObject* target_,
                                     const boost::any& current_value_) :
      source(source_),
-@@ -82,20 +83,9 @@
+@@ -82,22 +83,11 @@
      current_value(current_value_)
  {}
  
@@ -948,8 +947,11 @@ Index: universe/ValueRef.cpp
 +    const UniverseObject* FollowReference(std::vector<adobe::name_t>::const_iterator first,
 +                                          std::vector<adobe::name_t>::const_iterator last,
                                            ValueRef::ReferenceType ref_type,
-                                           ScriptingContext context)
+-                                          ScriptingContext context)
++                                          const ScriptingContext& context)
      {
+         //Logger().debugStream() << "FollowReference: source: " << (context.source ? context.source->Name() : "0")
+         //    << " target: " << (context.effect_target ? context.effect_target->Name() : "0")
 @@ -116,16 +106,16 @@
  
          const ObjectMap& objects = GetMainObjectMap();
@@ -4596,7 +4598,7 @@ Index: universe/ValueRef.h
 +        m_ref_type = NON_OBJECT_REFERENCE;
 +    } else if (ref_type_name == Source_name) {
 +        m_ref_type = SOURCE_REFERENCE;
-+    } else if (ref_type_name == Value_name) {
++    } else if (ref_type_name == Value_name || ref_type_name == Value_name) {
 +        m_ref_type = EFFECT_TARGET_REFERENCE;
 +    } else if (ref_type_name == LocalCandidate_name) {
 +        m_ref_type = CONDITION_LOCAL_CANDIDATE_REFERENCE;
@@ -4969,6 +4971,15 @@ Index: universe/Effect.cpp
  {}
  
  SetEmpireCapital::SetEmpireCapital(const ValueRef::ValueRefBase<int>* empire_id) :
+@@ -944,7 +952,7 @@
+     int empire_id = m_empire_id->Eval(context);
+ 
+     Empire* empire = Empires().Lookup(empire_id);
+-    if (empire)
++    if (!empire)
+         return;
+ 
+     const Planet* planet = universe_object_cast<const Planet*>(context.effect_target);
 Index: universe/Building.cpp
 ===================================================================
 --- universe/Building.cpp	(revision 4463)

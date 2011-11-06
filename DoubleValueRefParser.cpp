@@ -77,10 +77,9 @@ namespace {
                            )
                       )
                     | (
-                          tok.CurrentTurn_
-                       |  tok.Value_
+                          tok.CurrentTurn_ [ push_back(_a, _1), _val = new_<ValueRef::StaticCast<int, double> >(new_<ValueRef::Variable<int> >(_a)) ]
+                       |  tok.Value_ [ push_back(_a, _1), _val = new_<ValueRef::Variable<double> >(_a) ]
                       )
-                      [ push_back(_a, _1), _val = new_<ValueRef::StaticCast<int, double> >(new_<ValueRef::Variable<int> >(_a)) ]
                     ;
 
                 initialize_numeric_statistic_parser<double>(statistic, final_token);
