@@ -5,6 +5,11 @@ project(parser_tests)
 
 message("-- Configuring parser_test")
 
+set(BUILD_DEBUG_TMP ${BUILD_DEBUG})
+set(BUILD_RELEASE_TMP ${BUILD_RELEASE})
+set(BUILD_DEBUG OFF)
+set(BUILD_RELEASE ON)
+
 set(THIS_EXE_SOURCES
     ../../combat/CombatSystem.cpp
     ../../network/ServerNetworking.cpp
@@ -20,9 +25,12 @@ set(THIS_EXE_SOURCES
 
 add_definitions(-DFREEORION_BUILD_SERVER)
 
-set(THIS_EXE_LINK_LIBS fo_static)
+set(THIS_EXE_LINK_LIBS core_static parse_static)
 
 executable_all_variants(parser_test)
+
+set(BUILD_DEBUG ${BUILD_DEBUG_TMP})
+set(BUILD_RELEASE ${BUILD_RELEASE_TMP})
 
 if (WIN32)
     add_definitions(-D_CRT_SECURE_NO_DEPRECATE -D_SCL_SECURE_NO_DEPRECATE)
